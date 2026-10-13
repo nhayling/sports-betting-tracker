@@ -1,0 +1,16 @@
+node_modules
+**/node_modules
+**/dist
+.env
+.env.*
+downloaded
+captures
+*.raw.json
+design
+.DS_Store
+# Tool folders (Claude Code, Impeccable and friends): not needed in the image.
+.claude
+.agents
+.codex
+.cursor
+.impeccable

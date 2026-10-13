@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.env
+.env.*
+# Raw Island Luck captures can contain account identifiers. Only sanitized
+# copies (see packages/kambi/scripts/sanitize.mjs) belong in fixtures/captured.
+*.raw.json
+captures/
+*.zip
+.DS_Store
+.agents/
+.claude/
+.codex/
+.cursor/
+.impeccable/
