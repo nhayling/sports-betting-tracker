@@ -1,29 +1,21 @@
+/* Score Bug (chosen 2026-10-13): broadcast navy, square plates, yellow for live and current. */
+@font-face { font-family: 'Barlow'; font-weight: 400; font-display: swap; src: url('/fonts/Barlow-400.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow'; font-weight: 500; font-display: swap; src: url('/fonts/Barlow-500.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow'; font-weight: 600; font-display: swap; src: url('/fonts/Barlow-600.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow Condensed'; font-weight: 600; font-display: swap; src: url('/fonts/BarlowCondensed-600.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow Condensed'; font-weight: 700; font-display: swap; src: url('/fonts/BarlowCondensed-700.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow Condensed'; font-weight: 800; font-display: swap; src: url('/fonts/BarlowCondensed-800.woff2') format('woff2'); }
+
 :root {
-  /* Sportsbook green (chosen 2026-09-27). */
-  --bg: #0c1410;
-  --surface: #131e18;
-  --surface-2: #1a2821;
-  --border: #243529;
-  --text: #e7efe9;
-  --muted: #8ca396;
-  --accent: #22c55e;
-  /* Result colors (chosen 2026-09-27): won, lost, cashed out. */
-  --good: #218358;
-  --bad: #CE2C31;
-  --warn: #FFBA18;
-  --warn-text: #FFBA18;
-  --bar-bg: #243529;
-  /* In-progress bars stay neutral so a hit (green) stands out. */
-  --bar-fill: #a7c4b3;
-  --on-accent: #052e14;
-  /* Result colours as text. The fills above stay exactly as chosen; as text on
-     these dark surfaces they fall below 4.5:1, so text uses these lighter tints. */
-  --good-text: #3dd68c;
-  --bad-text: #f4686c;
-  /* The selected segment of a segmented control, raised off its track. */
-  --raised: var(--surface-2);
-  --radius: 12px;
-  --radius-sm: 8px;
+  --navy: #0b1f3a;
+  --navy-2: #12305a;
+  --white: #ffffff;
+  --yellow: #ffd200;
+  /* Result fills: hit, missed. Yellow doubles as running and cashed out. */
+  --green: #1fb86a;
+  --red: #c8102e;
+  --sans: 'Barlow', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --cond: 'Barlow Condensed', 'Arial Narrow', ui-sans-serif, system-ui, sans-serif;
   /* Type scale: seven steps and nothing in between. */
   --fs-2xs: 11px;
   --fs-xs: 12px;
@@ -32,65 +24,162 @@
   --fs-md: 16px;
   --fs-lg: 18px;
   --fs-xl: 20px;
-  font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  /* The page ground. Text tokens below are for content sitting directly on it;
+     the shell and the plates set their own. Dark is navy, as on air. */
+  --ground: var(--navy);
+  --text: #ffffff;
+  --muted: #a9b9d0;
+  --rule: #2a4a7a;
+  --cell: var(--navy-2);
+  --good-text: #5fe0a0;
+  --bad-text: #ff8a98;
+  --warn-text: var(--yellow);
+  /* The selected segment, the primary button. */
+  --on-bg: var(--yellow);
+  --on-fg: var(--navy);
+  --focus: var(--yellow);
+  /* Plates (bets, panels): navy-2 in dark, white in light. --ink is their strong rule and bar fill. */
+  --plate-bg: var(--navy-2);
+  --plate-cell: var(--navy);
+  --plate-run: #fff1a8;
+  --ink: #ffffff;
+  --strip: var(--navy);
+  --p-text: #ffffff;
+  --p-muted: #b4c2d6;
+  --p-rule: #2f507f;
+  --p-good: #5fe0a0;
+  --p-bad: #ff8a98;
+  --p-warn: var(--yellow);
+  --p-on-bg: var(--yellow);
+  --p-on-fg: var(--navy);
+  --p-focus: var(--yellow);
+
+  font-family: var(--sans);
   font-size: 15px;
   line-height: 1.4;
   color: var(--text);
-  background: var(--bg);
+  background: var(--ground);
   font-variant-numeric: tabular-nums;
   /* The parts the browser draws: caret, native checkboxes, scrollbar. */
-  caret-color: var(--accent);
-  accent-color: var(--accent);
-  scrollbar-color: var(--border) transparent;
+  caret-color: var(--focus);
+  accent-color: var(--focus);
+  scrollbar-color: var(--muted) transparent;
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    --bg: #f2f6f3;
-    --surface: #ffffff;
-    --surface-2: #f5f9f6;
-    --border: #dbe5de;
-    --text: #13201a;
-    --muted: #5c7166;
-    --accent: #15803d;
-    --good: #218358;
-    --bad: #CE2C31;
-    --warn: #FFBA18;
-    /* #FFBA18 is unreadable as text on white; fills keep the exact amber. */
-    --warn-text: #8a5a00;
-    --bar-bg: #e1ebe4;
-    --bar-fill: #7d978a;
-    --on-accent: #ffffff;
-    /* The chosen colours read fine as text on white. */
-    --good-text: #218358;
-    --bad-text: #CE2C31;
-    --raised: #ffffff;
+    --ground: #e6ebf2;
+    --text: var(--navy);
+    --muted: #4a5b75;
+    --rule: #c3cedd;
+    --cell: #d9e1ec;
+    --good-text: #0b6e3c;
+    --bad-text: #b00d27;
+    --warn-text: #6b5200;
+    --on-bg: var(--navy);
+    --on-fg: #ffffff;
+    --focus: var(--navy-2);
+    --plate-bg: #ffffff;
+    --plate-cell: #eef2f7;
+    --ink: var(--navy);
+    --strip: var(--navy-2);
+    --p-text: var(--navy);
+    --p-muted: #52637d;
+    --p-rule: #d6dde8;
+    --p-good: #0b6e3c;
+    --p-bad: #b00d27;
+    --p-warn: #6b5200;
+    --p-on-bg: var(--navy);
+    --p-on-fg: #ffffff;
+    --p-focus: var(--navy-2);
   }
+}
+
+/* The shell is navy in both themes. */
+.shell, .app.auth, .game-strip {
+  --text: #ffffff;
+  --muted: #a9b9d0;
+  --rule: #2a4a7a;
+  --cell: var(--navy-2);
+  --good-text: #5fe0a0;
+  --bad-text: #ff8a98;
+  --warn-text: var(--yellow);
+  --on-bg: var(--yellow);
+  --on-fg: var(--navy);
+  --focus: var(--yellow);
+  color: var(--text);
+}
+/* Plates follow the theme. */
+.bet, .panel, .notes-panel, .sign-in, .min-bet-note {
+  --text: var(--p-text);
+  --muted: var(--p-muted);
+  --rule: var(--p-rule);
+  --cell: var(--plate-cell);
+  --good-text: var(--p-good);
+  --bad-text: var(--p-bad);
+  --warn-text: var(--p-warn);
+  --on-bg: var(--p-on-bg);
+  --on-fg: var(--p-on-fg);
+  --focus: var(--p-focus);
+  background: var(--plate-bg);
+  color: var(--text);
 }
 
 * { box-sizing: border-box; }
 /* Component display rules (flex, grid) would otherwise beat the hidden attribute. */
 [hidden] { display: none !important; }
-body { margin: 0; background: var(--bg); }
+body { margin: 0; background: var(--ground); }
 button { font: inherit; color: inherit; -webkit-tap-highlight-color: transparent; }
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-::selection { background: color-mix(in srgb, var(--accent) 35%, transparent); }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+::selection { background: var(--yellow); color: var(--navy); }
 .icon { flex: none; width: 1em; height: 1em; vertical-align: -0.14em; }
 
-.app { max-width: 760px; margin: 0 auto; padding: 16px 16px 48px; padding-top: max(16px, env(safe-area-inset-top)); }
-.top { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-.top h1 { font-size: var(--fs-xl); margin: 0; letter-spacing: -0.01em; }
-.top-right { display: flex; align-items: center; gap: 14px; }
-button.link { background: none; border: 0; padding: 0; color: var(--muted); font-size: var(--fs-sm); cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
-button.link:hover { color: var(--text); }
+/* ── Shell ────────────────────────────────────────────── */
+.app { min-height: 100dvh; }
+.wrap { max-width: 760px; margin: 0 auto; padding-inline: 16px; }
+.shell { background: var(--navy); padding-top: max(14px, env(safe-area-inset-top)); }
+.page { padding-top: 14px; padding-bottom: 48px; }
 
-.sign-in { max-width: 340px; margin: 12vh auto 0; display: flex; flex-direction: column; gap: 14px; }
-.sign-in h1 { font-size: var(--fs-xl); margin: 0 0 8px; }
-.sign-in label { display: flex; flex-direction: column; gap: 4px; font-size: var(--fs-sm); color: var(--muted); }
-.sign-in input { font: inherit; font-size: var(--fs-md); color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 12px; }
-.sign-in input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
-button.primary { font-weight: 600; background: var(--accent); color: var(--on-accent); border: 0; border-radius: var(--radius-sm); padding: 11px; cursor: pointer; }
-button.primary:disabled { opacity: 0.6; cursor: default; }
+.top { position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 12px; }
+.top h1 { margin: 0; font-family: var(--cond); font-size: 28px; font-weight: 800; line-height: 1; letter-spacing: 0.01em; text-transform: uppercase; white-space: nowrap; }
+.top-right { display: flex; align-items: center; gap: 14px; }
+
+button.link { background: none; border: 0; padding: 0; color: var(--muted); font-size: var(--fs-sm); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+button.link:hover { color: var(--text); }
+.shell button.link { font-family: var(--cond); font-size: var(--fs-base); font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none; white-space: nowrap; }
+
+/* How fresh the page is: live stats, then the last sync. */
+.status { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; margin-top: 8px; font-size: var(--fs-xs); }
+.live-indicator { display: inline-flex; align-items: center; gap: 6px; padding: 2px 8px; font-family: var(--cond); font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); box-shadow: inset 0 0 0 1px var(--rule); }
+.live-indicator .muted { font-weight: 600; }
+.live-indicator.on { background: var(--red); color: #fff; box-shadow: none; }
+.live-indicator.on .muted { color: #fff; }
+.live-indicator.off { color: var(--yellow); }
+.live-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.sync-line { margin: 0; }
+.sync-line.warn { color: var(--warn-text); }
+
+.tabs { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 14px; }
+.tab { background: none; border: 0; padding: 10px 0; cursor: pointer; font-family: var(--cond); font-size: var(--fs-lg); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); }
+.tab:hover { color: var(--text); }
+.tab.active { background: var(--yellow); color: var(--navy); }
+.tab:focus-visible { outline-offset: -4px; }
+.tab.active:focus-visible { outline-color: var(--navy); }
+.count { display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; margin-left: 6px; padding: 0 5px; background: var(--red); color: #fff; font-family: var(--cond); font-size: var(--fs-sm); font-weight: 700; letter-spacing: 0; vertical-align: 2px; }
+
+/* The totals strip under the tabs. */
+.totals { background: var(--navy-2); }
+.totals .wrap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; padding-inline: 0; background: var(--navy); }
+.totals .stat { background: var(--navy-2); padding: 12px 16px; }
+.totals .stat-value { font-size: 28px; }
+
+.stat { display: flex; flex-direction: column; gap: 3px; min-width: 0; padding: 10px 12px; background: var(--plate-bg); }
+.stat-value { font-family: var(--cond); font-size: 24px; font-weight: 800; line-height: 1; }
+.stat-label { font-family: var(--cond); font-size: var(--fs-xs); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+/* Stat cells inside a plate, divided by hairlines. */
+.summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-bottom: 10px; background: var(--rule); border: 1px solid var(--rule); }
+.summary.four { grid-template-columns: repeat(4, 1fr); margin-top: 8px; }
 
 .muted { color: var(--muted); }
 .small { font-size: var(--fs-xs); }
@@ -98,241 +187,227 @@ button.primary:disabled { opacity: 0.6; cursor: default; }
 .center { text-align: center; padding: 32px 0; }
 .good { color: var(--good-text); }
 .bad { color: var(--bad-text); }
+.banner { padding: 10px 12px; margin: 8px 0; font-weight: 500; }
+.banner.error { background: var(--red); color: #fff; }
 
-/* How fresh the page is: live stats, then the last sync. */
-.status { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; margin-top: 4px; font-size: var(--fs-xs); }
-.live-indicator { color: var(--muted); }
-.sync-line { margin: 0; }
+/* ── Plates: the state at the end of every pick, and a bet's result ── */
+.plate { display: inline-flex; align-items: center; justify-content: center; gap: 5px; min-width: 96px; padding: 4px 8px; background: var(--navy); color: #fff; font-family: var(--cond); font-size: var(--fs-xl); font-weight: 800; line-height: 1.15; letter-spacing: 0.01em; text-transform: uppercase; text-align: center; white-space: nowrap; animation: wipe 0.28s cubic-bezier(0.16, 1, 0.3, 1); }
+.plate.hit { background: var(--green); color: var(--navy); }
+.plate.run { background: var(--yellow); color: var(--navy); }
+/* An over on its way: the plate fills as the stat climbs. */
+.plate.run.fill { background: linear-gradient(90deg, var(--yellow) var(--at), var(--plate-run) var(--at)); color: var(--navy); }
+.plate.miss { background: var(--red); color: #fff; }
+.plate.hollow { background: none; color: var(--muted); box-shadow: inset 0 0 0 1px var(--muted); font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.04em; }
+.plate.small-plate { min-width: 0; padding: 2px 8px; font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.05em; }
+/* A plate is rebuilt when its value changes, so the new value wipes in like an on-air update. */
+@keyframes wipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
 
+/* ── Bets ─────────────────────────────────────────────── */
+.list { display: flex; flex-direction: column; gap: 14px; }
+.bet-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-width: 0; padding: 10px 12px; border-bottom: 2px solid var(--ink); cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; }
+.bet-head:hover { background: var(--cell); }
+.bet-head:focus-visible { outline-offset: -2px; }
+.bet.collapsed .bet-head { border-bottom-width: 1px; border-bottom-color: var(--rule); }
+.bet-title { display: flex; align-items: baseline; flex-wrap: wrap; gap: 2px 8px; font-family: var(--cond); font-size: 19px; font-weight: 800; line-height: 1.15; letter-spacing: 0.01em; text-transform: uppercase; }
+.bet-title .miss-count { color: var(--bad-text); }
+.bet-meta { margin-top: 2px; font-size: var(--fs-xs); color: var(--muted); }
+.chevron { display: inline-block; line-height: 1; color: var(--text); vertical-align: -1px; transition: transform 0.15s ease; }
+.bet.collapsed .chevron { transform: rotate(-90deg); }
+.bet-result { display: flex; align-items: center; gap: 10px; flex: none; }
+.odds { font-family: var(--cond); font-size: 24px; font-weight: 800; line-height: 1; }
+.chip { display: inline-block; padding: 0 6px; font-family: var(--cond); font-size: var(--fs-xs); font-weight: 600; line-height: 1.5; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); box-shadow: inset 0 0 0 1px currentColor; vertical-align: 2px; }
+.chip .icon { margin-right: 2px; }
+
+.settle-nudge { padding: 6px 12px; font-size: var(--fs-sm); font-weight: 600; background: var(--yellow); color: var(--navy); }
+
+.game-strip { display: flex; align-items: stretch; min-height: 38px; background: var(--strip); font-family: var(--cond); font-size: var(--fs-xl); font-weight: 700; line-height: 1.15; text-transform: uppercase; }
+.game-strip > * { display: flex; align-items: center; padding: 6px 12px; }
+.game-strip .team { flex: 1; min-width: 0; }
+.game-strip .score { justify-content: center; min-width: 46px; background: var(--white); color: var(--navy); font-size: 24px; font-weight: 800; box-shadow: inset -1px 0 0 var(--strip), inset 0 -1px 0 var(--strip), inset 0 1px 0 var(--strip); }
+.game-strip .matchup { flex: 1; min-width: 0; font-size: var(--fs-md); text-transform: none; font-family: var(--sans); font-weight: 600; }
+.game-strip .clock { flex: none; gap: 6px; font-size: var(--fs-md); letter-spacing: 0.03em; white-space: nowrap; color: var(--muted); }
+.game-strip .clock.live { background: var(--yellow); color: var(--navy); }
+.game-strip .clock.final { color: #fff; }
+.game-sub { padding: 5px 12px; font-size: var(--fs-xs); color: var(--muted); background: var(--cell); border-bottom: 1px solid var(--rule); }
+.red-zone { margin-left: 6px; padding: 0 5px; font-family: var(--cond); font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.05em; white-space: nowrap; background: var(--red); color: #fff; }
+
+/* Picks tied together in one same-game bet builder sit under one label. */
+.same-game-label { display: block; padding: 3px 12px; font-family: var(--cond); font-size: var(--fs-xs); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--rule); }
+
+.pick { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 10px; padding: 9px 12px; border-bottom: 1px solid var(--rule); }
+.pick-what { display: flex; flex-direction: column; min-width: 0; }
+.pick-name { font-size: var(--fs-base); font-weight: 600; overflow-wrap: anywhere; }
+.pick-market { font-size: var(--fs-xs); color: var(--muted); }
+.pick-state { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; min-width: 96px; text-align: right; font-size: var(--fs-xs); }
+.pick-state:empty { display: none; }
+.pick-note { color: var(--muted); }
+.official { font-weight: 600; }
+.bet-foot { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-top: -1px; padding: 9px 12px; border-top: 2px solid var(--ink); font-family: var(--cond); font-size: var(--fs-md); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+.bet-foot .payout { margin-left: auto; text-align: right; }
+.bet-foot .small { font-family: var(--sans); font-weight: 400; letter-spacing: 0; text-transform: none; }
+.bet.collapsed .bet-foot { margin-top: 0; border-top: 0; }
+
+/* ── Notifications ────────────────────────────────────── */
 .notes { position: relative; display: flex; }
-.bell { position: relative; display: inline-flex; background: none; border: 0; border-radius: var(--radius-sm); padding: 4px; font-size: var(--fs-lg); color: var(--muted); cursor: pointer; line-height: 1; }
+.bell { position: relative; display: inline-flex; background: none; border: 0; padding: 4px; font-size: var(--fs-xl); color: var(--muted); cursor: pointer; line-height: 1; }
 .bell:hover, .bell[aria-expanded='true'] { color: var(--text); }
-.bell-count { position: absolute; top: -4px; right: -6px; min-width: 17px; height: 17px; padding: 0 4px; border-radius: 999px; background: var(--bad); color: #fff; font-size: var(--fs-2xs); font-weight: 700; display: flex; align-items: center; justify-content: center; }
-.notes-panel { position: absolute; right: 0; top: calc(100% + 8px); width: min(360px, calc(100vw - 24px)); max-height: 70vh; overflow-y: auto; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: 0 12px 32px rgb(0 0 0 / 0.35); z-index: 10; }
+.bell-count { position: absolute; top: -4px; right: -7px; min-width: 17px; height: 17px; padding: 0 4px; background: var(--red); color: #fff; font-family: var(--cond); font-size: var(--fs-sm); font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.notes-panel { position: absolute; right: 0; top: calc(100% + 8px); width: min(360px, calc(100vw - 24px)); max-height: 70vh; overflow-y: auto; box-shadow: 0 12px 32px rgb(4 12 26 / 0.45); z-index: 10; }
 .notes-panel ul { list-style: none; margin: 0; padding: 0; }
 .notes-empty { padding: 14px; margin: 0; }
-.note { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+.note { padding: 10px 14px; border-bottom: 1px solid var(--rule); }
 .note:last-child { border-bottom: 0; }
-.note.unread { background: var(--surface-2); }
+.note.unread { background: var(--cell); }
 .note-title { font-weight: 600; font-size: var(--fs-base); }
 .note-pick_hit .note-title { color: var(--good-text); }
 .note-pick_missed .note-title { color: var(--bad-text); }
 .note-probably_settled .note-title { color: var(--warn-text); }
 .note-body { font-size: var(--fs-xs); margin-top: 2px; }
 .note-time { font-size: var(--fs-xs); margin-top: 3px; }
-.sync-line.warn { color: var(--warn-text); }
-.settle-nudge { padding: 6px 14px; font-size: var(--fs-sm); color: var(--warn-text); background: color-mix(in srgb, var(--warn) 12%, transparent); border-top: 1px solid var(--border); }
-.live-indicator.on { color: var(--good-text); }
-.live-indicator.on .live-dot { background: currentColor; }
-.live-indicator.off { color: var(--warn-text); }
 
-.tabs { display: flex; gap: 4px; margin: 16px 0 12px; border-bottom: 1px solid var(--border); }
-.tab { background: none; border: 0; padding: 8px 12px; cursor: pointer; color: var(--muted); border-bottom: 2px solid transparent; margin-bottom: -1px; }
-.tab:hover { color: var(--text); }
-.tab.active { color: var(--text); border-bottom-color: var(--accent); font-weight: 600; }
+/* ── Sign in, register ────────────────────────────────── */
+.app.auth { background: var(--navy); padding: 12vh 16px 32px; }
+.sign-in { max-width: 360px; margin: 0 auto; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+.sign-in h1 { margin: 0 0 4px; font-family: var(--cond); font-size: 28px; font-weight: 800; line-height: 1; letter-spacing: 0.01em; text-transform: uppercase; }
+.sign-in label { display: flex; flex-direction: column; gap: 4px; font-size: var(--fs-sm); font-weight: 500; color: var(--muted); }
+.sign-in input, .name-row input { font: inherit; font-size: var(--fs-md); color: var(--text); background: var(--plate-bg); border: 1px solid var(--muted); border-radius: 0; padding: 10px 12px; }
+.sign-in input:focus-visible, .name-row input:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
 
-.summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
-.stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 12px; display: flex; flex-direction: column; }
-.stat-value { font-size: var(--fs-lg); font-weight: 650; }
-.stat-label { font-size: var(--fs-xs); color: var(--muted); }
+/* ── Controls ─────────────────────────────────────────── */
+.btn, button.primary { font-family: var(--cond); font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; border-radius: 0; }
+.btn { background: none; border: 1px solid var(--text); padding: 5px 12px; }
+.btn:hover:not(:disabled) { background: var(--cell); }
+.btn.primary, button.primary { background: var(--on-bg); border: 1px solid var(--on-bg); color: var(--on-fg); }
+button.primary:not(.btn) { padding: 11px; font-size: var(--fs-lg); }
+.btn.primary:hover:not(:disabled), button.primary:hover:not(:disabled) { filter: brightness(1.15); }
+.btn:disabled, button.primary:disabled { opacity: 0.55; cursor: default; }
+.actions { display: flex; gap: 6px; flex-wrap: wrap; }
 
-.banner { padding: 10px 12px; border-radius: var(--radius); margin: 8px 0; }
-.banner.error { background: color-mix(in srgb, var(--bad) 15%, transparent); color: var(--bad-text); }
+/* A choice between views or values: the chosen segment is a filled plate. */
+.segmented { display: inline-flex; background: var(--cell); }
+.segmented button { background: none; border: 0; padding: 5px 12px; font-family: var(--cond); font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); cursor: pointer; white-space: nowrap; }
+.segmented button:hover:not(:disabled) { color: var(--text); }
+.segmented button.on { background: var(--on-bg); color: var(--on-fg); }
+.segmented button:disabled { cursor: default; }
+.segmented button:focus-visible { outline-offset: -3px; }
+.subnav { align-self: flex-start; max-width: 100%; }
 
-.list { display: flex; flex-direction: column; gap: 12px; }
-
-.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-.card-head { display: flex; justify-content: space-between; gap: 12px; padding: 12px 14px; min-width: 0; cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; }
-.card-head:hover { background: var(--surface-2); }
-.card-head:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: var(--radius); }
-.chevron { display: inline-block; font-size: var(--fs-base); line-height: 1; color: var(--text); vertical-align: -1px; transition: transform 0.15s ease; }
-.card.collapsed .chevron { transform: rotate(-90deg); }
-.card-title { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; font-size: var(--fs-md); }
-.odds { font-weight: 650; color: var(--accent); }
-.chip { font-size: var(--fs-xs); padding: 1px 7px; border-radius: 999px; border: 1px solid var(--border); color: var(--muted); }
-.card-status { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
-.payout { font-size: var(--fs-sm); }
-
-.badge { font-size: var(--fs-xs); font-weight: 600; padding: 2px 8px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--border); }
-.badge-won { color: var(--good-text); border-color: color-mix(in srgb, var(--good) 40%, transparent); }
-.badge-lost { color: var(--bad-text); border-color: color-mix(in srgb, var(--bad) 40%, transparent); }
-.badge-cashed_out { color: var(--warn-text); border-color: color-mix(in srgb, var(--warn) 40%, transparent); }
-
-.live-summary { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding: 6px 14px; background: var(--surface-2); border-top: 1px solid var(--border); font-size: var(--fs-sm); }
-
-.games { border-top: 1px solid var(--border); }
-.game { padding: 10px 14px; }
-.game + .game { border-top: 1px solid var(--border); }
-.game-head { display: flex; flex-direction: column; gap: 2px; margin-bottom: 6px; }
-.game-name { font-size: var(--fs-sm); font-weight: 600; color: var(--muted); }
-.game-line { font-size: var(--fs-sm); }
-.game-line.live { color: var(--text); }
-.live-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--bad); vertical-align: 1px; }
-.possession { color: var(--muted); }
-.red-zone { white-space: nowrap; margin-left: 6px; font-size: var(--fs-2xs); font-weight: 700; color: var(--bad-text); border: 1px solid currentColor; border-radius: 4px; padding: 0 4px; }
-
-/* Picks tied together in one same-game bet builder: a hairline links them. */
-.same-game { border-left: 1px solid color-mix(in srgb, var(--accent) 60%, var(--border)); padding-left: 11px; margin: 4px 0; }
-.same-game-label { font-size: var(--fs-xs); font-weight: 600; color: var(--accent); }
-
-.pick { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 5px 0; }
-.pick-what { display: flex; flex-direction: column; min-width: 0; }
-.pick-name { font-weight: 550; }
-.pick-market { font-size: var(--fs-sm); }
-.pick-progress { display: flex; flex-direction: column; align-items: flex-end; text-align: right; font-size: var(--fs-sm); min-width: 0; }
-.official { font-size: var(--fs-xs); }
-
-.bar-wrap { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
-.bar { width: 150px; height: 6px; border-radius: 999px; background: var(--bar-bg); overflow: hidden; }
-.bar-fill { display: block; height: 100%; background: var(--bar-fill); border-radius: inherit; transition: width 0.4s ease; }
-.bar.reached .bar-fill { background: var(--good); }
-.bar.missed .bar-fill { background: var(--bad); }
-.bar-text { font-size: var(--fs-sm); white-space: nowrap; }
-
-@media (max-width: 520px) {
-  .app { padding: 12px 12px 40px; }
-  .summary { gap: 6px; }
-  .stat { padding: 8px 10px; min-width: 0; }
-  .stat-value { font-size: var(--fs-base); }
-  .card-head { padding: 10px 12px; }
-  .game { padding: 10px 12px; }
-  .live-summary { padding: 6px 12px; }
-  /* Stack progress under the pick so bars get the full width. */
-  .pick { flex-direction: column; align-items: stretch; gap: 3px; }
-  .pick-progress { align-items: flex-start; text-align: left; }
-  .bar-wrap { align-items: stretch; width: 100%; }
-  .bar { width: 100%; }
-  .bar-text { white-space: normal; }
-  .possession { display: block; }
-  .possession .sep { display: none; }
-  /* The bell isn't at the screen edge on phones, so the panel hangs from the
-     whole header row (.top) instead of from the bell, at full width. */
-  .notes { position: static; }
-  /* Flush under the header and 4px wider each side, so its rounded corners sit outside the status text it covers. */
-  .notes-panel { top: 100%; left: -4px; right: -4px; width: auto; max-height: 70dvh; }
-}
-
-/* ── Analysis ─────────────────────────────────────────── */
-.analysis { display: flex; flex-direction: column; gap: 12px; }
-.panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; }
-.panel h2 { font-size: var(--fs-base); margin: 0 0 10px; }
-.panel h3 { font-size: var(--fs-sm); margin: 16px 0 6px; color: var(--muted); font-weight: 600; }
-.panel .summary { margin-bottom: 8px; }
-.panel .stat { background: var(--surface-2); }
-.lede { margin: 0 0 10px; font-size: var(--fs-base); }
+/* ── Panels: analysis, social, phone sync ─────────────── */
+.analysis, .social { display: flex; flex-direction: column; gap: 14px; }
+.panel { padding: 12px 14px 14px; }
+.panel h2 { margin: 0 0 10px; padding-bottom: 8px; border-bottom: 2px solid var(--ink); font-family: var(--cond); font-size: 19px; font-weight: 800; line-height: 1.15; letter-spacing: 0.02em; text-transform: uppercase; }
+.panel h3 { margin: 18px 0 6px; font-family: var(--cond); font-size: var(--fs-sm); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.panel-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 2px solid var(--ink); }
+.panel-head h2, .panel-head h3 { margin: 0; padding: 0; border: 0; }
+.panel .record-head { margin-top: 16px; border-bottom-width: 1px; border-bottom-color: var(--rule); }
+.bets-head { margin: 4px 0 10px; border-bottom-color: var(--text); }
+.bets-head h2 { font-family: var(--cond); font-size: 19px; font-weight: 800; letter-spacing: 0.02em; text-transform: uppercase; }
+.lede { margin: 0 0 10px; font-size: var(--fs-base); max-width: 70ch; }
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
 .table { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); margin-top: 6px; }
-.table th { text-align: left; font-weight: 600; color: var(--muted); font-size: var(--fs-xs); padding: 4px 6px; border-bottom: 1px solid var(--border); }
-.table td { padding: 6px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.table th { text-align: left; padding: 4px 6px; font-family: var(--cond); font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); border-bottom: 2px solid var(--ink); }
+.table td { padding: 7px 6px; border-bottom: 1px solid var(--rule); vertical-align: top; }
 .table tr:last-child td { border-bottom: 0; }
 .num { text-align: right; white-space: nowrap; }
 .table th.num { text-align: right; }
+.board .chip, .person .chip { margin-left: 6px; }
+.board .rank { width: 1%; font-family: var(--cond); font-size: var(--fs-md); font-weight: 700; color: var(--muted); }
+.board tr.you td { background: var(--cell); }
 
 .markets { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
 .market-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 4px; }
-.market-name { font-weight: 550; display: flex; align-items: center; gap: 6px; }
-.rate-bar { position: relative; height: 8px; border-radius: 999px; background: var(--bar-bg); }
-.rate-fill { display: block; height: 100%; border-radius: 999px; background: var(--accent); }
-/* What the odds implied: a thin marker in text ink so it's not confused with the bar. */
-.rate-mark { position: absolute; top: -3px; width: 2px; height: 14px; margin-left: -1px; background: var(--text); border-radius: 1px; }
+.market-name { font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.rate-bar { position: relative; height: 16px; background: var(--rule); }
+.rate-fill { display: block; height: 100%; background: var(--ink); }
+/* What the odds implied: a red marker so it's not confused with the bar. */
+.rate-mark { position: absolute; top: -3px; width: 3px; height: 22px; margin-left: -1px; background: var(--red); }
 .market .small { margin-top: 3px; }
 
 .missed-chart { margin: 4px 0 0; }
 .missed-chart .columns { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; align-items: end; height: 110px; }
-.missed-chart .columns.labels { height: auto; margin-top: 4px; text-align: center; font-size: var(--fs-xs); color: var(--muted); }
+.missed-chart .columns.labels { height: auto; margin-top: 4px; padding-top: 4px; border-top: 2px solid var(--ink); text-align: center; font-size: var(--fs-xs); color: var(--muted); }
 .column { display: flex; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%; }
-.column-value { font-size: var(--fs-xs); margin-bottom: 3px; }
-.column-bar { width: 100%; max-width: 44px; min-height: 2px; background: var(--accent); border-radius: 4px 4px 0 0; }
+.column-value { font-family: var(--cond); font-size: var(--fs-base); font-weight: 700; margin-bottom: 3px; }
+.column-bar { width: 100%; max-width: 44px; min-height: 2px; background: var(--ink); }
 .missed-chart figcaption { text-align: center; margin-top: 4px; }
 
-.near-misses, .cashouts { list-style: none; margin: 0; padding: 0; }
-.near-misses li { display: flex; justify-content: space-between; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: var(--fs-sm); }
+.near-misses, .cashouts, .people { list-style: none; margin: 0; padding: 0; }
+.near-misses li { display: flex; justify-content: space-between; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--rule); font-size: var(--fs-sm); }
 .near-misses li:last-child { border-bottom: 0; }
-.cashouts li { padding: 8px 0; border-bottom: 1px solid var(--border); font-size: var(--fs-base); display: flex; flex-direction: column; gap: 3px; }
+.cashouts li { padding: 8px 0; border-bottom: 1px solid var(--rule); font-size: var(--fs-base); display: flex; flex-direction: column; gap: 3px; }
 .cashouts li:last-child { border-bottom: 0; }
 
-@media (max-width: 520px) {
-  .two-col { grid-template-columns: 1fr; }
-  .table { font-size: var(--fs-sm); }
-  .table th, .table td { padding: 5px 4px; }
-}
+.styles { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin: 10px 0; background: var(--rule); border: 1px solid var(--rule); }
+.style-card { background: var(--plate-bg); padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; }
+.style-title { font-family: var(--cond); font-size: var(--fs-md); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+.style-net { font-family: var(--cond); font-size: 28px; font-weight: 800; line-height: 1.1; }
 
-.panel-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 4px; }
-.panel-head h2 { margin: 0; }
-/* A choice between views or values. The selected segment is raised, not
-   filled: solid accent is kept for actions (Save, Accept, Sign in). */
-.segmented { display: inline-flex; gap: 2px; padding: 2px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg); }
-.segmented button { background: none; border: 0; border-radius: 6px; padding: 3px 10px; font-size: var(--fs-sm); color: var(--muted); cursor: pointer; white-space: nowrap; }
-.segmented button:hover:not(:disabled) { color: var(--text); }
-.segmented button.on { background: var(--raised); color: var(--text); font-weight: 600; box-shadow: 0 0 0 1px var(--border), 0 1px 2px rgb(0 0 0 / 0.18); }
-.segmented button:disabled { cursor: default; }
-.styles { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; }
-.style-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; }
-.style-title { font-weight: 600; }
-.style-net { font-size: var(--fs-xl); font-weight: 650; }
-
-.phone-sync { margin: 8px 0 12px; }
-.phone-sync ol { margin: 8px 0 12px; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; font-size: var(--fs-base); }
-.phone-sync .install-link { display: inline-block; font-weight: 600; color: var(--accent); margin-right: 6px; }
+.phone-sync { margin-bottom: 14px; }
+.phone-sync ol { margin: 8px 0 12px; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; font-size: var(--fs-base); max-width: 70ch; }
+.phone-sync .install-link { display: inline-block; font-weight: 600; color: var(--text); text-underline-offset: 3px; margin-right: 6px; }
 
 /* ── Social ───────────────────────────────────────────── */
-.social { display: flex; flex-direction: column; gap: 12px; }
-.count { display: inline-flex; align-items: center; justify-content: center; min-width: 17px; height: 17px; margin-left: 6px; padding: 0 5px; border-radius: 999px; background: var(--bad); color: #fff; font-size: var(--fs-2xs); font-weight: 700; vertical-align: 1px; }
-.subnav { align-self: flex-start; max-width: 100%; }
-.subnav button { padding: 5px 12px; }
 .name-link { background: none; border: 0; padding: 0; font-weight: 600; cursor: pointer; text-align: left; overflow-wrap: anywhere; }
-.name-link:hover { text-decoration: underline; text-underline-offset: 2px; }
-.board .chip, .person .chip { margin-left: 6px; }
-.board .rank { width: 1%; color: var(--muted); }
-.board tr.you td { background: var(--surface-2); }
-
-.people { list-style: none; margin: 0; padding: 0; }
-.person { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: var(--fs-base); }
+.name-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+.person { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; padding: 8px 0; border-bottom: 1px solid var(--rule); font-size: var(--fs-base); }
 .person:last-child { border-bottom: 0; }
-.actions { display: flex; gap: 6px; flex-wrap: wrap; }
-.btn { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 5px 11px; font-size: var(--fs-sm); cursor: pointer; }
-.btn:hover:not(:disabled) { border-color: color-mix(in srgb, var(--muted) 55%, var(--border)); }
-.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); font-weight: 600; }
-.btn.primary:hover:not(:disabled), button.primary:hover:not(:disabled) { filter: brightness(1.07); }
-.btn:disabled { opacity: 0.6; cursor: default; }
-.chip .icon { margin-right: 2px; }
 
 button.link.back { align-self: flex-start; display: inline-flex; align-items: center; gap: 4px; }
-.panel h2.profile-name { font-size: var(--fs-lg); overflow-wrap: anywhere; }
+.panel h2.profile-name { font-size: 24px; overflow-wrap: anywhere; }
+.profile-name .chip { margin-left: 8px; vertical-align: 4px; }
 .profile-chips { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0 0; }
 .profile .actions { margin-top: 10px; }
-.record-head { margin-top: 16px; }
-.panel .record-head h3 { margin: 0; }
-.summary.four { grid-template-columns: repeat(4, 1fr); margin-top: 8px; }
-.bets-head { margin: 4px 0 8px; }
-.bets-head h2 { font-size: var(--fs-base); margin: 0; }
 
-.switch-row { display: flex; align-items: flex-start; gap: 10px; padding: 9px 0; border-top: 1px solid var(--border); font-size: var(--fs-base); cursor: pointer; }
-.switch-row input { flex: none; width: 16px; height: 16px; margin: 3px 0 0; accent-color: var(--accent); }
+.switch-row { display: flex; align-items: flex-start; gap: 10px; padding: 9px 0; border-top: 1px solid var(--rule); font-size: var(--fs-base); cursor: pointer; }
+.switch-row input { flex: none; width: 16px; height: 16px; margin: 3px 0 0; }
 .name-form { display: flex; flex-direction: column; gap: 4px; }
 .name-form p { margin: 2px 0 0; }
 .name-row { display: flex; gap: 8px; }
-.name-row input { flex: 1; min-width: 0; font: inherit; font-size: var(--fs-md); color: var(--text); background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 7px 10px; }
-.name-row input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.name-row input { flex: 1; min-width: 0; padding: 7px 10px; }
+
+/* Someone else's bets shown at the minimum stake: the note above the list, and the line on each card.
+   It's information, not a warning, so it stays out of the yellow used for live and unsynced bets. */
+.min-bet-note { margin: 0 0 10px; padding: 8px 12px; font-size: var(--fs-sm); color: var(--muted); }
+.min-bet { white-space: nowrap; }
 
 @media (max-width: 520px) {
+  .wrap { padding-inline: 12px; }
+  .top-right { gap: 12px; }
+  .totals .stat { padding: 10px 12px; }
+  .totals .stat-value { font-size: 24px; }
+  .stat-value { font-size: var(--fs-xl); }
+  .two-col { grid-template-columns: 1fr; }
+  .table th, .table td { padding: 6px 4px; }
   /* The board keeps rank, name, units and record; ROI and best hit are on each profile. */
   .wide-only { display: none; }
   .summary.four { grid-template-columns: repeat(2, 1fr); }
-  .subnav button { padding: 6px 9px; }
-  .tab { padding: 8px 10px; }
+  .segmented button { min-height: 44px; padding: 5px 9px; }
   /* Fingers, not cursors: taller controls and a bigger target on the header links. */
-  .btn { min-height: 38px; padding: 7px 13px; }
-  .segmented button { min-height: 32px; }
-  .top-right button.link { padding: 8px 0; }
+  .btn { min-height: 44px; padding: 7px 13px; }
+  .top-right button.link { min-height: 44px; }
+  .bell { min-width: 44px; min-height: 44px; align-items: center; justify-content: center; margin: 0 -8px; }
+  .bell-count { top: 4px; right: 2px; }
+  .tab { min-height: 44px; }
+  /* The bell isn't at the screen edge on phones, so the panel hangs from the
+     whole header row (.top) instead of from the bell, at full width. */
+  .notes { position: static; }
+  .notes-panel { top: 100%; left: -4px; right: -4px; width: auto; max-height: 70dvh; }
 }
 
-/* Someone else's bets shown at the minimum stake: the note above the list, and the line on each card.
-   It's information, not a warning, so it stays out of the amber used for stale and unsynced bets. */
-.min-bet-note { margin: 0 0 10px; padding: 8px 12px; font-size: var(--fs-sm); color: var(--muted); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); }
-.min-bet { white-space: nowrap; }
-.profile-name .chip { margin-left: 8px; font-weight: 400; vertical-align: 2px; }
+@media (max-width: 380px) {
+  .top h1 { font-size: 24px; }
+  .top-right { gap: 10px; }
+}
+
+/* Desktop: bets and analysis panels run in two columns. */
+@media (min-width: 1040px) {
+  .wrap { max-width: 1120px; }
+  .list, .analysis { display: block; columns: 2; column-gap: 14px; }
+  .list > *, .analysis > * { break-inside: avoid; margin-bottom: 14px; }
+  .social, .phone-sync { max-width: 760px; }
+}
 
 @media (prefers-reduced-motion: reduce) {
-  * { transition: none !important; }
+  * { transition: none !important; animation: none !important; }
 }

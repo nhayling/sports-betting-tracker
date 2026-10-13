@@ -103,80 +103,88 @@ export function App() {
 
   return (
     <div className="app">
-      <header className="top">
-        <h1>Sports Better</h1>
-        <div className="top-right">
-          {notes && <Notifications feed={notes} onRead={() => setNotes({ ...notes, unread: 0 })} />}
-          <button className="link" aria-expanded={phoneSync} onClick={() => setPhoneSync(!phoneSync)}>
-            Phone sync
-          </button>
-          <button
-            className="link"
-            onClick={async () => {
-              await signOut().catch(() => {});
-              setSignedOut(true);
-            }}
-          >
-            Sign out
-          </button>
+      <header className="shell">
+        <div className="wrap">
+          <div className="top">
+            <h1>Sports Better</h1>
+            <div className="top-right">
+              {notes && <Notifications feed={notes} onRead={() => setNotes({ ...notes, unread: 0 })} />}
+              <button className="link" aria-expanded={phoneSync} onClick={() => setPhoneSync(!phoneSync)}>
+                Phone sync
+              </button>
+              <button
+                className="link"
+                onClick={async () => {
+                  await signOut().catch(() => {});
+                  setSignedOut(true);
+                }}
+              >
+                Sign out
+              </button>
+            </div>
+          </div>
+
+          {/* How fresh everything is: live stats, then the last sync from Island Luck. */}
+          <div className="status">
+            <LiveIndicator poller={poller} updatedAt={data?.generatedAt ?? null} />
+            {data && <SyncLine lastSyncedAt={data.lastSyncedAt} stale={coupons.filter((c) => c.probablySettled).length} />}
+          </div>
+
+          <nav className="tabs" role="tablist">
+            {TABS.map(([t, label]) => (
+              <button key={t} role="tab" aria-selected={tab === t} className={tab === t ? 'tab active' : 'tab'} onClick={() => setTab(t)}>
+                {label}
+                {t === 'social' && !!social?.pendingRequests && (
+                  <span className="count" aria-label={`${social.pendingRequests} waiting`}>
+                    {social.pendingRequests}
+                  </span>
+                )}
+              </button>
+            ))}
+          </nav>
         </div>
+
+        {betsTab && data && (
+          <section className="totals">
+            <div className="wrap">
+              {tab === 'open' ? (
+                <>
+                  <Stat label="Open bets" value={String(coupons.length)} />
+                  <Stat label="At stake" value={money(staked)} />
+                  <Stat label="Potential return" value={money(toPay)} />
+                </>
+              ) : (
+                <>
+                  <Stat label="Settled bets" value={String(coupons.length)} />
+                  <Stat label="Staked" value={money(staked)} />
+                  <Stat label="Returned" value={money(returned)} />
+                </>
+              )}
+            </div>
+          </section>
+        )}
       </header>
 
-      {phoneSync && <PhoneSync onClose={() => setPhoneSync(false)} />}
+      <div className="wrap page">
+        {phoneSync && <PhoneSync onClose={() => setPhoneSync(false)} />}
 
-      {/* How fresh everything is: live stats, then the last sync from Island Luck. */}
-      <div className="status">
-        <LiveIndicator poller={poller} updatedAt={data?.generatedAt ?? null} />
-        {data && <SyncLine lastSyncedAt={data.lastSyncedAt} stale={coupons.filter((c) => c.probablySettled).length} />}
+        {tab === 'analysis' && <Analysis onSignedOut={onSignedOut} />}
+        {tab === 'social' && <Social me={social} onChanged={refreshSocial} onSignedOut={onSignedOut} />}
+
+        {error && <p className="banner error">{error}</p>}
+        {betsTab && !data && !error && <p className="muted center">Loading…</p>}
+        {betsTab && data && coupons.length === 0 && (
+          <p className="muted center">{tab === 'open' ? 'No open bets. Sync from Island Luck to pick up new ones.' : 'No settled bets yet.'}</p>
+        )}
+
+        {betsTab && (
+          <main className="list">
+            {coupons.map((c) => (
+              <CouponCard key={c.id} coupon={c} />
+            ))}
+          </main>
+        )}
       </div>
-
-      <nav className="tabs" role="tablist">
-        {TABS.map(([t, label]) => (
-          <button key={t} role="tab" aria-selected={tab === t} className={tab === t ? 'tab active' : 'tab'} onClick={() => setTab(t)}>
-            {label}
-            {t === 'social' && !!social?.pendingRequests && (
-              <span className="count" aria-label={`${social.pendingRequests} waiting`}>
-                {social.pendingRequests}
-              </span>
-            )}
-          </button>
-        ))}
-      </nav>
-
-      {tab === 'analysis' && <Analysis onSignedOut={onSignedOut} />}
-      {tab === 'social' && <Social me={social} onChanged={refreshSocial} onSignedOut={onSignedOut} />}
-
-      {betsTab && data && (
-        <section className="summary">
-          {tab === 'open' ? (
-            <>
-              <Stat label="Open bets" value={String(coupons.length)} />
-              <Stat label="At stake" value={money(staked)} />
-              <Stat label="Potential return" value={money(toPay)} />
-            </>
-          ) : (
-            <>
-              <Stat label="Settled bets" value={String(coupons.length)} />
-              <Stat label="Staked" value={money(staked)} />
-              <Stat label="Returned" value={money(returned)} />
-            </>
-          )}
-        </section>
-      )}
-
-      {error && <p className="banner error">{error}</p>}
-      {betsTab && !data && !error && <p className="muted center">Loading…</p>}
-      {betsTab && data && coupons.length === 0 && (
-        <p className="muted center">{tab === 'open' ? 'No open bets. Sync from Island Luck to pick up new ones.' : 'No settled bets yet.'}</p>
-      )}
-
-      {betsTab && (
-        <main className="list">
-          {coupons.map((c) => (
-            <CouponCard key={c.id} coupon={c} />
-          ))}
-        </main>
-      )}
     </div>
   );
 }

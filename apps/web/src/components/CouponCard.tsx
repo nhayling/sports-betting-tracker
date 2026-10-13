@@ -1,5 +1,5 @@
 import type { KeyboardEvent } from 'react';
-import type { CouponView } from '../api';
+import type { CouponView, PickView } from '../api';
 import { useCollapsed } from '../collapsed';
 import { americanOdds, dateTime, money, REWARD_LABELS } from '../format';
 import { GameBlock } from './GameBlock';
@@ -14,10 +14,14 @@ const STATUS_LABEL: Record<string, string> = {
   MIXED: 'Mixed',
   UNKNOWN: 'Unknown',
 };
+const STATUS_PLATE: Record<string, string> = { WON: 'hit', LOST: 'miss', CASHED_OUT: 'run' };
+
+/** A pick that can no longer hit: settled lost, or past its line by live stats. */
+const pickMissed = (p: PickView) => p.status === 'LOST' || p.progress?.status === 'FINAL_MISSED' || p.progress?.status === 'TARGET_EXCEEDED';
 
 /**
  * `minBetMinor`: someone else's bet whose owner doesn't share amounts. Its money
- * is what the bet pays at that minimum stake, so the card leads with the odds
+ * is what the bet pays at that minimum stake, so the card leaves the stake out
  * and says what the figures are based on.
  */
 export function CouponCard({ coupon: c, minBetMinor }: { coupon: CouponView; minBetMinor?: number }) {
@@ -31,11 +35,15 @@ export function CouponCard({ coupon: c, minBetMinor }: { coupon: CouponView; min
     }
   };
   const gamesId = `games-${c.id}`;
+  const open = c.status === 'OPEN';
+  // From live stats, while Island Luck still has the bet open.
+  const missed = open ? c.games.reduce((n, g) => n + g.picks.filter(pickMissed).length, 0) : 0;
+  const tracking = open && c.pickCount > 1 && c.picksHit + missed > 0;
 
   return (
-    <article className={`card status-${c.status.toLowerCase()} ${collapsed ? 'collapsed' : ''}`}>
+    <article className={`bet status-${c.status.toLowerCase()} ${collapsed ? 'collapsed' : ''}`}>
       <header
-        className="card-head"
+        className="bet-head"
         role="button"
         tabIndex={0}
         aria-expanded={!collapsed}
@@ -45,13 +53,18 @@ export function CouponCard({ coupon: c, minBetMinor }: { coupon: CouponView; min
         title={collapsed ? 'Show picks' : 'Hide picks'}
       >
         <div>
-          <div className="card-title">
-            {minBetMinor === undefined && <strong>{money(c.stakeMinor)}</strong>}
-            <span className="odds">{americanOdds(c.oddsRaw)}</span>
-            {c.pickCount > 0 && <span className="muted">· {picks}</span>}
+          <div className="bet-title">
+            {tracking ? (
+              <span title="From live stats. Island Luck settles the bet.">
+                {c.picksHit} of {c.pickCount} picks hit
+                {missed > 0 && <span className="miss-count"> · {missed} missed</span>}
+              </span>
+            ) : (
+              c.pickCount > 0 && <span>{picks}</span>
+            )}
             {c.rewardType && <span className="chip">{REWARD_LABELS[c.rewardType] ?? c.rewardType}</span>}
           </div>
-          <div className="muted small">
+          <div className="bet-meta">
             <span className="chevron">
               <Icon name="chevron" />
             </span>{' '}
@@ -59,11 +72,13 @@ export function CouponCard({ coupon: c, minBetMinor }: { coupon: CouponView; min
             {collapsed && c.games.length > 0 && ` · ${games}`}
           </div>
         </div>
-        <div className="card-status">
-          <span className={`badge badge-${c.status.toLowerCase()}`} title="Official status from Island Luck">
-            {STATUS_LABEL[c.status] ?? c.status}
-          </span>
-          <Payout coupon={c} minBetMinor={minBetMinor} />
+        <div className="bet-result">
+          {!open && (
+            <span className={`plate small-plate ${STATUS_PLATE[c.status] ?? 'hollow'}`} title="Official status from Island Luck">
+              {STATUS_LABEL[c.status] ?? c.status}
+            </span>
+          )}
+          <span className="odds">{americanOdds(c.oddsRaw)}</span>
         </div>
       </header>
 
@@ -73,19 +88,16 @@ export function CouponCard({ coupon: c, minBetMinor }: { coupon: CouponView; min
         </div>
       )}
 
-      {c.status === 'OPEN' && c.pickCount > 1 && c.picksHit > 0 && (
-        <div className="live-summary" title="From live stats. Island Luck settles the bet.">
-          <span>
-            {c.picksHit} of {c.pickCount} picks hit
-          </span>
-        </div>
-      )}
-
       <div className="games" id={gamesId} hidden={collapsed}>
         {c.games.map((g) => (
-          <GameBlock key={g.eventId ?? g.name} game={g} couponOpen={c.status === 'OPEN'} />
+          <GameBlock key={g.eventId ?? g.name} game={g} couponOpen={open} />
         ))}
       </div>
+
+      <footer className="bet-foot">
+        {minBetMinor === undefined && <span>Stake {money(c.stakeMinor)}</span>}
+        <Payout coupon={c} minBetMinor={minBetMinor} />
+      </footer>
     </article>
   );
 }

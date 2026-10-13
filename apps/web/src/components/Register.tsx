@@ -34,7 +34,7 @@ export function Register({ token, onRegistered, onCancel }: { token: string; onR
 
   if (invalid) {
     return (
-      <div className="app">
+      <div className="app auth">
         <div className="sign-in">
           <h1>Sports Better</h1>
           <p className="banner error">{invalid}</p>
@@ -47,7 +47,7 @@ export function Register({ token, onRegistered, onCancel }: { token: string; onR
   }
 
   return (
-    <div className="app">
+    <div className="app auth">
       <form className="sign-in" onSubmit={submit}>
         <h1>Create your account</h1>
         <label>

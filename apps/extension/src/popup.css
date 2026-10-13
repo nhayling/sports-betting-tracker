@@ -1,97 +1,117 @@
-/* Matches the tracker web app (apps/web/src/styles.css): Sportsbook green. */
+/* Matches the tracker web app (apps/web/src/styles.css): Score Bug. */
+@font-face { font-family: 'Barlow'; font-weight: 400; src: url('../fonts/Barlow-400.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow'; font-weight: 600; src: url('../fonts/Barlow-600.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow Condensed'; font-weight: 700; src: url('../fonts/BarlowCondensed-700.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow Condensed'; font-weight: 800; src: url('../fonts/BarlowCondensed-800.woff2') format('woff2'); }
+
 :root {
-  --bg: #0c1410;
-  --surface: #131e18;
-  --surface-2: #1a2821;
-  --border: #243529;
-  --text: #e7efe9;
-  --muted: #8ca396;
-  --accent: #22c55e;
-  --on-accent: #052e14;
-  --good: #218358;
-  --bad: #CE2C31;
-  --warn: #FFBA18;
-  --radius: 12px;
+  --navy: #0b1f3a;
+  --navy-2: #12305a;
+  --yellow: #ffd200;
+  --red: #c8102e;
+  --cond: 'Barlow Condensed', 'Arial Narrow', ui-sans-serif, system-ui, sans-serif;
+  /* The popup ground and its plate follow the theme; the header is navy in both. */
+  --ground: var(--navy);
+  --text: #ffffff;
+  --muted: #a9b9d0;
+  --rule: #2a4a7a;
+  --field: var(--navy-2);
+  --bad-text: #ff8a98;
+  --good-text: #5fe0a0;
+  --on-bg: var(--yellow);
+  --on-fg: var(--navy);
+  --focus: var(--yellow);
 }
 @media (prefers-color-scheme: light) {
   :root {
-    --bg: #f2f6f3;
-    --surface: #ffffff;
-    --surface-2: #f5f9f6;
-    --border: #dbe5de;
-    --text: #13201a;
-    --muted: #5c7166;
-    --accent: #15803d;
-    --on-accent: #ffffff;
+    --ground: #e6ebf2;
+    --text: var(--navy);
+    --muted: #4a5b75;
+    --rule: #c3cedd;
+    --field: #ffffff;
+    --bad-text: #b00d27;
+    --good-text: #0b6e3c;
+    --on-bg: var(--navy);
+    --on-fg: #ffffff;
+    --focus: var(--navy-2);
   }
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 body {
   width: 300px;
   margin: 0;
-  padding: 14px;
-  font: 13px/1.4 ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  padding: 0 14px 14px;
+  font: 13px/1.4 'Barlow', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   font-variant-numeric: tabular-nums;
   color: var(--text);
-  background: var(--bg);
+  background: var(--ground);
+  caret-color: var(--focus);
+  accent-color: var(--focus);
 }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+::selection { background: var(--yellow); color: var(--navy); }
 
-.top { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
-.top img { border-radius: 6px; }
-h1 { font-size: 16px; margin: 0; letter-spacing: -0.01em; }
+.top { display: flex; align-items: center; gap: 8px; margin: 0 -14px 12px; padding: 12px 14px; background: var(--navy); color: #fff; }
+h1 { margin: 0; font-family: var(--cond); font-size: 22px; font-weight: 800; line-height: 1; letter-spacing: 0.01em; text-transform: uppercase; }
 
-.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; }
-.sync-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
-.label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
+.card { background: var(--field); color: var(--text); padding: 10px 12px 12px; }
+.sync-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 2px solid var(--text); }
+.label, .stat-label { font-family: var(--cond); font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
 #last-sync { font-weight: 600; }
 
-.summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
-.stat { background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; padding: 8px; display: flex; flex-direction: column; }
-.stat-value { font-size: 17px; font-weight: 650; }
-.stat-label { font-size: 11.5px; color: var(--muted); }
+.summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+.stat { background: var(--field); padding: 8px; display: flex; flex-direction: column; gap: 2px; }
+.stat-value { font-family: var(--cond); font-size: 24px; font-weight: 800; line-height: 1; }
 
 .hint { color: var(--muted); font-size: 12px; margin: 8px 0 0; }
 .hint:empty { display: none; }
-.hint.err { color: var(--bad); }
+.hint.err { color: var(--bad-text); }
 .center { text-align: center; }
 
 button {
   width: 100%;
-  padding: 9px;
+  padding: 8px;
   margin-top: 8px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--surface);
+  border: 1px solid var(--text);
+  border-radius: 0;
+  background: none;
   color: var(--text);
   cursor: pointer;
-  font: inherit;
+  font-family: var(--cond);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
-button:hover { background: var(--surface-2); }
-button.primary { margin-top: 12px; background: var(--accent); border-color: var(--accent); color: var(--on-accent); font-weight: 650; font-size: 14px; }
-button.primary:hover { filter: brightness(1.06); }
-button.danger { color: var(--bad); }
+button:hover { background: var(--field); }
+button.primary { margin-top: 12px; padding: 10px; background: var(--on-bg); border-color: var(--on-bg); color: var(--on-fg); font-size: 18px; }
+button.primary:hover { background: var(--on-bg); filter: brightness(1.12); }
+/* Kept apart from the other settings so it isn't hit by accident. */
+button.danger { margin-top: 20px; border-color: var(--bad-text); color: var(--bad-text); }
 button:disabled { opacity: 0.55; cursor: default; }
 
-.result { margin-top: 10px; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); }
-.result.ok strong { color: var(--accent); }
-.result.err { color: var(--bad); border-color: color-mix(in srgb, var(--bad) 45%, transparent); }
+.result { margin-top: 10px; padding: 10px 12px; background: var(--field); box-shadow: inset 0 0 0 1px var(--rule); }
+.result.ok strong { color: var(--good-text); }
+.result.err { background: var(--red); color: #fff; box-shadow: none; }
 
-details { margin-top: 14px; border-top: 1px solid var(--border); padding-top: 10px; }
-summary { cursor: pointer; color: var(--muted); }
-label { display: block; margin-top: 10px; font-size: 12px; color: var(--muted); }
+details { margin-top: 14px; border-top: 1px solid var(--rule); padding-top: 10px; }
+summary { cursor: pointer; font-family: var(--cond); font-size: 15px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); }
+label { display: block; margin-top: 10px; font-size: 12px; font-weight: 600; color: var(--muted); }
 input {
   display: block;
   width: 100%;
   margin-top: 3px;
   padding: 7px 9px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--surface);
+  border: 1px solid var(--muted);
+  border-radius: 0;
+  background: var(--field);
   color: var(--text);
   font: inherit;
+  font-weight: 400;
 }
-input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
-label.check { display: flex; align-items: center; gap: 8px; color: var(--text); }
-label.check input { display: inline; width: auto; margin: 0; accent-color: var(--accent); }
-hr { border: 0; border-top: 1px solid var(--border); margin: 14px 0 4px; }
+label.check { display: flex; align-items: center; gap: 8px; font-weight: 400; color: var(--text); }
+label.check input { display: inline; width: auto; margin: 0; }
+hr { border: 0; border-top: 1px solid var(--rule); margin: 14px 0 4px; }
+::placeholder { color: var(--muted); opacity: 1; }

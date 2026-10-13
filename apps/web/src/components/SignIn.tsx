@@ -23,7 +23,7 @@ export function SignIn({ onSignedIn }: { onSignedIn: () => void }) {
   };
 
   return (
-    <div className="app">
+    <div className="app auth">
       <form className="sign-in" onSubmit={submit}>
         <h1>Sports Better</h1>
         <label>

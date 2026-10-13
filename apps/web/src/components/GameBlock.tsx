@@ -14,10 +14,7 @@ export function GameBlock({ game, couponOpen }: { game: GameView; couponOpen: bo
 
   return (
     <section className="game">
-      <div className="game-head">
-        <span className="game-name">{game.name}</span>
-        <GameLine game={game} state={couponOpen ? game.state : null} />
-      </div>
+      <GameStrip game={game} state={couponOpen ? game.state : null} />
       {groups.map((g, i) =>
         g.length > 1 ? (
           <div key={i} className="same-game" aria-label="Same game parlay">
@@ -34,19 +31,23 @@ export function GameBlock({ game, couponOpen }: { game: GameView; couponOpen: bo
   );
 }
 
-function GameLine({ game, state }: { game: GameView; state: GameStateView | null }) {
-  if (!state) {
-    const started = game.startAt && Date.parse(game.startAt) < Date.now();
-    return <span className="game-line muted">{started ? dateTime(game.startAt) : `Kicks off ${dateTime(game.startAt)}`}</span>;
+/** The score bug for one game: teams and scores once it has started, the matchup and kickoff before. */
+function GameStrip({ game, state }: { game: GameView; state: GameStateView | null }) {
+  const scored = state && (state.state === 'LIVE' || state.state === 'FINAL');
+  if (!state || !scored) {
+    const started = !state && game.startAt && Date.parse(game.startAt) < Date.now();
+    const when = state && state.state !== 'SCHEDULED' ? (state.detail ?? state.state) : started ? dateTime(game.startAt) : `Kicks off ${dateTime(game.startAt)}`;
+    return (
+      <div className="game-strip">
+        <span className="matchup">{game.name}</span>
+        <span className="clock">{when}</span>
+      </div>
+    );
   }
-  const score = `${state.away.abbreviation} ${state.awayScore ?? 0} – ${state.homeScore ?? 0} ${state.home.abbreviation}`;
 
-  if (state.state === 'SCHEDULED') return <span className="game-line muted">Kicks off {dateTime(game.startAt)}</span>;
-  if (state.state === 'FINAL') return <span className="game-line">Final · {score}</span>;
-  if (state.state !== 'LIVE') return <span className="game-line muted">{state.detail ?? state.state}</span>;
-
-  const when = /halftime|end of/i.test(state.detail ?? '') ? state.detail : `${quarter(state.period)} ${state.clock ?? ''}`;
-  const sit = state.situation;
+  const live = state.state === 'LIVE';
+  const when = !live ? 'Final' : /halftime|end of/i.test(state.detail ?? '') ? state.detail : `${quarter(state.period)} ${state.clock ?? ''}`;
+  const sit = live ? state.situation : null;
   const ball = sit?.possessionTeamId
     ? sit.possessionTeamId === state.home.id
       ? state.home.abbreviation
@@ -56,15 +57,27 @@ function GameLine({ game, state }: { game: GameView; state: GameStateView | null
     : null;
 
   return (
-    <span className="game-line live">
-      <span className="live-dot" aria-hidden /> {when} · <strong>{score}</strong>
-      {ball && (
-        <span className="possession">
-          <span className="sep"> · </span>
-          <Icon name="football" /> {ball} ball{sit?.downDistance ? `, ${sit.downDistance}` : ''}
-          {sit?.redZone && <span className="red-zone">RED ZONE</span>}
+    <>
+      <div className="game-strip">
+        <span className="team">{state.away.abbreviation ?? game.awayName}</span>
+        <strong className="score">{state.awayScore ?? 0}</strong>
+        <span className="team">{state.home.abbreviation ?? game.homeName}</span>
+        <strong className="score">{state.homeScore ?? 0}</strong>
+        <span className={`clock ${live ? 'live' : 'final'}`}>
+          {live && <span className="live-dot" aria-hidden />}
+          {when}
         </span>
-      )}
-    </span>
+      </div>
+      <div className="game-sub">
+        {game.name}
+        {ball && (
+          <>
+            {' · '}
+            <Icon name="football" /> {ball} ball{sit?.downDistance ? `, ${sit.downDistance}` : ''}
+            {sit?.redZone && <span className="red-zone">RED ZONE</span>}
+          </>
+        )}
+      </div>
+    </>
   );
 }
