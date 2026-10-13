@@ -1,0 +1,50 @@
+# Tracker + Postgres + HTTPS on one server. Settings come from .env next to
+# this file (copy deploy/server.env.example). See docs/deploy.md.
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: sports_better
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+    volumes:
+      - db:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d sports_better']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD}@db:5432/sports_better
+      # Caddy is the one proxy in front: needed for Secure cookies and per-client login throttling.
+      TRUST_PROXY: '1'
+      # Invite links (npm run invite) start with this.
+      PUBLIC_URL: https://${DOMAIN}
+
+  # Terminates HTTPS with an automatic Let's Encrypt certificate for DOMAIN.
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    depends_on:
+      - app
+    ports:
+      - '80:80'
+      - '443:443'
+    environment:
+      DOMAIN: ${DOMAIN:?set DOMAIN in .env}
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  db:
+  caddy_data:
+  caddy_config:

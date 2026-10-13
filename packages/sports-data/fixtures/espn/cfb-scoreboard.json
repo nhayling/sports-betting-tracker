@@ -1,0 +1,1055 @@
+{
+ "season": {
+  "type": 2,
+  "year": 2026
+ },
+ "week": {
+  "number": 4
+ },
+ "events": [
+  {
+   "id": "401858461",
+   "uid": "s:20~l:23~e:401858461",
+   "date": "2026-09-26T00:00Z",
+   "name": "Northwestern Wildcats at Indiana Hoosiers",
+   "shortName": "NU @ IU",
+   "competitions": [
+    {
+     "id": "401858461",
+     "date": "2026-09-26T00:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 4,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "84",
+       "homeAway": "home",
+       "score": "29",
+       "team": {
+        "id": "84",
+        "uid": "s:20~l:23~t:84",
+        "abbreviation": "IU",
+        "location": "Indiana",
+        "name": "Hoosiers",
+        "displayName": "Indiana Hoosiers",
+        "shortDisplayName": "Indiana"
+       }
+      },
+      {
+       "id": "77",
+       "homeAway": "away",
+       "score": "23",
+       "team": {
+        "id": "77",
+        "uid": "s:20~l:23~t:77",
+        "abbreviation": "NU",
+        "location": "Northwestern",
+        "name": "Wildcats",
+        "displayName": "Northwestern Wildcats",
+        "shortDisplayName": "Northwestern"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401856704",
+   "uid": "s:20~l:23~e:401856704",
+   "date": "2026-09-26T16:00Z",
+   "name": "Texas Longhorns at Tennessee Volunteers",
+   "shortName": "TEX @ TENN",
+   "competitions": [
+    {
+     "id": "401856704",
+     "date": "2026-09-26T16:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 4,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "2633",
+       "homeAway": "home",
+       "score": "17",
+       "team": {
+        "id": "2633",
+        "uid": "s:20~l:23~t:2633",
+        "abbreviation": "TENN",
+        "location": "Tennessee",
+        "name": "Volunteers",
+        "displayName": "Tennessee Volunteers",
+        "shortDisplayName": "Tennessee"
+       }
+      },
+      {
+       "id": "251",
+       "homeAway": "away",
+       "score": "20",
+       "team": {
+        "id": "251",
+        "uid": "s:20~l:23~t:251",
+        "abbreviation": "TEX",
+        "location": "Texas",
+        "name": "Longhorns",
+        "displayName": "Texas Longhorns",
+        "shortDisplayName": "Texas"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401856700",
+   "uid": "s:20~l:23~e:401856700",
+   "date": "2026-09-26T19:30Z",
+   "name": "Oklahoma Sooners at Georgia Bulldogs",
+   "shortName": "OU @ UGA",
+   "competitions": [
+    {
+     "id": "401856700",
+     "date": "2026-09-26T19:30Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 4,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "61",
+       "homeAway": "home",
+       "score": "41",
+       "team": {
+        "id": "61",
+        "uid": "s:20~l:23~t:61",
+        "abbreviation": "UGA",
+        "location": "Georgia",
+        "name": "Bulldogs",
+        "displayName": "Georgia Bulldogs",
+        "shortDisplayName": "Georgia"
+       }
+      },
+      {
+       "id": "201",
+       "homeAway": "away",
+       "score": "13",
+       "team": {
+        "id": "201",
+        "uid": "s:20~l:23~t:201",
+        "abbreviation": "OU",
+        "location": "Oklahoma",
+        "name": "Sooners",
+        "displayName": "Oklahoma Sooners",
+        "shortDisplayName": "Oklahoma"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401858467",
+   "uid": "s:20~l:23~e:401858467",
+   "date": "2026-09-26T18:00Z",
+   "name": "Notre Dame Fighting Irish at Purdue Boilermakers",
+   "shortName": "ND @ PUR",
+   "competitions": [
+    {
+     "id": "401858467",
+     "date": "2026-09-26T18:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 4,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "2509",
+       "homeAway": "home",
+       "score": "10",
+       "team": {
+        "id": "2509",
+        "uid": "s:20~l:23~t:2509",
+        "abbreviation": "PUR",
+        "location": "Purdue",
+        "name": "Boilermakers",
+        "displayName": "Purdue Boilermakers",
+        "shortDisplayName": "Purdue"
+       }
+      },
+      {
+       "id": "87",
+       "homeAway": "away",
+       "score": "49",
+       "team": {
+        "id": "87",
+        "uid": "s:20~l:23~t:87",
+        "abbreviation": "ND",
+        "location": "Notre Dame",
+        "name": "Fighting Irish",
+        "displayName": "Notre Dame Fighting Irish",
+        "shortDisplayName": "Notre Dame"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401856699",
+   "uid": "s:20~l:23~e:401856699",
+   "date": "2026-09-26T19:30Z",
+   "name": "Ole Miss Rebels at Florida Gators",
+   "shortName": "MISS @ FLA",
+   "competitions": [
+    {
+     "id": "401856699",
+     "date": "2026-09-26T19:30Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 4,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "57",
+       "homeAway": "home",
+       "score": "52",
+       "team": {
+        "id": "57",
+        "uid": "s:20~l:23~t:57",
+        "abbreviation": "FLA",
+        "location": "Florida",
+        "name": "Gators",
+        "displayName": "Florida Gators",
+        "shortDisplayName": "Florida"
+       }
+      },
+      {
+       "id": "145",
+       "homeAway": "away",
+       "score": "28",
+       "team": {
+        "id": "145",
+        "uid": "s:20~l:23~t:145",
+        "abbreviation": "MISS",
+        "location": "Ole Miss",
+        "name": "Rebels",
+        "displayName": "Ole Miss Rebels",
+        "shortDisplayName": "Ole Miss"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401858238",
+   "uid": "s:20~l:23~e:401858238",
+   "date": "2026-09-26T22:30Z",
+   "name": "Central Michigan Chippewas at Miami Hurricanes",
+   "shortName": "CMU @ MIA",
+   "competitions": [
+    {
+     "id": "401858238",
+     "date": "2026-09-26T22:30Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 4,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "2390",
+       "homeAway": "home",
+       "score": "52",
+       "team": {
+        "id": "2390",
+        "uid": "s:20~l:23~t:2390",
+        "abbreviation": "MIA",
+        "location": "Miami",
+        "name": "Hurricanes",
+        "displayName": "Miami Hurricanes",
+        "shortDisplayName": "Miami"
+       }
+      },
+      {
+       "id": "2117",
+       "homeAway": "away",
+       "score": "3",
+       "team": {
+        "id": "2117",
+        "uid": "s:20~l:23~t:2117",
+        "abbreviation": "CMU",
+        "location": "Central Michigan",
+        "name": "Chippewas",
+        "displayName": "Central Michigan Chippewas",
+        "shortDisplayName": "C Michigan"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401858465",
+   "uid": "s:20~l:23~e:401858465",
+   "date": "2026-09-26T16:00Z",
+   "name": "Illinois Fighting Illini at Ohio State Buckeyes",
+   "shortName": "ILL @ OSU",
+   "competitions": [
+    {
+     "id": "401858465",
+     "date": "2026-09-26T16:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 4,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "194",
+       "homeAway": "home",
+       "score": "42",
+       "team": {
+        "id": "194",
+        "uid": "s:20~l:23~t:194",
+        "abbreviation": "OSU",
+        "location": "Ohio State",
+        "name": "Buckeyes",
+        "displayName": "Ohio State Buckeyes",
+        "shortDisplayName": "Ohio State"
+       }
+      },
+      {
+       "id": "356",
+       "homeAway": "away",
+       "score": "19",
+       "team": {
+        "id": "356",
+        "uid": "s:20~l:23~t:356",
+        "abbreviation": "ILL",
+        "location": "Illinois",
+        "name": "Fighting Illini",
+        "displayName": "Illinois Fighting Illini",
+        "shortDisplayName": "Illinois"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401856696",
+   "uid": "s:20~l:23~e:401856696",
+   "date": "2026-09-26T23:10Z",
+   "name": "South Carolina Gamecocks at Alabama Crimson Tide",
+   "shortName": "SC @ ALA",
+   "competitions": [
+    {
+     "id": "401856696",
+     "date": "2026-09-26T23:10Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 4,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "333",
+       "homeAway": "home",
+       "score": "49",
+       "team": {
+        "id": "333",
+        "uid": "s:20~l:23~t:333",
+        "abbreviation": "ALA",
+        "location": "Alabama",
+        "name": "Crimson Tide",
+        "displayName": "Alabama Crimson Tide",
+        "shortDisplayName": "Alabama"
+       }
+      },
+      {
+       "id": "2579",
+       "homeAway": "away",
+       "score": "18",
+       "team": {
+        "id": "2579",
+        "uid": "s:20~l:23~t:2579",
+        "abbreviation": "SC",
+        "location": "South Carolina",
+        "name": "Gamecocks",
+        "displayName": "South Carolina Gamecocks",
+        "shortDisplayName": "South Carolina"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401856702",
+   "uid": "s:20~l:23~e:401856702",
+   "date": "2026-09-26T23:30Z",
+   "name": "Texas A&M Aggies at LSU Tigers",
+   "shortName": "TA&M @ LSU",
+   "competitions": [
+    {
+     "id": "401856702",
+     "date": "2026-09-26T23:30Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 4,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "99",
+       "homeAway": "home",
+       "score": "35",
+       "team": {
+        "id": "99",
+        "uid": "s:20~l:23~t:99",
+        "abbreviation": "LSU",
+        "location": "LSU",
+        "name": "Tigers",
+        "displayName": "LSU Tigers",
+        "shortDisplayName": "LSU"
+       }
+      },
+      {
+       "id": "245",
+       "homeAway": "away",
+       "score": "6",
+       "team": {
+        "id": "245",
+        "uid": "s:20~l:23~t:245",
+        "abbreviation": "TA&M",
+        "location": "Texas A&M",
+        "name": "Aggies",
+        "displayName": "Texas A&M Aggies",
+        "shortDisplayName": "Texas A&M"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401856805",
+   "uid": "s:20~l:23~e:401856805",
+   "date": "2026-09-26T16:00Z",
+   "name": "Sam Houston Bearkats at Texas Tech Red Raiders",
+   "shortName": "SHSU @ TTU",
+   "competitions": [
+    {
+     "id": "401856805",
+     "date": "2026-09-26T16:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 4,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "2641",
+       "homeAway": "home",
+       "score": "49",
+       "team": {
+        "id": "2641",
+        "uid": "s:20~l:23~t:2641",
+        "abbreviation": "TTU",
+        "location": "Texas Tech",
+        "name": "Red Raiders",
+        "displayName": "Texas Tech Red Raiders",
+        "shortDisplayName": "Texas Tech"
+       }
+      },
+      {
+       "id": "2534",
+       "homeAway": "away",
+       "score": "14",
+       "team": {
+        "id": "2534",
+        "uid": "s:20~l:23~t:2534",
+        "abbreviation": "SHSU",
+        "location": "Sam Houston",
+        "name": "Bearkats",
+        "displayName": "Sam Houston Bearkats",
+        "shortDisplayName": "Sam Houston"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401858469",
+   "uid": "s:20~l:23~e:401858469",
+   "date": "2026-09-26T23:30Z",
+   "name": "Oregon Ducks at USC Trojans",
+   "shortName": "ORE @ USC",
+   "competitions": [
+    {
+     "id": "401858469",
+     "date": "2026-09-26T23:30Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 4,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "30",
+       "homeAway": "home",
+       "score": "27",
+       "team": {
+        "id": "30",
+        "uid": "s:20~l:23~t:30",
+        "abbreviation": "USC",
+        "location": "USC",
+        "name": "Trojans",
+        "displayName": "USC Trojans",
+        "shortDisplayName": "USC"
+       }
+      },
+      {
+       "id": "2483",
+       "homeAway": "away",
+       "score": "41",
+       "team": {
+        "id": "2483",
+        "uid": "s:20~l:23~t:2483",
+        "abbreviation": "ORE",
+        "location": "Oregon",
+        "name": "Ducks",
+        "displayName": "Oregon Ducks",
+        "shortDisplayName": "Oregon"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401858466",
+   "uid": "s:20~l:23~e:401858466",
+   "date": "2026-09-26T21:00Z",
+   "name": "Wisconsin Badgers at Penn State Nittany Lions",
+   "shortName": "WIS @ PSU",
+   "competitions": [
+    {
+     "id": "401858466",
+     "date": "2026-09-26T21:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 4,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "213",
+       "homeAway": "home",
+       "score": "20",
+       "team": {
+        "id": "213",
+        "uid": "s:20~l:23~t:213",
+        "abbreviation": "PSU",
+        "location": "Penn State",
+        "name": "Nittany Lions",
+        "displayName": "Penn State Nittany Lions",
+        "shortDisplayName": "Penn State"
+       }
+      },
+      {
+       "id": "275",
+       "homeAway": "away",
+       "score": "24",
+       "team": {
+        "id": "275",
+        "uid": "s:20~l:23~t:275",
+        "abbreviation": "WIS",
+        "location": "Wisconsin",
+        "name": "Badgers",
+        "displayName": "Wisconsin Badgers",
+        "shortDisplayName": "Wisconsin"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401856816",
+   "uid": "s:20~l:23~e:401856816",
+   "date": "2026-09-26T19:30Z",
+   "name": "Utah Utes at Iowa State Cyclones",
+   "shortName": "UTAH @ ISU",
+   "competitions": [
+    {
+     "id": "401856816",
+     "date": "2026-09-26T19:30Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 4,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "66",
+       "homeAway": "home",
+       "score": "17",
+       "team": {
+        "id": "66",
+        "uid": "s:20~l:23~t:66",
+        "abbreviation": "ISU",
+        "location": "Iowa State",
+        "name": "Cyclones",
+        "displayName": "Iowa State Cyclones",
+        "shortDisplayName": "Iowa State"
+       }
+      },
+      {
+       "id": "254",
+       "homeAway": "away",
+       "score": "31",
+       "team": {
+        "id": "254",
+        "uid": "s:20~l:23~t:254",
+        "abbreviation": "UTAH",
+        "location": "Utah",
+        "name": "Utes",
+        "displayName": "Utah Utes",
+        "shortDisplayName": "Utah"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401858243",
+   "uid": "s:20~l:23~e:401858243",
+   "date": "2026-09-26T16:00Z",
+   "name": "Wake Forest Demon Deacons at Louisville Cardinals",
+   "shortName": "WAKE @ LOU",
+   "competitions": [
+    {
+     "id": "401858243",
+     "date": "2026-09-26T16:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 4,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "97",
+       "homeAway": "home",
+       "score": "27",
+       "team": {
+        "id": "97",
+        "uid": "s:20~l:23~t:97",
+        "abbreviation": "LOU",
+        "location": "Louisville",
+        "name": "Cardinals",
+        "displayName": "Louisville Cardinals",
+        "shortDisplayName": "Louisville"
+       }
+      },
+      {
+       "id": "154",
+       "homeAway": "away",
+       "score": "30",
+       "team": {
+        "id": "154",
+        "uid": "s:20~l:23~t:154",
+        "abbreviation": "WAKE",
+        "location": "Wake Forest",
+        "name": "Demon Deacons",
+        "displayName": "Wake Forest Demon Deacons",
+        "shortDisplayName": "Wake Forest"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401858463",
+   "uid": "s:20~l:23~e:401858463",
+   "date": "2026-09-26T19:30Z",
+   "name": "Iowa Hawkeyes at Michigan Wolverines",
+   "shortName": "IOWA @ MICH",
+   "competitions": [
+    {
+     "id": "401858463",
+     "date": "2026-09-26T19:30Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 4,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "130",
+       "homeAway": "home",
+       "score": "19",
+       "team": {
+        "id": "130",
+        "uid": "s:20~l:23~t:130",
+        "abbreviation": "MICH",
+        "location": "Michigan",
+        "name": "Wolverines",
+        "displayName": "Michigan Wolverines",
+        "shortDisplayName": "Michigan"
+       }
+      },
+      {
+       "id": "2294",
+       "homeAway": "away",
+       "score": "20",
+       "team": {
+        "id": "2294",
+        "uid": "s:20~l:23~t:2294",
+        "abbreviation": "IOWA",
+        "location": "Iowa",
+        "name": "Hawkeyes",
+        "displayName": "Iowa Hawkeyes",
+        "shortDisplayName": "Iowa"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401856703",
+   "uid": "s:20~l:23~e:401856703",
+   "date": "2026-09-26T23:45Z",
+   "name": "Missouri Tigers at Mississippi State Bulldogs",
+   "shortName": "MIZ @ MSST",
+   "competitions": [
+    {
+     "id": "401856703",
+     "date": "2026-09-26T23:45Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 4,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "344",
+       "homeAway": "home",
+       "score": "31",
+       "team": {
+        "id": "344",
+        "uid": "s:20~l:23~t:344",
+        "abbreviation": "MSST",
+        "location": "Mississippi State",
+        "name": "Bulldogs",
+        "displayName": "Mississippi State Bulldogs",
+        "shortDisplayName": "Mississippi St"
+       }
+      },
+      {
+       "id": "142",
+       "homeAway": "away",
+       "score": "24",
+       "team": {
+        "id": "142",
+        "uid": "s:20~l:23~t:142",
+        "abbreviation": "MIZ",
+        "location": "Missouri",
+        "name": "Tigers",
+        "displayName": "Missouri Tigers",
+        "shortDisplayName": "Missouri"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401858241",
+   "uid": "s:20~l:23~e:401858241",
+   "date": "2026-09-27T01:00Z",
+   "name": "Missouri State Bears at SMU Mustangs",
+   "shortName": "MOST @ SMU",
+   "competitions": [
+    {
+     "id": "401858241",
+     "date": "2026-09-27T01:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 4,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "2567",
+       "homeAway": "home",
+       "score": "34",
+       "team": {
+        "id": "2567",
+        "uid": "s:20~l:23~t:2567",
+        "abbreviation": "SMU",
+        "location": "SMU",
+        "name": "Mustangs",
+        "displayName": "SMU Mustangs",
+        "shortDisplayName": "SMU"
+       }
+      },
+      {
+       "id": "2623",
+       "homeAway": "away",
+       "score": "24",
+       "team": {
+        "id": "2623",
+        "uid": "s:20~l:23~t:2623",
+        "abbreviation": "MOST",
+        "location": "Missouri State",
+        "name": "Bears",
+        "displayName": "Missouri State Bears",
+        "shortDisplayName": "Missouri St"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401856806",
+   "uid": "s:20~l:23~e:401856806",
+   "date": "2026-09-26T20:00Z",
+   "name": "Houston Cougars at Georgia Southern Eagles",
+   "shortName": "HOU @ GASO",
+   "competitions": [
+    {
+     "id": "401856806",
+     "date": "2026-09-26T20:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 4,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "290",
+       "homeAway": "home",
+       "score": "28",
+       "team": {
+        "id": "290",
+        "uid": "s:20~l:23~t:290",
+        "abbreviation": "GASO",
+        "location": "Georgia Southern",
+        "name": "Eagles",
+        "displayName": "Georgia Southern Eagles",
+        "shortDisplayName": "GA Southern"
+       }
+      },
+      {
+       "id": "248",
+       "homeAway": "away",
+       "score": "42",
+       "team": {
+        "id": "248",
+        "uid": "s:20~l:23~t:248",
+        "abbreviation": "HOU",
+        "location": "Houston",
+        "name": "Cougars",
+        "displayName": "Houston Cougars",
+        "shortDisplayName": "Houston"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1439 @@
+{
+ "team": {
+  "id": "15",
+  "abbreviation": "MIA",
+  "location": "Miami",
+  "name": "Dolphins",
+  "displayName": "Miami Dolphins"
+ },
+ "athletes": [
+  {
+   "position": "offense",
+   "items": [
+    {
+     "id": "4429160",
+     "uid": "s:20~l:28~a:4429160",
+     "firstName": "De'Von",
+     "lastName": "Achane",
+     "fullName": "De'Von Achane",
+     "displayName": "De'Von Achane",
+     "shortName": "D. Achane",
+     "jersey": "28",
+     "position": {
+      "abbreviation": "RB",
+      "name": "Running Back"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4869961",
+     "uid": "s:20~l:28~a:4869961",
+     "firstName": "Chris",
+     "lastName": "Bell",
+     "fullName": "Chris Bell",
+     "displayName": "Chris Bell",
+     "shortName": "C. Bell",
+     "jersey": "18",
+     "position": {
+      "abbreviation": "WR",
+      "name": "Wide Receiver"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4040537",
+     "uid": "s:20~l:28~a:4040537",
+     "firstName": "Aaron",
+     "lastName": "Brewer",
+     "fullName": "Aaron Brewer",
+     "displayName": "Aaron Brewer",
+     "shortName": "A. Brewer",
+     "jersey": "55",
+     "position": {
+      "abbreviation": "C",
+      "name": "Center"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "5081977",
+     "uid": "s:20~l:28~a:5081977",
+     "firstName": "DJ",
+     "lastName": "Campbell",
+     "fullName": "DJ Campbell",
+     "displayName": "DJ Campbell",
+     "shortName": "D. Campbell",
+     "jersey": "63",
+     "position": {
+      "abbreviation": "G",
+      "name": "Guard"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4685307",
+     "uid": "s:20~l:28~a:4685307",
+     "firstName": "Kevin",
+     "lastName": "Coleman Jr.",
+     "fullName": "Kevin Coleman Jr.",
+     "displayName": "Kevin Coleman Jr.",
+     "shortName": "K. Coleman Jr.",
+     "jersey": "83",
+     "position": {
+      "abbreviation": "WR",
+      "name": "Wide Receiver"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4429435",
+     "uid": "s:20~l:28~a:4429435",
+     "firstName": "Brady",
+     "lastName": "Cook",
+     "fullName": "Brady Cook",
+     "displayName": "Brady Cook",
+     "shortName": "B. Cook",
+     "jersey": "15",
+     "position": {
+      "abbreviation": "QB",
+      "name": "Quarterback"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4869645",
+     "uid": "s:20~l:28~a:4869645",
+     "firstName": "Caleb",
+     "lastName": "Douglas",
+     "fullName": "Caleb Douglas",
+     "displayName": "Caleb Douglas",
+     "shortName": "C. Douglas",
+     "jersey": "7",
+     "position": {
+      "abbreviation": "WR",
+      "name": "Wide Receiver"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4367209",
+     "uid": "s:20~l:28~a:4367209",
+     "firstName": "Greg",
+     "lastName": "Dulcich",
+     "fullName": "Greg Dulcich",
+     "displayName": "Greg Dulcich",
+     "shortName": "G. Dulcich",
+     "jersey": "85",
+     "position": {
+      "abbreviation": "TE",
+      "name": "Tight End"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "5144457",
+     "uid": "s:20~l:28~a:5144457",
+     "firstName": "Chukwuebuka",
+     "lastName": "Godrick",
+     "fullName": "Chukwuebuka Godrick",
+     "displayName": "Chukwuebuka Godrick",
+     "shortName": "C. Godrick",
+     "jersey": "79",
+     "position": {
+      "abbreviation": "OT",
+      "name": "Offensive Tackle"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4711533",
+     "uid": "s:20~l:28~a:4711533",
+     "firstName": "Ollie",
+     "lastName": "Gordon II",
+     "fullName": "Ollie Gordon II",
+     "displayName": "Ollie Gordon II",
+     "shortName": "O. Gordon II",
+     "jersey": "0",
+     "position": {
+      "abbreviation": "RB",
+      "name": "Running Back"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4685116",
+     "uid": "s:20~l:28~a:4685116",
+     "firstName": "DJ",
+     "lastName": "Herman",
+     "fullName": "DJ Herman",
+     "displayName": "DJ Herman",
+     "shortName": "D. Herman",
+     "jersey": "34",
+     "position": {
+      "abbreviation": "FB",
+      "name": "Fullback"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4271632",
+     "uid": "s:20~l:28~a:4271632",
+     "firstName": "Austin",
+     "lastName": "Jackson",
+     "fullName": "Austin Jackson",
+     "displayName": "Austin Jackson",
+     "shortName": "A. Jackson",
+     "jersey": "73",
+     "position": {
+      "abbreviation": "OT",
+      "name": "Offensive Tackle"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4912052",
+     "uid": "s:20~l:28~a:4912052",
+     "firstName": "Justin",
+     "lastName": "Joly",
+     "fullName": "Justin Joly",
+     "displayName": "Justin Joly",
+     "shortName": "J. Joly",
+     "jersey": "80",
+     "position": {
+      "abbreviation": "TE",
+      "name": "Tight End"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4880236",
+     "uid": "s:20~l:28~a:4880236",
+     "firstName": "Will",
+     "lastName": "Kacmarek",
+     "fullName": "Will Kacmarek",
+     "displayName": "Will Kacmarek",
+     "shortName": "W. Kacmarek",
+     "jersey": "89",
+     "position": {
+      "abbreviation": "TE",
+      "name": "Tight End"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4373474",
+     "uid": "s:20~l:28~a:4373474",
+     "firstName": "Jarrett",
+     "lastName": "Kingston",
+     "fullName": "Jarrett Kingston",
+     "displayName": "Jarrett Kingston",
+     "shortName": "J. Kingston",
+     "jersey": "62",
+     "position": {
+      "abbreviation": "OT",
+      "name": "Offensive Tackle"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4433971",
+     "uid": "s:20~l:28~a:4433971",
+     "firstName": "Kyle",
+     "lastName": "McCord",
+     "fullName": "Kyle McCord",
+     "displayName": "Kyle McCord",
+     "shortName": "K. McCord",
+     "jersey": "14",
+     "position": {
+      "abbreviation": "QB",
+      "name": "Quarterback"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4362064",
+     "uid": "s:20~l:28~a:4362064",
+     "firstName": "Andrew",
+     "lastName": "Meyer",
+     "fullName": "Andrew Meyer",
+     "displayName": "Andrew Meyer",
+     "shortName": "A. Meyer",
+     "jersey": "60",
+     "position": {
+      "abbreviation": "C",
+      "name": "Center"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4369466",
+     "uid": "s:20~l:28~a:4369466",
+     "firstName": "Ryan",
+     "lastName": "Miller",
+     "fullName": "Ryan Miller",
+     "displayName": "Ryan Miller",
+     "shortName": "R. Miller",
+     "jersey": "84",
+     "position": {
+      "abbreviation": "WR",
+      "name": "Wide Receiver"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4567493",
+     "uid": "s:20~l:28~a:4567493",
+     "firstName": "Patrick",
+     "lastName": "Paul",
+     "fullName": "Patrick Paul",
+     "displayName": "Patrick Paul",
+     "shortName": "P. Paul",
+     "jersey": "52",
+     "position": {
+      "abbreviation": "OT",
+      "name": "Offensive Tackle"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4870976",
+     "uid": "s:20~l:28~a:4870976",
+     "firstName": "Kadyn",
+     "lastName": "Proctor",
+     "fullName": "Kadyn Proctor",
+     "displayName": "Kadyn Proctor",
+     "shortName": "K. Proctor",
+     "jersey": "74",
+     "position": {
+      "abbreviation": "OT",
+      "name": "Offensive Tackle"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4819257",
+     "uid": "s:20~l:28~a:4819257",
+     "firstName": "Jonah",
+     "lastName": "Savaiinaea",
+     "fullName": "Jonah Savaiinaea",
+     "displayName": "Jonah Savaiinaea",
+     "shortName": "J. Savaiinaea",
+     "jersey": "71",
+     "position": {
+      "abbreviation": "G",
+      "name": "Guard"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4249417",
+     "uid": "s:20~l:28~a:4249417",
+     "firstName": "Jalen",
+     "lastName": "Tolbert",
+     "fullName": "Jalen Tolbert",
+     "displayName": "Jalen Tolbert",
+     "shortName": "J. Tolbert",
+     "jersey": "1",
+     "position": {
+      "abbreviation": "WR",
+      "name": "Wide Receiver"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4714379",
+     "uid": "s:20~l:28~a:4714379",
+     "firstName": "Seydou",
+     "lastName": "Traore",
+     "fullName": "Seydou Traore",
+     "displayName": "Seydou Traore",
+     "shortName": "S. Traore",
+     "jersey": "83",
+     "position": {
+      "abbreviation": "TE",
+      "name": "Tight End"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4426446",
+     "uid": "s:20~l:28~a:4426446",
+     "firstName": "Caedan",
+     "lastName": "Wallace",
+     "fullName": "Caedan Wallace",
+     "displayName": "Caedan Wallace",
+     "shortName": "C. Wallace",
+     "jersey": "77",
+     "position": {
+      "abbreviation": "OT",
+      "name": "Offensive Tackle"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4569603",
+     "uid": "s:20~l:28~a:4569603",
+     "firstName": "Malik",
+     "lastName": "Washington",
+     "fullName": "Malik Washington",
+     "displayName": "Malik Washington",
+     "shortName": "M. Washington",
+     "jersey": "6",
+     "position": {
+      "abbreviation": "WR",
+      "name": "Wide Receiver"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4242512",
+     "uid": "s:20~l:28~a:4242512",
+     "firstName": "Malik",
+     "lastName": "Willis",
+     "fullName": "Malik Willis",
+     "displayName": "Malik Willis",
+     "shortName": "M. Willis",
+     "jersey": "2",
+     "position": {
+      "abbreviation": "QB",
+      "name": "Quarterback"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4682745",
+     "uid": "s:20~l:28~a:4682745",
+     "firstName": "Jaylen",
+     "lastName": "Wright",
+     "fullName": "Jaylen Wright",
+     "displayName": "Jaylen Wright",
+     "shortName": "J. Wright",
+     "jersey": "5",
+     "position": {
+      "abbreviation": "RB",
+      "name": "Running Back"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    }
+   ]
+  },
+  {
+   "position": "defense",
+   "items": [
+    {
+     "id": "4368056",
+     "uid": "s:20~l:28~a:4368056",
+     "firstName": "Liam",
+     "lastName": "Anderson",
+     "fullName": "Liam Anderson",
+     "displayName": "Liam Anderson",
+     "shortName": "L. Anderson",
+     "jersey": "50",
+     "position": {
+      "abbreviation": "LB",
+      "name": "Linebacker"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "3932335",
+     "uid": "s:20~l:28~a:3932335",
+     "firstName": "Zayne",
+     "lastName": "Anderson",
+     "fullName": "Zayne Anderson",
+     "displayName": "Zayne Anderson",
+     "shortName": "Z. Anderson",
+     "jersey": "23",
+     "position": {
+      "abbreviation": "S",
+      "name": "Safety"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4259558",
+     "uid": "s:20~l:28~a:4259558",
+     "firstName": "Robert",
+     "lastName": "Beal Jr.",
+     "fullName": "Robert Beal Jr.",
+     "displayName": "Robert Beal Jr.",
+     "shortName": "R. Beal Jr.",
+     "jersey": "51",
+     "position": {
+      "abbreviation": "DE",
+      "name": "Defensive End"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4683276",
+     "uid": "s:20~l:28~a:4683276",
+     "firstName": "Zeek",
+     "lastName": "Biggers",
+     "fullName": "Zeek Biggers",
+     "displayName": "Zeek Biggers",
+     "shortName": "Z. Biggers",
+     "jersey": "93",
+     "position": {
+      "abbreviation": "DT",
+      "name": "Defensive Tackle"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4360488",
+     "uid": "s:20~l:28~a:4360488",
+     "firstName": "JuJu",
+     "lastName": "Brents",
+     "fullName": "JuJu Brents",
+     "displayName": "JuJu Brents",
+     "shortName": "J. Brents",
+     "jersey": "8",
+     "position": {
+      "abbreviation": "CB",
+      "name": "Cornerback"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4043130",
+     "uid": "s:20~l:28~a:4043130",
+     "firstName": "Jordyn",
+     "lastName": "Brooks",
+     "fullName": "Jordyn Brooks",
+     "displayName": "Jordyn Brooks",
+     "shortName": "J. Brooks",
+     "jersey": "20",
+     "position": {
+      "abbreviation": "LB",
+      "name": "Linebacker"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4712462",
+     "uid": "s:20~l:28~a:4712462",
+     "firstName": "Keith",
+     "lastName": "Cooper Jr.",
+     "fullName": "Keith Cooper Jr.",
+     "displayName": "Keith Cooper Jr.",
+     "shortName": "K. Cooper Jr.",
+     "jersey": "97",
+     "position": {
+      "abbreviation": "DT",
+      "name": "Defensive Tackle"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4875079",
+     "uid": "s:20~l:28~a:4875079",
+     "firstName": "Marcellas",
+     "lastName": "Dial Jr.",
+     "fullName": "Marcellas Dial Jr.",
+     "displayName": "Marcellas Dial Jr.",
+     "shortName": "M. Dial Jr.",
+     "jersey": "24",
+     "position": {
+      "abbreviation": "CB",
+      "name": "Cornerback"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "3728258",
+     "uid": "s:20~l:28~a:3728258",
+     "firstName": "Clelin",
+     "lastName": "Ferrell",
+     "fullName": "Clelin Ferrell",
+     "displayName": "Clelin Ferrell",
+     "shortName": "C. Ferrell",
+     "jersey": "98",
+     "position": {
+      "abbreviation": "DE",
+      "name": "Defensive End"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4259804",
+     "uid": "s:20~l:28~a:4259804",
+     "firstName": "Willie",
+     "lastName": "Gay Jr.",
+     "fullName": "Willie Gay Jr.",
+     "displayName": "Willie Gay Jr.",
+     "shortName": "W. Gay Jr.",
+     "jersey": "40",
+     "position": {
+      "abbreviation": "LB",
+      "name": "Linebacker"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4259547",
+     "uid": "s:20~l:28~a:4259547",
+     "firstName": "Malik",
+     "lastName": "Herring",
+     "fullName": "Malik Herring",
+     "displayName": "Malik Herring",
+     "shortName": "M. Herring",
+     "jersey": "90",
+     "position": {
+      "abbreviation": "DE",
+      "name": "Defensive End"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4869579",
+     "uid": "s:20~l:28~a:4869579",
+     "firstName": "Chris",
+     "lastName": "Johnson",
+     "fullName": "Chris Johnson",
+     "displayName": "Chris Johnson",
+     "shortName": "C. Johnson",
+     "jersey": "3",
+     "position": {
+      "abbreviation": "CB",
+      "name": "Cornerback"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4249214",
+     "uid": "s:20~l:28~a:4249214",
+     "firstName": "Andre",
+     "lastName": "Jones Jr.",
+     "fullName": "Andre Jones Jr.",
+     "displayName": "Andre Jones Jr.",
+     "shortName": "A. Jones Jr.",
+     "jersey": "58",
+     "position": {
+      "abbreviation": "LB",
+      "name": "Linebacker"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4683101",
+     "uid": "s:20~l:28~a:4683101",
+     "firstName": "Max",
+     "lastName": "Llewellyn",
+     "fullName": "Max Llewellyn",
+     "displayName": "Max Llewellyn",
+     "shortName": "M. Llewellyn",
+     "jersey": "57",
+     "position": {
+      "abbreviation": "DE",
+      "name": "Defensive End"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4432730",
+     "uid": "s:20~l:28~a:4432730",
+     "firstName": "Jason",
+     "lastName": "Marshall Jr.",
+     "fullName": "Jason Marshall Jr.",
+     "displayName": "Jason Marshall Jr.",
+     "shortName": "J. Marshall Jr.",
+     "jersey": "33",
+     "position": {
+      "abbreviation": "CB",
+      "name": "Cornerback"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4837188",
+     "uid": "s:20~l:28~a:4837188",
+     "firstName": "Jordan",
+     "lastName": "Phillips",
+     "fullName": "Jordan Phillips",
+     "displayName": "Jordan Phillips",
+     "shortName": "J. Phillips",
+     "jersey": "94",
+     "position": {
+      "abbreviation": "DT",
+      "name": "Defensive Tackle"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4431586",
+     "uid": "s:20~l:28~a:4431586",
+     "firstName": "Chop",
+     "lastName": "Robinson",
+     "fullName": "Chop Robinson",
+     "displayName": "Chop Robinson",
+     "shortName": "C. Robinson",
+     "jersey": "44",
+     "position": {
+      "abbreviation": "LB",
+      "name": "Linebacker"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4566094",
+     "uid": "s:20~l:28~a:4566094",
+     "firstName": "Jacob",
+     "lastName": "Rodriguez",
+     "fullName": "Jacob Rodriguez",
+     "displayName": "Jacob Rodriguez",
+     "shortName": "J. Rodriguez",
+     "jersey": "10",
+     "position": {
+      "abbreviation": "LB",
+      "name": "Linebacker"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "3057956",
+     "uid": "s:20~l:28~a:3057956",
+     "firstName": "Zach",
+     "lastName": "Sieler",
+     "fullName": "Zach Sieler",
+     "displayName": "Zach Sieler",
+     "shortName": "Z. Sieler",
+     "jersey": "92",
+     "position": {
+      "abbreviation": "DT",
+      "name": "Defensive Tackle"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4567225",
+     "uid": "s:20~l:28~a:4567225",
+     "firstName": "Jaylin",
+     "lastName": "Simpson",
+     "fullName": "Jaylin Simpson",
+     "displayName": "Jaylin Simpson",
+     "shortName": "J. Simpson",
+     "jersey": "32",
+     "position": {
+      "abbreviation": "S",
+      "name": "Safety"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4880346",
+     "uid": "s:20~l:28~a:4880346",
+     "firstName": "Michael",
+     "lastName": "Taaffe",
+     "fullName": "Michael Taaffe",
+     "displayName": "Michael Taaffe",
+     "shortName": "M. Taaffe",
+     "jersey": "16",
+     "position": {
+      "abbreviation": "S",
+      "name": "Safety"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4371946",
+     "uid": "s:20~l:28~a:4371946",
+     "firstName": "Reese",
+     "lastName": "Taylor",
+     "fullName": "Reese Taylor",
+     "displayName": "Reese Taylor",
+     "shortName": "R. Taylor",
+     "jersey": "35",
+     "position": {
+      "abbreviation": "CB",
+      "name": "Cornerback"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4431664",
+     "uid": "s:20~l:28~a:4431664",
+     "firstName": "Dante",
+     "lastName": "Trader Jr.",
+     "fullName": "Dante Trader Jr.",
+     "displayName": "Dante Trader Jr.",
+     "shortName": "D. Trader Jr.",
+     "jersey": "11",
+     "position": {
+      "abbreviation": "S",
+      "name": "Safety"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4046528",
+     "uid": "s:20~l:28~a:4046528",
+     "firstName": "Josh",
+     "lastName": "Uche",
+     "fullName": "Josh Uche",
+     "displayName": "Josh Uche",
+     "shortName": "J. Uche",
+     "jersey": "9",
+     "position": {
+      "abbreviation": "LB",
+      "name": "Linebacker"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4872841",
+     "uid": "s:20~l:28~a:4872841",
+     "firstName": "Julius",
+     "lastName": "Wood",
+     "fullName": "Julius Wood",
+     "displayName": "Julius Wood",
+     "shortName": "J. Wood",
+     "jersey": "25",
+     "position": {
+      "abbreviation": "S",
+      "name": "Safety"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4685637",
+     "uid": "s:20~l:28~a:4685637",
+     "firstName": "Jackson",
+     "lastName": "Woodard",
+     "fullName": "Jackson Woodard",
+     "displayName": "Jackson Woodard",
+     "shortName": "J. Woodard",
+     "jersey": "42",
+     "position": {
+      "abbreviation": "LB",
+      "name": "Linebacker"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    }
+   ]
+  },
+  {
+   "position": "specialTeam",
+   "items": [
+    {
+     "id": "4034729",
+     "uid": "s:20~l:28~a:4034729",
+     "firstName": "Tucker",
+     "lastName": "Addington",
+     "fullName": "Tucker Addington",
+     "displayName": "Tucker Addington",
+     "shortName": "T. Addington",
+     "jersey": "46",
+     "position": {
+      "abbreviation": "LS",
+      "name": "Long Snapper"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4243371",
+     "uid": "s:20~l:28~a:4243371",
+     "firstName": "Riley",
+     "lastName": "Patterson",
+     "fullName": "Riley Patterson",
+     "displayName": "Riley Patterson",
+     "shortName": "R. Patterson",
+     "jersey": "47",
+     "position": {
+      "abbreviation": "PK",
+      "name": "Place kicker"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "2977680",
+     "uid": "s:20~l:28~a:2977680",
+     "firstName": "Bradley",
+     "lastName": "Pinion",
+     "fullName": "Bradley Pinion",
+     "displayName": "Bradley Pinion",
+     "shortName": "B. Pinion",
+     "jersey": "48",
+     "position": {
+      "abbreviation": "P",
+      "name": "Punter"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    }
+   ]
+  },
+  {
+   "position": "injuredReserveOrOut",
+   "items": [
+    {
+     "id": "4036660",
+     "uid": "s:20~l:28~a:4036660",
+     "firstName": "Darrell",
+     "lastName": "Baker Jr.",
+     "fullName": "Darrell Baker Jr.",
+     "displayName": "Darrell Baker Jr.",
+     "shortName": "D. Baker Jr.",
+     "jersey": "22",
+     "position": {
+      "abbreviation": "CB",
+      "name": "Cornerback"
+     },
+     "status": {
+      "type": "day-to-day",
+      "name": "Day-To-Day"
+     }
+    },
+    {
+     "id": "4427103",
+     "uid": "s:20~l:28~a:4427103",
+     "firstName": "Storm",
+     "lastName": "Duck",
+     "fullName": "Storm Duck",
+     "displayName": "Storm Duck",
+     "shortName": "S. Duck",
+     "jersey": "29",
+     "position": {
+      "abbreviation": "CB",
+      "name": "Cornerback"
+     },
+     "status": {
+      "type": "day-to-day",
+      "name": "Day-To-Day"
+     }
+    },
+    {
+     "id": "4429576",
+     "uid": "s:20~l:28~a:4429576",
+     "firstName": "James",
+     "lastName": "Ester",
+     "fullName": "James Ester",
+     "displayName": "James Ester",
+     "shortName": "J. Ester",
+     "jersey": "65",
+     "position": {
+      "abbreviation": "G",
+      "name": "Guard"
+     },
+     "status": {
+      "type": "day-to-day",
+      "name": "Day-To-Day"
+     }
+    },
+    {
+     "id": "4894654",
+     "uid": "s:20~l:28~a:4894654",
+     "firstName": "Kenneth",
+     "lastName": "Grant",
+     "fullName": "Kenneth Grant",
+     "displayName": "Kenneth Grant",
+     "shortName": "K. Grant",
+     "jersey": "78",
+     "position": {
+      "abbreviation": "DT",
+      "name": "Defensive Tackle"
+     },
+     "status": {
+      "type": "day-to-day",
+      "name": "Day-To-Day"
+     }
+    },
+    {
+     "id": "3859006",
+     "uid": "s:20~l:28~a:3859006",
+     "firstName": "Ronnie",
+     "lastName": "Harrison Jr.",
+     "fullName": "Ronnie Harrison Jr.",
+     "displayName": "Ronnie Harrison Jr.",
+     "shortName": "R. Harrison Jr.",
+     "jersey": "56",
+     "position": {
+      "abbreviation": "LB",
+      "name": "Linebacker"
+     },
+     "status": {
+      "type": "day-to-day",
+      "name": "Day-To-Day"
+     }
+    },
+    {
+     "id": "4698109",
+     "uid": "s:20~l:28~a:4698109",
+     "firstName": "Rene",
+     "lastName": "Konga",
+     "fullName": "Rene Konga",
+     "displayName": "Rene Konga",
+     "shortName": "R. Konga",
+     "jersey": "95",
+     "position": {
+      "abbreviation": "DT",
+      "name": "Defensive Tackle"
+     },
+     "status": {
+      "type": "day-to-day",
+      "name": "Day-To-Day"
+     }
+    },
+    {
+     "id": "4880273",
+     "uid": "s:20~l:28~a:4880273",
+     "firstName": "Kyle",
+     "lastName": "Louis",
+     "fullName": "Kyle Louis",
+     "displayName": "Kyle Louis",
+     "shortName": "K. Louis",
+     "jersey": "19",
+     "position": {
+      "abbreviation": "LB",
+      "name": "Linebacker"
+     },
+     "status": {
+      "type": "day-to-day",
+      "name": "Day-To-Day"
+     }
+    },
+    {
+     "id": "4879212",
+     "uid": "s:20~l:28~a:4879212",
+     "firstName": "Trey",
+     "lastName": "Moore",
+     "fullName": "Trey Moore",
+     "displayName": "Trey Moore",
+     "shortName": "T. Moore",
+     "jersey": "17",
+     "position": {
+      "abbreviation": "LB",
+      "name": "Linebacker"
+     },
+     "status": {
+      "type": "day-to-day",
+      "name": "Day-To-Day"
+     }
+    },
+    {
+     "id": "4361438",
+     "uid": "s:20~l:28~a:4361438",
+     "firstName": "Cole",
+     "lastName": "Turner",
+     "fullName": "Cole Turner",
+     "displayName": "Cole Turner",
+     "shortName": "C. Turner",
+     "jersey": "87",
+     "position": {
+      "abbreviation": "TE",
+      "name": "Tight End"
+     },
+     "status": {
+      "type": "day-to-day",
+      "name": "Day-To-Day"
+     }
+    }
+   ]
+  },
+  {
+   "position": "suspended",
+   "items": []
+  },
+  {
+   "position": "practiceSquad",
+   "items": [
+    {
+     "id": "5145719",
+     "uid": "s:20~l:28~a:5145719",
+     "firstName": "Gottlieb",
+     "lastName": "Ayedze",
+     "fullName": "Gottlieb Ayedze",
+     "displayName": "Gottlieb Ayedze",
+     "shortName": "G. Ayedze",
+     "jersey": "72",
+     "position": {
+      "abbreviation": "OT",
+      "name": "Offensive Tackle"
+     },
+     "status": {
+      "type": "practice-squad",
+      "name": "Practice Squad"
+     }
+    },
+    {
+     "id": "4360746",
+     "uid": "s:20~l:28~a:4360746",
+     "firstName": "Ethan",
+     "lastName": "Bonner",
+     "fullName": "Ethan Bonner",
+     "displayName": "Ethan Bonner",
+     "shortName": "E. Bonner",
+     "jersey": "27",
+     "position": {
+      "abbreviation": "CB",
+      "name": "Cornerback"
+     },
+     "status": {
+      "type": "practice-squad",
+      "name": "Practice Squad"
+     }
+    },
+    {
+     "id": "4429036",
+     "uid": "s:20~l:28~a:4429036",
+     "firstName": "Major",
+     "lastName": "Burns",
+     "fullName": "Major Burns",
+     "displayName": "Major Burns",
+     "shortName": "M. Burns",
+     "jersey": "43",
+     "position": {
+      "abbreviation": "S",
+      "name": "Safety"
+     },
+     "status": {
+      "type": "practice-squad",
+      "name": "Practice Squad"
+     }
+    },
+    {
+     "id": "4360469",
+     "uid": "s:20~l:28~a:4360469",
+     "firstName": "Amari",
+     "lastName": "Gainer",
+     "fullName": "Amari Gainer",
+     "displayName": "Amari Gainer",
+     "shortName": "A. Gainer",
+     "position": {
+      "abbreviation": "LB",
+      "name": "Linebacker"
+     },
+     "status": {
+      "type": "practice-squad",
+      "name": "Practice Squad"
+     }
+    },
+    {
+     "id": "4429053",
+     "uid": "s:20~l:28~a:4429053",
+     "firstName": "AJ",
+     "lastName": "Henning",
+     "fullName": "AJ Henning",
+     "displayName": "AJ Henning",
+     "shortName": "A. Henning",
+     "jersey": "88",
+     "position": {
+      "abbreviation": "WR",
+      "name": "Wide Receiver"
+     },
+     "status": {
+      "type": "practice-squad",
+      "name": "Practice Squad"
+     }
+    },
+    {
+     "id": "4710341",
+     "uid": "s:20~l:28~a:4710341",
+     "firstName": "Jarquez",
+     "lastName": "Hunter",
+     "fullName": "Jarquez Hunter",
+     "displayName": "Jarquez Hunter",
+     "shortName": "J. Hunter",
+     "jersey": "31",
+     "position": {
+      "abbreviation": "RB",
+      "name": "Running Back"
+     },
+     "status": {
+      "type": "practice-squad",
+      "name": "Practice Squad"
+     }
+    },
+    {
+     "id": "4433974",
+     "uid": "s:20~l:28~a:4433974",
+     "firstName": "Rodney",
+     "lastName": "McGraw",
+     "fullName": "Rodney McGraw",
+     "displayName": "Rodney McGraw",
+     "shortName": "R. McGraw",
+     "jersey": "59",
+     "position": {
+      "abbreviation": "DE",
+      "name": "Defensive End"
+     },
+     "status": {
+      "type": "practice-squad",
+      "name": "Practice Squad"
+     }
+    },
+    {
+     "id": "4362524",
+     "uid": "s:20~l:28~a:4362524",
+     "firstName": "Jordan",
+     "lastName": "Miller",
+     "fullName": "Jordan Miller",
+     "displayName": "Jordan Miller",
+     "shortName": "J. Miller",
+     "position": {
+      "abbreviation": "DT",
+      "name": "Defensive Tackle"
+     },
+     "status": {
+      "type": "practice-squad",
+      "name": "Practice Squad"
+     }
+    },
+    {
+     "id": "4241802",
+     "uid": "s:20~l:28~a:4241802",
+     "firstName": "Jalen",
+     "lastName": "Reagor",
+     "fullName": "Jalen Reagor",
+     "displayName": "Jalen Reagor",
+     "shortName": "J. Reagor",
+     "jersey": "17",
+     "position": {
+      "abbreviation": "WR",
+      "name": "Wide Receiver"
+     },
+     "status": {
+      "type": "practice-squad",
+      "name": "Practice Squad"
+     }
+    },
+    {
+     "id": "4608679",
+     "uid": "s:20~l:28~a:4608679",
+     "firstName": "Will",
+     "lastName": "Sheppard",
+     "fullName": "Will Sheppard",
+     "displayName": "Will Sheppard",
+     "shortName": "W. Sheppard",
+     "position": {
+      "abbreviation": "WR",
+      "name": "Wide Receiver"
+     },
+     "status": {
+      "type": "practice-squad",
+      "name": "Practice Squad"
+     }
+    },
+    {
+     "id": "4426347",
+     "uid": "s:20~l:28~a:4426347",
+     "firstName": "Mazi",
+     "lastName": "Smith",
+     "fullName": "Mazi Smith",
+     "displayName": "Mazi Smith",
+     "shortName": "M. Smith",
+     "position": {
+      "abbreviation": "DT",
+      "name": "Defensive Tackle"
+     },
+     "status": {
+      "type": "practice-squad",
+      "name": "Practice Squad"
+     }
+    },
+    {
+     "id": "4248425",
+     "uid": "s:20~l:28~a:4248425",
+     "firstName": "Carlos",
+     "lastName": "Washington Jr.",
+     "fullName": "Carlos Washington Jr.",
+     "displayName": "Carlos Washington Jr.",
+     "shortName": "C. Washington Jr.",
+     "jersey": "37",
+     "position": {
+      "abbreviation": "RB",
+      "name": "Running Back"
+     },
+     "status": {
+      "type": "practice-squad",
+      "name": "Practice Squad"
+     }
+    },
+    {
+     "id": "4685784",
+     "uid": "s:20~l:28~a:4685784",
+     "firstName": "Tre",
+     "lastName": "Watson",
+     "fullName": "Tre Watson",
+     "displayName": "Tre Watson",
+     "shortName": "T. Watson",
+     "position": {
+      "abbreviation": "TE",
+      "name": "Tight End"
+     },
+     "status": {
+      "type": "practice-squad",
+      "name": "Practice Squad"
+     }
+    }
+   ]
+  }
+ ]
+}

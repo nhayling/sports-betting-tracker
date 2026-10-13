@@ -1,0 +1,103 @@
+import type { GameSituation } from '@sports-better/sports-data';
+
+/**
+ * Response shape of GET /api/bets, shared with the web app (type-only).
+ * Money in cents; odds as raw Kambi ×1000 integers; times ISO UTC.
+ * Formatting (American odds, Nassau time) is the client's job.
+ */
+
+export interface BetsView {
+  generatedAt: string;
+  /** Newest time Island Luck data was seen (the page loaded history), even if nothing changed. */
+  lastSyncedAt: string | null;
+  /**
+   * Set on someone else's bets when they don't share amounts with you. Every
+   * money figure is then what the bet pays at this stake (the sportsbook's
+   * minimum bet), not what they staked or stand to win.
+   */
+  minBetMinor?: number;
+  coupons: CouponView[];
+}
+
+export interface CouponView {
+  id: string;
+  externalCouponRef: string;
+  placedAt: string | null;
+  /** Official Island Luck/Kambi status. */
+  status: string;
+  rewardType: string | null;
+  currency: string;
+  kind: string | null;
+  oddsRaw: number | null;
+  stakeMinor: number | null;
+  potentialPayoutMinor: number | null;
+  /** True when Kambi zeroed it (lost/cashed out) and it was recomputed from stake × odds. */
+  potentialPayoutDerived: boolean;
+  payoutMinor: number | null;
+  pickCount: number;
+  /**
+   * Picks in this bet that have hit: settled WON by Island Luck, at target by
+   * live stats, or a moneyline whose team won at the final whistle.
+   * Out of pickCount.
+   */
+  picksHit: number;
+  lastSyncedAt: string;
+  /**
+   * Still OPEN at Island Luck, but every game looks finished: a nudge to
+   * open My Bets and sync. Never changes the official status.
+   */
+  probablySettled: 'ALL_GAMES_FINAL' | 'ALL_GAMES_LONG_OVER' | null;
+  games: GameView[];
+}
+
+export interface GameView {
+  eventId: string | null;
+  name: string | null;
+  league: string | null;
+  startAt: string | null;
+  homeName: string | null;
+  awayName: string | null;
+  state: GameStateView | null;
+  picks: PickView[];
+}
+
+export interface GameStateView {
+  state: string;
+  period: number | null;
+  clock: string | null;
+  detail: string | null;
+  homeScore: number | null;
+  awayScore: number | null;
+  home: { id: string; abbreviation: string | null };
+  away: { id: string; abbreviation: string | null };
+  situation: GameSituation | null;
+  updatedAt: string;
+}
+
+export interface PickView {
+  id: string;
+  participantName: string | null;
+  marketName: string | null;
+  selectionLabel: string | null;
+  selectionSide: string | null;
+  line: number | null;
+  /** Official Kambi status for this pick. */
+  status: string;
+  /** Picks in the same same-game bet builder share a group. */
+  betBuilderGroup: number | null;
+  type: 'STAT' | 'MONEYLINE' | 'OTHER';
+  display: 'PROGRESS' | 'BINARY' | null;
+  /** Moneyline: which side of the game the pick is on. */
+  moneylineSide: 'home' | 'away' | null;
+  progress: ProgressView | null;
+}
+
+export interface ProgressView {
+  status: string;
+  metric: string | null;
+  operator: string | null;
+  target: number | null;
+  current: number | null;
+  unavailableReason: string | null;
+  updatedAt: string;
+}

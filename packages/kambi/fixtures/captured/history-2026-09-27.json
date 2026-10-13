@@ -1,0 +1,5854 @@
+{
+  "range": {
+    "more": false,
+    "size": 15,
+    "start": 0
+  },
+  "coupons": [
+    {
+      "betOffers": [
+        {
+          "betOfferId": 2690278618,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2690264154,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2690249577,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2690278665,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2690275834,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2690272837,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2690275811,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2690272819,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2690272732,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2690272713,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2690278547,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2690246509,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2690232079,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2690272633,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        }
+      ],
+      "bets": [
+        {
+          "betOdds": 0,
+          "betRef": 16312946594,
+          "betStatus": "LOST",
+          "couponRowIndexes": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13
+          ],
+          "payout": 0,
+          "playedOdds": 336335,
+          "potentialPayout": 0,
+          "stake": 5000,
+          "tags": []
+        }
+      ],
+      "channel": "WEB",
+      "couponExternalRef": "7ad9ff18-a2a7-48e1-871c-282ccaa208cd",
+      "couponRef": 13141564565,
+      "couponRows": [
+        {
+          "bestOddsGuaranteed": false,
+          "index": 0,
+          "outcomeId": 4330578824,
+          "payoutOdds": 2200,
+          "playedOdds": 2200,
+          "selectionType": "SIMPLE",
+          "status": "WON",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 1,
+          "outcomeId": 4330618107,
+          "payoutOdds": 0,
+          "playedOdds": 1230,
+          "selectionType": "SIMPLE",
+          "status": "LOST",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 2,
+          "outcomeId": 4330594010,
+          "payoutOdds": 1540,
+          "playedOdds": 1540,
+          "selectionType": "SIMPLE",
+          "status": "WON",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 3,
+          "outcomeId": 4330617792,
+          "payoutOdds": 0,
+          "playedOdds": 1460,
+          "selectionType": "SIMPLE",
+          "status": "LOST",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 4,
+          "outcomeId": 4330575793,
+          "payoutOdds": 0,
+          "playedOdds": 1230,
+          "selectionType": "SIMPLE",
+          "status": "LOST",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 5,
+          "outcomeId": 4330576137,
+          "payoutOdds": 1290,
+          "playedOdds": 1290,
+          "selectionType": "SIMPLE",
+          "status": "WON",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 6,
+          "outcomeId": 4330575987,
+          "payoutOdds": 0,
+          "playedOdds": 2850,
+          "selectionType": "SIMPLE",
+          "status": "LOST",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 7,
+          "outcomeId": 4330618152,
+          "payoutOdds": 0,
+          "playedOdds": 2250,
+          "selectionType": "SIMPLE",
+          "status": "LOST",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 8,
+          "outcomeId": 4330582442,
+          "payoutOdds": 0,
+          "playedOdds": 1320,
+          "selectionType": "SIMPLE",
+          "status": "LOST",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 9,
+          "outcomeId": 4330618448,
+          "payoutOdds": 1110,
+          "playedOdds": 1110,
+          "selectionType": "SIMPLE",
+          "status": "WON",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 10,
+          "outcomeId": 4330585813,
+          "payoutOdds": 1470,
+          "playedOdds": 1470,
+          "selectionType": "SIMPLE",
+          "status": "WON",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 11,
+          "outcomeId": 4330570966,
+          "payoutOdds": 1470,
+          "playedOdds": 1470,
+          "selectionType": "SIMPLE",
+          "status": "WON",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 12,
+          "outcomeId": 4330571068,
+          "payoutOdds": 1320,
+          "playedOdds": 1320,
+          "selectionType": "SIMPLE",
+          "status": "WON",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 13,
+          "outcomeId": 4330618499,
+          "payoutOdds": 1300,
+          "playedOdds": 1300,
+          "selectionType": "SIMPLE",
+          "status": "WON",
+          "tags": []
+        }
+      ],
+      "currency": "USD",
+      "events": [
+        {
+          "awayName": "WAS Commanders",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811644,
+          "eventName": "WAS Commanders @ DAL Cowboys",
+          "eventStartDate": "2026-09-20T20:25:00Z",
+          "homeName": "DAL Cowboys",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "NO Saints",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811616,
+          "eventName": "NO Saints @ BAL Ravens",
+          "eventStartDate": "2026-09-20T17:00:00Z",
+          "homeName": "BAL Ravens",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "LV Raiders",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811643,
+          "eventName": "LV Raiders @ LA Chargers",
+          "eventStartDate": "2026-09-20T20:05:00Z",
+          "homeName": "LA Chargers",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "PIT Steelers",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811611,
+          "eventName": "PIT Steelers @ NE Patriots",
+          "eventStartDate": "2026-09-20T17:00:00Z",
+          "homeName": "NE Patriots",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "SEA Seahawks",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811645,
+          "eventName": "SEA Seahawks @ ARI Cardinals",
+          "eventStartDate": "2026-09-20T20:25:00Z",
+          "homeName": "ARI Cardinals",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "NY Giants",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811656,
+          "eventName": "NY Giants @ LA Rams",
+          "eventStartDate": "2026-09-22T00:15:00Z",
+          "homeName": "LA Rams",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "PHI Eagles",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811615,
+          "eventName": "PHI Eagles @ TEN Titans",
+          "eventStartDate": "2026-09-20T17:00:00Z",
+          "homeName": "TEN Titans",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "JAX Jaguars",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811642,
+          "eventName": "JAX Jaguars @ DEN Broncos",
+          "eventStartDate": "2026-09-20T20:05:00Z",
+          "homeName": "DEN Broncos",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "CIN Bengals",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811614,
+          "eventName": "CIN Bengals @ HOU Texans",
+          "eventStartDate": "2026-09-20T17:00:00Z",
+          "homeName": "HOU Texans",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "MIN Vikings",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811612,
+          "eventName": "MIN Vikings @ CHI Bears",
+          "eventStartDate": "2026-09-20T17:00:00Z",
+          "homeName": "CHI Bears",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "GB Packers",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811617,
+          "eventName": "GB Packers @ NY Jets",
+          "eventStartDate": "2026-09-20T17:00:00Z",
+          "homeName": "NY Jets",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "MIA Dolphins",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811646,
+          "eventName": "MIA Dolphins @ SF 49ers",
+          "eventStartDate": "2026-09-20T20:25:00Z",
+          "homeName": "SF 49ers",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "CLE Browns",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811613,
+          "eventName": "CLE Browns @ TB Buccaneers",
+          "eventStartDate": "2026-09-20T17:00:00Z",
+          "homeName": "TB Buccaneers",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "IND Colts",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811657,
+          "eventName": "IND Colts @ KC Chiefs",
+          "eventStartDate": "2026-09-21T00:20:00Z",
+          "homeName": "KC Chiefs",
+          "sport": "AMERICAN_FOOTBALL"
+        }
+      ],
+      "outcomes": [
+        {
+          "betOfferId": 2690272713,
+          "earlySettlement": false,
+          "eventId": 1028811613,
+          "label": "TB Buccaneers",
+          "outcomeId": 4330618107,
+          "outcomeTags": [],
+          "participantId": 1000086605,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "2"
+              ],
+              "score": "23-19",
+              "scratched": []
+            }
+          },
+          "status": "LOST"
+        },
+        {
+          "betOfferId": 2690264154,
+          "earlySettlement": false,
+          "eventId": 1028811645,
+          "label": "SEA Seahawks",
+          "outcomeId": 4330585813,
+          "outcomeTags": [],
+          "participantId": 1000000333,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "2"
+              ],
+              "score": "31-7",
+              "scratched": []
+            }
+          },
+          "status": "WON"
+        },
+        {
+          "betOfferId": 2690278665,
+          "earlySettlement": false,
+          "eventId": 1028811615,
+          "label": "PHI Eagles",
+          "outcomeId": 4330576137,
+          "outcomeTags": [],
+          "participantId": 1000065021,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "2"
+              ],
+              "score": "24-20",
+              "scratched": []
+            }
+          },
+          "status": "WON"
+        },
+        {
+          "betOfferId": 2690275811,
+          "earlySettlement": false,
+          "eventId": 1028811644,
+          "label": "DAL Cowboys",
+          "outcomeId": 4330570966,
+          "outcomeTags": [],
+          "participantId": 1000020068,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "1"
+              ],
+              "score": "20-37",
+              "scratched": []
+            }
+          },
+          "status": "WON"
+        },
+        {
+          "betOfferId": 2690249577,
+          "earlySettlement": false,
+          "eventId": 1028811614,
+          "label": "CIN Bengals",
+          "outcomeId": 4330578824,
+          "outcomeTags": [],
+          "participantId": 1000056258,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "2"
+              ],
+              "score": "20-6",
+              "scratched": []
+            }
+          },
+          "status": "WON"
+        },
+        {
+          "betOfferId": 2690278618,
+          "earlySettlement": false,
+          "eventId": 1028811611,
+          "label": "PIT Steelers",
+          "outcomeId": 4330575987,
+          "outcomeTags": [],
+          "participantId": 1000000176,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "1"
+              ],
+              "score": "3-20",
+              "scratched": []
+            }
+          },
+          "status": "LOST"
+        },
+        {
+          "betOfferId": 2690272819,
+          "earlySettlement": false,
+          "eventId": 1028811646,
+          "label": "SF 49ers",
+          "outcomeId": 4330618448,
+          "outcomeTags": [],
+          "participantId": 1000030413,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "1"
+              ],
+              "score": "13-35",
+              "scratched": []
+            }
+          },
+          "status": "WON"
+        },
+        {
+          "betOfferId": 2690232079,
+          "earlySettlement": false,
+          "eventId": 1028811643,
+          "label": "LA Chargers",
+          "outcomeId": 4330582442,
+          "outcomeTags": [],
+          "participantId": 1000037375,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "2"
+              ],
+              "score": "26-14",
+              "scratched": []
+            }
+          },
+          "status": "LOST"
+        },
+        {
+          "betOfferId": 2690275834,
+          "earlySettlement": false,
+          "eventId": 1028811657,
+          "label": "KC Chiefs",
+          "outcomeId": 4330571068,
+          "outcomeTags": [],
+          "participantId": 1000091850,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "1"
+              ],
+              "score": "30-33",
+              "scratched": []
+            }
+          },
+          "status": "WON"
+        },
+        {
+          "betOfferId": 2690272633,
+          "earlySettlement": false,
+          "eventId": 1028811612,
+          "label": "CHI Bears",
+          "outcomeId": 4330617792,
+          "outcomeTags": [],
+          "participantId": 1000000178,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "2"
+              ],
+              "score": "9-3",
+              "scratched": []
+            }
+          },
+          "status": "LOST"
+        },
+        {
+          "betOfferId": 2690278547,
+          "earlySettlement": false,
+          "eventId": 1028811616,
+          "label": "BAL Ravens",
+          "outcomeId": 4330575793,
+          "outcomeTags": [],
+          "participantId": 1000049533,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "2"
+              ],
+              "score": "24-17",
+              "scratched": []
+            }
+          },
+          "status": "LOST"
+        },
+        {
+          "betOfferId": 2690246509,
+          "earlySettlement": false,
+          "eventId": 1028811617,
+          "label": "GB Packers",
+          "outcomeId": 4330594010,
+          "outcomeTags": [],
+          "participantId": 1000055908,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "2"
+              ],
+              "score": "20-17",
+              "scratched": []
+            }
+          },
+          "status": "WON"
+        },
+        {
+          "betOfferId": 2690272837,
+          "earlySettlement": false,
+          "eventId": 1028811656,
+          "label": "LA Rams",
+          "outcomeId": 4330618499,
+          "outcomeTags": [],
+          "participantId": 1000083544,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "1"
+              ],
+              "score": "6-28",
+              "scratched": []
+            }
+          },
+          "status": "WON"
+        },
+        {
+          "betOfferId": 2690272732,
+          "earlySettlement": false,
+          "eventId": 1028811642,
+          "label": "JAX Jaguars",
+          "outcomeId": 4330618152,
+          "outcomeTags": [],
+          "participantId": 1000067383,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "1"
+              ],
+              "score": "13-20",
+              "scratched": []
+            }
+          },
+          "status": "LOST"
+        }
+      ],
+      "placedDate": "2026-09-20T16:34:14.459Z",
+      "systemBets": [],
+      "tags": []
+    },
+    {
+      "betOffers": [
+        {
+          "betOfferId": 2690278618,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2690264154,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2690272732,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2690272713,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2690249577,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2690278665,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2690278547,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2690275834,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2690275811,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2690272819,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2690232079,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2690246411,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        }
+      ],
+      "bets": [
+        {
+          "betOdds": 0,
+          "betRef": 16313629291,
+          "betStatus": "LOST",
+          "couponRowIndexes": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "payout": 0,
+          "playedOdds": 11153254,
+          "potentialPayout": 0,
+          "stake": 5000,
+          "tags": []
+        }
+      ],
+      "channel": "WEB",
+      "couponExternalRef": "74f49884-d86d-4723-8920-6360e9954de2",
+      "couponRef": 13142184976,
+      "couponRows": [
+        {
+          "bestOddsGuaranteed": false,
+          "index": 0,
+          "outcomeId": 4330576136,
+          "payoutOdds": 0,
+          "playedOdds": 7000,
+          "selectionType": "SIMPLE",
+          "status": "LOST",
+          "tags": [
+            "LIVE"
+          ]
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 1,
+          "outcomeId": 4330618108,
+          "payoutOdds": 5400,
+          "playedOdds": 5400,
+          "selectionType": "SIMPLE",
+          "status": "WON",
+          "tags": [
+            "LIVE"
+          ]
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 2,
+          "outcomeId": 4330575986,
+          "payoutOdds": 1080,
+          "playedOdds": 1080,
+          "selectionType": "SIMPLE",
+          "status": "WON",
+          "tags": [
+            "LIVE"
+          ]
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 3,
+          "outcomeId": 4330575793,
+          "payoutOdds": 0,
+          "playedOdds": 1100,
+          "selectionType": "SIMPLE",
+          "status": "LOST",
+          "tags": [
+            "LIVE"
+          ]
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 4,
+          "outcomeId": 4330593715,
+          "payoutOdds": 1070,
+          "playedOdds": 1070,
+          "selectionType": "SIMPLE",
+          "status": "WON",
+          "tags": [
+            "LIVE"
+          ]
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 5,
+          "outcomeId": 4330578824,
+          "payoutOdds": 1960,
+          "playedOdds": 1960,
+          "selectionType": "SIMPLE",
+          "status": "WON",
+          "tags": [
+            "LIVE"
+          ]
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 6,
+          "outcomeId": 4330618152,
+          "payoutOdds": 0,
+          "playedOdds": 2250,
+          "selectionType": "SIMPLE",
+          "status": "LOST",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 7,
+          "outcomeId": 4330582443,
+          "payoutOdds": 3450,
+          "playedOdds": 3450,
+          "selectionType": "SIMPLE",
+          "status": "WON",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 8,
+          "outcomeId": 4330618448,
+          "payoutOdds": 1110,
+          "playedOdds": 1110,
+          "selectionType": "SIMPLE",
+          "status": "WON",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 9,
+          "outcomeId": 4330585812,
+          "payoutOdds": 0,
+          "playedOdds": 2750,
+          "selectionType": "SIMPLE",
+          "status": "LOST",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 10,
+          "outcomeId": 4330570966,
+          "payoutOdds": 1470,
+          "playedOdds": 1470,
+          "selectionType": "SIMPLE",
+          "status": "WON",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 11,
+          "outcomeId": 4330571069,
+          "payoutOdds": 0,
+          "playedOdds": 3400,
+          "selectionType": "SIMPLE",
+          "status": "LOST",
+          "tags": []
+        }
+      ],
+      "currency": "USD",
+      "events": [
+        {
+          "awayName": "PIT Steelers",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811611,
+          "eventName": "PIT Steelers @ NE Patriots",
+          "eventStartDate": "2026-09-20T17:02:00Z",
+          "homeName": "NE Patriots",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "CIN Bengals",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811614,
+          "eventName": "CIN Bengals @ HOU Texans",
+          "eventStartDate": "2026-09-20T17:01:00Z",
+          "homeName": "HOU Texans",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "CAR Panthers",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811618,
+          "eventName": "CAR Panthers @ ATL Falcons",
+          "eventStartDate": "2026-09-20T17:01:00Z",
+          "homeName": "ATL Falcons",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "NO Saints",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811616,
+          "eventName": "NO Saints @ BAL Ravens",
+          "eventStartDate": "2026-09-20T17:02:00Z",
+          "homeName": "BAL Ravens",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "WAS Commanders",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811644,
+          "eventName": "WAS Commanders @ DAL Cowboys",
+          "eventStartDate": "2026-09-20T20:25:00Z",
+          "homeName": "DAL Cowboys",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "CLE Browns",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811613,
+          "eventName": "CLE Browns @ TB Buccaneers",
+          "eventStartDate": "2026-09-20T17:02:00Z",
+          "homeName": "TB Buccaneers",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "LV Raiders",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811643,
+          "eventName": "LV Raiders @ LA Chargers",
+          "eventStartDate": "2026-09-20T20:05:00Z",
+          "homeName": "LA Chargers",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "MIA Dolphins",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811646,
+          "eventName": "MIA Dolphins @ SF 49ers",
+          "eventStartDate": "2026-09-20T20:25:00Z",
+          "homeName": "SF 49ers",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "SEA Seahawks",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811645,
+          "eventName": "SEA Seahawks @ ARI Cardinals",
+          "eventStartDate": "2026-09-20T20:25:00Z",
+          "homeName": "ARI Cardinals",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "PHI Eagles",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811615,
+          "eventName": "PHI Eagles @ TEN Titans",
+          "eventStartDate": "2026-09-20T17:00:00Z",
+          "homeName": "TEN Titans",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "JAX Jaguars",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811642,
+          "eventName": "JAX Jaguars @ DEN Broncos",
+          "eventStartDate": "2026-09-20T20:05:00Z",
+          "homeName": "DEN Broncos",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "IND Colts",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811657,
+          "eventName": "IND Colts @ KC Chiefs",
+          "eventStartDate": "2026-09-21T00:20:00Z",
+          "homeName": "KC Chiefs",
+          "sport": "AMERICAN_FOOTBALL"
+        }
+      ],
+      "outcomes": [
+        {
+          "betOfferId": 2690246411,
+          "earlySettlement": false,
+          "eventId": 1028811618,
+          "label": "CAR Panthers",
+          "outcomeId": 4330593715,
+          "outcomeTags": [],
+          "participantId": 1000000638,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "2"
+              ],
+              "score": "34-3",
+              "scratched": []
+            }
+          },
+          "status": "WON"
+        },
+        {
+          "betOfferId": 2690264154,
+          "earlySettlement": false,
+          "eventId": 1028811645,
+          "label": "ARI Cardinals",
+          "outcomeId": 4330585812,
+          "outcomeTags": [],
+          "participantId": 1000043092,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "2"
+              ],
+              "score": "31-7",
+              "scratched": []
+            }
+          },
+          "status": "LOST"
+        },
+        {
+          "betOfferId": 2690272713,
+          "earlySettlement": false,
+          "eventId": 1028811613,
+          "label": "CLE Browns",
+          "outcomeId": 4330618108,
+          "outcomeTags": [],
+          "participantId": 1000031301,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "2"
+              ],
+              "score": "23-19",
+              "scratched": []
+            }
+          },
+          "status": "WON"
+        },
+        {
+          "betOfferId": 2690275811,
+          "earlySettlement": false,
+          "eventId": 1028811644,
+          "label": "DAL Cowboys",
+          "outcomeId": 4330570966,
+          "outcomeTags": [],
+          "participantId": 1000020068,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "1"
+              ],
+              "score": "20-37",
+              "scratched": []
+            }
+          },
+          "status": "WON"
+        },
+        {
+          "betOfferId": 2690278547,
+          "earlySettlement": false,
+          "eventId": 1028811616,
+          "label": "BAL Ravens",
+          "outcomeId": 4330575793,
+          "outcomeTags": [],
+          "participantId": 1000049533,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "2"
+              ],
+              "score": "24-17",
+              "scratched": []
+            }
+          },
+          "status": "LOST"
+        },
+        {
+          "betOfferId": 2690232079,
+          "earlySettlement": false,
+          "eventId": 1028811643,
+          "label": "LV Raiders",
+          "outcomeId": 4330582443,
+          "outcomeTags": [],
+          "participantId": 1000085238,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "2"
+              ],
+              "score": "26-14",
+              "scratched": []
+            }
+          },
+          "status": "WON"
+        },
+        {
+          "betOfferId": 2690278665,
+          "earlySettlement": false,
+          "eventId": 1028811615,
+          "label": "TEN Titans",
+          "outcomeId": 4330576136,
+          "outcomeTags": [],
+          "participantId": 1000058218,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "2"
+              ],
+              "score": "24-20",
+              "scratched": []
+            }
+          },
+          "status": "LOST"
+        },
+        {
+          "betOfferId": 2690249577,
+          "earlySettlement": false,
+          "eventId": 1028811614,
+          "label": "CIN Bengals",
+          "outcomeId": 4330578824,
+          "outcomeTags": [],
+          "participantId": 1000056258,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "2"
+              ],
+              "score": "20-6",
+              "scratched": []
+            }
+          },
+          "status": "WON"
+        },
+        {
+          "betOfferId": 2690278618,
+          "earlySettlement": false,
+          "eventId": 1028811611,
+          "label": "NE Patriots",
+          "outcomeId": 4330575986,
+          "outcomeTags": [],
+          "participantId": 1000000175,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "1"
+              ],
+              "score": "3-20",
+              "scratched": []
+            }
+          },
+          "status": "WON"
+        },
+        {
+          "betOfferId": 2690272819,
+          "earlySettlement": false,
+          "eventId": 1028811646,
+          "label": "SF 49ers",
+          "outcomeId": 4330618448,
+          "outcomeTags": [],
+          "participantId": 1000030413,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "1"
+              ],
+              "score": "13-35",
+              "scratched": []
+            }
+          },
+          "status": "WON"
+        },
+        {
+          "betOfferId": 2690275834,
+          "earlySettlement": false,
+          "eventId": 1028811657,
+          "label": "IND Colts",
+          "outcomeId": 4330571069,
+          "outcomeTags": [],
+          "participantId": 1000000174,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "1"
+              ],
+              "score": "30-33",
+              "scratched": []
+            }
+          },
+          "status": "LOST"
+        },
+        {
+          "betOfferId": 2690272732,
+          "earlySettlement": false,
+          "eventId": 1028811642,
+          "label": "JAX Jaguars",
+          "outcomeId": 4330618152,
+          "outcomeTags": [],
+          "participantId": 1000067383,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "1"
+              ],
+              "score": "13-20",
+              "scratched": []
+            }
+          },
+          "status": "LOST"
+        }
+      ],
+      "placedDate": "2026-09-20T18:22:13.182Z",
+      "rewardType": "SECOND_CHANCE",
+      "systemBets": [],
+      "tags": []
+    },
+    {
+      "betOffers": [
+        {
+          "betOfferId": 2692618919,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "Touchdown Scorer",
+          "line": 1000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2692598321,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "Touchdown Scorer",
+          "line": 1000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2692598297,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "Touchdown Scorer",
+          "line": 1000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2692583827,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "Touchdown Scorer",
+          "line": 1000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2692618882,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "Touchdown Scorer",
+          "line": 1000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2692610522,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "Touchdown Scorer",
+          "line": 1000,
+          "tags": []
+        }
+      ],
+      "bets": [
+        {
+          "betOdds": 0,
+          "betRef": 16313660922,
+          "betStatus": "LOST",
+          "couponRowIndexes": [
+            0,
+            1
+          ],
+          "payout": 0,
+          "playedOdds": 1015000,
+          "potentialPayout": 0,
+          "stake": 5000,
+          "tags": []
+        }
+      ],
+      "channel": "WEB",
+      "couponExternalRef": "25e22dbe-4148-475d-b5a3-0b7563bff5d5",
+      "couponRef": 13142212843,
+      "couponRows": [
+        {
+          "bestOddsGuaranteed": false,
+          "index": 0,
+          "outcomeGroup": {
+            "groups": [
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4338402887
+                ]
+              },
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4338397664
+                ]
+              },
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4338402980
+                ]
+              }
+            ],
+            "operation": "AND"
+          },
+          "payoutOdds": 0,
+          "playedOdds": 29000,
+          "selectionType": "BET_BUILDER",
+          "status": "LOST",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 1,
+          "outcomeGroup": {
+            "groups": [
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4338339721
+                ]
+              },
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4338339659
+                ]
+              },
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4338331611
+                ]
+              }
+            ],
+            "operation": "AND"
+          },
+          "payoutOdds": 0,
+          "playedOdds": 35000,
+          "selectionType": "BET_BUILDER",
+          "status": "LOST",
+          "tags": []
+        }
+      ],
+      "currency": "USD",
+      "events": [
+        {
+          "awayName": "WAS Commanders",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811644,
+          "eventName": "WAS Commanders @ DAL Cowboys",
+          "eventStartDate": "2026-09-20T20:25:00Z",
+          "homeName": "DAL Cowboys",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "JAX Jaguars",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811642,
+          "eventName": "JAX Jaguars @ DEN Broncos",
+          "eventStartDate": "2026-09-20T20:05:00Z",
+          "homeName": "DEN Broncos",
+          "sport": "AMERICAN_FOOTBALL"
+        }
+      ],
+      "outcomes": [
+        {
+          "betOfferId": 2692618919,
+          "earlySettlement": false,
+          "eventId": 1028811642,
+          "label": "Bhayshul Tuten - Yes",
+          "line": 1000,
+          "outcomeId": 4338402980,
+          "outcomeTags": [],
+          "participantId": 1028408048,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "Yes"
+              ],
+              "score": "",
+              "scratched": []
+            }
+          },
+          "status": "WON"
+        },
+        {
+          "betOfferId": 2692618882,
+          "earlySettlement": false,
+          "eventId": 1028811642,
+          "label": "J.K. Dobbins - Yes",
+          "line": 1000,
+          "outcomeId": 4338402887,
+          "outcomeTags": [],
+          "participantId": 1004742610,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "No"
+              ],
+              "score": "",
+              "scratched": []
+            }
+          },
+          "status": "LOST"
+        },
+        {
+          "betOfferId": 2692598297,
+          "earlySettlement": false,
+          "eventId": 1028811644,
+          "label": "Jayden Daniels - Yes",
+          "line": 1000,
+          "outcomeId": 4338339659,
+          "outcomeTags": [],
+          "participantId": 1006074662,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "No"
+              ],
+              "score": "",
+              "scratched": []
+            }
+          },
+          "status": "LOST"
+        },
+        {
+          "betOfferId": 2692610522,
+          "earlySettlement": false,
+          "eventId": 1028811642,
+          "label": "Trevor Lawrence - Yes",
+          "line": 1000,
+          "outcomeId": 4338397664,
+          "outcomeTags": [],
+          "participantId": 1004749372,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "No"
+              ],
+              "score": "",
+              "scratched": []
+            }
+          },
+          "status": "LOST"
+        },
+        {
+          "betOfferId": 2692583827,
+          "earlySettlement": false,
+          "eventId": 1028811644,
+          "label": "Dak Prescott - Yes",
+          "line": 1000,
+          "outcomeId": 4338331611,
+          "outcomeTags": [],
+          "participantId": 1002208926,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "No"
+              ],
+              "score": "",
+              "scratched": []
+            }
+          },
+          "status": "LOST"
+        },
+        {
+          "betOfferId": 2692598321,
+          "earlySettlement": false,
+          "eventId": 1028811644,
+          "label": "Javonte Williams - Yes",
+          "line": 1000,
+          "outcomeId": 4338339721,
+          "outcomeTags": [],
+          "participantId": 1007094473,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "No"
+              ],
+              "score": "",
+              "scratched": []
+            }
+          },
+          "status": "LOST"
+        }
+      ],
+      "placedDate": "2026-09-20T18:27:12.04Z",
+      "rewardType": "INSURANCE",
+      "systemBets": [],
+      "tags": []
+    },
+    {
+      "betOffers": [
+        {
+          "betOfferId": 2692596434,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "Touchdown Scorer",
+          "line": 1000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2692581848,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "Touchdown Scorer",
+          "line": 1000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2692910682,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "Touchdown Scorer",
+          "line": 1000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2692596431,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "Touchdown Scorer",
+          "line": 1000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2692925041,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "Touchdown Scorer",
+          "line": 1000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2692561950,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "Touchdown Scorer",
+          "line": 1000,
+          "tags": []
+        }
+      ],
+      "bets": [
+        {
+          "betOdds": 0,
+          "betRef": 16313681227,
+          "betStatus": "LOST",
+          "couponRowIndexes": [
+            0,
+            1
+          ],
+          "payout": 0,
+          "playedOdds": 497000,
+          "potentialPayout": 0,
+          "stake": 5000,
+          "tags": []
+        }
+      ],
+      "channel": "WEB",
+      "couponExternalRef": "3e29f97d-9198-4eec-86bb-5f36dac9e91e",
+      "couponRef": 13142231341,
+      "couponRows": [
+        {
+          "bestOddsGuaranteed": false,
+          "index": 0,
+          "outcomeGroup": {
+            "groups": [
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4339380677
+                ]
+              },
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4339383337
+                ]
+              }
+            ],
+            "operation": "AND"
+          },
+          "payoutOdds": 7000,
+          "playedOdds": 7000,
+          "selectionType": "BET_BUILDER",
+          "status": "WON",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 1,
+          "outcomeGroup": {
+            "groups": [
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4338229755
+                ]
+              },
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4338197046
+                ]
+              },
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4338241524
+                ]
+              },
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4338241530
+                ]
+              }
+            ],
+            "operation": "AND"
+          },
+          "payoutOdds": 0,
+          "playedOdds": 71000,
+          "selectionType": "BET_BUILDER",
+          "status": "LOST",
+          "tags": []
+        }
+      ],
+      "currency": "USD",
+      "events": [
+        {
+          "awayName": "MIA Dolphins",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811646,
+          "eventName": "MIA Dolphins @ SF 49ers",
+          "eventStartDate": "2026-09-20T20:25:00Z",
+          "homeName": "SF 49ers",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "IND Colts",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811657,
+          "eventName": "IND Colts @ KC Chiefs",
+          "eventStartDate": "2026-09-21T00:20:00Z",
+          "homeName": "KC Chiefs",
+          "sport": "AMERICAN_FOOTBALL"
+        }
+      ],
+      "outcomes": [
+        {
+          "betOfferId": 2692581848,
+          "earlySettlement": false,
+          "eventId": 1028811657,
+          "label": "Kenneth Walker III - Yes",
+          "line": 1000,
+          "outcomeId": 4338229755,
+          "outcomeTags": [],
+          "participantId": 1007779124,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "No"
+              ],
+              "score": "",
+              "scratched": []
+            }
+          },
+          "status": "LOST"
+        },
+        {
+          "betOfferId": 2692596434,
+          "earlySettlement": false,
+          "eventId": 1028811657,
+          "label": "Daniel Jones - Yes",
+          "line": 1000,
+          "outcomeId": 4338241530,
+          "outcomeTags": [],
+          "participantId": 1005252422,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "No"
+              ],
+              "score": "",
+              "scratched": []
+            }
+          },
+          "status": "LOST"
+        },
+        {
+          "betOfferId": 2692561950,
+          "earlySettlement": false,
+          "eventId": 1028811657,
+          "label": "Patrick Mahomes - Yes",
+          "line": 1000,
+          "outcomeId": 4338197046,
+          "outcomeTags": [],
+          "participantId": 1003379630,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "No"
+              ],
+              "score": "",
+              "scratched": []
+            }
+          },
+          "status": "LOST"
+        },
+        {
+          "betOfferId": 2692596431,
+          "earlySettlement": false,
+          "eventId": 1028811657,
+          "label": "Jonathan Taylor - Yes",
+          "line": 1000,
+          "outcomeId": 4338241524,
+          "outcomeTags": [],
+          "participantId": 1004742607,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "Yes"
+              ],
+              "score": "",
+              "scratched": []
+            }
+          },
+          "status": "WON"
+        },
+        {
+          "betOfferId": 2692910682,
+          "earlySettlement": false,
+          "eventId": 1028811646,
+          "label": "Christian McCaffrey - Yes",
+          "line": 1000,
+          "outcomeId": 4339380677,
+          "outcomeTags": [],
+          "participantId": 1003017986,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "Yes"
+              ],
+              "score": "",
+              "scratched": []
+            }
+          },
+          "status": "WON"
+        },
+        {
+          "betOfferId": 2692925041,
+          "earlySettlement": false,
+          "eventId": 1028811646,
+          "label": "Brock Purdy - Yes",
+          "line": 1000,
+          "outcomeId": 4339383337,
+          "outcomeTags": [],
+          "participantId": 1005740972,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "Yes"
+              ],
+              "score": "",
+              "scratched": []
+            }
+          },
+          "status": "WON"
+        }
+      ],
+      "placedDate": "2026-09-20T18:29:46.957Z",
+      "systemBets": [],
+      "tags": []
+    },
+    {
+      "betOffers": [
+        {
+          "betOfferId": 2692562620,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "2+ Touchdown Passes By The Player - Including Overtime",
+          "line": 2000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2692557210,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "20+ Rushing Yards By The Player - Including Overtime",
+          "line": 20000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2692516839,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "Touchdown Scorer",
+          "line": 1000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2692563309,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "Touchdown Scorer",
+          "line": 1000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2690272837,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2692557208,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "30+ Rushing Yards By The Player - Including Overtime",
+          "line": 30000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2692563313,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "Touchdown Scorer",
+          "line": 1000,
+          "tags": []
+        }
+      ],
+      "bets": [
+        {
+          "betOdds": 0,
+          "betRef": 16317152850,
+          "betStatus": "LOST",
+          "couponRowIndexes": [
+            0
+          ],
+          "payout": 0,
+          "playedOdds": 36000,
+          "potentialPayout": 0,
+          "stake": 5000,
+          "tags": []
+        }
+      ],
+      "channel": "WEB",
+      "couponExternalRef": "af258c93-59c8-4839-8f9c-b6e076a7e4c6",
+      "couponRef": 13145309025,
+      "couponRows": [
+        {
+          "bestOddsGuaranteed": false,
+          "index": 0,
+          "outcomeGroup": {
+            "groups": [
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4330618500
+                ]
+              },
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4338110779
+                ]
+              },
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4338134173
+                ]
+              },
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4338110773
+                ]
+              },
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4338088872
+                ]
+              },
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4338088875
+                ]
+              },
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4338106994
+                ]
+              }
+            ],
+            "operation": "AND"
+          },
+          "payoutOdds": 0,
+          "playedOdds": 36000,
+          "selectionType": "BET_BUILDER",
+          "status": "LOST",
+          "tags": []
+        }
+      ],
+      "currency": "USD",
+      "events": [
+        {
+          "awayName": "NY Giants",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811656,
+          "eventName": "NY Giants @ LA Rams",
+          "eventStartDate": "2026-09-22T00:15:00Z",
+          "homeName": "LA Rams",
+          "sport": "AMERICAN_FOOTBALL"
+        }
+      ],
+      "outcomes": [
+        {
+          "betOfferId": 2692563309,
+          "earlySettlement": false,
+          "eventId": 1028811656,
+          "label": "Cameron Skattebo - Yes",
+          "line": 1000,
+          "outcomeId": 4338110773,
+          "outcomeTags": [],
+          "participantId": 1028402032,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "No"
+              ],
+              "score": "",
+              "scratched": []
+            }
+          },
+          "status": "LOST"
+        },
+        {
+          "betOfferId": 2690272837,
+          "earlySettlement": false,
+          "eventId": 1028811656,
+          "label": "NY Giants",
+          "outcomeId": 4330618500,
+          "outcomeTags": [],
+          "participantId": 1000070038,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "1"
+              ],
+              "score": "6-28",
+              "scratched": []
+            }
+          },
+          "status": "LOST"
+        },
+        {
+          "betOfferId": 2692516839,
+          "earlySettlement": false,
+          "eventId": 1028811656,
+          "label": "Malik Nabers - Yes",
+          "line": 1000,
+          "outcomeId": 4338134173,
+          "outcomeTags": [],
+          "participantId": 1028282816,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "No"
+              ],
+              "score": "",
+              "scratched": []
+            }
+          },
+          "status": "LOST"
+        },
+        {
+          "betOfferId": 2692557210,
+          "earlySettlement": false,
+          "eventId": 1028811656,
+          "label": "Jaxson Dart - Yes",
+          "line": 20000,
+          "outcomeId": 4338088875,
+          "outcomeTags": [],
+          "participantId": 1007907032,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "No"
+              ],
+              "score": "",
+              "scratched": []
+            }
+          },
+          "status": "LOST"
+        },
+        {
+          "betOfferId": 2692563313,
+          "earlySettlement": false,
+          "eventId": 1028811656,
+          "label": "Kyren Williams - Yes",
+          "line": 1000,
+          "outcomeId": 4338110779,
+          "outcomeTags": [],
+          "participantId": 1028244466,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "Yes"
+              ],
+              "score": "",
+              "scratched": []
+            }
+          },
+          "status": "WON"
+        },
+        {
+          "betOfferId": 2692557208,
+          "earlySettlement": false,
+          "eventId": 1028811656,
+          "label": "Cameron Skattebo - Yes",
+          "line": 30000,
+          "outcomeId": 4338088872,
+          "outcomeTags": [],
+          "participantId": 1028402032,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "Yes"
+              ],
+              "score": "",
+              "scratched": []
+            }
+          },
+          "status": "WON"
+        },
+        {
+          "betOfferId": 2692562620,
+          "earlySettlement": false,
+          "eventId": 1028811656,
+          "label": "Jaxson Dart - Yes",
+          "line": 2000,
+          "outcomeId": 4338106994,
+          "outcomeTags": [],
+          "participantId": 1007907032,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "No"
+              ],
+              "score": "",
+              "scratched": []
+            }
+          },
+          "status": "LOST"
+        }
+      ],
+      "placedDate": "2026-09-21T21:20:59.91Z",
+      "rewardType": "FREE_BET",
+      "systemBets": [],
+      "tags": []
+    },
+    {
+      "betOffers": [
+        {
+          "betOfferId": 2692557986,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "Touchdown Scorer",
+          "line": 1000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2692563309,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "Touchdown Scorer",
+          "line": 1000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2692516837,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "Touchdown Scorer",
+          "line": 1000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2692563313,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "Touchdown Scorer",
+          "line": 1000,
+          "tags": []
+        }
+      ],
+      "bets": [
+        {
+          "betOdds": 0,
+          "betRef": 16317435410,
+          "betStatus": "LOST",
+          "couponRowIndexes": [
+            0
+          ],
+          "payout": 0,
+          "playedOdds": 25000,
+          "potentialPayout": 0,
+          "stake": 5000,
+          "tags": []
+        }
+      ],
+      "channel": "MOBILE",
+      "couponExternalRef": "1ae59de8-8cec-4bf2-93a6-875ff23f3519",
+      "couponRef": 13145572450,
+      "couponRows": [
+        {
+          "bestOddsGuaranteed": false,
+          "index": 0,
+          "outcomeGroup": {
+            "groups": [
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4338110779
+                ]
+              },
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4338140481
+                ]
+              },
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4338110773
+                ]
+              },
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4338134169
+                ]
+              }
+            ],
+            "operation": "AND"
+          },
+          "payoutOdds": 0,
+          "playedOdds": 25000,
+          "selectionType": "BET_BUILDER",
+          "status": "LOST",
+          "tags": []
+        }
+      ],
+      "currency": "USD",
+      "events": [
+        {
+          "awayName": "NY Giants",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811656,
+          "eventName": "NY Giants @ LA Rams",
+          "eventStartDate": "2026-09-22T00:15:00Z",
+          "homeName": "LA Rams",
+          "sport": "AMERICAN_FOOTBALL"
+        }
+      ],
+      "outcomes": [
+        {
+          "betOfferId": 2692557986,
+          "earlySettlement": false,
+          "eventId": 1028811656,
+          "label": "Davante Adams - Yes",
+          "line": 1000,
+          "outcomeId": 4338140481,
+          "outcomeTags": [],
+          "participantId": 1002182737,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "Yes"
+              ],
+              "score": "",
+              "scratched": []
+            }
+          },
+          "status": "WON"
+        },
+        {
+          "betOfferId": 2692563309,
+          "earlySettlement": false,
+          "eventId": 1028811656,
+          "label": "Cameron Skattebo - Yes",
+          "line": 1000,
+          "outcomeId": 4338110773,
+          "outcomeTags": [],
+          "participantId": 1028402032,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "No"
+              ],
+              "score": "",
+              "scratched": []
+            }
+          },
+          "status": "LOST"
+        },
+        {
+          "betOfferId": 2692516837,
+          "earlySettlement": false,
+          "eventId": 1028811656,
+          "label": "Isaiah Likely - Yes",
+          "line": 1000,
+          "outcomeId": 4338134169,
+          "outcomeTags": [],
+          "participantId": 1028245174,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "No"
+              ],
+              "score": "",
+              "scratched": []
+            }
+          },
+          "status": "LOST"
+        },
+        {
+          "betOfferId": 2692563313,
+          "earlySettlement": false,
+          "eventId": 1028811656,
+          "label": "Kyren Williams - Yes",
+          "line": 1000,
+          "outcomeId": 4338110779,
+          "outcomeTags": [],
+          "participantId": 1028244466,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "Yes"
+              ],
+              "score": "",
+              "scratched": []
+            }
+          },
+          "status": "WON"
+        }
+      ],
+      "placedDate": "2026-09-21T23:28:04.944Z",
+      "systemBets": [],
+      "tags": []
+    },
+    {
+      "betOffers": [
+        {
+          "betOfferId": 2694685856,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "Touchdown Scorer",
+          "line": 1000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2696255266,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "Total Receiving Yards by the Player - Including Overtime",
+          "line": 38500,
+          "tags": []
+        },
+        {
+          "betOfferId": 2694659144,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "Total Touchdown Passes Thrown by the Player - Including Overtime",
+          "line": 1500,
+          "tags": []
+        },
+        {
+          "betOfferId": 2694688153,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "Total Receptions by the Player - Including Overtime",
+          "line": 5500,
+          "tags": []
+        },
+        {
+          "betOfferId": 2692793501,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2694685860,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "Touchdown Scorer",
+          "line": 1000,
+          "tags": []
+        }
+      ],
+      "bets": [
+        {
+          "betOdds": 0,
+          "betRef": 16326287864,
+          "betStatus": "LOST",
+          "couponRowIndexes": [
+            0
+          ],
+          "payout": 0,
+          "playedOdds": 26000,
+          "potentialPayout": 0,
+          "stake": 5000,
+          "tags": []
+        }
+      ],
+      "channel": "MOBILE",
+      "couponExternalRef": "76998feb-6cab-48dc-9504-f1f4efb94ebc",
+      "couponRef": 13153202741,
+      "couponRows": [
+        {
+          "bestOddsGuaranteed": false,
+          "index": 0,
+          "outcomeGroup": {
+            "groups": [
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4338899406
+                ]
+              },
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4345237074
+                ]
+              },
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4345218857
+                ]
+              },
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4349877553
+                ]
+              },
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4345126309
+                ]
+              },
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4345237066
+                ]
+              }
+            ],
+            "operation": "AND"
+          },
+          "payoutOdds": 0,
+          "playedOdds": 26000,
+          "selectionType": "BET_BUILDER",
+          "status": "LOST",
+          "tags": []
+        }
+      ],
+      "currency": "USD",
+      "events": [
+        {
+          "awayName": "ATL Falcons",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811658,
+          "eventName": "ATL Falcons @ GB Packers",
+          "eventStartDate": "2026-09-25T00:15:00Z",
+          "homeName": "GB Packers",
+          "sport": "AMERICAN_FOOTBALL"
+        }
+      ],
+      "outcomes": [
+        {
+          "betOfferId": 2694685860,
+          "earlySettlement": false,
+          "eventId": 1028811658,
+          "label": "Tucker Kraft - Yes",
+          "line": 1000,
+          "outcomeId": 4345237074,
+          "outcomeTags": [],
+          "participantId": 1028374816,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "No"
+              ],
+              "score": "",
+              "scratched": []
+            }
+          },
+          "status": "LOST"
+        },
+        {
+          "betOfferId": 2694688153,
+          "earlySettlement": false,
+          "eventId": 1028811658,
+          "label": "Drake London - Over 5.5",
+          "line": 5500,
+          "outcomeId": 4345218857,
+          "outcomeTags": [],
+          "participantId": 1007106983,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "Over"
+              ],
+              "score": "",
+              "scratched": []
+            }
+          },
+          "status": "WON"
+        },
+        {
+          "betOfferId": 2694659144,
+          "earlySettlement": false,
+          "eventId": 1028811658,
+          "label": "Jordan Love - Over 1.5",
+          "line": 1500,
+          "outcomeId": 4345126309,
+          "outcomeTags": [],
+          "participantId": 1005977864,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "Over"
+              ],
+              "score": "",
+              "scratched": []
+            }
+          },
+          "status": "WON"
+        },
+        {
+          "betOfferId": 2692793501,
+          "earlySettlement": false,
+          "eventId": 1028811658,
+          "label": "GB Packers",
+          "outcomeId": 4338899406,
+          "outcomeTags": [],
+          "participantId": 1000055908,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "2"
+              ],
+              "score": "35-14",
+              "scratched": []
+            }
+          },
+          "status": "LOST"
+        },
+        {
+          "betOfferId": 2696255266,
+          "earlySettlement": false,
+          "eventId": 1028811658,
+          "label": "Bijan Robinson - Over 38.5",
+          "line": 38500,
+          "outcomeId": 4349877553,
+          "outcomeTags": [],
+          "participantId": 1007094469,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "Under"
+              ],
+              "score": "",
+              "scratched": []
+            }
+          },
+          "status": "LOST"
+        },
+        {
+          "betOfferId": 2694685856,
+          "earlySettlement": false,
+          "eventId": 1028811658,
+          "label": "Bijan Robinson - Yes",
+          "line": 1000,
+          "outcomeId": 4345237066,
+          "outcomeTags": [],
+          "participantId": 1007094469,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "Yes"
+              ],
+              "score": "",
+              "scratched": []
+            }
+          },
+          "status": "WON"
+        }
+      ],
+      "placedDate": "2026-09-24T22:27:01.2Z",
+      "rewardType": "FREE_BET",
+      "systemBets": [],
+      "tags": []
+    },
+    {
+      "betOffers": [
+        {
+          "betOfferId": 2693574521,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        }
+      ],
+      "bets": [
+        {
+          "betOdds": 0,
+          "betRef": 16331845158,
+          "betStatus": "LOST",
+          "couponRowIndexes": [
+            0
+          ],
+          "payout": 0,
+          "playedOdds": 2600,
+          "potentialPayout": 0,
+          "stake": 5000,
+          "tags": []
+        }
+      ],
+      "channel": "MOBILE",
+      "couponExternalRef": "b7db0885-aeb9-4489-b331-9decb1d2f85a",
+      "couponRef": 13157998025,
+      "couponRows": [
+        {
+          "bestOddsGuaranteed": false,
+          "index": 0,
+          "outcomeId": 4341472807,
+          "payoutOdds": 0,
+          "playedOdds": 2600,
+          "selectionType": "SIMPLE",
+          "status": "LOST",
+          "tags": []
+        }
+      ],
+      "currency": "USD",
+      "events": [
+        {
+          "awayName": "(1) Texas",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093655,
+              "name": "NCAAF"
+            }
+          ],
+          "eventId": 1027507950,
+          "eventName": "(1) Texas @ (14) Tennessee",
+          "eventStartDate": "2026-09-26T16:00:00Z",
+          "homeName": "(14) Tennessee",
+          "sport": "AMERICAN_FOOTBALL"
+        }
+      ],
+      "outcomes": [
+        {
+          "betOfferId": 2693574521,
+          "earlySettlement": false,
+          "eventId": 1027507950,
+          "label": "(14) Tennessee",
+          "outcomeId": 4341472807,
+          "outcomeTags": [],
+          "participantId": 1000039871,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "2"
+              ],
+              "score": "20-17",
+              "scratched": []
+            }
+          },
+          "status": "LOST"
+        }
+      ],
+      "placedDate": "2026-09-26T07:41:02.03Z",
+      "systemBets": [],
+      "tags": []
+    },
+    {
+      "betOffers": [
+        {
+          "betOfferId": 2692799841,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2692785664,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2692785729,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2692787943,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2692787867,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2692796860,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2692796901,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2645385916,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2692785755,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2692802753,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2692808376,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2692800221,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2692755808,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2692796969,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        }
+      ],
+      "bets": [
+        {
+          "betOdds": 267205,
+          "betRef": 16331850540,
+          "betStatus": "CASHED_OUT",
+          "couponRowIndexes": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13
+          ],
+          "payout": 4750,
+          "playedOdds": 267205,
+          "potentialPayout": 1336030,
+          "stake": 5000,
+          "tags": []
+        }
+      ],
+      "channel": "MOBILE",
+      "couponExternalRef": "c9b7cf07-d813-4f56-9f06-4503e84a6d6b",
+      "couponRef": 13157998989,
+      "couponRows": [
+        {
+          "bestOddsGuaranteed": false,
+          "index": 0,
+          "outcomeId": 4338943489,
+          "playedOdds": 1670,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 1,
+          "outcomeId": 4338914941,
+          "playedOdds": 1740,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 2,
+          "outcomeId": 4338915149,
+          "playedOdds": 1140,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 3,
+          "outcomeId": 4338906052,
+          "playedOdds": 1270,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 4,
+          "outcomeId": 4338909074,
+          "playedOdds": 1640,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 5,
+          "outcomeId": 4338908944,
+          "playedOdds": 1300,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 6,
+          "outcomeId": 4338909268,
+          "playedOdds": 1270,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 7,
+          "outcomeId": 4338915267,
+          "playedOdds": 1680,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 8,
+          "outcomeId": 4338932431,
+          "playedOdds": 1220,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 9,
+          "outcomeId": 4181337266,
+          "playedOdds": 1580,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 10,
+          "outcomeId": 4338952483,
+          "playedOdds": 1570,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 11,
+          "outcomeId": 4338932641,
+          "playedOdds": 1780,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 12,
+          "outcomeId": 4338944671,
+          "playedOdds": 1440,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 13,
+          "outcomeId": 4338955241,
+          "playedOdds": 1800,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        }
+      ],
+      "currency": "USD",
+      "events": [
+        {
+          "awayName": "ARI Cardinals",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811702,
+          "eventName": "ARI Cardinals @ SF 49ers",
+          "eventStartDate": "2026-09-27T20:05:00Z",
+          "homeName": "SF 49ers",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "KC Chiefs",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811700,
+          "eventName": "KC Chiefs @ MIA Dolphins",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "MIA Dolphins",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "TEN Titans",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811692,
+          "eventName": "TEN Titans @ NY Giants",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "NY Giants",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "LV Raiders",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811695,
+          "eventName": "LV Raiders @ NO Saints",
+          "eventStartDate": "2026-09-27T20:25:00Z",
+          "homeName": "NO Saints",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "PHI Eagles",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811749,
+          "eventName": "PHI Eagles @ CHI Bears",
+          "eventStartDate": "2026-09-29T00:15:00Z",
+          "homeName": "CHI Bears",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "HOU Texans",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811696,
+          "eventName": "HOU Texans @ IND Colts",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "IND Colts",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "MIN Vikings",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811698,
+          "eventName": "MIN Vikings @ TB Buccaneers",
+          "eventStartDate": "2026-09-27T20:05:00Z",
+          "homeName": "TB Buccaneers",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "CAR Panthers",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811694,
+          "eventName": "CAR Panthers @ CLE Browns",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "CLE Browns",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "LA Chargers",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811701,
+          "eventName": "LA Chargers @ BUF Bills",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "BUF Bills",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "BAL Ravens",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1027638969,
+          "eventName": "BAL Ravens vs DAL Cowboys",
+          "eventStartDate": "2026-09-27T20:25:00Z",
+          "homeName": "DAL Cowboys",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "LA Rams",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811750,
+          "eventName": "LA Rams @ DEN Broncos",
+          "eventStartDate": "2026-09-28T00:20:00Z",
+          "homeName": "DEN Broncos",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "NE Patriots",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811697,
+          "eventName": "NE Patriots @ JAX Jaguars",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "JAX Jaguars",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "NY Jets",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811699,
+          "eventName": "NY Jets @ DET Lions",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "DET Lions",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "SEA Seahawks",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811691,
+          "eventName": "SEA Seahawks @ WAS Commanders",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "WAS Commanders",
+          "sport": "AMERICAN_FOOTBALL"
+        }
+      ],
+      "outcomes": [
+        {
+          "betOfferId": 2692787943,
+          "earlySettlement": false,
+          "eventId": 1028811750,
+          "label": "LA Rams",
+          "outcomeId": 4338932641,
+          "outcomeTags": [],
+          "participantId": 1000083544,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2692755808,
+          "earlySettlement": false,
+          "eventId": 1028811694,
+          "label": "CAR Panthers",
+          "outcomeId": 4338943489,
+          "outcomeTags": [],
+          "participantId": 1000000638,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2692802753,
+          "earlySettlement": false,
+          "eventId": 1028811698,
+          "label": "MIN Vikings",
+          "outcomeId": 4338955241,
+          "outcomeTags": [],
+          "participantId": 1000029137,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2692785729,
+          "earlySettlement": false,
+          "eventId": 1028811700,
+          "label": "KC Chiefs",
+          "outcomeId": 4338915149,
+          "outcomeTags": [],
+          "participantId": 1000091850,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2692796901,
+          "earlySettlement": false,
+          "eventId": 1028811697,
+          "label": "JAX Jaguars",
+          "outcomeId": 4338909074,
+          "outcomeTags": [],
+          "participantId": 1000067383,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2692785755,
+          "earlySettlement": false,
+          "eventId": 1028811692,
+          "label": "NY Giants",
+          "outcomeId": 4338915267,
+          "outcomeTags": [],
+          "participantId": 1000070038,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2692799841,
+          "earlySettlement": false,
+          "eventId": 1028811701,
+          "label": "BUF Bills",
+          "outcomeId": 4338906052,
+          "outcomeTags": [],
+          "participantId": 1000017217,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2692808376,
+          "earlySettlement": false,
+          "eventId": 1028811749,
+          "label": "PHI Eagles",
+          "outcomeId": 4338944671,
+          "outcomeTags": [],
+          "participantId": 1000065021,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2692796860,
+          "earlySettlement": false,
+          "eventId": 1028811699,
+          "label": "DET Lions",
+          "outcomeId": 4338908944,
+          "outcomeTags": [],
+          "participantId": 1000047062,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2645385916,
+          "earlySettlement": false,
+          "eventExtraInfo": "Game to be played in Rio de Janeiro, Brazil",
+          "eventId": 1027638969,
+          "label": "BAL Ravens",
+          "outcomeId": 4181337266,
+          "outcomeTags": [
+            "NEUTRAL_VENUE"
+          ],
+          "participantId": 1000049533,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2692785664,
+          "earlySettlement": false,
+          "eventId": 1028811696,
+          "label": "HOU Texans",
+          "outcomeId": 4338914941,
+          "outcomeTags": [],
+          "participantId": 1000080350,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2692796969,
+          "earlySettlement": false,
+          "eventId": 1028811691,
+          "label": "SEA Seahawks",
+          "outcomeId": 4338909268,
+          "outcomeTags": [],
+          "participantId": 1000000333,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2692787867,
+          "earlySettlement": false,
+          "eventId": 1028811702,
+          "label": "SF 49ers",
+          "outcomeId": 4338932431,
+          "outcomeTags": [],
+          "participantId": 1000030413,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2692800221,
+          "earlySettlement": false,
+          "eventId": 1028811695,
+          "label": "NO Saints",
+          "outcomeId": 4338952483,
+          "outcomeTags": [],
+          "participantId": 1000062103,
+          "status": "OPEN"
+        }
+      ],
+      "placedDate": "2026-09-26T07:43:33.041Z",
+      "systemBets": [],
+      "tags": []
+    },
+    {
+      "betOffers": [
+        {
+          "betOfferId": 2692796901,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2692799841,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2692785755,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2692785664,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2692785729,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2692755808,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2692796860,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2692796969,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        }
+      ],
+      "bets": [
+        {
+          "betOdds": 25937,
+          "betRef": 16334931847,
+          "betStatus": "OPEN",
+          "couponRowIndexes": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "payout": 0,
+          "playedOdds": 25937,
+          "potentialPayout": 129690,
+          "stake": 5000,
+          "tags": []
+        }
+      ],
+      "channel": "WEB",
+      "couponExternalRef": "04b4e8f6-ea74-4876-af32-d935c6563891",
+      "couponRef": 13160476139,
+      "couponRows": [
+        {
+          "bestOddsGuaranteed": false,
+          "index": 0,
+          "outcomeId": 4338943489,
+          "playedOdds": 1710,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 1,
+          "outcomeId": 4338914941,
+          "playedOdds": 1770,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 2,
+          "outcomeId": 4338915149,
+          "playedOdds": 1140,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 3,
+          "outcomeId": 4338906052,
+          "playedOdds": 1270,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 4,
+          "outcomeId": 4338909074,
+          "playedOdds": 1640,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 5,
+          "outcomeId": 4338908944,
+          "playedOdds": 1320,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 6,
+          "outcomeId": 4338909268,
+          "playedOdds": 1260,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 7,
+          "outcomeId": 4338915268,
+          "playedOdds": 2170,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        }
+      ],
+      "currency": "USD",
+      "events": [
+        {
+          "awayName": "CAR Panthers",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811694,
+          "eventName": "CAR Panthers @ CLE Browns",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "CLE Browns",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "KC Chiefs",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811700,
+          "eventName": "KC Chiefs @ MIA Dolphins",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "MIA Dolphins",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "LA Chargers",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811701,
+          "eventName": "LA Chargers @ BUF Bills",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "BUF Bills",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "TEN Titans",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811692,
+          "eventName": "TEN Titans @ NY Giants",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "NY Giants",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "NE Patriots",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811697,
+          "eventName": "NE Patriots @ JAX Jaguars",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "JAX Jaguars",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "NY Jets",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811699,
+          "eventName": "NY Jets @ DET Lions",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "DET Lions",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "SEA Seahawks",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811691,
+          "eventName": "SEA Seahawks @ WAS Commanders",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "WAS Commanders",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "HOU Texans",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811696,
+          "eventName": "HOU Texans @ IND Colts",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "IND Colts",
+          "sport": "AMERICAN_FOOTBALL"
+        }
+      ],
+      "outcomes": [
+        {
+          "betOfferId": 2692755808,
+          "earlySettlement": false,
+          "eventId": 1028811694,
+          "label": "CAR Panthers",
+          "outcomeId": 4338943489,
+          "outcomeTags": [],
+          "participantId": 1000000638,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2692796860,
+          "earlySettlement": false,
+          "eventId": 1028811699,
+          "label": "DET Lions",
+          "outcomeId": 4338908944,
+          "outcomeTags": [],
+          "participantId": 1000047062,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2692785755,
+          "earlySettlement": false,
+          "eventId": 1028811692,
+          "label": "TEN Titans",
+          "outcomeId": 4338915268,
+          "outcomeTags": [],
+          "participantId": 1000058218,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2692785664,
+          "earlySettlement": false,
+          "eventId": 1028811696,
+          "label": "HOU Texans",
+          "outcomeId": 4338914941,
+          "outcomeTags": [],
+          "participantId": 1000080350,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2692785729,
+          "earlySettlement": false,
+          "eventId": 1028811700,
+          "label": "KC Chiefs",
+          "outcomeId": 4338915149,
+          "outcomeTags": [],
+          "participantId": 1000091850,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2692796901,
+          "earlySettlement": false,
+          "eventId": 1028811697,
+          "label": "JAX Jaguars",
+          "outcomeId": 4338909074,
+          "outcomeTags": [],
+          "participantId": 1000067383,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2692796969,
+          "earlySettlement": false,
+          "eventId": 1028811691,
+          "label": "SEA Seahawks",
+          "outcomeId": 4338909268,
+          "outcomeTags": [],
+          "participantId": 1000000333,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2692799841,
+          "earlySettlement": false,
+          "eventId": 1028811701,
+          "label": "BUF Bills",
+          "outcomeId": 4338906052,
+          "outcomeTags": [],
+          "participantId": 1000017217,
+          "status": "OPEN"
+        }
+      ],
+      "placedDate": "2026-09-26T19:45:10.895Z",
+      "rewardType": "INSURANCE",
+      "systemBets": [],
+      "tags": []
+    },
+    {
+      "betOffers": [
+        {
+          "betOfferId": 2645385916,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2692802753,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2692800221,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2692787943,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        },
+        {
+          "betOfferId": 2692787867,
+          "boType": "Match",
+          "boTypeId": 2,
+          "criterion": "Moneyline",
+          "tags": []
+        }
+      ],
+      "bets": [
+        {
+          "betOdds": 10881,
+          "betRef": 16334964399,
+          "betStatus": "OPEN",
+          "couponRowIndexes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "payout": 0,
+          "playedOdds": 10881,
+          "potentialPayout": 54410,
+          "stake": 5000,
+          "tags": []
+        }
+      ],
+      "channel": "WEB",
+      "couponExternalRef": "b37377e3-fc7f-4269-afa1-8319f31196c7",
+      "couponRef": 13160501654,
+      "couponRows": [
+        {
+          "bestOddsGuaranteed": false,
+          "index": 0,
+          "outcomeId": 4338932431,
+          "playedOdds": 1220,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 1,
+          "outcomeId": 4338955240,
+          "playedOdds": 2020,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 2,
+          "outcomeId": 4181337266,
+          "playedOdds": 1580,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 3,
+          "outcomeId": 4338952483,
+          "playedOdds": 1570,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 4,
+          "outcomeId": 4338932641,
+          "playedOdds": 1780,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        }
+      ],
+      "currency": "USD",
+      "events": [
+        {
+          "awayName": "ARI Cardinals",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811702,
+          "eventName": "ARI Cardinals @ SF 49ers",
+          "eventStartDate": "2026-09-27T20:05:00Z",
+          "homeName": "SF 49ers",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "MIN Vikings",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811698,
+          "eventName": "MIN Vikings @ TB Buccaneers",
+          "eventStartDate": "2026-09-27T20:05:00Z",
+          "homeName": "TB Buccaneers",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "BAL Ravens",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1027638969,
+          "eventName": "BAL Ravens vs DAL Cowboys",
+          "eventStartDate": "2026-09-27T20:25:00Z",
+          "homeName": "DAL Cowboys",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "LA Rams",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811750,
+          "eventName": "LA Rams @ DEN Broncos",
+          "eventStartDate": "2026-09-28T00:20:00Z",
+          "homeName": "DEN Broncos",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "LV Raiders",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811695,
+          "eventName": "LV Raiders @ NO Saints",
+          "eventStartDate": "2026-09-27T20:25:00Z",
+          "homeName": "NO Saints",
+          "sport": "AMERICAN_FOOTBALL"
+        }
+      ],
+      "outcomes": [
+        {
+          "betOfferId": 2692787943,
+          "earlySettlement": false,
+          "eventId": 1028811750,
+          "label": "LA Rams",
+          "outcomeId": 4338932641,
+          "outcomeTags": [],
+          "participantId": 1000083544,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2645385916,
+          "earlySettlement": false,
+          "eventExtraInfo": "Game to be played in Rio de Janeiro, Brazil",
+          "eventId": 1027638969,
+          "label": "BAL Ravens",
+          "outcomeId": 4181337266,
+          "outcomeTags": [
+            "NEUTRAL_VENUE"
+          ],
+          "participantId": 1000049533,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2692802753,
+          "earlySettlement": false,
+          "eventId": 1028811698,
+          "label": "TB Buccaneers",
+          "outcomeId": 4338955240,
+          "outcomeTags": [],
+          "participantId": 1000086605,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2692787867,
+          "earlySettlement": false,
+          "eventId": 1028811702,
+          "label": "SF 49ers",
+          "outcomeId": 4338932431,
+          "outcomeTags": [],
+          "participantId": 1000030413,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2692800221,
+          "earlySettlement": false,
+          "eventId": 1028811695,
+          "label": "NO Saints",
+          "outcomeId": 4338952483,
+          "outcomeTags": [],
+          "participantId": 1000062103,
+          "status": "OPEN"
+        }
+      ],
+      "placedDate": "2026-09-26T19:51:14.849Z",
+      "rewardType": "INSURANCE",
+      "systemBets": [],
+      "tags": []
+    },
+    {
+      "betOffers": [
+        {
+          "betOfferId": 2695066011,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "Touchdown Scorer",
+          "line": 1000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2696165081,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "Touchdown Scorer",
+          "line": 1000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2695097529,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "Touchdown Scorer",
+          "line": 1000,
+          "tags": []
+        }
+      ],
+      "bets": [
+        {
+          "betOdds": 11660,
+          "betRef": 16338895995,
+          "betStatus": "OPEN",
+          "couponRowIndexes": [
+            0,
+            1,
+            2
+          ],
+          "payout": 0,
+          "playedOdds": 11660,
+          "potentialPayout": 58300,
+          "stake": 5000,
+          "tags": []
+        }
+      ],
+      "channel": "WEB",
+      "couponExternalRef": "c89629f0-3286-4bb4-b1ad-aa635cd68b38",
+      "couponRef": 13163910758,
+      "couponRows": [
+        {
+          "bestOddsGuaranteed": false,
+          "index": 0,
+          "outcomeId": 4349598502,
+          "payoutOdds": 1830,
+          "playedOdds": 1830,
+          "selectionType": "SIMPLE",
+          "status": "WON",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 1,
+          "outcomeId": 4346527265,
+          "playedOdds": 2950,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 2,
+          "outcomeId": 4346488894,
+          "playedOdds": 2160,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        }
+      ],
+      "currency": "USD",
+      "events": [
+        {
+          "awayName": "LA Chargers",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811701,
+          "eventName": "LA Chargers @ BUF Bills",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "BUF Bills",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "BAL Ravens",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1027638969,
+          "eventName": "BAL Ravens vs DAL Cowboys",
+          "eventStartDate": "2026-09-27T20:25:00Z",
+          "homeName": "DAL Cowboys",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "SEA Seahawks",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811691,
+          "eventName": "SEA Seahawks @ WAS Commanders",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "WAS Commanders",
+          "sport": "AMERICAN_FOOTBALL"
+        }
+      ],
+      "outcomes": [
+        {
+          "betOfferId": 2696165081,
+          "earlySettlement": false,
+          "eventId": 1028811691,
+          "label": "Jaxon Smith-Njigba - Yes",
+          "line": 1000,
+          "outcomeId": 4349598502,
+          "outcomeTags": [],
+          "participantId": 1007201706,
+          "settledInfo": {
+            "result": {
+              "correct": [
+                "Yes"
+              ],
+              "score": "",
+              "scratched": []
+            }
+          },
+          "status": "WON"
+        },
+        {
+          "betOfferId": 2695066011,
+          "earlySettlement": false,
+          "eventId": 1028811701,
+          "label": "Dalton Kincaid - Yes",
+          "line": 1000,
+          "outcomeId": 4346527265,
+          "outcomeTags": [],
+          "participantId": 1007907047,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2695097529,
+          "earlySettlement": false,
+          "eventExtraInfo": "Game to be played in Rio de Janeiro, Brazil",
+          "eventId": 1027638969,
+          "label": "CeeDee Lamb - Yes",
+          "line": 1000,
+          "outcomeId": 4346488894,
+          "outcomeTags": [
+            "NEUTRAL_VENUE"
+          ],
+          "participantId": 1005209974,
+          "status": "OPEN"
+        }
+      ],
+      "placedDate": "2026-09-27T16:21:20.047Z",
+      "systemBets": [],
+      "tags": []
+    },
+    {
+      "betOffers": [
+        {
+          "betOfferId": 2695537511,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "70+ Receiving Yards By The Player - Including Overtime",
+          "line": 70000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2695065428,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "3+ Receptions By The Player - Including Overtime",
+          "line": 3000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2696078783,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "40+ Rushing Yards By The Player - Including Overtime",
+          "line": 40000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2695072309,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "80+ Rushing Yards By The Player - Including Overtime",
+          "line": 80000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2695131343,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "50+ Rushing Yards By The Player - Including Overtime",
+          "line": 50000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2696109182,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "50+ Receiving Yards By The Player - Including Overtime",
+          "line": 50000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2696157078,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "70+ Receiving Yards By The Player - Including Overtime",
+          "line": 70000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2695668408,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "50+ Rushing Yards By The Player - Including Overtime",
+          "line": 50000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2695554546,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "30+ Receiving Yards By The Player - Including Overtime",
+          "line": 30000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2695262624,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "60+ Receiving Yards By The Player - Including Overtime",
+          "line": 60000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2696066650,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "40+ Receiving Yards By The Player - Including Overtime",
+          "line": 40000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2695659775,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "80+ Rushing Yards By The Player - Including Overtime",
+          "line": 80000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2695580161,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "200+ Passing Yards By The Player - Including Overtime",
+          "line": 200000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2696126558,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "60+ Receiving Yards By The Player - Including Overtime",
+          "line": 60000,
+          "tags": []
+        }
+      ],
+      "bets": [
+        {
+          "betOdds": 284231,
+          "betRef": 16338954370,
+          "betStatus": "OPEN",
+          "couponRowIndexes": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13
+          ],
+          "payout": 0,
+          "playedOdds": 284231,
+          "potentialPayout": 1421160,
+          "stake": 5000,
+          "tags": [
+            "EDITABLE"
+          ]
+        }
+      ],
+      "channel": "WEB",
+      "couponExternalRef": "a0d02a9f-f333-4442-bc1d-67fbc283d973",
+      "couponRef": 13163959728,
+      "couponRows": [
+        {
+          "bestOddsGuaranteed": false,
+          "index": 0,
+          "outcomeId": 4349411438,
+          "playedOdds": 1480,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 1,
+          "outcomeId": 4346466256,
+          "playedOdds": 1110,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 2,
+          "outcomeId": 4347862524,
+          "playedOdds": 1620,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 3,
+          "outcomeId": 4349276991,
+          "playedOdds": 1520,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 4,
+          "outcomeId": 4347035600,
+          "playedOdds": 1660,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 5,
+          "outcomeId": 4348187239,
+          "playedOdds": 1760,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 6,
+          "outcomeId": 4349307456,
+          "playedOdds": 1230,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 7,
+          "outcomeId": 4347854190,
+          "playedOdds": 1570,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 8,
+          "outcomeId": 4348126226,
+          "playedOdds": 1490,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 9,
+          "outcomeId": 4347901102,
+          "playedOdds": 1560,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 10,
+          "outcomeId": 4346499594,
+          "playedOdds": 1500,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 11,
+          "outcomeId": 4349702237,
+          "playedOdds": 1640,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 12,
+          "outcomeId": 4346663951,
+          "playedOdds": 1800,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 13,
+          "outcomeId": 4349561838,
+          "playedOdds": 1210,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        }
+      ],
+      "currency": "USD",
+      "events": [
+        {
+          "awayName": "ARI Cardinals",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811702,
+          "eventName": "ARI Cardinals @ SF 49ers",
+          "eventStartDate": "2026-09-27T20:05:00Z",
+          "homeName": "SF 49ers",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "KC Chiefs",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811700,
+          "eventName": "KC Chiefs @ MIA Dolphins",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "MIA Dolphins",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "TEN Titans",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811692,
+          "eventName": "TEN Titans @ NY Giants",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "NY Giants",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "LV Raiders",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811695,
+          "eventName": "LV Raiders @ NO Saints",
+          "eventStartDate": "2026-09-27T20:25:00Z",
+          "homeName": "NO Saints",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "HOU Texans",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811696,
+          "eventName": "HOU Texans @ IND Colts",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "IND Colts",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "MIN Vikings",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811698,
+          "eventName": "MIN Vikings @ TB Buccaneers",
+          "eventStartDate": "2026-09-27T20:05:00Z",
+          "homeName": "TB Buccaneers",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "CAR Panthers",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811694,
+          "eventName": "CAR Panthers @ CLE Browns",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "CLE Browns",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "LA Chargers",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811701,
+          "eventName": "LA Chargers @ BUF Bills",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "BUF Bills",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "BAL Ravens",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1027638969,
+          "eventName": "BAL Ravens vs DAL Cowboys",
+          "eventStartDate": "2026-09-27T20:25:00Z",
+          "homeName": "DAL Cowboys",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "LA Rams",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811750,
+          "eventName": "LA Rams @ DEN Broncos",
+          "eventStartDate": "2026-09-28T00:20:00Z",
+          "homeName": "DEN Broncos",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "NY Jets",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811699,
+          "eventName": "NY Jets @ DET Lions",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "DET Lions",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "NE Patriots",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811697,
+          "eventName": "NE Patriots @ JAX Jaguars",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "JAX Jaguars",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "SEA Seahawks",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811691,
+          "eventName": "SEA Seahawks @ WAS Commanders",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "WAS Commanders",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "CIN Bengals",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811693,
+          "eventName": "CIN Bengals @ PIT Steelers",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "PIT Steelers",
+          "sport": "AMERICAN_FOOTBALL"
+        }
+      ],
+      "outcomes": [
+        {
+          "betOfferId": 2695668408,
+          "earlySettlement": false,
+          "eventId": 1028811702,
+          "label": "Christian McCaffrey - Yes",
+          "line": 50000,
+          "outcomeId": 4348126226,
+          "outcomeTags": [],
+          "participantId": 1003017986,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2695537511,
+          "earlySettlement": false,
+          "eventId": 1028811699,
+          "label": "Amon-Ra St. Brown - Yes",
+          "line": 70000,
+          "outcomeId": 4347862524,
+          "outcomeTags": [],
+          "participantId": 1005741027,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2695554546,
+          "earlySettlement": false,
+          "eventId": 1028811693,
+          "label": "Pat Freiermuth - Yes",
+          "line": 30000,
+          "outcomeId": 4347854190,
+          "outcomeTags": [],
+          "participantId": 1005740693,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2696109182,
+          "earlySettlement": false,
+          "eventId": 1028811694,
+          "label": "Tetairoa McMillan - Yes",
+          "line": 50000,
+          "outcomeId": 4349411438,
+          "outcomeTags": [],
+          "participantId": 1028281872,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2695580161,
+          "earlySettlement": false,
+          "eventId": 1028811698,
+          "label": "Baker Mayfield - Yes",
+          "line": 200000,
+          "outcomeId": 4347901102,
+          "outcomeTags": [],
+          "participantId": 1003379618,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2695072309,
+          "earlySettlement": false,
+          "eventExtraInfo": "Game to be played in Rio de Janeiro, Brazil",
+          "eventId": 1027638969,
+          "label": "Derrick Henry - Yes",
+          "line": 80000,
+          "outcomeId": 4346499594,
+          "outcomeTags": [
+            "NEUTRAL_VENUE"
+          ],
+          "participantId": 1002208925,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2696157078,
+          "earlySettlement": false,
+          "eventId": 1028811695,
+          "label": "Chris Olave - Yes",
+          "line": 70000,
+          "outcomeId": 4349702237,
+          "outcomeTags": [],
+          "participantId": 1005740117,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2695065428,
+          "earlySettlement": false,
+          "eventId": 1028811701,
+          "label": "Ladd McConkey - Yes",
+          "line": 3000,
+          "outcomeId": 4346466256,
+          "outcomeTags": [],
+          "participantId": 1008123387,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2696066650,
+          "earlySettlement": false,
+          "eventId": 1028811696,
+          "label": "Dalton Schultz - Yes",
+          "line": 40000,
+          "outcomeId": 4349276991,
+          "outcomeTags": [],
+          "participantId": 1004561667,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2696078783,
+          "earlySettlement": false,
+          "eventId": 1028811692,
+          "label": "Tony Pollard - Yes",
+          "line": 40000,
+          "outcomeId": 4349307456,
+          "outcomeTags": [],
+          "participantId": 1005619220,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2695262624,
+          "earlySettlement": false,
+          "eventId": 1028811697,
+          "label": "Parker Washington - Yes",
+          "line": 60000,
+          "outcomeId": 4347035600,
+          "outcomeTags": [],
+          "participantId": 1007883164,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2695131343,
+          "earlySettlement": false,
+          "eventId": 1028811750,
+          "label": "Kyren Williams - Yes",
+          "line": 50000,
+          "outcomeId": 4346663951,
+          "outcomeTags": [],
+          "participantId": 1028244466,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2695659775,
+          "earlySettlement": false,
+          "eventId": 1028811700,
+          "label": "Kenneth Walker III - Yes",
+          "line": 80000,
+          "outcomeId": 4348187239,
+          "outcomeTags": [],
+          "participantId": 1007779124,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2696126558,
+          "earlySettlement": false,
+          "eventId": 1028811691,
+          "label": "Jaxon Smith-Njigba - Yes",
+          "line": 60000,
+          "outcomeId": 4349561838,
+          "outcomeTags": [],
+          "participantId": 1007201706,
+          "status": "OPEN"
+        }
+      ],
+      "placedDate": "2026-09-27T16:30:41.999Z",
+      "systemBets": [],
+      "tags": []
+    },
+    {
+      "betOffers": [
+        {
+          "betOfferId": 2695575022,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "50+ Rushing Yards By The Player - Including Overtime",
+          "line": 50000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2695296405,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "40+ Rushing Yards By The Player - Including Overtime",
+          "line": 40000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2695120127,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "40+ Rushing Yards By The Player - Including Overtime",
+          "line": 40000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2696091441,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "50+ Receiving Yards By The Player - Including Overtime",
+          "line": 50000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2695650950,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "60+ Receiving Yards By The Player - Including Overtime",
+          "line": 60000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2695120126,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "40+ Rushing Yards By The Player - Including Overtime",
+          "line": 40000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2695262624,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "60+ Receiving Yards By The Player - Including Overtime",
+          "line": 60000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2695554551,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "50+ Receiving Yards By The Player - Including Overtime",
+          "line": 50000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2695659775,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "80+ Rushing Yards By The Player - Including Overtime",
+          "line": 80000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2696109181,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "60+ Receiving Yards By The Player - Including Overtime",
+          "line": 60000,
+          "tags": []
+        }
+      ],
+      "bets": [
+        {
+          "betOdds": 124081,
+          "betRef": 16338977780,
+          "betStatus": "OPEN",
+          "couponRowIndexes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "payout": 0,
+          "playedOdds": 124081,
+          "potentialPayout": 620410,
+          "stake": 5000,
+          "tags": []
+        }
+      ],
+      "channel": "WEB",
+      "couponExternalRef": "da651d70-d189-41a8-b2e0-b94d4c1e43f4",
+      "couponRef": 13163984834,
+      "couponRows": [
+        {
+          "bestOddsGuaranteed": false,
+          "index": 0,
+          "outcomeGroup": {
+            "groups": [
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4348161170
+                ]
+              },
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4348187239
+                ]
+              }
+            ],
+            "operation": "AND"
+          },
+          "playedOdds": 3950,
+          "selectionType": "BET_BUILDER",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 1,
+          "outcomeGroup": {
+            "groups": [
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4347048874
+                ]
+              },
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4347035600
+                ]
+              }
+            ],
+            "operation": "AND"
+          },
+          "playedOdds": 2480,
+          "selectionType": "BET_BUILDER",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 2,
+          "outcomeGroup": {
+            "groups": [
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4347854200
+                ]
+              },
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4347836898
+                ]
+              }
+            ],
+            "operation": "AND"
+          },
+          "playedOdds": 2350,
+          "selectionType": "BET_BUILDER",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 3,
+          "outcomeGroup": {
+            "groups": [
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4349411436
+                ]
+              },
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4349405339
+                ]
+              }
+            ],
+            "operation": "AND"
+          },
+          "playedOdds": 2750,
+          "selectionType": "BET_BUILDER",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 4,
+          "outcomeGroup": {
+            "groups": [
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4346678402
+                ]
+              },
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4346678404
+                ]
+              }
+            ],
+            "operation": "AND"
+          },
+          "playedOdds": 1960,
+          "selectionType": "BET_BUILDER",
+          "status": "OPEN",
+          "tags": []
+        }
+      ],
+      "currency": "USD",
+      "events": [
+        {
+          "awayName": "CAR Panthers",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811694,
+          "eventName": "CAR Panthers @ CLE Browns",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "CLE Browns",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "KC Chiefs",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811700,
+          "eventName": "KC Chiefs @ MIA Dolphins",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "MIA Dolphins",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "LA Rams",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811750,
+          "eventName": "LA Rams @ DEN Broncos",
+          "eventStartDate": "2026-09-28T00:20:00Z",
+          "homeName": "DEN Broncos",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "NE Patriots",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811697,
+          "eventName": "NE Patriots @ JAX Jaguars",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "JAX Jaguars",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "CIN Bengals",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811693,
+          "eventName": "CIN Bengals @ PIT Steelers",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "PIT Steelers",
+          "sport": "AMERICAN_FOOTBALL"
+        }
+      ],
+      "outcomes": [
+        {
+          "betOfferId": 2696091441,
+          "earlySettlement": false,
+          "eventId": 1028811694,
+          "label": "Jalen Coker - Yes",
+          "line": 50000,
+          "outcomeId": 4349405339,
+          "outcomeTags": [],
+          "participantId": 1030177584,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2695296405,
+          "earlySettlement": false,
+          "eventId": 1028811697,
+          "label": "TreVeyon Henderson - Yes",
+          "line": 40000,
+          "outcomeId": 4347048874,
+          "outcomeTags": [],
+          "participantId": 1007355411,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2695120127,
+          "earlySettlement": false,
+          "eventId": 1028811750,
+          "label": "Blake Corum - Yes",
+          "line": 40000,
+          "outcomeId": 4346678404,
+          "outcomeTags": [],
+          "participantId": 1007779021,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2695262624,
+          "earlySettlement": false,
+          "eventId": 1028811697,
+          "label": "Parker Washington - Yes",
+          "line": 60000,
+          "outcomeId": 4347035600,
+          "outcomeTags": [],
+          "participantId": 1007883164,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2696109181,
+          "earlySettlement": false,
+          "eventId": 1028811694,
+          "label": "Tetairoa McMillan - Yes",
+          "line": 60000,
+          "outcomeId": 4349411436,
+          "outcomeTags": [],
+          "participantId": 1028281872,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2695120126,
+          "earlySettlement": false,
+          "eventId": 1028811750,
+          "label": "Kyren Williams - Yes",
+          "line": 40000,
+          "outcomeId": 4346678402,
+          "outcomeTags": [],
+          "participantId": 1028244466,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2695659775,
+          "earlySettlement": false,
+          "eventId": 1028811700,
+          "label": "Kenneth Walker III - Yes",
+          "line": 80000,
+          "outcomeId": 4348187239,
+          "outcomeTags": [],
+          "participantId": 1007779124,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2695650950,
+          "earlySettlement": false,
+          "eventId": 1028811700,
+          "label": "Travis Kelce - Yes",
+          "line": 60000,
+          "outcomeId": 4348161170,
+          "outcomeTags": [],
+          "participantId": 1002199216,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2695554551,
+          "earlySettlement": false,
+          "eventId": 1028811693,
+          "label": "Tee Higgins - Yes",
+          "line": 50000,
+          "outcomeId": 4347854200,
+          "outcomeTags": [],
+          "participantId": 1005209901,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2695575022,
+          "earlySettlement": false,
+          "eventId": 1028811693,
+          "label": "Chase Brown - Yes",
+          "line": 50000,
+          "outcomeId": 4347836898,
+          "outcomeTags": [],
+          "participantId": 1007721739,
+          "status": "OPEN"
+        }
+      ],
+      "placedDate": "2026-09-27T16:35:02.418Z",
+      "rewardType": "INSURANCE",
+      "systemBets": [],
+      "tags": []
+    },
+    {
+      "betOffers": [
+        {
+          "betOfferId": 2695665437,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "100+ Rushing Yards By The Player - Including Overtime",
+          "line": 100000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2695675529,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "Touchdown Scorer",
+          "line": 1000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2695673497,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "Touchdown Scorer",
+          "line": 1000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2695659866,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "Touchdown Scorer",
+          "line": 1000,
+          "tags": []
+        },
+        {
+          "betOfferId": 2695097511,
+          "boType": "Player Occurrence Line",
+          "boTypeId": 127,
+          "criterion": "Touchdown Scorer",
+          "line": 1000,
+          "tags": []
+        }
+      ],
+      "bets": [
+        {
+          "betOdds": 12866,
+          "betRef": 16338997953,
+          "betStatus": "OPEN",
+          "couponRowIndexes": [
+            0,
+            1,
+            2
+          ],
+          "payout": 0,
+          "playedOdds": 12866,
+          "potentialPayout": 64330,
+          "stake": 5000,
+          "tags": []
+        }
+      ],
+      "channel": "WEB",
+      "couponExternalRef": "b93a3d9d-d5e3-459b-8c1f-b6b5286d5648",
+      "couponRef": 13164001585,
+      "couponRows": [
+        {
+          "bestOddsGuaranteed": false,
+          "index": 0,
+          "outcomeGroup": {
+            "groups": [
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4348137756
+                ]
+              },
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4348187471
+                ]
+              }
+            ],
+            "operation": "AND"
+          },
+          "playedOdds": 3650,
+          "selectionType": "BET_BUILDER",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 1,
+          "outcomeGroup": {
+            "groups": [
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4348184816
+                ]
+              },
+              {
+                "operation": "AND",
+                "outcomeIds": [
+                  4348181822
+                ]
+              }
+            ],
+            "operation": "AND"
+          },
+          "playedOdds": 2500,
+          "selectionType": "BET_BUILDER",
+          "status": "OPEN",
+          "tags": []
+        },
+        {
+          "bestOddsGuaranteed": false,
+          "index": 2,
+          "outcomeId": 4346488858,
+          "playedOdds": 1410,
+          "selectionType": "SIMPLE",
+          "status": "OPEN",
+          "tags": []
+        }
+      ],
+      "currency": "USD",
+      "events": [
+        {
+          "awayName": "KC Chiefs",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811700,
+          "eventName": "KC Chiefs @ MIA Dolphins",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "MIA Dolphins",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "BAL Ravens",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1027638969,
+          "eventName": "BAL Ravens vs DAL Cowboys",
+          "eventStartDate": "2026-09-27T20:25:00Z",
+          "homeName": "DAL Cowboys",
+          "sport": "AMERICAN_FOOTBALL"
+        },
+        {
+          "awayName": "NY Jets",
+          "eventGroups": [
+            {
+              "id": 1000093199,
+              "name": "Football"
+            },
+            {
+              "id": 1000093656,
+              "name": "NFL"
+            }
+          ],
+          "eventId": 1028811699,
+          "eventName": "NY Jets @ DET Lions",
+          "eventStartDate": "2026-09-27T17:00:00Z",
+          "homeName": "DET Lions",
+          "sport": "AMERICAN_FOOTBALL"
+        }
+      ],
+      "outcomes": [
+        {
+          "betOfferId": 2695673497,
+          "earlySettlement": false,
+          "eventId": 1028811699,
+          "label": "Jahmyr Gibbs - Yes",
+          "line": 1000,
+          "outcomeId": 4348184816,
+          "outcomeTags": [],
+          "participantId": 1007704105,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2695675529,
+          "earlySettlement": false,
+          "eventId": 1028811699,
+          "label": "Breece Hall - Yes",
+          "line": 1000,
+          "outcomeId": 4348181822,
+          "outcomeTags": [],
+          "participantId": 1007094471,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2695659866,
+          "earlySettlement": false,
+          "eventId": 1028811700,
+          "label": "Kenneth Walker III - Yes",
+          "line": 1000,
+          "outcomeId": 4348187471,
+          "outcomeTags": [],
+          "participantId": 1007779124,
+          "status": "WON"
+        },
+        {
+          "betOfferId": 2695665437,
+          "earlySettlement": false,
+          "eventId": 1028811700,
+          "label": "Kenneth Walker III - Yes",
+          "line": 100000,
+          "outcomeId": 4348137756,
+          "outcomeTags": [],
+          "participantId": 1007779124,
+          "status": "OPEN"
+        },
+        {
+          "betOfferId": 2695097511,
+          "earlySettlement": false,
+          "eventExtraInfo": "Game to be played in Rio de Janeiro, Brazil",
+          "eventId": 1027638969,
+          "label": "Derrick Henry - Yes",
+          "line": 1000,
+          "outcomeId": 4346488858,
+          "outcomeTags": [
+            "NEUTRAL_VENUE"
+          ],
+          "participantId": 1002208925,
+          "status": "OPEN"
+        }
+      ],
+      "placedDate": "2026-09-27T16:38:17.617Z",
+      "rewardType": "INSURANCE",
+      "systemBets": [],
+      "tags": []
+    }
+  ]
+}

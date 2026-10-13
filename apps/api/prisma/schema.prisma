@@ -1,0 +1,411 @@
+// Sportsbook side of the tracker: what was bet and how Kambi settled it.
+// Live-progress tables (BetLegProgress, mappings) arrive in later phases and
+// must never write to the settlement fields here.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum SportsbookProvider {
+  ISLAND_LUCK_KAMBI
+}
+
+enum SettlementStatus {
+  OPEN
+  WON
+  LOST
+  VOID
+  CASHED_OUT
+  MIXED
+  UNKNOWN
+}
+
+enum BetKind {
+  SINGLE
+  COMBINATION
+  SYSTEM
+}
+
+enum SelectionType {
+  SIMPLE
+  BET_BUILDER
+}
+
+enum SelectionSide {
+  YES
+  NO
+  OVER
+  UNDER
+}
+
+model SportsbookAccount {
+  id             String             @id @default(uuid())
+  /// The tracker user this account's bets belong to. Every read is scoped by it.
+  userId         String
+  user           User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  provider       SportsbookProvider
+  label          String
+  /// Last time the extension (or an import) sent a sync request for this account.
+  lastSyncedAt   DateTime?
+  /// Newest time Island Luck data was seen for this account (the page loaded
+  /// history), including syncs with no changes. Shown as "Last synced".
+  lastCapturedAt DateTime?
+  coupons        Coupon[]
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+
+  @@unique([userId, provider, label])
+}
+
+/// Money columns are integer minor units (cents). Odds/lines keep Kambi's raw ×1000 integers.
+model Coupon {
+  id                  String            @id @default(uuid())
+  sportsbookAccountId String
+  sportsbookAccount   SportsbookAccount @relation(fields: [sportsbookAccountId], references: [id], onDelete: Cascade)
+
+  externalCouponRef  String
+  externalCouponUuid String?
+  placedAt           DateTime?
+  currency           String
+  channel            String?
+  /// FREE_BET, INSURANCE, SECOND_CHANCE
+  rewardType         String?
+
+  status               SettlementStatus
+  totalStakeMinor      Int?
+  potentialPayoutMinor Int?
+  actualPayoutMinor    Int?
+
+  rawPayload     Json
+  rawPayloadHash String
+  parserVersion  Int
+  parseWarnings  String[]
+
+  /// When the extension captured the data this row reflects. Older captures never overwrite newer ones.
+  capturedAt   DateTime
+  lastSyncedAt DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  bets Bet[]
+  legs BetLeg[]
+
+  @@unique([sportsbookAccountId, externalCouponRef])
+  @@index([status])
+  @@index([placedAt])
+}
+
+model Bet {
+  id       String @id @default(uuid())
+  couponId String
+  coupon   Coupon @relation(fields: [couponId], references: [id], onDelete: Cascade)
+
+  externalBetRef         String
+  kind                   BetKind
+  oddsRaw                Int?
+  stakeMinor             Int?
+  potentialPayoutMinor   Int?
+  potentialPayoutDerived Boolean
+  payoutMinor            Int?
+  status                 SettlementStatus
+  rawStatus              String?
+
+  legs BetLegLink[]
+
+  @@unique([couponId, externalBetRef])
+}
+
+/// One Kambi coupon row. Belongs to the coupon because on system coupons a
+/// row is shared by several bets; BetLegLink says which.
+model BetLeg {
+  id       String @id @default(uuid())
+  couponId String
+  coupon   Coupon @relation(fields: [couponId], references: [id], onDelete: Cascade)
+
+  externalRowIndex Int
+  selectionType    SelectionType
+  eventId          String?
+  eventName        String?
+  homeName         String?
+  awayName         String?
+  sport            String?
+  league           String?
+  eventStartAt     DateTime?
+  oddsRaw          Int?
+  payoutOddsRaw    Int?
+  placedLive       Boolean
+  status           SettlementStatus
+  rawStatus        String?
+
+  bets       BetLegLink[]
+  selections LegSelection[]
+
+  @@unique([couponId, externalRowIndex])
+  @@index([eventId])
+}
+
+model BetLegLink {
+  betId    String
+  bet      Bet    @relation(fields: [betId], references: [id], onDelete: Cascade)
+  betLegId String
+  betLeg   BetLeg @relation(fields: [betLegId], references: [id], onDelete: Cascade)
+
+  @@id([betId, betLegId])
+}
+
+model LegSelection {
+  id       String @id @default(uuid())
+  betLegId String
+  betLeg   BetLeg @relation(fields: [betLegId], references: [id], onDelete: Cascade)
+
+  externalOutcomeId     String
+  externalBetOfferId    String?
+  externalParticipantId String?
+  participantName       String?
+  marketName            String?
+  marketType            String?
+  marketTypeId          Int?
+  selectionLabel        String?
+  selectionSide         SelectionSide?
+  lineRaw               Int?
+  status                SettlementStatus
+  rawStatus             String?
+  settledResult         String[]
+  rawOutcome            Json?
+  rawBetOffer           Json?
+  progress              BetLegProgress?
+
+  @@unique([betLegId, externalOutcomeId])
+  @@index([externalParticipantId])
+}
+
+// ── Live progress (tracker-owned). Never writes to the settlement fields above. ──
+
+enum MappingStatus {
+  /// Matched confidently and linked automatically.
+  AUTO
+  /// Confirmed by the user.
+  CONFIRMED
+  /// Low-confidence or ambiguous; no progress until confirmed.
+  NEEDS_REVIEW
+  REJECTED
+}
+
+/// Kambi event → provider event. Matched once, then reused by id.
+model ExternalEventMapping {
+  id                String        @id @default(uuid())
+  sportsbookEventId String
+  provider          String
+  sport             String
+  providerEventId   String
+  confidence        Float
+  method            String
+  status            MappingStatus
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  @@unique([sportsbookEventId, provider])
+  @@index([provider, providerEventId])
+}
+
+/// Kambi participant → provider player. Matched once, then reused by id.
+model ExternalParticipantMapping {
+  id                      String        @id @default(uuid())
+  sportsbookParticipantId String
+  participantName         String
+  provider                String
+  providerParticipantId   String?
+  providerTeamId          String?
+  confidence              Float
+  method                  String?
+  status                  MappingStatus
+  /// Candidate ids when ambiguous, for the review UI.
+  candidates              Json?
+  createdAt               DateTime      @default(now())
+  updatedAt               DateTime      @updatedAt
+
+  @@unique([sportsbookParticipantId, provider])
+}
+
+/// Latest known state of a provider game (score, clock, possession). One row per game.
+model ProviderEventState {
+  id              String    @id @default(uuid())
+  provider        String
+  providerEventId String
+  sport           String
+  startAt         DateTime
+  homeTeam        Json
+  awayTeam        Json
+  state           String
+  period          Int?
+  clock           String?
+  detail          String?
+  homeScore       Int?
+  awayScore       Int?
+  situation       Json?
+  /// Set after the post-final box score has been fetched; the game is then never polled again.
+  finalizedAt     DateTime?
+  updatedAt       DateTime  @updatedAt
+
+  @@unique([provider, providerEventId])
+}
+
+/// Live progress for one selection. A suggestion only: never changes Kambi settlement.
+model BetLegProgress {
+  id                String       @id @default(uuid())
+  legSelectionId    String       @unique
+  legSelection      LegSelection @relation(fields: [legSelectionId], references: [id], onDelete: Cascade)
+  provider          String
+  externalEventId   String?
+  externalPlayerId  String?
+  metric            String?
+  operator          String?
+  target            Float?
+  currentValue      Float?
+  /// NOT_STARTED, IN_PROGRESS, TARGET_REACHED, TARGET_EXCEEDED, FINAL_HIT, FINAL_MISSED, UNAVAILABLE
+  status            String
+  /// Why progress is unavailable (unsupported market, player needs review, …).
+  unavailableReason String?
+  period            Int?
+  clock             String?
+  gameStatus        String?
+  matchConfidence   Float?
+  matchMethod       String?
+  updatedAt         DateTime     @updatedAt
+}
+
+// ── Accounts. The web app signs in with a session cookie, the extension with an ApiKey. ──
+
+model User {
+  id                 String              @id @default(uuid())
+  username           String              @unique
+  /// scrypt$N$r$p$salt$hash
+  passwordHash       String
+  sessions           Session[]
+  apiKeys            ApiKey[]
+  sportsbookAccounts SportsbookAccount[]
+  notifications      Notification[]
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+
+  /// Shown on profiles and the leaderboard instead of the username.
+  displayName String?
+
+  // Privacy. Friends and followers see picks, odds and results; dollar
+  // amounts only reach an audience whose switch is on.
+  /// Locked: followers need approval, like friends. Open (the default): anyone can follow.
+  locked                  Boolean @default(false)
+  shareAmountsFriends     Boolean @default(false)
+  shareAmountsFollowers   Boolean @default(false)
+  /// Adds this person's net winnings next to their units on the leaderboard.
+  shareAmountsLeaderboard Boolean @default(false)
+  showOnLeaderboard       Boolean @default(true)
+
+  friendRequestsSent     Friendship[] @relation("FriendRequester")
+  friendRequestsReceived Friendship[] @relation("FriendAddressee")
+  following              Follow[]     @relation("Follower")
+  followers              Follow[]     @relation("Followee")
+}
+
+// ── Social. Friends are mutual and must be accepted. Following is one-way, and needs approval only on a locked account. ──
+
+enum RequestStatus {
+  PENDING
+  ACCEPTED
+}
+
+/// One row per pair, owned by whoever asked. Declining or unfriending deletes it.
+model Friendship {
+  id          String        @id @default(uuid())
+  requesterId String
+  requester   User          @relation("FriendRequester", fields: [requesterId], references: [id], onDelete: Cascade)
+  addresseeId String
+  addressee   User          @relation("FriendAddressee", fields: [addresseeId], references: [id], onDelete: Cascade)
+  status      RequestStatus @default(PENDING)
+  createdAt   DateTime      @default(now())
+  respondedAt DateTime?
+
+  @@unique([requesterId, addresseeId])
+  @@index([addresseeId])
+}
+
+/// PENDING only while a locked account hasn't answered. Unfollowing, declining or removing a follower deletes the row.
+model Follow {
+  id         String        @id @default(uuid())
+  followerId String
+  follower   User          @relation("Follower", fields: [followerId], references: [id], onDelete: Cascade)
+  followeeId String
+  followee   User          @relation("Followee", fields: [followeeId], references: [id], onDelete: Cascade)
+  status     RequestStatus @default(ACCEPTED)
+  createdAt  DateTime      @default(now())
+
+  @@unique([followerId, followeeId])
+  @@index([followeeId])
+}
+
+/// A token the extension gets by signing in, sent as "Authorization: Bearer <token>".
+model ApiKey {
+  id         String    @id @default(uuid())
+  /// sha256 of the token; the token itself is never stored.
+  tokenHash  String    @unique
+  userId     String
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  /// Where it was issued, e.g. the browser's user agent.
+  label      String?
+  createdAt  DateTime  @default(now())
+  lastUsedAt DateTime?
+
+  @@index([userId])
+}
+
+model Session {
+  id         String   @id @default(uuid())
+  /// sha256 of the cookie token; the token itself is never stored.
+  tokenHash  String   @unique
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userAgent  String?
+  createdAt  DateTime @default(now())
+  lastSeenAt DateTime @default(now())
+  expiresAt  DateTime
+
+  @@index([userId])
+}
+
+/// A single-use registration link (npm run invite). Whoever opens it picks their own username and password.
+model Invite {
+  id             String    @id @default(uuid())
+  /// sha256 of the link token; the token itself is never stored.
+  tokenHash      String    @unique
+  createdAt      DateTime  @default(now())
+  expiresAt      DateTime
+  usedAt         DateTime?
+  usedByUsername String?
+}
+
+// ── Notifications (in-app feed now; a push channel can deliver them later). ──
+
+model Notification {
+  id             String    @id @default(uuid())
+  userId         String
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  /// PICK_HIT, PICK_MISSED, PROBABLY_SETTLED
+  kind           String
+  /// One notification per event, e.g. "PICK_HIT:<legSelectionId>".
+  dedupeKey      String    @unique
+  couponId       String?
+  legSelectionId String?
+  title          String
+  body           String
+  createdAt      DateTime  @default(now())
+  readAt         DateTime?
+  /// Set once an external channel (push, Telegram…) has delivered it.
+  deliveredAt    DateTime?
+
+  @@index([userId, createdAt])
+}

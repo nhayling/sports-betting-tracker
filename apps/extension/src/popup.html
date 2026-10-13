@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="color-scheme" content="dark light" />
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header class="top">
+      <img src="../icons/icon-32.png" alt="" width="22" height="22" />
+      <h1>Island Luck Sync</h1>
+    </header>
+
+    <section class="card" id="stats">
+      <div class="sync-row">
+        <span class="label">Last sync</span>
+        <span id="last-sync">Never</span>
+      </div>
+      <div class="summary">
+        <div class="stat"><span class="stat-value" id="stat-total">0</span><span class="stat-label">Bets found</span></div>
+        <div class="stat"><span class="stat-value" id="stat-open">0</span><span class="stat-label">Open</span></div>
+        <div class="stat"><span class="stat-value" id="stat-settled">0</span><span class="stat-label">Settled</span></div>
+      </div>
+      <p id="counts" class="hint"></p>
+      <p id="hint" class="hint"></p>
+    </section>
+
+    <button id="sync" class="primary">Sync now</button>
+    <p id="auto-sync" class="hint center"></p>
+    <div id="result" class="result" hidden></div>
+
+    <details id="settings">
+      <summary>Settings</summary>
+      <div id="signed-out">
+        <label>Tracker URL <input id="tracker-url" type="url" placeholder="https://bets.example.com" /></label>
+        <label>Username <input id="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" /></label>
+        <label>Password <input id="password" type="password" autocomplete="current-password" /></label>
+        <button id="connect">Sign in</button>
+      </div>
+      <div id="signed-in" hidden>
+        <p class="hint">Signed in as <strong id="who"></strong> at <span id="where"></span></p>
+        <button id="disconnect">Sign out</button>
+      </div>
+      <hr />
+      <label>Account label <input id="account-label" type="text" /></label>
+      <label class="check"><input id="auto-sync-toggle" type="checkbox" /> Auto-sync when Island Luck loads bets</label>
+      <button id="save">Save</button>
+      <hr />
+      <button id="download">Download captured JSON</button>
+      <button id="clear" class="danger">Clear captured bets</button>
+    </details>
+
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>

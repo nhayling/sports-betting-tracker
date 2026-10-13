@@ -1,0 +1,32 @@
+{
+  "name": "@sports-better/api",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch --env-file=../../.env src/server.ts",
+    "start": "tsx --env-file=../../.env src/server.ts",
+    "import": "tsx --env-file=../../.env src/scripts/import.ts",
+    "db:migrate": "dotenv -e ../../.env -- prisma migrate dev",
+    "db:generate": "prisma generate",
+    "progress": "tsx --env-file=../../.env src/scripts/progress.ts",
+    "user": "tsx --env-file=../../.env src/scripts/user.ts",
+    "invite": "tsx --env-file=../../.env src/scripts/invite.ts",
+    "reparse": "tsx --env-file=../../.env src/scripts/reparse.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.19.3",
+    "@sports-better/kambi": "*",
+    "express": "^5.2.1",
+    "@sports-better/sports-data": "*",
+    "@sports-better/matching": "*",
+    "@sports-better/markets": "*",
+    "@sports-better/display": "*"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "dotenv-cli": "^8.0.0",
+    "prisma": "^6.19.3",
+    "tsx": "^4.23.15"
+  }
+}

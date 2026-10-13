@@ -1,0 +1,53 @@
+{
+ "header": {
+  "id": "401872958",
+  "uid": "s:20~l:28~e:401872958",
+  "competitions": [
+   {
+    "id": "401872958",
+    "date": "2026-09-27T20:05Z",
+    "neutralSite": false,
+    "status": {
+     "type": {
+      "id": "1",
+      "name": "STATUS_SCHEDULED",
+      "state": "pre",
+      "completed": false,
+      "description": "Scheduled",
+      "detail": "Sun, September 27th at 4:05 PM EDT",
+      "shortDetail": "9/27 - 4:05 PM EDT"
+     }
+    },
+    "competitors": [
+     {
+      "id": "25",
+      "homeAway": "home",
+      "team": {
+       "id": "25",
+       "uid": "s:20~l:28~t:25",
+       "abbreviation": "SF",
+       "location": "San Francisco",
+       "name": "49ers",
+       "displayName": "San Francisco 49ers"
+      }
+     },
+     {
+      "id": "22",
+      "homeAway": "away",
+      "team": {
+       "id": "22",
+       "uid": "s:20~l:28~t:22",
+       "abbreviation": "ARI",
+       "location": "Arizona",
+       "name": "Cardinals",
+       "displayName": "Arizona Cardinals"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "boxscore": {
+  "players": []
+ }
+}

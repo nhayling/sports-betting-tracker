@@ -1,0 +1,1581 @@
+{
+ "header": {
+  "id": "401872952",
+  "uid": "s:20~l:28~e:401872952",
+  "competitions": [
+   {
+    "id": "401872952",
+    "date": "2026-09-27T17:00Z",
+    "neutralSite": false,
+    "status": {
+     "displayClock": "0:00",
+     "period": 2,
+     "type": {
+      "id": "23",
+      "name": "STATUS_HALFTIME",
+      "state": "in",
+      "completed": false,
+      "description": "Halftime",
+      "detail": "Halftime",
+      "shortDetail": "Halftime"
+     }
+    },
+    "competitors": [
+     {
+      "id": "15",
+      "homeAway": "home",
+      "score": "7",
+      "team": {
+       "id": "15",
+       "uid": "s:20~l:28~t:15",
+       "abbreviation": "MIA",
+       "location": "Miami",
+       "name": "Dolphins",
+       "displayName": "Miami Dolphins"
+      }
+     },
+     {
+      "id": "12",
+      "homeAway": "away",
+      "score": "14",
+      "team": {
+       "id": "12",
+       "uid": "s:20~l:28~t:12",
+       "abbreviation": "KC",
+       "location": "Kansas City",
+       "name": "Chiefs",
+       "displayName": "Kansas City Chiefs"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "boxscore": {
+  "players": [
+   {
+    "team": {
+     "id": "12",
+     "uid": "s:20~l:28~t:12",
+     "abbreviation": "KC",
+     "location": "Kansas City",
+     "name": "Chiefs",
+     "displayName": "Kansas City Chiefs",
+     "shortDisplayName": "Chiefs"
+    },
+    "statistics": [
+     {
+      "name": "passing",
+      "keys": [
+       "completions/passingAttempts",
+       "passingYards",
+       "yardsPerPassAttempt",
+       "passingTouchdowns",
+       "interceptions",
+       "sacks-sackYardsLost",
+       "adjQBR",
+       "QBRating"
+      ],
+      "labels": [
+       "C/ATT",
+       "YDS",
+       "AVG",
+       "TD",
+       "INT",
+       "SACKS",
+       "RTG"
+      ],
+      "athletes": [
+       {
+        "athlete": {
+         "id": "3139477",
+         "uid": "s:20~l:28~a:3139477",
+         "firstName": "Patrick",
+         "lastName": "Mahomes",
+         "displayName": "Patrick Mahomes",
+         "jersey": "15"
+        },
+        "stats": [
+         "12/13",
+         "134",
+         "10.3",
+         "1",
+         "1",
+         "0-0",
+         "103.2"
+        ]
+       }
+      ]
+     },
+     {
+      "name": "rushing",
+      "keys": [
+       "rushingAttempts",
+       "rushingYards",
+       "yardsPerRushAttempt",
+       "rushingTouchdowns",
+       "longRushing"
+      ],
+      "labels": [
+       "CAR",
+       "YDS",
+       "AVG",
+       "TD",
+       "LONG"
+      ],
+      "athletes": [
+       {
+        "athlete": {
+         "id": "4567048",
+         "uid": "s:20~l:28~a:4567048",
+         "firstName": "Kenneth",
+         "lastName": "Walker III",
+         "displayName": "Kenneth Walker III",
+         "jersey": "9"
+        },
+        "stats": [
+         "10",
+         "52",
+         "5.2",
+         "1",
+         "22"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4832955",
+         "uid": "s:20~l:28~a:4832955",
+         "firstName": "Emmett",
+         "lastName": "Johnson",
+         "displayName": "Emmett Johnson",
+         "jersey": "10"
+        },
+        "stats": [
+         "2",
+         "10",
+         "5.0",
+         "0",
+         "7"
+        ]
+       }
+      ]
+     },
+     {
+      "name": "receiving",
+      "keys": [
+       "receptions",
+       "receivingYards",
+       "yardsPerReception",
+       "receivingTouchdowns",
+       "longReception",
+       "receivingTargets"
+      ],
+      "labels": [
+       "REC",
+       "YDS",
+       "AVG",
+       "TD",
+       "LONG",
+       "TGTS"
+      ],
+      "athletes": [
+       {
+        "athlete": {
+         "id": "15847",
+         "uid": "s:20~l:28~a:15847",
+         "firstName": "Travis",
+         "lastName": "Kelce",
+         "displayName": "Travis Kelce",
+         "jersey": "87"
+        },
+        "stats": [
+         "1",
+         "48",
+         "48.0",
+         "0",
+         "48",
+         "1"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4362921",
+         "uid": "s:20~l:28~a:4362921",
+         "firstName": "Tyquan",
+         "lastName": "Thornton",
+         "displayName": "Tyquan Thornton",
+         "jersey": "2"
+        },
+        "stats": [
+         "2",
+         "22",
+         "11.0",
+         "0",
+         "17",
+         "2"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4683062",
+         "uid": "s:20~l:28~a:4683062",
+         "firstName": "Xavier",
+         "lastName": "Worthy",
+         "displayName": "Xavier Worthy",
+         "jersey": "1"
+        },
+        "stats": [
+         "2",
+         "20",
+         "10.0",
+         "0",
+         "17",
+         "2"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4428331",
+         "uid": "s:20~l:28~a:4428331",
+         "firstName": "Rashee",
+         "lastName": "Rice",
+         "displayName": "Rashee Rice",
+         "jersey": "4"
+        },
+        "stats": [
+         "3",
+         "20",
+         "6.7",
+         "0",
+         "11",
+         "4"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4240472",
+         "uid": "s:20~l:28~a:4240472",
+         "firstName": "Noah",
+         "lastName": "Gray",
+         "displayName": "Noah Gray",
+         "jersey": "83"
+        },
+        "stats": [
+         "2",
+         "15",
+         "7.5",
+         "0",
+         "13",
+         "2"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4567048",
+         "uid": "s:20~l:28~a:4567048",
+         "firstName": "Kenneth",
+         "lastName": "Walker III",
+         "displayName": "Kenneth Walker III",
+         "jersey": "9"
+        },
+        "stats": [
+         "1",
+         "5",
+         "5.0",
+         "1",
+         "5",
+         "1"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4596602",
+         "uid": "s:20~l:28~a:4596602",
+         "firstName": "Brashard",
+         "lastName": "Smith",
+         "displayName": "Brashard Smith",
+         "jersey": "24"
+        },
+        "stats": [
+         "1",
+         "4",
+         "4.0",
+         "0",
+         "4",
+         "1"
+        ]
+       }
+      ]
+     },
+     {
+      "name": "fumbles",
+      "keys": [
+       "fumbles",
+       "fumblesLost",
+       "fumblesRecovered"
+      ],
+      "labels": [
+       "FUM",
+       "LOST",
+       "REC"
+      ],
+      "athletes": [
+       {
+        "athlete": {
+         "id": "4040432",
+         "uid": "s:20~l:28~a:4040432",
+         "firstName": "L'Jarius",
+         "lastName": "Sneed",
+         "displayName": "L'Jarius Sneed",
+         "jersey": "38"
+        },
+        "stats": [
+         "0",
+         "0",
+         "1"
+        ]
+       }
+      ]
+     },
+     {
+      "name": "defensive",
+      "keys": [
+       "totalTackles",
+       "soloTackles",
+       "sacks",
+       "tacklesForLoss",
+       "passesDefended",
+       "QBHits",
+       "defensiveTouchdowns"
+      ],
+      "labels": [
+       "TOT",
+       "SOLO",
+       "SACKS",
+       "TFL",
+       "PD",
+       "QB HTS",
+       "TD"
+      ],
+      "athletes": [
+       {
+        "athlete": {
+         "id": "4880124",
+         "uid": "s:20~l:28~a:4880124",
+         "firstName": "Mansoor",
+         "lastName": "Delane",
+         "displayName": "Mansoor Delane",
+         "jersey": "5"
+        },
+        "stats": [
+         "8",
+         "6",
+         "0",
+         "1",
+         "1",
+         "0",
+         "0"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4362759",
+         "uid": "s:20~l:28~a:4362759",
+         "firstName": "Nick",
+         "lastName": "Bolton",
+         "displayName": "Nick Bolton",
+         "jersey": "32"
+        },
+        "stats": [
+         "6",
+         "4",
+         "0",
+         "1",
+         "0",
+         "0",
+         "0"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4039413",
+         "uid": "s:20~l:28~a:4039413",
+         "firstName": "Alohi",
+         "lastName": "Gilman",
+         "displayName": "Alohi Gilman",
+         "jersey": "17"
+        },
+        "stats": [
+         "4",
+         "3",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "3129310",
+         "uid": "s:20~l:28~a:3129310",
+         "firstName": "Drue",
+         "lastName": "Tranquill",
+         "displayName": "Drue Tranquill",
+         "jersey": "23"
+        },
+        "stats": [
+         "3",
+         "1",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4249766",
+         "uid": "s:20~l:28~a:4249766",
+         "firstName": "Jack",
+         "lastName": "Cochrane",
+         "displayName": "Jack Cochrane",
+         "jersey": "43"
+        },
+        "stats": [
+         "3",
+         "1",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4685232",
+         "uid": "s:20~l:28~a:4685232",
+         "firstName": "Jaden",
+         "lastName": "Hicks",
+         "displayName": "Jaden Hicks",
+         "jersey": "21"
+        },
+        "stats": [
+         "3",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4040432",
+         "uid": "s:20~l:28~a:4040432",
+         "firstName": "L'Jarius",
+         "lastName": "Sneed",
+         "displayName": "L'Jarius Sneed",
+         "jersey": "38"
+        },
+        "stats": [
+         "2",
+         "1",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4684432",
+         "uid": "s:20~l:28~a:4684432",
+         "firstName": "Ashton",
+         "lastName": "Gillotte",
+         "displayName": "Ashton Gillotte",
+         "jersey": "97"
+        },
+        "stats": [
+         "2",
+         "1",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4871063",
+         "uid": "s:20~l:28~a:4871063",
+         "firstName": "Peter",
+         "lastName": "Woods",
+         "displayName": "Peter Woods",
+         "jersey": "99"
+        },
+        "stats": [
+         "2",
+         "1",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4372070",
+         "uid": "s:20~l:28~a:4372070",
+         "firstName": "Ben",
+         "lastName": "VanSumeren",
+         "displayName": "Ben VanSumeren",
+         "jersey": "47"
+        },
+        "stats": [
+         "2",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4683062",
+         "uid": "s:20~l:28~a:4683062",
+         "firstName": "Xavier",
+         "lastName": "Worthy",
+         "displayName": "Xavier Worthy",
+         "jersey": "1"
+        },
+        "stats": [
+         "1",
+         "1",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4426659",
+         "uid": "s:20~l:28~a:4426659",
+         "firstName": "George",
+         "lastName": "Karlaftis",
+         "displayName": "George Karlaftis",
+         "jersey": "56"
+        },
+        "stats": [
+         "1",
+         "0",
+         "0",
+         "0",
+         "0",
+         "1",
+         "0"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4431561",
+         "uid": "s:20~l:28~a:4431561",
+         "firstName": "Bryson",
+         "lastName": "Eason",
+         "displayName": "Bryson Eason",
+         "jersey": "94"
+        },
+        "stats": [
+         "1",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4602389",
+         "uid": "s:20~l:28~a:4602389",
+         "firstName": "Jeffrey",
+         "lastName": "Bassa",
+         "displayName": "Jeffrey Bassa",
+         "jersey": "31"
+        },
+        "stats": [
+         "1",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4612387",
+         "uid": "s:20~l:28~a:4612387",
+         "firstName": "Felix",
+         "lastName": "Anudike-Uzomah",
+         "displayName": "Felix Anudike-Uzomah",
+         "jersey": "91"
+        },
+        "stats": [
+         "1",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4685491",
+         "uid": "s:20~l:28~a:4685491",
+         "firstName": "Xavier",
+         "lastName": "Nwankpa",
+         "displayName": "Xavier Nwankpa",
+         "jersey": "29"
+        },
+        "stats": [
+         "1",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "5081927",
+         "uid": "s:20~l:28~a:5081927",
+         "firstName": "R Mason",
+         "lastName": "Thomas",
+         "displayName": "R Mason Thomas",
+         "jersey": "51"
+        },
+        "stats": [
+         "1",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0"
+        ]
+       }
+      ]
+     },
+     {
+      "name": "interceptions",
+      "keys": [
+       "interceptions",
+       "interceptionYards",
+       "interceptionTouchdowns"
+      ],
+      "labels": [
+       "INT",
+       "YDS",
+       "TD"
+      ],
+      "athletes": []
+     },
+     {
+      "name": "kickReturns",
+      "keys": [
+       "kickReturns",
+       "kickReturnYards",
+       "yardsPerKickReturn",
+       "longKickReturn",
+       "kickReturnTouchdowns"
+      ],
+      "labels": [
+       "NO",
+       "YDS",
+       "AVG",
+       "LONG",
+       "TD"
+      ],
+      "athletes": [
+       {
+        "athlete": {
+         "id": "4832955",
+         "uid": "s:20~l:28~a:4832955",
+         "firstName": "Emmett",
+         "lastName": "Johnson",
+         "displayName": "Emmett Johnson",
+         "jersey": "10"
+        },
+        "stats": [
+         "1",
+         "31",
+         "31.0",
+         "31",
+         "0"
+        ]
+       }
+      ]
+     },
+     {
+      "name": "puntReturns",
+      "keys": [
+       "puntReturns",
+       "puntReturnYards",
+       "yardsPerPuntReturn",
+       "longPuntReturn",
+       "puntReturnTouchdowns"
+      ],
+      "labels": [
+       "NO",
+       "YDS",
+       "AVG",
+       "LONG",
+       "TD"
+      ],
+      "athletes": []
+     },
+     {
+      "name": "kicking",
+      "keys": [
+       "fieldGoalsMade/fieldGoalAttempts",
+       "fieldGoalPct",
+       "longFieldGoalMade",
+       "extraPointsMade/extraPointAttempts",
+       "totalKickingPoints"
+      ],
+      "labels": [
+       "FG",
+       "PCT",
+       "LONG",
+       "XP",
+       "PTS"
+      ],
+      "athletes": [
+       {
+        "athlete": {
+         "id": "3055899",
+         "uid": "s:20~l:28~a:3055899",
+         "firstName": "Harrison",
+         "lastName": "Butker",
+         "displayName": "Harrison Butker",
+         "jersey": "7"
+        },
+        "stats": [
+         "0/0",
+         "0.0",
+         "0",
+         "2/2",
+         "2"
+        ]
+       }
+      ]
+     },
+     {
+      "name": "punting",
+      "keys": [
+       "punts",
+       "puntYards",
+       "grossAvgPuntYards",
+       "touchbacks",
+       "puntsInside20",
+       "longPunt"
+      ],
+      "labels": [
+       "NO",
+       "YDS",
+       "AVG",
+       "TB",
+       "In 20",
+       "LONG"
+      ],
+      "athletes": []
+     }
+    ]
+   },
+   {
+    "team": {
+     "id": "15",
+     "uid": "s:20~l:28~t:15",
+     "abbreviation": "MIA",
+     "location": "Miami",
+     "name": "Dolphins",
+     "displayName": "Miami Dolphins",
+     "shortDisplayName": "Dolphins"
+    },
+    "statistics": [
+     {
+      "name": "passing",
+      "keys": [
+       "completions/passingAttempts",
+       "passingYards",
+       "yardsPerPassAttempt",
+       "passingTouchdowns",
+       "interceptions",
+       "sacks-sackYardsLost",
+       "adjQBR",
+       "QBRating"
+      ],
+      "labels": [
+       "C/ATT",
+       "YDS",
+       "AVG",
+       "TD",
+       "INT",
+       "SACKS",
+       "RTG"
+      ],
+      "athletes": [
+       {
+        "athlete": {
+         "id": "4242512",
+         "uid": "s:20~l:28~a:4242512",
+         "firstName": "Malik",
+         "lastName": "Willis",
+         "displayName": "Malik Willis",
+         "jersey": "2"
+        },
+        "stats": [
+         "11/17",
+         "112",
+         "6.6",
+         "0",
+         "0",
+         "0-0",
+         "83.5"
+        ]
+       }
+      ]
+     },
+     {
+      "name": "rushing",
+      "keys": [
+       "rushingAttempts",
+       "rushingYards",
+       "yardsPerRushAttempt",
+       "rushingTouchdowns",
+       "longRushing"
+      ],
+      "labels": [
+       "CAR",
+       "YDS",
+       "AVG",
+       "TD",
+       "LONG"
+      ],
+      "athletes": [
+       {
+        "athlete": {
+         "id": "4711533",
+         "uid": "s:20~l:28~a:4711533",
+         "firstName": "Ollie",
+         "lastName": "Gordon II",
+         "displayName": "Ollie Gordon II",
+         "jersey": "0"
+        },
+        "stats": [
+         "8",
+         "28",
+         "3.5",
+         "1",
+         "11"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4242512",
+         "uid": "s:20~l:28~a:4242512",
+         "firstName": "Malik",
+         "lastName": "Willis",
+         "displayName": "Malik Willis",
+         "jersey": "2"
+        },
+        "stats": [
+         "4",
+         "23",
+         "5.8",
+         "0",
+         "10"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4429160",
+         "uid": "s:20~l:28~a:4429160",
+         "firstName": "De'Von",
+         "lastName": "Achane",
+         "displayName": "De'Von Achane",
+         "jersey": "28"
+        },
+        "stats": [
+         "3",
+         "17",
+         "5.7",
+         "0",
+         "11"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4569603",
+         "uid": "s:20~l:28~a:4569603",
+         "firstName": "Malik",
+         "lastName": "Washington",
+         "displayName": "Malik Washington",
+         "jersey": "6"
+        },
+        "stats": [
+         "1",
+         "1",
+         "1.0",
+         "0",
+         "1"
+        ]
+       }
+      ]
+     },
+     {
+      "name": "receiving",
+      "keys": [
+       "receptions",
+       "receivingYards",
+       "yardsPerReception",
+       "receivingTouchdowns",
+       "longReception",
+       "receivingTargets"
+      ],
+      "labels": [
+       "REC",
+       "YDS",
+       "AVG",
+       "TD",
+       "LONG",
+       "TGTS"
+      ],
+      "athletes": [
+       {
+        "athlete": {
+         "id": "4869961",
+         "uid": "s:20~l:28~a:4869961",
+         "firstName": "Chris",
+         "lastName": "Bell",
+         "displayName": "Chris Bell",
+         "jersey": "18"
+        },
+        "stats": [
+         "3",
+         "55",
+         "18.3",
+         "0",
+         "44",
+         "5"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4569603",
+         "uid": "s:20~l:28~a:4569603",
+         "firstName": "Malik",
+         "lastName": "Washington",
+         "displayName": "Malik Washington",
+         "jersey": "6"
+        },
+        "stats": [
+         "3",
+         "40",
+         "13.3",
+         "0",
+         "30",
+         "5"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4367209",
+         "uid": "s:20~l:28~a:4367209",
+         "firstName": "Greg",
+         "lastName": "Dulcich",
+         "displayName": "Greg Dulcich",
+         "jersey": "85"
+        },
+        "stats": [
+         "2",
+         "12",
+         "6.0",
+         "0",
+         "7",
+         "2"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4369466",
+         "uid": "s:20~l:28~a:4369466",
+         "firstName": "Ryan",
+         "lastName": "Miller",
+         "displayName": "Ryan Miller",
+         "jersey": "84"
+        },
+        "stats": [
+         "1",
+         "10",
+         "10.0",
+         "0",
+         "10",
+         "1"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4429160",
+         "uid": "s:20~l:28~a:4429160",
+         "firstName": "De'Von",
+         "lastName": "Achane",
+         "displayName": "De'Von Achane",
+         "jersey": "28"
+        },
+        "stats": [
+         "0",
+         "0",
+         "0.0",
+         "0",
+         "0",
+         "1"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4711533",
+         "uid": "s:20~l:28~a:4711533",
+         "firstName": "Ollie",
+         "lastName": "Gordon II",
+         "displayName": "Ollie Gordon II",
+         "jersey": "0"
+        },
+        "stats": [
+         "2",
+         "-5",
+         "-2.5",
+         "0",
+         "0",
+         "2"
+        ]
+       }
+      ]
+     },
+     {
+      "name": "fumbles",
+      "keys": [
+       "fumbles",
+       "fumblesLost",
+       "fumblesRecovered"
+      ],
+      "labels": [
+       "FUM",
+       "LOST",
+       "REC"
+      ],
+      "athletes": [
+       {
+        "athlete": {
+         "id": "4242512",
+         "uid": "s:20~l:28~a:4242512",
+         "firstName": "Malik",
+         "lastName": "Willis",
+         "displayName": "Malik Willis",
+         "jersey": "2"
+        },
+        "stats": [
+         "1",
+         "1",
+         "0"
+        ]
+       }
+      ]
+     },
+     {
+      "name": "defensive",
+      "keys": [
+       "totalTackles",
+       "soloTackles",
+       "sacks",
+       "tacklesForLoss",
+       "passesDefended",
+       "QBHits",
+       "defensiveTouchdowns"
+      ],
+      "labels": [
+       "TOT",
+       "SOLO",
+       "SACKS",
+       "TFL",
+       "PD",
+       "QB HTS",
+       "TD"
+      ],
+      "athletes": [
+       {
+        "athlete": {
+         "id": "4431664",
+         "uid": "s:20~l:28~a:4431664",
+         "firstName": "Dante",
+         "lastName": "Trader Jr.",
+         "displayName": "Dante Trader Jr.",
+         "jersey": "11"
+        },
+        "stats": [
+         "6",
+         "4",
+         "0",
+         "0",
+         "1",
+         "0",
+         "0"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4043130",
+         "uid": "s:20~l:28~a:4043130",
+         "firstName": "Jordyn",
+         "lastName": "Brooks",
+         "displayName": "Jordyn Brooks",
+         "jersey": "20"
+        },
+        "stats": [
+         "6",
+         "1",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4880346",
+         "uid": "s:20~l:28~a:4880346",
+         "firstName": "Michael",
+         "lastName": "Taaffe",
+         "displayName": "Michael Taaffe",
+         "jersey": "16"
+        },
+        "stats": [
+         "5",
+         "2",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4869579",
+         "uid": "s:20~l:28~a:4869579",
+         "firstName": "Chris",
+         "lastName": "Johnson",
+         "displayName": "Chris Johnson",
+         "jersey": "3"
+        },
+        "stats": [
+         "4",
+         "4",
+         "0",
+         "1",
+         "0",
+         "0",
+         "0"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "3057956",
+         "uid": "s:20~l:28~a:3057956",
+         "firstName": "Zach",
+         "lastName": "Sieler",
+         "displayName": "Zach Sieler",
+         "jersey": "92"
+        },
+        "stats": [
+         "2",
+         "1",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4360488",
+         "uid": "s:20~l:28~a:4360488",
+         "firstName": "JuJu",
+         "lastName": "Brents",
+         "displayName": "JuJu Brents",
+         "jersey": "8"
+        },
+        "stats": [
+         "2",
+         "1",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4566094",
+         "uid": "s:20~l:28~a:4566094",
+         "firstName": "Jacob",
+         "lastName": "Rodriguez",
+         "displayName": "Jacob Rodriguez",
+         "jersey": "10"
+        },
+        "stats": [
+         "2",
+         "0",
+         "0",
+         "0",
+         "1",
+         "0",
+         "0"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4046528",
+         "uid": "s:20~l:28~a:4046528",
+         "firstName": "Josh",
+         "lastName": "Uche",
+         "displayName": "Josh Uche",
+         "jersey": "9"
+        },
+        "stats": [
+         "1",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4259547",
+         "uid": "s:20~l:28~a:4259547",
+         "firstName": "Malik",
+         "lastName": "Herring",
+         "displayName": "Malik Herring",
+         "jersey": "90"
+        },
+        "stats": [
+         "1",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4259804",
+         "uid": "s:20~l:28~a:4259804",
+         "firstName": "Willie",
+         "lastName": "Gay Jr.",
+         "displayName": "Willie Gay Jr.",
+         "jersey": "40"
+        },
+        "stats": [
+         "1",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4369466",
+         "uid": "s:20~l:28~a:4369466",
+         "firstName": "Ryan",
+         "lastName": "Miller",
+         "displayName": "Ryan Miller",
+         "jersey": "84"
+        },
+        "stats": [
+         "1",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4431586",
+         "uid": "s:20~l:28~a:4431586",
+         "firstName": "Chop",
+         "lastName": "Robinson",
+         "displayName": "Chop Robinson",
+         "jersey": "44"
+        },
+        "stats": [
+         "1",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4683276",
+         "uid": "s:20~l:28~a:4683276",
+         "firstName": "Zeek",
+         "lastName": "Biggers",
+         "displayName": "Zeek Biggers",
+         "jersey": "93"
+        },
+        "stats": [
+         "1",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4712462",
+         "uid": "s:20~l:28~a:4712462",
+         "firstName": "Keith",
+         "lastName": "Cooper Jr.",
+         "displayName": "Keith Cooper Jr.",
+         "jersey": "97"
+        },
+        "stats": [
+         "1",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0"
+        ]
+       }
+      ]
+     },
+     {
+      "name": "interceptions",
+      "keys": [
+       "interceptions",
+       "interceptionYards",
+       "interceptionTouchdowns"
+      ],
+      "labels": [
+       "INT",
+       "YDS",
+       "TD"
+      ],
+      "athletes": [
+       {
+        "athlete": {
+         "id": "4566094",
+         "uid": "s:20~l:28~a:4566094",
+         "firstName": "Jacob",
+         "lastName": "Rodriguez",
+         "displayName": "Jacob Rodriguez",
+         "jersey": "10"
+        },
+        "stats": [
+         "1",
+         "18",
+         "0"
+        ]
+       }
+      ]
+     },
+     {
+      "name": "kickReturns",
+      "keys": [
+       "kickReturns",
+       "kickReturnYards",
+       "yardsPerKickReturn",
+       "longKickReturn",
+       "kickReturnTouchdowns"
+      ],
+      "labels": [
+       "NO",
+       "YDS",
+       "AVG",
+       "LONG",
+       "TD"
+      ],
+      "athletes": [
+       {
+        "athlete": {
+         "id": "4569603",
+         "uid": "s:20~l:28~a:4569603",
+         "firstName": "Malik",
+         "lastName": "Washington",
+         "displayName": "Malik Washington",
+         "jersey": "6"
+        },
+        "stats": [
+         "2",
+         "55",
+         "27.5",
+         "33",
+         "0"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4711533",
+         "uid": "s:20~l:28~a:4711533",
+         "firstName": "Ollie",
+         "lastName": "Gordon II",
+         "displayName": "Ollie Gordon II",
+         "jersey": "0"
+        },
+        "stats": [
+         "1",
+         "20",
+         "20.0",
+         "20",
+         "0"
+        ]
+       }
+      ]
+     },
+     {
+      "name": "puntReturns",
+      "keys": [
+       "puntReturns",
+       "puntReturnYards",
+       "yardsPerPuntReturn",
+       "longPuntReturn",
+       "puntReturnTouchdowns"
+      ],
+      "labels": [
+       "NO",
+       "YDS",
+       "AVG",
+       "LONG",
+       "TD"
+      ],
+      "athletes": []
+     },
+     {
+      "name": "kicking",
+      "keys": [
+       "fieldGoalsMade/fieldGoalAttempts",
+       "fieldGoalPct",
+       "longFieldGoalMade",
+       "extraPointsMade/extraPointAttempts",
+       "totalKickingPoints"
+      ],
+      "labels": [
+       "FG",
+       "PCT",
+       "LONG",
+       "XP",
+       "PTS"
+      ],
+      "athletes": [
+       {
+        "athlete": {
+         "id": "4243371",
+         "uid": "s:20~l:28~a:4243371",
+         "firstName": "Riley",
+         "lastName": "Patterson",
+         "displayName": "Riley Patterson",
+         "jersey": "47"
+        },
+        "stats": [
+         "0/0",
+         "0.0",
+         "0",
+         "1/1",
+         "1"
+        ]
+       }
+      ]
+     },
+     {
+      "name": "punting",
+      "keys": [
+       "punts",
+       "puntYards",
+       "grossAvgPuntYards",
+       "touchbacks",
+       "puntsInside20",
+       "longPunt"
+      ],
+      "labels": [
+       "NO",
+       "YDS",
+       "AVG",
+       "TB",
+       "In 20",
+       "LONG"
+      ],
+      "athletes": [
+       {
+        "athlete": {
+         "id": "2977680",
+         "uid": "s:20~l:28~a:2977680",
+         "firstName": "Bradley",
+         "lastName": "Pinion",
+         "displayName": "Bradley Pinion",
+         "jersey": "48"
+        },
+        "stats": [
+         "1",
+         "36",
+         "36.0",
+         "0",
+         "1",
+         "36"
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "@sports-better/markets",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@sports-better/sports-data": "*"
+  }
+}

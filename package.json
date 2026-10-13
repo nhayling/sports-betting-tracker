@@ -1,0 +1,21 @@
+{
+  "name": "sports-better",
+  "private": true,
+  "version": "0.0.1",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc -p packages/kambi --noEmit && tsc -p packages/sports-data --noEmit && tsc -p packages/matching --noEmit && tsc -p packages/markets --noEmit && tsc -p packages/display --noEmit && tsc -p apps/api --noEmit && tsc -p apps/web --noEmit",
+    "dev:api": "npm run dev -w @sports-better/api",
+    "dev:web": "npm run dev -w @sports-better/web"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.4",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  }
+}
