@@ -3,8 +3,11 @@ import type { Db } from '../db';
 import { loadEventStates, moneylineSideOf } from '../views/betsView';
 import { computeAnalysis, type AnalysisCoupon } from './compute';
 import type { Analysis } from './types';
+import type { Period } from '../social/types';
+import { inPeriod } from '../social/units';
 
-export async function loadAnalysis(db: Db, opts: { userId: string; fundingMaxOdds?: number }): Promise<Analysis> {
+export async function loadAnalysis(db: Db, opts: { userId: string; fundingMaxOdds?: number; period?: Period }, now = new Date()): Promise<Analysis> {
+  const period = opts.period ?? 'all';
   const coupons = await db.coupon.findMany({
     where: { sportsbookAccount: { userId: opts.userId } },
     omit: { rawPayload: true },
@@ -13,9 +16,10 @@ export async function loadAnalysis(db: Db, opts: { userId: string; fundingMaxOdd
       legs: { orderBy: { externalRowIndex: 'asc' }, include: { selections: { omit: { rawOutcome: true, rawBetOffer: true }, include: { progress: true } } } },
     },
   });
-  const states = await loadEventStates(db, coupons.flatMap((c) => c.legs.map((l) => l.eventId)).filter((e): e is string => !!e));
+  const inRange = coupons.filter((c) => inPeriod(c.placedAt, period, now));
+  const states = await loadEventStates(db, inRange.flatMap((c) => c.legs.map((l) => l.eventId)).filter((e): e is string => !!e));
 
-  const input: AnalysisCoupon[] = coupons.map((c) => ({
+  const input: AnalysisCoupon[] = inRange.map((c) => ({
     id: c.id,
     status: c.status,
     rewardType: c.rewardType,
@@ -48,5 +52,5 @@ export async function loadAnalysis(db: Db, opts: { userId: string; fundingMaxOdd
       };
     }),
   }));
-  return computeAnalysis(input, new Date(), opts.fundingMaxOdds);
+  return { ...computeAnalysis(input, now, opts.fundingMaxOdds), period };
 }

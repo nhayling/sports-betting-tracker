@@ -50,6 +50,7 @@ Constraints:
 - Terminology: "picks" (never "legs"), American odds, Nassau local time.
 - Island Luck's raw amounts are ×1000 (5000 = $5.00); the API's bets view serves cents. Shared formatting lives in `packages/display`.
 - A bet is only called dead on a final miss. A line crossed or reached mid-game can still move, so it reads "at risk" or "there for now".
+- The privacy settings are deliberately granular: open or locked account, and real amounts shared separately with friends, followers and the leaderboard. They cover real combinations people want: a public profile; a locked account whose approved followers see amounts; followers who see your bets while only friends see the amounts. Do not merge them into fewer switches.
 - The bet slip is the unit of the app. A bet can span several games and sports, so games are never the organising structure.
 
 Open decisions:

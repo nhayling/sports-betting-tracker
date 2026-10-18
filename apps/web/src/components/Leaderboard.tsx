@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchLeaderboard, SignedOutError, type LeaderboardView, type Period } from '../api';
 import { americanOdds, money, units } from '../format';
+import { LoadError } from './LoadError';
 
 const PERIODS: Array<[Period, string]> = [
   ['week', 'Week'],
@@ -8,6 +9,13 @@ const PERIODS: Array<[Period, string]> = [
   ['all', 'All time'],
 ];
 const PERIOD_PHRASE: Record<Period, string> = { week: 'placed this week', month: 'placed this month', all: 'in total' };
+const PERIOD_WORDS: Record<Period, string> = { week: 'this week', month: 'this month', all: 'all time' };
+/** "2 more settled bets to rank": what is still needed, never "3 of 3". */
+const toRank = (bets: number, min: number) => {
+  const more = Math.max(1, min - bets);
+  return `${more} more settled bet${more === 1 ? '' : 's'} to rank`;
+};
+const ordinal = (n: number) => `${n}${n % 100 >= 11 && n % 100 <= 13 ? 'th' : ['th', 'st', 'nd', 'rd'][n % 10] ?? 'th'}`;
 
 export const nameOf = (p: { username: string; displayName: string | null }) => p.displayName ?? p.username;
 /** Units per bet as a percentage: 0.375 → "+38%". */
@@ -32,6 +40,7 @@ export function Leaderboard({ hidden, onOpen, onSettings, onSignedOut }: { hidde
   const [period, setPeriod] = useState<Period>('week');
   const [board, setBoard] = useState<LeaderboardView | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
     let stale = false;
@@ -47,7 +56,7 @@ export function Leaderboard({ hidden, onOpen, onSettings, onSignedOut }: { hidde
     return () => {
       stale = true;
     };
-  }, [period, onSignedOut]);
+  }, [period, onSignedOut, attempt]);
 
   return (
     <section className="panel">
@@ -55,7 +64,7 @@ export function Leaderboard({ hidden, onOpen, onSettings, onSignedOut }: { hidde
         <h2>Leaderboard</h2>
         <PeriodPicker value={period} onChange={setPeriod} />
       </div>
-      {error && <p className="banner error">{error}</p>}
+      {error && <LoadError onRetry={() => setAttempt((n) => n + 1)}>Can’t load the leaderboard right now.</LoadError>}
       {!board && !error && <p className="muted center">Loading…</p>}
       {board && <LeaderboardTable board={board} onOpen={onOpen} />}
       {hidden && (
@@ -76,8 +85,25 @@ export function LeaderboardTable({ board, onOpen }: { board: LeaderboardView; on
   const showNet = board.rows.some((r) => r.netMinor !== null);
   const anyOther = board.rows.some((r) => r.other > 0);
 
+  const you = board.rows.find((r) => r.isYou);
+  const ranked = board.rows.filter((r) => r.rank !== null).length;
   return (
     <>
+      {/* Where you stand, before the table. */}
+      {you && (
+        <p className="lede board-you">
+          {you.rank !== null ? (
+            <>
+              You’re <strong>{ordinal(you.rank)}</strong> of {ranked} {PERIOD_WORDS[board.period]} ·{' '}
+              <strong className={unitsClass(you.units)}>{units(you.units)}</strong>
+            </>
+          ) : (
+            <>
+              {toRank(you.bets, board.minBets)} {PERIOD_WORDS[board.period]}
+            </>
+          )}
+        </p>
+      )}
       <table className="table board">
         <thead>
           <tr>
@@ -102,7 +128,7 @@ export function LeaderboardTable({ board, onOpen }: { board: LeaderboardView; on
                 {r.isFriend && <span className="chip">Friend</span>}
                 {r.rank === null && (
                   <span className="muted small block">
-                    {r.bets} of {board.minBets} bets to rank
+                    {toRank(r.bets, board.minBets)}
                   </span>
                 )}
               </td>

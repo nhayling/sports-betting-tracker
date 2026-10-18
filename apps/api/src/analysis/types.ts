@@ -9,6 +9,8 @@ export const MIN_SAMPLE = 30;
 
 export interface Analysis {
   generatedAt: string;
+  /** Bets placed in this period (Nassau time), the same periods the leaderboard uses. */
+  period: 'week' | 'month' | 'all';
   money: MoneyStats;
   /** Conservative "funding" bets vs long-shot "fun" bets, split by payout. */
   styles: StyleSplit;

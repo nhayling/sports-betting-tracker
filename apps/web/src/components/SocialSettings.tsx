@@ -47,7 +47,7 @@ export function SocialSettingsPanel({ me, onChanged, onSignedOut }: { me: Social
       {error && <p className="banner error">{error}</p>}
 
       <section className="panel">
-        <h2>Profile</h2>
+        <h2>Your name</h2>
         <form className="name-form" onSubmit={saveName}>
           <label htmlFor="display-name" className="muted small">
             Display name
@@ -64,8 +64,8 @@ export function SocialSettingsPanel({ me, onChanged, onSignedOut }: { me: Social
 
       <section className="panel">
         <div className="panel-head">
-          <h2>Account</h2>
-          <div className="segmented" role="group" aria-label="Account privacy">
+          <h2>Privacy</h2>
+          <div className="segmented" role="group" aria-label="Who can follow you">
             <button className={settings.locked ? '' : 'on'} aria-pressed={!settings.locked} disabled={saving} onClick={() => settings.locked && void save({ locked: false })}>
               Open
             </button>

@@ -4,7 +4,7 @@ import { americanOdds, money, units } from '../format';
 import { CouponCard } from './CouponCard';
 import { Icon } from './Icon';
 import { nameOf, PeriodPicker, roiPct, unitsClass } from './Leaderboard';
-import { RelationActions, relationChips } from './People';
+import { RelationActions, relationPhrase } from './People';
 
 /** A friend's open bets move with the games, so keep them fresh while you watch. */
 const REFRESH_MS = 30_000;
@@ -140,7 +140,7 @@ export function ProfileCard({
   onSettings: () => void;
 }) {
   const joined = new Date(p.joinedAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'America/Nassau' });
-  const chips = relationChips(p.relation);
+  const phrase = relationPhrase(p.relation);
   return (
     <section className="panel profile">
       <div className="panel-head">
@@ -171,15 +171,7 @@ export function ProfileCard({
         </p>
       ) : (
         <>
-          {chips.length > 0 && (
-            <p className="profile-chips">
-              {chips.map((c) => (
-                <span key={c} className="chip">
-                  {c}
-                </span>
-              ))}
-            </p>
-          )}
+          {phrase && <p className="relation">{phrase}</p>}
           <RelationActions relation={p.relation} theirLocked={p.locked} youLocked={youLocked} busy={busy} onAct={onAct} />
         </>
       )}

@@ -1,4 +1,4 @@
-import { americanOdds, marketLabel, metricUnit, money, quarter } from '@sports-better/display';
+import { americanOdds, betStanding, marketLabel, metricUnit, money, quarter } from '@sports-better/display';
 import type { BetsView, CouponView, GameView, PickView } from '../views/betsViewTypes';
 
 /**
@@ -49,8 +49,11 @@ export function notificationEvents(view: BetsView): NotificationEvent[] {
         dedupeKey: `PROBABLY_SETTLED:${c.id}`,
         couponId: c.id,
         legSelectionId: null,
-        title: `All games over: ${money(c.stakeMinor)} ${americanOdds(c.oddsRaw)} bet`,
-        body: 'Island Luck still shows it open. Open My Bets on Island Luck to sync the result.',
+        // Only a bet the app shows as "Needs sync" (same shared rule) is called that; any other bet,
+        // already dead or all hit by live stats, keeps its own standing and gets plain words.
+        ...(betStanding(c).state !== 'unsynced'
+          ? { title: `All games over: ${money(c.stakeMinor)} ${americanOdds(c.oddsRaw)} bet`, body: 'Island Luck still shows it open. Open My Bets on Island Luck to settle it.' }
+          : { title: `Needs sync: ${money(c.stakeMinor)} ${americanOdds(c.oddsRaw)} bet`, body: 'All games are over but Island Luck still shows it open. Open My Bets on Island Luck to sync it.' }),
       });
     }
   }

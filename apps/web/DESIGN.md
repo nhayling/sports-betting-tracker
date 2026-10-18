@@ -24,6 +24,7 @@ colors:
   good-text-light: "#0b6e3c"
   bad-text-dark: "#ff8a98"
   bad-text-light: "#b00d27"
+  risk-dark: "#ff4252"
   warn-text-light: "#6b5200"
 typography:
   display:
@@ -126,7 +127,7 @@ components:
     textColor: "{colors.good-text-dark}"
   plate-risk:
     backgroundColor: "transparent"
-    textColor: "{colors.bad-text-dark}"
+    textColor: "{colors.risk-dark}"
   plate-hollow:
     backgroundColor: "transparent"
     textColor: "{colors.plate-muted-dark}"
@@ -154,7 +155,7 @@ components:
   pick-cell-wait:
     backgroundColor: "transparent"
   pick-cell-risk:
-    backgroundColor: "color-mix(in srgb, #c8102e 40%, transparent)"
+    backgroundColor: "transparent"
   pick-cell-miss:
     backgroundColor: "{colors.red}"
   hit-fold:
@@ -185,6 +186,12 @@ components:
     textColor: "{colors.white}"
     typography: "{typography.display}"
     padding: "12px 16px"
+  standings-tally:
+    backgroundColor: "{colors.navy-2}"
+    textColor: "{colors.white}"
+    typography: "{typography.headline}"
+    rounded: "{rounded.none}"
+    padding: "10px 16px"
   button:
     backgroundColor: "transparent"
     textColor: "{colors.white}"
@@ -252,13 +259,14 @@ Broadcast navy carries the structure, signal yellow marks what is current, and g
 - **Booth Navy** (`navy-2`, #12305a): The totals strip, the bet and panel plates in dark, and the focus ring in light.
 
 ### Secondary
-- **Signal Yellow** (`yellow`, #ffd200): Current and live. The active tab, a running plate, the "Needs one" standing plate, a pick cell in play, the filled part of a progress plate or cell, the "probably settled" strip, the warning parts of the freshness line, the waiting dot on the setup screen, cashed out, the focus ring in dark, and the primary button and chosen segment in dark.
+- **Signal Yellow** (`yellow`, #ffd200): Current and live. The active tab, a running plate, the "Needs one" standing plate, a pick cell in play, the filled part of a progress plate or cell, the strip on a bet whose games are all over, the warning parts of the freshness line, the waiting dot on the setup screen, cashed out, the focus ring in dark, and the primary button and chosen segment in dark.
 - **Unfilled Yellow** (`yellow-pale`, #fff1a8): Only the not-yet-reached part of a progress plate or cell.
 
 ### Tertiary
 - **Hit Green** (`green`, #1fb86a): The fill of a plate or cell that has hit for good, or a bet that won, always with navy text. As a 2px outline with no fill, a yardage line reached that can still drop.
-- **Alert Red** (`red`, #c8102e): The fill of a final miss, a dead or lost bet, always with white text. As a 2px outline, a line crossed mid-game that can still come back. Also the broadcast alert colour: the LIVE indicator, the live dot on a pick's game line, unread counts, error banners and the implied-odds marker on a rate bar.
-- **Result text** (`good-text-dark` #5fe0a0, `good-text-light` #0b6e3c, `bad-text-dark` #ff8a98, `bad-text-light` #b00d27, `warn-text-light` #6b5200): Green, red and yellow re-tuned to work as text on a surface instead of as a fill. Used for payouts, the text inside an outlined plate, the count on the hit fold, Island Luck's own result on a pick, notification titles and the warning parts of the freshness line on light ground.
+- **Alert Red** (`red`, #c8102e): The fill of a final miss, a dead or lost bet, always with white text. As a 3px outline on light plates, a line crossed mid-game that can still come back (Risk Red takes that job on navy). Also the broadcast alert colour: the LIVE indicator, the live dot on a pick's game line, unread counts, error banners and the implied-odds marker on a rate bar.
+- **Risk Red** (`risk-dark`, #ff4252): An at-risk line in dark: its ring and its plate numerals. The brand red is too dark to read on navy; this one stays red, not pink, at 3.9:1 for large type and rings. Light uses Alert Red.
+- **Result text** (`good-text-dark` #5fe0a0, `good-text-light` #0b6e3c, `bad-text-dark` #ff8a98, `bad-text-light` #b00d27, `warn-text-light` #6b5200): Green, red and yellow re-tuned to work as text on a surface instead of as a fill. Used for payouts, the numerals inside a hold plate, the count on the hit fold, Island Luck's own result on a pick, notification titles and the warning parts of the freshness line on light ground.
 
 ### Neutral
 - **White** (`white`, #ffffff): Light plates, text on navy and on red.
@@ -306,9 +314,9 @@ The stylesheet tokenizes seven small steps (11, 12, 13, 15, 16, 18, 20px), of wh
 
 ## Layout
 
-One centred column: 760px maximum with a 16px gutter (12px under 520px). From 1040px the column widens to 1120px. The bet list becomes two stacks side by side with a 14px gap, dealt alternately so the sorted order still reads top to bottom across them; the analysis panels flow into two CSS columns, each plate kept whole. Social, the account screen and the setup screen stay at 760px.
+One centred column: 760px maximum with a 16px gutter (12px under 520px). From 1040px the column widens to 1120px. The bet list becomes two stacks side by side with a 14px gap, dealt alternately so the sorted order still reads top to bottom across them; the two stacks apply to the Open list only (`.list.stacks`); each Analysis section lays its panels two to a row, a lone or odd-last panel taking the whole row. Social, the account screen and the setup screen stay at 760px.
 
-The shell sits flush to the top, honouring the safe-area inset. It stacks the name row (product name on the left; live plate, bell and account button on the right, wrapping under the name when they do not fit), one freshness line, and on the Open and Settled screens a three-cell totals strip. The four section tabs are equal columns. Above 760px they sit in the shell between the freshness line and the totals. At 760px and under they are a bottom bar fixed to the screen edge, each tab at least 52px tall, padded by the bottom safe-area inset, and the page keeps 76px plus the inset clear beneath its content so nothing ends behind the bar.
+The shell sits flush to the top, honouring the safe-area inset. It stacks the name row (product name on the left; live plate, bell and account button on the right, wrapping under the name when they do not fit), one freshness line, and on the Open and Settled screens a three-cell totals strip. On Open with two or more bets, the standings tally sits under the totals, inside the same navy-2 band. The four section tabs are equal columns. Above 760px they sit in the shell between the freshness line and the totals. At 760px and under they are a bottom bar fixed to the screen edge, each tab at least 52px tall, padded by the bottom safe-area inset, and the page keeps 76px plus the inset clear beneath its content so nothing ends behind the bar.
 
 Below the shell, plates stack with a 14px gap. Inside a bet the inset is 12px and rows are divided by hairlines, not gaps: head (10px 12px), cell strip (8px 12px), group label, pick rows (8px 12px), hit fold (10px 12px, at least 44px tall), foot (9px 12px). The head is a three-column grid: standing plate, title and meta, odds. A pick row is a two-column grid, the name, market and game on the left and the state on the right in a column at least 96px wide.
 
@@ -318,12 +326,12 @@ Under 520px every control reaches a 44px minimum target, the leaderboard drops i
 
 ## Elevation & Depth
 
-Flat. Depth is tonal: navy, navy-2 and (in light) white and pale blue-grey layers, separated by 1px hairlines and 2px strong rules. Outlines are drawn as inset rings so they add no size: 1px for the quiet ones (hollow plates, chips, the idle live indicator, a waiting cell), 2px in green or red for a state that can still move (hold and risk plates and cells).
+Flat. Depth is tonal: navy, navy-2 and (in light) white and pale blue-grey layers, separated by 1px hairlines and 2px strong rules. Outlines are drawn as inset rings so they add no size: 1px for the quiet ones (hollow plates, chips, the idle live indicator, a waiting cell), 2px green for a held line and 3px red for a line at risk (hold and risk plates and cells).
 
 ### Shadow Vocabulary
 - **Overlay drop** (`box-shadow: 0 12px 32px rgb(4 12 26 / 0.45)`): The notification panel only, the one surface that opens over other content.
 - **Inset ring** (`box-shadow: inset 0 0 0 1px currentColor`): The outline of a hollow plate, a chip, the idle live indicator, a waiting cell. A line, not a shadow.
-- **State ring** (`box-shadow: inset 0 0 0 2px` in Hit Green or Alert Red): The outline of a hold or risk plate or cell. A line, not a shadow.
+- **State ring** (`box-shadow: inset 0 0 0 2px` in Hit Green for hold, `3px` in Risk Red for risk): The outline of a hold or risk plate or cell. A line, not a shadow.
 
 ### Named Rules
 **The Two Rules Rule.** A 2px rule in the plate's strong colour (white in dark, navy in light) closes a head, opens a foot and underlines a panel or table heading. Everything else is a 1px hairline. A collapsed bet drops its 2px rules to a hairline.
@@ -340,7 +348,7 @@ Square. Every surface, plate, cell, button, input, tab, chip and badge has a rad
 The end of every pick row, the standing at the head of every bet, and the result of a settled bet.
 - **Shape:** Square slab, 96px minimum width, 4px 8px padding, centred, nowrap, Plate type.
 - **Filled tones:** default navy with white text (a neutral state such as a moneyline lead or a pending yes/no); hit, green with navy text and a check; run, yellow with navy text; miss, red with white text and a cross.
-- **Outlined tones:** hold, no fill with a 2px green inset ring and good-text numerals, for a yardage over that is there for now; risk, no fill with a 2px red inset ring and bad-text numerals, for an under that is over for now; hollow, no fill with a muted 1px inset ring and Label type ("Not started", "No stats", "Void").
+- **Outlined tones:** hold, no fill with a 2px green inset ring and good-text numerals, for a yardage over that is there for now; risk, no fill with a 3px Risk Red inset ring (#ff4252 in dark, Alert Red in light) and numerals in the same red, for an under that is over for now. The plate states the margin ("6.5 over", with no plus sign, which would read as a spread line; "Over" when there is no margin to show) and the note keeps the raw stat and line ("71 rush yds · under 64.5 · over for now"). On a small standing plate the text stays plain and only the ring is red, because the risk red is too faint as 15px text; hollow, no fill with a muted 1px inset ring and Label type ("Not started", "No stats", "Void").
 - **Progress:** an over on its way is a run plate with a hard-stopped horizontal gradient, Signal Yellow up to the fraction reached and Unfilled Yellow after it, with the count as its text ("212 / 250") and `role="progressbar"`. Unders show the current number on a run plate with no fill.
 - **Small:** 2px 8px, Label type, no minimum width. This is the standing plate and the result plate in a bet's head.
 - **Under the plate:** one Meta line in muted text saying the unit and what is left or what just happened ("pass yds · 38 to go", "there for now", "over for now"). When Island Luck has already ruled on a pick in an open bet, its result follows in 12px weight 600 good or bad text.
@@ -348,20 +356,20 @@ The end of every pick row, the standing at the head of every bet, and the result
 
 ### Standing plate
 A small plate at the left of every open bet's head, read from live stats.
-- **States:** "Needs one" (run, yellow); "At risk" (risk, outlined red); "N to go" (default navy); "All hit" (hit, green); "Needs sync" and "Not started" (hollow); "Dead" (miss, red), only when a pick has finally missed.
+- **States:** "Needs one" (run, yellow); "At risk" (risk, outlined red); "N to go" (default navy); "All hit" (hit, green); "Needs sync" (sync, a 2px ring and text in warn-text: the yellow of now in dark, its readable ochre on white, because it is the one standing waiting on you); "Not started" (hollow); "Dead" (miss, red), only when a pick has finally missed.
 - **Order:** open bets are sorted by standing in that order, closest to paying first. A dead bet starts folded.
 - **Settled bets** carry Island Luck's result in the same place: Won (hit), Lost (miss), Cashed out (run), anything else hollow.
 
 ### Pick cells
 A strip under the head with one equal-width cell per pick, shown when a bet has more than one pick and kept visible when the bet is folded.
 - **Shape:** square cells 12px tall with a 3px gap, in an 8px 12px row closed by a hairline. Decorative to assistive tech; the rows below say the same thing in words.
-- **States:** hit, green fill; hold, 2px green ring with no fill; run, yellow, with the same hard-stopped fill as the plate when the pick has a measured fraction and solid yellow when it is in play without one; wait, 1px muted ring (also a void pick); risk, 2px red ring over a 40% red tint; miss, red fill.
+- **States:** hit, green fill; hold, 2px green ring with no fill; run, yellow, with the same hard-stopped fill as the plate when the pick has a measured fraction and solid yellow when it is in play without one; wait, 1px muted ring (also a void pick); risk, 3px Risk Red ring with no fill (a tint would read as a pale miss); miss, red fill.
 - **Order:** left to right hit, hold, run, wait, risk, miss, so the strip reads like the bet filling up.
 
 ### Bet plate and panels
 - **Background:** navy-2 with white text in dark, white with navy text in light. No border, no radius, no shadow.
 - **Head:** standing plate, then Bet title with a reward chip, with a Meta line under it holding the chevron and either the latest hit or miss or the leagues and placed time; odds in Headline on the right; closed by a 2px rule. The whole head is the collapse control: hover tints it with the cell colour, the chevron rotates -90 degrees over 0.15s when collapsed.
-- **Notices:** the settle strip, a full-width yellow row with navy 13px 600 text, sits under the cells when the bet has probably settled; a dead or all-hit bet read from live stats carries one muted Meta row saying Island Luck settles the bet.
+- **Notices:** the settle strip, a full-width yellow row with navy 13px 600 text, sits under the cells when every game is over but Island Luck still shows the bet open (see Needs sync); a dead or all-hit bet read from live stats carries one muted Meta row saying Island Luck settles the bet.
 - **Pick groups:** in an open bet, picks come as "Missed", then "Still needs", each under a Label small heading in muted text, then the hit fold. A settled bet lists its picks plainly.
 - **Pick row:** name in Barlow 600, then the market and the game as two Meta lines. The game line is the score and clock once the game has started, with a 7px red dot while live, and the kickoff time before. A game never gets a strip, header or section of its own inside a bet.
 - **Hit fold:** the picks that already hit, folded to one full-width button row: chevron, the count in good text, then their names in muted 13px. Tap to expand the rows beneath it. Hover tints with the cell colour; the chevron turns as on the head.
@@ -390,12 +398,35 @@ A strip under the head with one equal-width cell per pick, shown when a bet has 
 - **Style:** square, 1px border in the muted colour, the plate colour as background, 16px text, 10px 12px padding (7px 10px inline). Label above in Barlow 500 13px muted. In the popup, placeholder text is the muted colour at full opacity.
 - **Focus:** 2px outline in the focus colour, offset 1px. Caret and native checkboxes take the focus colour through `caret-color` and `accent-color`.
 
+### Standings tally
+A row under the totals on Open: one count per standing that has bets, in the standing order, so the screen answers "how many are alive, how many are in trouble" before any scrolling.
+- **Shape:** each standing is a button holding a count (Condensed 800, 24px, centred in a flat box the width of its cell) over its label (Condensed 700, 12px caps, muted). Cells sit on grid tracks with a 6px gap: at least 64px wide on phones (52px under 380px, where long labels break onto two lines), and 96 to 120px from 1040px up. A count that wraps keeps the first row's width, and a short row stays at the left edge. The row is padded 10px top and bottom and separated from the totals by a 1px navy line.
+- **Tones:** the count box wears its standing plate's tone: Needs one yellow fill, At risk outlined in Risk Red (3px ring, red numerals), Running default navy, All hit green fill, Needs sync outlined in yellow, Not started hollow, Dead red fill. Labels match the standing plates except "Running", which stands for every "N to go" bet.
+- **Behaviour:** tapping a count scrolls to the first bet in that standing (bets keep a 12px scroll margin), moves focus to that bet's head, and replays its standing plate's wipe so the eye finds where it landed. Each count is rebuilt when it changes, so a shift in standings wipes in like a plate. Each button's accessible name says what it does ("1 dead, show it"). Standings with no bets are left out, and the row is hidden when there are fewer than two open bets.
+
 ### Stat cells
 - **Style:** value in Headline (Display in the totals strip) over a Label small caption, in an equal grid divided by 1px gaps. The totals strip is navy-2 cells on a navy gap in both themes.
 
 ### Header status
 - **Live indicator:** a small plate in Label type in the name row: red with white text and a dot when games are live, warn-colour text in a 1px ring when live stats are off or paused, muted in the ring otherwise ("No live games", "Live status unknown").
-- **Freshness line:** one Meta line under the name row: when this page last updated, then the last sync from Island Luck, then how many bets have probably settled, separated by middle dots. A part turns to the warn colour when it needs attention: the page has stopped updating, the sync is more than a day old, a bet has probably settled.
+- **Freshness line:** one Meta line under the name row: when this page last updated, then the last sync from Island Luck, then how many bets need sync, separated by gaps. A part turns to the warn colour when it needs attention: the page has stopped updating, the sync is more than a day old, a bet needs sync. The needs-sync count is a link to Island Luck with an external-link icon, and its accessible name says it opens Island Luck in a new tab.
+
+### Analysis
+Answers four questions in order, each a section with a page-ground heading (Condensed 800, 24px, caps, 2px rule): Am I up or down, Which bets work, Funding vs fun, How close you get. Above them sit the period picker (Week, Month, All time, the same periods the leaderboard uses; remembered per device) and a row of jump links to each section, and a "How you're doing" panel: one sentence ("You're up $16.20 this week on 9 settled bets.") over three stat cells (Net, Won–lost, Return on your money) and a meta line. On wide screens a section's panels sit two to a row; a lone panel takes the row. If a refresh fails, the last figures stay with a retry banner.
+
+### Relationship actions
+On a profile, one primary step leads (the first that adds something: accept a request, add friend, follow) and every other step waits behind a More button. Steps that end a tie (Unfollow, Unfriend, Remove follower) ask once more: the first tap turns the button into "Tap again to …" in bad-text. In the People list each row offers at most one step (Add friend); requests are accepted with "Accept" for friends and followers alike. The footnote explains the difference once: friends both agree; following is one-way. How you stand with someone is one muted phrase ("Friend · you follow each other"), not a row of chips; only Locked keeps its chip. An armed "Tap again" stands down after four seconds and is announced to screen readers; the More button and its items share one width.
+
+### Leaderboard
+Leads with where you stand ("You're 2nd of 3 this week · +3.15u", or "2 more settled bets to rank this week") above the table; an unranked row says the same ("1 more settled bet to rank"). A failed load says so with Retry. Rows centre on the name's tap target.
+
+### Needs sync
+One state, one name, one set of bets. A bet needs sync when every game is over, Island Luck still shows it open, and live stats have not decided it (no final miss, not every pick hit). The app says "needs sync" everywhere for exactly those bets, and the header count always equals the tally count: the standing plate and tally ("Needs sync", outlined in yellow), the strip under the bet head ("Needs sync: all games are final. Open My Bets on Island Luck to update this bet."), the freshness line ("1 bet needs sync", a link to Island Luck), the notification ("Needs sync: $5.00 +1187 bet") and the notifications empty state. The bet's remaining picks sit under "Waiting on Island Luck" in place of "Still needs". A bet already dead or all hit whose games are over keeps its own standing; its strip reads "All games are final. Open My Bets on Island Luck to settle this bet." and its notification "All games over: $5.00 +1187 bet".
+
+### Change marks and order
+- **Changed since your last visit:** when a bet's newest hit or miss happened while you were away (after this device last left the app and before this visit began), its head line ("Latest: …") turns the yellow of now (warn-text, 600 weight) until you leave again. Changes during the visit are not marked; the plate wipe shows those as they happen. Screen readers hear "New since your last visit". Reloading counts as leaving.
+- **Held order:** Open bets sort by standing when you arrive, when you come back to the app and when you switch back to Open; between those, refreshes keep each bet where it is (a bet that changes standing updates its plate in place), a bet that settles leaves a gap, and a newly synced bet waits at the end until the next re-sort. On desktop each bet keeps its stack between re-sorts (a new bet joins the shorter one), so no bet changes column mid-read.
+- **Notifications:** an item about a bet the app can still show is a button ("Show bet"; hover underlines it, since the tinted row means unread) that closes the panel, switches to the bet's list and brings the bet into view with focus. Items stay marked new while the panel is open and are marked read when it closes; opening the panel moves focus into it and Escape returns focus to the bell.
 
 ### Banner
 - **Error:** a full-width red row with white Barlow 500 text, 10px 12px padding, 14px clear beneath it. Used on the ground under the header when the tracker cannot be reached, and inside a panel for a failed action.

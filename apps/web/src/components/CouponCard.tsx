@@ -22,7 +22,7 @@ const STANDING: Record<BetState, { tone: string; label: (left: number) => string
   risk: { tone: 'risk', label: () => 'At risk' },
   alive: { tone: '', label: (left) => `${left} to go` },
   'all-hit': { tone: 'hit', label: () => 'All hit' },
-  unsynced: { tone: 'hollow', label: () => 'Needs sync' },
+  unsynced: { tone: 'sync', label: () => 'Needs sync' },
   waiting: { tone: 'hollow', label: () => 'Not started' },
   dead: { tone: 'miss', label: () => 'Dead' },
 };
@@ -48,8 +48,9 @@ type Row = { pick: PickView; game: GameView; state: PickState };
  * is what the bet pays at that minimum stake, so the card leaves the stake out
  * and says what the figures are based on.
  * `latest`: the newest hit or miss on this bet, for its head line.
+ * `fresh`: that change happened since you last left the app, so the line is marked.
  */
-export function CouponCard({ coupon: c, minBetMinor, latest }: { coupon: CouponView; minBetMinor?: number; latest?: NotificationItem }) {
+export function CouponCard({ coupon: c, minBetMinor, latest, fresh = false }: { coupon: CouponView; minBetMinor?: number; latest?: NotificationItem; fresh?: boolean }) {
   const open = c.status === 'OPEN';
   const standing = betStanding(c);
   const dead = open && standing.state === 'dead';
@@ -72,6 +73,7 @@ export function CouponCard({ coupon: c, minBetMinor, latest }: { coupon: CouponV
   const list = (rs: Row[]) => rs.map((r) => <PickRow key={r.pick.id} pick={r.pick} game={r.game} live={open} state={r.state} />);
   const leagues = [...new Set(c.games.map((g) => g.league).filter(Boolean))].join(' + ');
   const plate = open ? STANDING[standing.state] : null;
+  const over = c.probablySettled === 'ALL_GAMES_FINAL' ? 'All games are final' : 'All games should be over';
 
   return (
     <article id={`bet-${c.id}`} className={`bet status-${c.status.toLowerCase()} ${collapsed ? 'collapsed' : ''}`}>
@@ -88,10 +90,11 @@ export function CouponCard({ coupon: c, minBetMinor, latest }: { coupon: CouponV
             <span>{open && standing.counted > 1 ? `${standing.hit} of ${standing.counted} hit` : c.pickCount === 1 ? '1 pick' : `${c.pickCount} picks`}</span>
             {c.rewardType && <span className="chip">{REWARD_LABELS[c.rewardType] ?? c.rewardType}</span>}
           </div>
-          <div className="bet-meta">
+          <div className={open && latest && fresh ? 'bet-meta fresh' : 'bet-meta'}>
             <span className="chevron">
               <Icon name="chevron" />
             </span>{' '}
+            {open && latest && fresh && <span className="sr-only">New since your last visit. </span>}
             {open && latest ? `Latest: ${latest.title}, ${nb(relativeTime(latest.createdAt))}` : [leagues, nb(dateTime(c.placedAt))].filter(Boolean).join(' · ')}
           </div>
         </div>
@@ -109,11 +112,12 @@ export function CouponCard({ coupon: c, minBetMinor, latest }: { coupon: CouponV
 
       {c.probablySettled && (
         <div className="settle-nudge">
-          {c.probablySettled === 'ALL_GAMES_FINAL' ? 'All games are final.' : 'All games should be over.'} Open My Bets on{' '}
+          {/* "Needs sync" names an undecided bet's standing; a bet already dead or all hit keeps its own and gets plain words. */}
+          {standing.state === 'unsynced' ? `Needs sync: ${over.toLowerCase()}` : over}. Open My Bets on{' '}
           <a href="https://islandluck.com/" target="_blank" rel="noreferrer">
             Island Luck
           </a>{' '}
-          to update this bet.
+          to {standing.state === 'unsynced' ? 'update' : 'settle'} this bet.
         </div>
       )}
       {open && (standing.state === 'dead' || standing.state === 'all-hit') && !c.probablySettled && (
@@ -125,7 +129,8 @@ export function CouponCard({ coupon: c, minBetMinor, latest }: { coupon: CouponV
           <>
             {of('missed').length > 0 && <h3 className="picks-label">Missed</h3>}
             {list(of('missed'))}
-            {of('risk', 'running', 'reached', 'waiting').length > 0 && <h3 className="picks-label">Still needs</h3>}
+            {/* Once every game is over, what's left is Island Luck's result, not more play. */}
+            {of('risk', 'running', 'reached', 'waiting').length > 0 && <h3 className="picks-label">{standing.state === 'unsynced' ? 'Waiting on Island Luck' : 'Still needs'}</h3>}
             {list(of('risk', 'running', 'reached', 'waiting'))}
             {hit.length > 0 && (
               <>

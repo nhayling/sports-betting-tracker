@@ -53,6 +53,8 @@
   --p-on-bg: var(--yellow);
   --p-on-fg: var(--navy);
   --p-focus: var(--yellow);
+  /* At risk: a red that still reads as red on navy (3.9:1, for large type and rings) where the brand red would vanish. */
+  --risk: #ff4252;
 
   font-family: var(--sans);
   font-size: 15px;
@@ -91,6 +93,7 @@
     --p-on-bg: var(--navy);
     --p-on-fg: #ffffff;
     --p-focus: var(--navy-2);
+    --risk: var(--red);
   }
 }
 
@@ -106,6 +109,7 @@
   --on-bg: var(--yellow);
   --on-fg: var(--navy);
   --focus: var(--yellow);
+  --risk: #ff4252;
   color: var(--text);
 }
 /* Plates follow the theme. */
@@ -151,7 +155,7 @@ button.link:hover { color: var(--text); }
 /* How fresh the page is: this page, then the last sync. */
 /* Segments stay whole and wrap between each other, so no line ever starts with a separator. */
 .status { display: flex; flex-wrap: wrap; gap: 0 14px; margin: 6px 0 0; font-size: var(--fs-xs); color: var(--muted); }
-.status span { white-space: nowrap; }
+.status span, .status a { white-space: nowrap; }
 .status .warn, .live-indicator.off { color: var(--warn-text); }
 .live-indicator { display: inline-flex; align-items: center; gap: 6px; padding: 2px 8px; font-family: var(--cond); font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; color: var(--muted); box-shadow: inset 0 0 0 1px var(--rule); }
 .live-indicator.on { background: var(--red); color: #fff; box-shadow: none; }
@@ -172,14 +176,16 @@ button.link:hover { color: var(--text); }
 .totals .stat-value { font-size: 28px; }
 
 /* Under the totals: how many open bets stand where. Each count wears its standing's plate and jumps to the first such bet. */
-.tally { display: flex; flex-wrap: wrap; gap: 6px; padding-block: 10px; border-top: 1px solid var(--navy); }
-.tally button { flex: 1 1 0; min-width: 62px; display: flex; flex-direction: column; gap: 3px; padding: 0; background: none; border: 0; cursor: pointer; }
-.tally b { padding: 2px 0; background: var(--navy); color: #fff; font-family: var(--cond); font-size: 24px; font-weight: 800; line-height: 1.15; text-align: center; }
+/* Grid tracks, not flex growth: a count that wraps keeps the first row's width, and a short row stays at the left. */
+.tally { display: grid; grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); gap: 6px; padding-block: 10px; border-top: 1px solid var(--navy); }
+.tally button { display: flex; flex-direction: column; gap: 3px; padding: 0; background: none; border: 0; cursor: pointer; }
+.tally b { animation: wipe 0.28s cubic-bezier(0.16, 1, 0.3, 1); padding: 2px 0; background: var(--navy); color: #fff; font-family: var(--cond); font-size: 24px; font-weight: 800; line-height: 1.15; text-align: center; }
 .tally span { font-family: var(--cond); font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; text-align: center; white-space: nowrap; color: var(--muted); }
 .tally .run b { background: var(--yellow); color: var(--navy); }
 .tally .hit b { background: var(--green); color: var(--navy); }
 .tally .miss b { background: var(--red); }
-.tally .risk b { background: none; color: var(--bad-text); box-shadow: inset 0 0 0 2px var(--red); }
+.tally .sync b { background: none; color: var(--warn-text); box-shadow: inset 0 0 0 2px var(--warn-text); }
+.tally .risk b { background: none; color: var(--risk); box-shadow: inset 0 0 0 3px var(--risk); }
 .tally .hollow b { background: none; color: var(--muted); box-shadow: inset 0 0 0 1px var(--muted); }
 .tally button:hover span { color: var(--text); }
 .bet { scroll-margin-top: 12px; }
@@ -209,7 +215,10 @@ button.link:hover { color: var(--text); }
 .plate.run.fill { background: linear-gradient(90deg, var(--yellow) var(--at), var(--plate-run) var(--at)); color: var(--navy); }
 .plate.miss { background: var(--red); color: #fff; }
 .plate.hold { background: none; color: var(--good-text); box-shadow: inset 0 0 0 2px var(--green); }
-.plate.risk { background: none; color: var(--bad-text); box-shadow: inset 0 0 0 2px var(--red); }
+.plate.sync { background: none; color: var(--warn-text); box-shadow: inset 0 0 0 2px var(--warn-text); }
+.plate.risk { background: none; color: var(--risk); box-shadow: inset 0 0 0 3px var(--risk); }
+/* At 15px the risk red is too faint as text; the small plate keeps the red ring and plain text. */
+.plate.small-plate.risk { color: var(--text); }
 .plate.hollow { background: none; color: var(--muted); box-shadow: inset 0 0 0 1px var(--muted); font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.04em; }
 .plate.small-plate { min-width: 0; padding: 2px 8px; font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.05em; }
 /* A plate is rebuilt when its value changes, so the new value wipes in like an on-air update. */
@@ -225,6 +234,9 @@ button.link:hover { color: var(--text); }
 .bet-main { min-width: 0; }
 .bet-title { display: flex; align-items: baseline; flex-wrap: wrap; gap: 2px 8px; font-family: var(--cond); font-size: var(--fs-lg); font-weight: 800; line-height: 1.15; letter-spacing: 0.01em; text-transform: uppercase; }
 .bet-meta { margin-top: 2px; font-size: var(--fs-xs); color: var(--muted); }
+/* A change since you last left the app: the latest line takes the colour of now until you leave again. */
+.bet-meta.fresh { color: var(--warn-text); font-weight: 600; }
+.bet-meta.fresh .chevron { color: var(--warn-text); }
 .chevron { display: inline-block; line-height: 1; color: var(--text); vertical-align: -1px; transition: transform 0.15s ease; }
 .bet.collapsed .chevron, .hit-fold[aria-expanded='false'] .chevron { transform: rotate(-90deg); }
 .odds { font-family: var(--cond); font-size: 24px; font-weight: 800; line-height: 1; }
@@ -238,7 +250,7 @@ button.link:hover { color: var(--text); }
 .cells .run { background: linear-gradient(90deg, var(--yellow) var(--at, 100%), var(--plate-run) var(--at, 100%)); }
 .cells .hold { background: none; box-shadow: inset 0 0 0 2px var(--green); }
 .cells .miss { background: var(--red); }
-.cells .risk { background: color-mix(in srgb, var(--red) 40%, transparent); box-shadow: inset 0 0 0 2px var(--red); }
+.cells .risk { background: none; box-shadow: inset 0 0 0 3px var(--risk); }
 .cells .wait { background: none; box-shadow: inset 0 0 0 1px var(--muted); }
 
 .settle-nudge { padding: 6px 12px; font-size: var(--fs-sm); font-weight: 600; background: var(--yellow); color: var(--navy); }
@@ -283,6 +295,13 @@ button.link:hover { color: var(--text); }
 .note-probably_settled .note-title { color: var(--warn-text); }
 .note-body { font-size: var(--fs-xs); margin-top: 2px; }
 .note-time { font-size: var(--fs-xs); margin-top: 3px; }
+.note:has(.note-link) { padding: 0; }
+.note-link { display: block; width: 100%; min-height: 44px; padding: 10px 14px; background: none; border: 0; text-align: left; cursor: pointer; }
+.note-link:hover .note-title, .note-link:hover .note-go { text-decoration: underline; text-underline-offset: 3px; }
+.note-link:focus-visible { outline-offset: -2px; }
+.note-go { display: inline-flex; align-items: center; gap: 2px; margin-top: 4px; font-family: var(--cond); font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text); }
+.note-go .icon { transform: rotate(-90deg); }
+.notes-panel:focus { outline: none; }
 
 /* ── Sign in, register ────────────────────────────────── */
 .app.auth { background: var(--navy); padding: 12vh 16px 32px; }
@@ -313,6 +332,27 @@ button.primary:not(.btn) { padding: 11px; font-size: var(--fs-lg); }
 
 /* ── Panels: analysis, social, phone sync ─────────────── */
 .analysis, .social { display: flex; flex-direction: column; gap: 14px; }
+/* Analysis: the period, then jumps to each question. */
+.analysis-controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; }
+.jumps { display: flex; flex-wrap: wrap; gap: 0 14px; }
+.jump { min-height: 44px; padding: 0; background: none; border: 0; cursor: pointer; font-family: var(--cond); font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--rule); }
+.jump:hover { color: var(--text); text-decoration-color: currentColor; }
+.analysis-group { display: flex; flex-direction: column; gap: 10px; scroll-margin-top: 12px; }
+.group-head { margin: 8px 0 0; padding-bottom: 6px; border-bottom: 2px solid var(--text); font-family: var(--cond); font-size: 24px; font-weight: 800; line-height: 1.1; letter-spacing: 0.01em; text-transform: uppercase; }
+.group-panels { display: flex; flex-direction: column; gap: 14px; }
+.standing-panel .lede { font-size: var(--fs-lg); }
+/* Leaderboard: where you stand, above the table. */
+.board-you { margin: 0 0 6px; }
+/* Relationship steps: one primary action, the rest in a More menu. */
+.more { position: relative; display: inline-flex; flex-direction: column; min-width: 11rem; }
+.more summary { justify-content: center; }
+.relation { display: block; margin-top: 2px; font-size: var(--fs-xs); color: var(--muted); }
+p.relation { margin: 8px 0 0; }
+.more summary { display: inline-flex; align-items: center; gap: 4px; list-style: none; }
+.more summary::-webkit-details-marker { display: none; }
+.more[open] summary .icon { transform: rotate(180deg); }
+.more-menu { display: flex; flex-direction: column; align-items: stretch; gap: 6px; margin-top: 6px; }
+.btn.danger { border-color: var(--bad-text); color: var(--bad-text); }
 .panel { padding: 12px 14px 14px; }
 .panel h2 { margin: 0 0 10px; padding-bottom: 8px; border-bottom: 2px solid var(--ink); font-family: var(--cond); font-size: 19px; font-weight: 800; line-height: 1.15; letter-spacing: 0.02em; text-transform: uppercase; }
 .panel h3 { margin: 18px 0 6px; font-family: var(--cond); font-size: var(--fs-sm); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
@@ -331,6 +371,8 @@ button.primary:not(.btn) { padding: 11px; font-size: var(--fs-lg); }
 .num { text-align: right; white-space: nowrap; }
 .table th.num { text-align: right; }
 .board .chip, .person .chip { margin-left: 6px; }
+/* Names are tall tap targets; rank, units and record centre on them. */
+.table.board td { vertical-align: middle; }
 .board .rank { width: 1%; font-family: var(--cond); font-size: var(--fs-md); font-weight: 700; color: var(--muted); }
 .board tr.you td { background: var(--cell); }
 
@@ -432,6 +474,9 @@ button.link.back { align-self: flex-start; display: inline-flex; align-items: ce
 }
 
 @media (max-width: 380px) {
+  /* Five standings fit one row; long labels break onto two lines. */
+  .tally { grid-template-columns: repeat(auto-fill, minmax(52px, 1fr)); }
+  .tally span { white-space: normal; line-height: 1.1; }
   .top h1 { font-size: 24px; }
   .top-right { gap: 10px; }
 }
@@ -439,10 +484,12 @@ button.link.back { align-self: flex-start; display: inline-flex; align-items: ce
 /* Desktop: bets and analysis panels run in two columns. */
 @media (min-width: 1040px) {
   .wrap { max-width: 1120px; }
-  .list { flex-direction: row; align-items: flex-start; }
+  .tally { grid-template-columns: repeat(auto-fill, minmax(96px, 120px)); }
+  .list.stacks { flex-direction: row; align-items: flex-start; }
   .list-col { display: flex; flex: 1; min-width: 0; flex-direction: column; gap: 14px; }
-  .analysis { display: block; columns: 2; column-gap: 14px; }
-  .analysis > * { break-inside: avoid; margin-bottom: 14px; }
+  /* Analysis: a question's panels sit side by side; a lone panel takes the row. */
+  .group-panels { display: grid; grid-template-columns: 1fr 1fr; align-items: start; }
+  .group-panels > :only-child, .group-panels > :last-child:nth-child(odd) { grid-column: 1 / -1; }
   .social, .account, .first-run { max-width: 760px; }
   /* A computer is in front of them, so that path leads. */
   .first-run .on-computer { order: -1; }

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   fetchBets,
   fetchNotifications,
@@ -7,6 +7,7 @@ import {
   signOut,
   SignedOutError,
   type BetsView,
+  type CouponView,
   type NotificationItem,
   type PollerStatus,
   type SocialMe,
@@ -38,11 +39,28 @@ const TALLY: Record<BetState, { label: string; tone: string }> = {
   risk: { label: 'At risk', tone: 'risk' },
   alive: { label: 'Running', tone: '' },
   'all-hit': { label: 'All hit', tone: 'hit' },
-  unsynced: { label: 'Needs sync', tone: 'hollow' },
+  unsynced: { label: 'Needs sync', tone: 'sync' },
   waiting: { label: 'Not started', tone: 'hollow' },
   dead: { label: 'Dead', tone: 'miss' },
 };
 const REFRESH_MS = 15_000;
+/** When this device last left the app, so changes since then can be marked. */
+const SEEN_KEY = 'sports-better:last-seen';
+function readSeen(): number | null {
+  try {
+    const v = Number(localStorage.getItem(SEEN_KEY));
+    return v > 0 ? v : null;
+  } catch {
+    return null;
+  }
+}
+function writeSeen(at: number) {
+  try {
+    localStorage.setItem(SEEN_KEY, String(at));
+  } catch {
+    // Not remembered; nothing is marked new next time.
+  }
+}
 /** Three missed refreshes: what's on screen can no longer be called live. */
 const STALE_MS = 3 * REFRESH_MS;
 
@@ -54,7 +72,19 @@ function tabFromHash(): Tab {
 
 export function App() {
   const [tab, setTabState] = useState<Tab>(tabFromHash);
+  // The Open list keeps its order while you read; it re-sorts when you come back to it.
+  const order = useRef<string[]>([]);
+  const resortNext = useRef(true);
+  // Changes newer than this are marked on their bet: the time this device last left the app.
+  const [seenAt, setSeenAt] = useState(readSeen);
+  // When this visit began. Only changes from the time away are marked; ones you watch happen are not "new since your last visit".
+  const [visitAt, setVisitAt] = useState(Date.now);
+  // Which desktop stack each bet sits in, held between re-sorts so no bet changes column mid-read.
+  const column = useRef(new Map<string, number>());
+  // A notification tapped: the bet to bring into view once its list is on screen.
+  const [jump, setJump] = useState<string | null>(null);
   const setTab = (t: Tab) => {
+    resortNext.current = true;
     setTabState(t);
     setAccount(false);
     history.replaceState(null, '', t === 'open' ? location.pathname : `#${t}`);
@@ -81,6 +111,8 @@ export function App() {
   const view: BetsTab = tab === 'settled' ? 'settled' : 'open';
   const [account, setAccount] = useState(false);
   const onSignedOut = useCallback(() => setSignedOut(true), []);
+  const clearJump = useCallback(() => setJump(null), []);
+  useJump(jump, views[tab === 'settled' ? 'settled' : 'open']?.coupons, clearJump);
   const now = useNow(5_000);
 
   const load = useCallback(async () => {
@@ -107,7 +139,14 @@ export function App() {
     void load();
     // The server polls ESPN every ~30 s; refreshing the view every 15 s keeps it current.
     const id = setInterval(() => document.visibilityState === 'visible' && void load(), REFRESH_MS);
-    const onVisible = () => document.visibilityState === 'visible' && void load();
+    const onVisible = () => {
+      if (document.visibilityState === 'visible') {
+        resortNext.current = true;
+        setSeenAt(readSeen());
+        setVisitAt(Date.now());
+        void load();
+      } else writeSeen(Date.now());
+    };
     document.addEventListener('visibilitychange', onVisible);
     return () => {
       clearInterval(id);
@@ -118,10 +157,32 @@ export function App() {
   if (invite) return <Register token={invite} onRegistered={() => closeInvite(false)} onCancel={() => closeInvite(true)} />;
   if (signedOut) return <SignIn onSignedIn={() => setSignedOut(false)} />;
 
+  /** Open bets by standing, but held in place between refreshes; new bets join at the top. */
+  function heldOrder(list: CouponView[]): CouponView[] {
+    const sorted = [...list].sort((a, b) => betRank(a) - betRank(b));
+    const known = new Set(order.current);
+    if (resortNext.current || order.current.length === 0) {
+      order.current = sorted.map((c) => c.id);
+      column.current = new Map(order.current.map((id, i) => [id, i % 2]));
+      resortNext.current = false;
+    } else {
+      // A bet that settles leaves a gap; a new one waits at the end until the next re-sort, so nothing above it moves.
+      const ids = new Set(list.map((c) => c.id));
+      order.current = [...order.current.filter((id) => ids.has(id)), ...sorted.filter((c) => !known.has(c.id)).map((c) => c.id)];
+      for (const id of order.current) {
+        if (column.current.has(id)) continue;
+        const left = order.current.filter((x) => column.current.get(x) === 0).length;
+        const right = order.current.filter((x) => column.current.get(x) === 1).length;
+        column.current.set(id, left <= right ? 0 : 1);
+      }
+    }
+    const byId = new Map(list.map((c) => [c.id, c]));
+    return order.current.map((id) => byId.get(id)!);
+  }
   const data = views[view] ?? null;
   const all = data?.coupons ?? [];
   // Open bets: closest to paying first, bets that can no longer win last. Settled bets keep the server's order.
-  const coupons = tab === 'open' ? [...all].sort((a, b) => betRank(a) - betRank(b)) : all;
+  const coupons = tab === 'open' ? heldOrder(all) : all;
   const staked = all.reduce((n, c) => n + (c.stakeMinor ?? 0), 0);
   const returned = all.reduce((n, c) => n + (c.payoutMinor ?? 0), 0);
   // A bet with a final miss can't pay; one that is only at risk still can.
@@ -133,6 +194,19 @@ export function App() {
   const latest = new Map<string, NotificationItem>();
   for (const n of notes?.items ?? []) {
     if (n.couponId && n.kind !== 'PROBABLY_SETTLED' && !latest.has(n.couponId)) latest.set(n.couponId, n);
+  }
+  const isFresh = (n: NotificationItem | undefined) => {
+    if (!n || seenAt === null) return false;
+    const at = Date.parse(n.createdAt);
+    return at > seenAt && at <= visitAt;
+  };
+  // A notification's bet can be shown if it is in a list we have, or may be in the settled list not loaded yet.
+  const canOpen = (couponId: string) => !!views.open?.coupons.some((c) => c.id === couponId) || !views.settled || views.settled.coupons.some((c) => c.id === couponId);
+  function openBet(couponId: string) {
+    setAccount(false);
+    // Not on Open means it settled; the Settled list loads if it hasn't yet, and the jump waits for it.
+    setTab(views.open?.coupons.some((c) => c.id === couponId) ? 'open' : 'settled');
+    setJump(couponId);
   }
   const doSignOut = async () => {
     await signOut().catch(() => {});
@@ -148,7 +222,7 @@ export function App() {
             <div className="top-right">
               {/* While the tracker can't be reached the banner says so; a live count would be a guess. */}
               {!unreachable && <LiveIndicator poller={poller} />}
-              {notes && <Notifications feed={notes} onRead={() => setNotes({ ...notes, unread: 0 })} />}
+              {notes && <Notifications feed={notes} onRead={() => setNotes((prev) => prev && { ...prev, unread: 0, items: prev.items.map((n) => ({ ...n, readAt: n.readAt ?? new Date().toISOString() })) })} onOpenBet={openBet} canOpen={canOpen} />}
               <button className="bell" aria-label="Account" aria-expanded={account} onClick={() => setAccount(!account)}>
                 <Icon name="user" />
               </button>
@@ -193,8 +267,14 @@ export function App() {
             {all.length > 1 && tally.length > 0 && (
               <nav className="wrap tally" aria-label="Open bets by standing">
                 {tally.map(({ state, bets }) => (
-                  <button key={state} className={TALLY[state].tone} onClick={() => document.getElementById(`bet-${bets[0]!.id}`)?.scrollIntoView({ block: 'start' })}>
-                    <b>{bets.length}</b>
+                  <button
+                    key={state}
+                    className={TALLY[state].tone}
+                    aria-label={`${bets.length} ${TALLY[state].label.toLowerCase()}, show ${bets.length === 1 ? 'it' : 'the first'}`}
+                    onClick={() => jumpTo(bets[0]!.id)}
+                  >
+                    {/* Rebuilt when the count changes, so a change in standings wipes in like a plate. */}
+                    <b key={bets.length}>{bets.length}</b>
                     <span>{TALLY[state].label}</span>
                   </button>
                 ))}
@@ -248,14 +328,14 @@ export function App() {
             )}
 
             {betsTab && coupons.length > 0 && (
-              <main className="list">
+              <main className="list stacks">
                 {/* Two stacks on a wide screen, dealt alternately so the order still reads top to bottom; one list on a phone. */}
                 {[0, 1].map((col) => (
                   <div key={col} className="list-col">
                     {coupons.map((c, i) =>
-                      i % 2 === col ? (
+                      (tab === 'open' ? column.current.get(c.id) : i % 2) === col ? (
                         <div key={c.id} style={{ order: i }}>
-                          <CouponCard coupon={c} latest={latest.get(c.id)} />
+                          <CouponCard coupon={c} latest={latest.get(c.id)} fresh={isFresh(latest.get(c.id))} />
                         </div>
                       ) : null,
                     )}
@@ -268,6 +348,30 @@ export function App() {
       </div>
     </div>
   );
+}
+
+/** Brings a bet into view, moves focus to it, and replays its standing plate's wipe so the eye finds where it landed. */
+function jumpTo(couponId: string) {
+  const bet = document.getElementById(`bet-${couponId}`);
+  if (!bet) return;
+  bet.scrollIntoView({ block: 'start' });
+  bet.querySelector<HTMLElement>('.bet-head')?.focus({ preventScroll: true });
+  const plate = bet.querySelector<HTMLElement>('.bet-head .plate');
+  if (plate) {
+    plate.style.animation = 'none';
+    void plate.offsetWidth;
+    plate.style.animation = '';
+  }
+}
+
+/** Brings a tapped notification's bet into view once its list has rendered. */
+function useJump(jump: string | null, list: CouponView[] | undefined, done: () => void) {
+  useEffect(() => {
+    if (!jump || !list) return;
+    // A bet that isn't in this list (settled since, or never synced) is simply not jumped to.
+    if (list.some((c) => c.id === jump)) jumpTo(jump);
+    done();
+  }, [jump, list, done]);
 }
 
 /** Re-renders on a slow tick so "updated 20s ago" stays true between refreshes. */
@@ -284,7 +388,8 @@ function Freshness({ data, now, unreachable }: { data: BetsView; now: number; un
   const age = Math.max(0, now - Date.parse(data.generatedAt));
   const stale = unreachable || age > STALE_MS;
   const updated = age < 10_000 ? 'just now' : age < 60_000 ? `${Math.floor(age / 5000) * 5}s ago` : relativeTime(data.generatedAt, now);
-  const settled = data.coupons.filter((c) => c.probablySettled).length;
+  // The same bets the tally counts as Needs sync; a bet already dead or all hit keeps its own standing.
+  const settled = data.coupons.filter((c) => betStanding(c).state === 'unsynced').length;
   // A day without a sync: new bets and results are missing.
   const oldSync = data.lastSyncedAt !== null && now - Date.parse(data.lastSyncedAt) > 24 * 3600_000;
   return (
@@ -292,9 +397,16 @@ function Freshness({ data, now, unreachable }: { data: BetsView; now: number; un
       <span className={stale ? 'warn' : undefined}>{stale ? `Not updating · last updated ${updated}` : `Updated ${updated}`}</span>
       <span className={oldSync ? 'warn' : undefined}>{data.lastSyncedAt ? `Synced from Island Luck ${relativeTime(data.lastSyncedAt, now)}` : 'Not synced from Island Luck yet'}</span>
       {settled > 0 && (
-        <span className="warn">
-          {settled} bet{settled === 1 ? '' : 's'} probably settled
-        </span>
+        <a
+          className="warn"
+          href="https://islandluck.com/"
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`${settled === 1 ? '1 bet needs' : `${settled} bets need`} sync. Open Island Luck in a new tab`}
+          title="Open My Bets on Island Luck to sync"
+        >
+          {settled === 1 ? '1 bet needs sync' : `${settled} bets need sync`} <Icon name="external" />
+        </a>
       )}
     </p>
   );

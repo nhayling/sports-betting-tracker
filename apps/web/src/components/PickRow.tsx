@@ -30,6 +30,15 @@ const note = (children: ReactNode, title?: string) => (
   </span>
 );
 
+/**
+ * How far an under has gone over: "6.5 over". No plus sign, which would read as a spread line;
+ * a strict under passed at the line itself has no margin to show.
+ */
+const overBy = (current: number, line: number) => {
+  const by = Number((current - line).toFixed(1));
+  return by > 0 ? `${by} over` : 'Over';
+};
+
 /** Joins what there is to say; a stat with no unit name leaves no stray separator. */
 const parts = (...bits: string[]) => bits.filter(Boolean).join(' · ');
 
@@ -121,8 +130,13 @@ function Progress({ pick: p, game, state }: { pick: PickView; game: GameView; st
     // Unders: show how close to going over; no fill.
     return (
       <>
-        <Plate tone={missed ? 'miss' : atRisk ? 'risk' : reached ? 'hit' : 'run'} icon={missed ? 'cross' : reached ? 'check' : undefined} text={String(current)} />
-        {note(parts(unit, `under ${pr.target}`, missed ? 'went over' : atRisk ? 'over for now' : ''))}
+        {/* Over the line: the plate says by how much, the note keeps the raw stat. */}
+        <Plate
+          tone={missed ? 'miss' : atRisk ? 'risk' : reached ? 'hit' : 'run'}
+          icon={missed ? 'cross' : reached ? 'check' : undefined}
+          text={atRisk ? overBy(current, pr.target ?? 0) : String(current)}
+        />
+        {note(atRisk ? parts(`${current} ${unit}`.trim(), `under ${pr.target}`, 'over for now') : parts(unit, `under ${pr.target}`, missed ? 'went over' : ''))}
       </>
     );
   }

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { addTie, fetchPeople, removeTie, SignedOutError, type Person, type Relation, type Tie } from '../api';
 import { Icon } from './Icon';
+import { LoadError } from './LoadError';
 import { nameOf } from './Leaderboard';
 
 type Act = (action: 'add' | 'remove', tie: Tie, username: string) => void;
@@ -8,20 +9,30 @@ type Act = (action: 'add' | 'remove', tie: Tie, username: string) => void;
 /** Friend first, then people you follow, then your followers, then everyone else. */
 const closeness = (r: Relation) => (r.friend === 'FRIENDS' ? 0 : r.following !== 'NONE' ? 1 : r.followsYou === 'FOLLOWING' ? 2 : 3);
 
-export function relationChips(r: Relation): string[] {
-  return [
-    r.friend === 'FRIENDS' && 'Friend',
-    r.friend === 'SENT' && 'Friend request sent',
-    r.following === 'FOLLOWING' && 'Following',
-    r.following === 'REQUESTED' && 'Follow requested',
-    r.followsYou === 'FOLLOWING' && 'Follows you',
-  ].filter((c): c is string => !!c);
+/** How you stand with someone, in one plain phrase: "Friend · you follow each other". */
+export function relationPhrase(r: Relation): string {
+  const both = r.following === 'FOLLOWING' && r.followsYou === 'FOLLOWING';
+  const parts = [
+    r.friend === 'FRIENDS' && 'friend',
+    r.friend === 'SENT' && 'friend request sent',
+    r.friend === 'RECEIVED' && 'wants to be friends',
+    both && 'you follow each other',
+    !both && r.following === 'FOLLOWING' && 'you follow them',
+    r.following === 'REQUESTED' && 'follow requested',
+    !both && r.followsYou === 'FOLLOWING' && 'follows you',
+    r.followsYou === 'REQUESTED' && 'wants to follow you',
+  ].filter((x): x is string => !!x);
+  const text = parts.join(' · ');
+  return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
+type Step = { label: string; action: 'add' | 'remove'; tie: Tie; confirm?: string };
+
 /**
- * Every change you can make to how you stand with one person. Friends are
- * always asked. Following is a request only when their account is locked, and
- * you approve or remove followers only when yours is.
+ * Every change you can make to how you stand with one person, as one primary
+ * step plus a More menu. Friends are always asked. Following is a request only
+ * when their account is locked, and you remove followers only when yours is.
+ * Ending a tie asks once more before it happens.
  */
 export function RelationActions({
   relation: r,
@@ -36,23 +47,61 @@ export function RelationActions({
   busy: boolean;
   onAct: (action: 'add' | 'remove', tie: Tie) => void;
 }) {
-  const button = (label: string, action: 'add' | 'remove', tie: Tie, primary = false) => (
-    <button key={label} className={primary ? 'btn primary' : 'btn'} disabled={busy} onClick={() => onAct(action, tie)}>
-      {label}
-    </button>
-  );
+  const [confirming, setConfirming] = useState<string | null>(null);
+  // An armed "Tap again" stands down after a few seconds, so a later stray tap can't end a tie.
+  useEffect(() => {
+    if (!confirming) return;
+    const id = setTimeout(() => setConfirming(null), 4000);
+    return () => clearTimeout(id);
+  }, [confirming]);
+  const follow: Step = { label: theirLocked ? 'Request to follow' : 'Follow', action: 'add', tie: 'follows' };
+  const steps: Step[] = [
+    r.friend === 'RECEIVED' && { label: 'Accept friend request', action: 'add', tie: 'friends' },
+    r.followsYou === 'REQUESTED' && { label: 'Accept follower', action: 'add', tie: 'followers' },
+    r.friend === 'NONE' && { label: 'Add friend', action: 'add', tie: 'friends' },
+    r.following === 'NONE' && follow,
+    r.friend === 'RECEIVED' && { label: 'Decline friend request', action: 'remove', tie: 'friends' },
+    r.followsYou === 'REQUESTED' && { label: 'Decline follower', action: 'remove', tie: 'followers' },
+    r.friend === 'SENT' && { label: 'Cancel friend request', action: 'remove', tie: 'friends' },
+    r.following === 'REQUESTED' && { label: 'Cancel follow request', action: 'remove', tie: 'follows' },
+    r.following === 'FOLLOWING' && { label: 'Unfollow', action: 'remove', tie: 'follows', confirm: 'Tap again to unfollow' },
+    r.friend === 'FRIENDS' && { label: 'Unfriend', action: 'remove', tie: 'friends', confirm: 'Tap again to unfriend' },
+    // On an open account they could just follow again, so removing is only offered on a locked one.
+    r.followsYou === 'FOLLOWING' && youLocked && { label: 'Remove follower', action: 'remove', tie: 'followers', confirm: 'Tap again to remove' },
+  ].filter((s): s is Step => !!s);
+  // The first step that adds something leads; everything else waits in More.
+  const primary = steps.find((s) => s.action === 'add') ?? null;
+  const rest = steps.filter((s) => s !== primary);
+  const run = (s: Step) => {
+    if (s.confirm && confirming !== s.label) return setConfirming(s.label);
+    setConfirming(null);
+    onAct(s.action, s.tie);
+  };
+
   return (
     <div className="actions">
-      {r.friend === 'NONE' && button('Add friend', 'add', 'friends')}
-      {r.friend === 'SENT' && button('Cancel friend request', 'remove', 'friends')}
-      {r.friend === 'RECEIVED' && [button('Accept friend request', 'add', 'friends', true), button('Decline', 'remove', 'friends')]}
-      {r.friend === 'FRIENDS' && button('Unfriend', 'remove', 'friends')}
-      {r.following === 'NONE' && button(theirLocked ? 'Request to follow' : 'Follow', 'add', 'follows')}
-      {r.following === 'REQUESTED' && button('Cancel follow request', 'remove', 'follows')}
-      {r.following === 'FOLLOWING' && button('Unfollow', 'remove', 'follows')}
-      {r.followsYou === 'REQUESTED' && [button('Approve follower', 'add', 'followers', true), button('Decline follower', 'remove', 'followers')]}
-      {/* On an open account they could just follow again, so removing is only offered on a locked one. */}
-      {r.followsYou === 'FOLLOWING' && youLocked && button('Remove follower', 'remove', 'followers')}
+      {primary && (
+        <button className="btn primary" disabled={busy} onClick={() => run(primary)}>
+          {primary.label}
+        </button>
+      )}
+      {rest.length > 0 && (
+        <details className="more" onToggle={(e) => !(e.currentTarget as HTMLDetailsElement).open && setConfirming(null)}>
+          <summary className="btn">
+            More <Icon name="chevron" />
+          </summary>
+          <div className="more-menu">
+            <span className="sr-only" aria-live="polite">
+              {rest.find((s) => s.label === confirming)?.confirm ?? ''}
+            </span>
+            {rest.map((s) => (
+              <button key={s.label} className={s.confirm && confirming === s.label ? 'btn danger' : 'btn'} disabled={busy} onClick={() => run(s)}>
+                {s.confirm && confirming === s.label ? s.confirm : s.label}
+              </button>
+            ))}
+          </div>
+        </details>
+      )}
     </div>
   );
 }
@@ -86,11 +135,11 @@ export function People({ onOpen, onChanged, onSignedOut }: { onOpen: (username: 
     }
   };
 
-  if (error && !people) return <p className="banner error">{error}</p>;
+  if (error && !people) return <LoadError onRetry={() => void load()}>Can’t load people right now.</LoadError>;
   if (!people) return <p className="muted center">Loading…</p>;
   return (
     <>
-      {error && <p className="banner error">{error}</p>}
+      {error && <LoadError onRetry={() => void load()}>That didn’t go through. Try again.</LoadError>}
       <PeopleList people={people} busy={busy} onOpen={onOpen} onAct={act} />
     </>
   );
@@ -134,7 +183,7 @@ export function PeopleList({ people, busy, onOpen, onAct }: { people: Person[]; 
                 <span>{name(p)} wants to follow you</span>
                 <span className="actions">
                   <button className="btn primary" disabled={busy} onClick={() => onAct('add', 'followers', p.username)}>
-                    Approve
+                    Accept
                   </button>
                   <button className="btn" disabled={busy} onClick={() => onAct('remove', 'followers', p.username)}>
                     Decline
@@ -160,28 +209,20 @@ export function PeopleList({ people, busy, onOpen, onAct }: { people: Person[]; 
                     <Icon name="lock" /> Locked
                   </span>
                 )}
-                {relationChips(p.relation).map((c) => (
-                  <span key={c} className="chip">
-                    {c}
-                  </span>
-                ))}
+                {relationPhrase(p.relation) && <span className="relation">{relationPhrase(p.relation)}</span>}
               </span>
-              <span className="actions">
-                {p.relation.friend === 'NONE' && (
+              {/* One step per row; following and everything else is on their profile. */}
+              {p.relation.friend === 'NONE' && (
+                <span className="actions">
                   <button className="btn" disabled={busy} onClick={() => onAct('add', 'friends', p.username)}>
                     Add friend
                   </button>
-                )}
-                {p.relation.following === 'NONE' && (
-                  <button className="btn" disabled={busy} onClick={() => onAct('add', 'follows', p.username)}>
-                    {p.locked ? 'Request to follow' : 'Follow'}
-                  </button>
-                )}
-              </span>
+                </span>
+              )}
             </li>
           ))}
         </ul>
-        <p className="muted small">Following shows you their picks. A locked account has to approve you first. Open someone’s profile to unfriend or unfollow.</p>
+        <p className="muted small">Friends see each other’s picks; both of you agree. Following is one-way: you see their picks, and a locked account approves you first. Open someone’s profile to follow, unfollow or unfriend.</p>
       </section>
     </div>
   );

@@ -281,6 +281,8 @@ export function computeAnalysis(
 
   return {
     generatedAt: now.toISOString(),
+    // The caller narrows the coupons to a period and says which; computed on its own, it is everything given.
+    period: 'all',
     money: {
       settledBets: settled.length,
       stakedMinor: staked,

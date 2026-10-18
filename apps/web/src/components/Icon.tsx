@@ -8,6 +8,7 @@ const PATHS = {
   cross: <path d="m4.5 4.5 7 7m0-7-7 7" />,
   circle: <circle cx="8" cy="8" r="4.75" />,
   back: <path d="M13 8H3.5m4-4.5L3 8l4.5 4.5" />,
+  external: <path d="M9.5 3H13v3.5M13 3 7.5 8.5M11.5 9.5V13H3V4.5h3.5" />,
   user: (
     <>
       <circle cx="8" cy="5.5" r="2.75" />

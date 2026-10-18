@@ -118,3 +118,5 @@ export function binaryWords(metric: string | null): { hit: string; pending: stri
   if (metric === 'SACKS') return { hit: 'Sack', pending: 'No sack yet', missed: 'No sack' };
   return { hit: 'Scored', pending: 'Not yet', missed: 'Did not score' };
 }
+
+export * from './standing';

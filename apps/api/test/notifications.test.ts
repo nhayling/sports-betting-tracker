@@ -132,16 +132,29 @@ describe('notificationEvents', () => {
   });
 
   it('nudges to sync when every game is over', () => {
-    const events = notificationEvents(view([], {}, { probablySettled: 'ALL_GAMES_FINAL' }));
+    // A pick live stats can't decide (an untracked market), so the bet is waiting on Island Luck.
+    const events = notificationEvents(view([pick({ type: 'OTHER', display: null, progress: null })], {}, { probablySettled: 'ALL_GAMES_FINAL' }));
     expect(events).toEqual([
       {
         kind: 'PROBABLY_SETTLED',
         dedupeKey: 'PROBABLY_SETTLED:c1',
         couponId: 'c1',
         legSelectionId: null,
-        title: 'All games over: $5.00 +2494 bet',
-        body: 'Island Luck still shows it open. Open My Bets on Island Luck to sync the result.',
+        title: 'Needs sync: $5.00 +2494 bet',
+        body: 'All games are over but Island Luck still shows it open. Open My Bets on Island Luck to sync it.',
       },
     ]);
+  });
+
+  it('treats a moneyline lost on the final score as decided, though Island Luck still has it open', () => {
+    const ml = pick({ type: 'MONEYLINE', display: null, participantName: 'CIN Bengals', marketName: 'Moneyline', moneylineSide: 'away' });
+    const events = notificationEvents(view([ml], { state: state('FINAL', 24, 20) as never }, { probablySettled: 'ALL_GAMES_FINAL' }));
+    expect(events.find((x) => x.kind === 'PROBABLY_SETTLED')).toMatchObject({ title: 'All games over: $5.00 +2494 bet' });
+  });
+
+  it('keeps "needs sync" for undecided bets: a bet already dead by live stats gets plain words', () => {
+    const missed = pick({ status: 'LOST', progress: progress('FINAL_MISSED', 30) });
+    const [e] = notificationEvents(view([missed], { state: state('FINAL', 17, 20) as never }, { probablySettled: 'ALL_GAMES_FINAL' })).filter((x) => x.kind === 'PROBABLY_SETTLED');
+    expect(e).toMatchObject({ title: 'All games over: $5.00 +2494 bet', body: 'Island Luck still shows it open. Open My Bets on Island Luck to settle it.' });
   });
 });

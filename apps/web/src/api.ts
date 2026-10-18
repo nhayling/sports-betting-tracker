@@ -53,8 +53,8 @@ export interface NotificationItem {
 export const fetchNotifications = () => get<{ unread: number; items: NotificationItem[] }>('/api/notifications?limit=50');
 export const markNotificationsRead = () => post<{ marked: number }>('/api/notifications/read');
 
-export const fetchAnalysis = (fundingMaxOdds?: number) =>
-  get<Analysis>(`/api/analysis${fundingMaxOdds ? `?fundingMaxOdds=${fundingMaxOdds}` : ''}`);
+export const fetchAnalysis = (fundingMaxOdds?: number, period: Period = 'all') =>
+  get<Analysis>(`/api/analysis?period=${period}${fundingMaxOdds ? `&fundingMaxOdds=${fundingMaxOdds}` : ''}`);
 
 // ── Social ───────────────────────────────────────────────────────────
 
