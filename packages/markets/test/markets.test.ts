@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { parseHistoryResponse, type RawHistoryResponse } from '@sports-better/kambi';
 import { describe, expect, it } from 'vitest';
-import { classifyMarket, evaluateProgress, gameMarket, type PropTarget } from '../src';
+import { classifyMarket, evaluateProgress, gameMarket, spreadPick, type PropTarget } from '../src';
 
 const captured = JSON.parse(
   readFileSync(fileURLToPath(new URL('../../kambi/fixtures/captured/history-2026-09-27.json', import.meta.url)), 'utf8'),
@@ -78,10 +78,13 @@ describe('classifyMarket', () => {
 });
 
 describe('gameMarket', () => {
-  it('recognizes moneylines only', () => {
+  it('recognizes full-game moneylines and spreads', () => {
     expect(gameMarket('Moneyline')).toBe('MONEYLINE');
     expect(gameMarket('Moneyline - Including Overtime')).toBe('MONEYLINE');
     expect(gameMarket('Moneyline - 1st Half')).toBeNull();
+    expect(gameMarket('Point Spread')).toBe('SPREAD');
+    expect(gameMarket('Point Spread - Including Overtime')).toBe('SPREAD');
+    expect(gameMarket('Point Spread - 1st Half')).toBeNull();
     expect(gameMarket('Touchdown Scorer')).toBeNull();
     expect(gameMarket(null)).toBeNull();
   });
@@ -150,5 +153,18 @@ describe('evaluateProgress', () => {
     expect(evaluateProgress(rush100, null, 'LIVE')).toBeNull();
     expect(evaluateProgress(rush100, 50, 'POSTPONED')).toBeNull();
     expect(evaluateProgress(rush100, 50, 'UNKNOWN')).toBeNull();
+  });
+});
+
+describe('spreadPick', () => {
+  it('splits the line off a coupon label', () => {
+    expect(spreadPick('LV Raiders +5.0', null)).toEqual({ team: 'LV Raiders', line: 5 });
+    expect(spreadPick('SF 49ers -7.5', null)).toEqual({ team: 'SF 49ers', line: -7.5 });
+  });
+
+  it("prefers the outcome's own line and keeps a bare team name", () => {
+    expect(spreadPick('LV Raiders +5.0', 5.5)).toEqual({ team: 'LV Raiders', line: 5.5 });
+    expect(spreadPick('LV Raiders', 5)).toEqual({ team: 'LV Raiders', line: 5 });
+    expect(spreadPick('SF 49ers', -7.5)).toEqual({ team: 'SF 49ers', line: -7.5 });
   });
 });

@@ -328,7 +328,7 @@ export function App() {
             )}
 
             {betsTab && coupons.length > 0 && (
-              <main className="list stacks">
+              <main className={coupons.length > 1 ? 'list stacks' : 'list single'}>
                 {/* Two stacks on a wide screen, dealt alternately so the order still reads top to bottom; one list on a phone. */}
                 {[0, 1].map((col) => (
                   <div key={col} className="list-col">

@@ -1,5 +1,6 @@
 import type { Prisma } from '@prisma/client';
-import { classifyMarket, gameMarket } from '@sports-better/markets';
+import { gameMargin } from '@sports-better/display';
+import { classifyMarket, gameMarket, spreadPick } from '@sports-better/markets';
 import { sportForLeague, teamMatches } from '@sports-better/matching';
 import type { GameSituation, ProviderTeam } from '@sports-better/sports-data';
 import type { BetsView, CouponView, GameStateView, GameView } from './betsViewTypes';
@@ -83,19 +84,17 @@ function atMinimumBet(c: CouponView): Pick<CouponView, 'stakeMinor' | 'potential
   };
 }
 
-/** A pick counts as hit once Island Luck settles it WON, live stats reach its target, or (moneyline) its team wins. */
+/** A pick counts as hit once Island Luck settles it WON, live stats reach its target, or (moneyline, spread) its team wins or covers. */
 function pickHit(
   status: string,
   progress: { status: string } | null,
-  moneylineSide: 'home' | 'away' | null,
+  game: { type: string; moneylineSide: 'home' | 'away' | null; line: number | null } | null,
   state: GameStateView | null,
 ): boolean {
   if (status === 'WON') return true;
   if (status !== 'OPEN') return false;
   if (progress?.status === 'TARGET_REACHED' || progress?.status === 'FINAL_HIT') return true;
-  if (moneylineSide && state?.state === 'FINAL' && state.homeScore !== null && state.awayScore !== null && state.homeScore !== state.awayScore) {
-    return (moneylineSide === 'home') === state.homeScore > state.awayScore;
-  }
+  if (game && state?.state === 'FINAL' && state.homeScore !== null && state.awayScore !== null) return (gameMargin(game, state) ?? 0) > 0;
   return false;
 }
 
@@ -120,7 +119,7 @@ export async function loadEventStates(db: Db, kambiEventIds: string[]): Promise<
   );
 }
 
-/** Which side of the game a moneyline pick ("KC Chiefs") is on, or null if unclear. */
+/** Which side of the game a moneyline or spread pick ("KC Chiefs", "LV Raiders +5.0") is on, or null if unclear. */
 export function moneylineSideOf(
   league: string | null,
   participantName: string | null,
@@ -128,9 +127,10 @@ export function moneylineSideOf(
   away: ProviderTeam,
 ): 'home' | 'away' | null {
   const sport = sportForLeague(league);
-  if (!sport || !participantName) return null;
-  const h = teamMatches(sport, participantName, home);
-  const a = teamMatches(sport, participantName, away);
+  const team = spreadPick(participantName, null).team;
+  if (!sport || !team) return null;
+  const h = teamMatches(sport, team, home);
+  const a = teamMatches(sport, team, away);
   return h && !a ? 'home' : a && !h ? 'away' : null;
 }
 
@@ -166,17 +166,20 @@ function couponView(c: CouponRow, states: Map<string, StateRow>, now: Date): Cou
         s.progress?.status === 'UNAVAILABLE' && s.progress.unavailableReason?.startsWith('UNSUPPORTED') && cls?.supported ? null : s.progress;
       const moneylineSide =
         ml && game.state ? moneylineSideOf(leg.league, s.participantName, game.state.home as ProviderTeam, game.state.away as ProviderTeam) : null;
-      if (pickHit(s.status, cls?.supported ? p : null, moneylineSide, game.state)) picksHit++;
+      const outcomeLine = s.lineRaw === null ? null : s.lineRaw / 1000;
+      const line = ml === 'SPREAD' ? spreadPick(s.participantName ?? s.selectionLabel, outcomeLine).line : outcomeLine;
+      const type = ml ?? (cls?.supported ? 'STAT' : 'OTHER');
+      if (pickHit(s.status, cls?.supported ? p : null, ml ? { type, moneylineSide, line } : null, game.state)) picksHit++;
       game.picks.push({
         id: s.id,
         participantName: s.participantName,
         marketName: s.marketName,
         selectionLabel: s.selectionLabel,
         selectionSide: s.selectionSide,
-        line: s.lineRaw === null ? null : s.lineRaw / 1000,
+        line,
         status: s.status,
         betBuilderGroup: leg.selectionType === 'BET_BUILDER' ? leg.externalRowIndex : null,
-        type: ml ? 'MONEYLINE' : cls?.supported ? 'STAT' : 'OTHER',
+        type,
         display: cls?.supported ? cls.display : null,
         moneylineSide,
         progress: p

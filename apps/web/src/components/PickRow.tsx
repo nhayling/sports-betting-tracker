@@ -1,7 +1,7 @@
 import type { CSSProperties, ReactNode } from 'react';
 import type { GameView, PickView } from '../api';
 import type { PickState } from '../betState';
-import { binaryWords, dateTime, marketLabel, metricUnit, quarter, UNAVAILABLE_REASONS } from '../format';
+import { binaryWords, dateTime, gameMargin, marketLabel, metricUnit, quarter, UNAVAILABLE_REASONS } from '../format';
 import { Icon } from './Icon';
 
 type Tone = 'hit' | 'hold' | 'run' | 'miss' | 'risk' | 'hollow' | '';
@@ -85,6 +85,7 @@ export function PickRow({ pick: p, game, live, state }: { pick: PickView; game: 
 
 function Progress({ pick: p, game, state }: { pick: PickView; game: GameView; state: PickState }) {
   if (p.type === 'MONEYLINE') return <MoneylineScore pick={p} game={game} />;
+  if (p.type === 'SPREAD') return <SpreadScore pick={p} game={game} />;
 
   const pr = p.progress;
   if (p.type === 'OTHER') {
@@ -178,4 +179,37 @@ function MoneylineScore({ pick: p, game }: { pick: PickView; game: GameView }) {
   // Yellow is kept for measured progress; a lead is only a lead until the final whistle.
   const tone: Tone = !final || margin === 0 ? '' : margin > 0 ? 'hit' : 'miss';
   return <Plate tone={tone} text={text} />;
+}
+
+/**
+ * Spread: covers, or how many more points it needs to (a push on the line still needs one).
+ * The note keeps the plain score from the pick's side and the line.
+ */
+function SpreadScore({ pick: p, game }: { pick: PickView; game: GameView }) {
+  const st = game.state;
+  if (!st || st.state === 'SCHEDULED') return p.status === 'OPEN' ? notStarted : null;
+  const margin = gameMargin(p, st);
+  if (margin === null || p.line === null) return null;
+  const score = margin - p.line;
+  const line = p.line > 0 ? `+${p.line}` : String(p.line);
+  const detail = note(parts(score === 0 ? 'Tied' : score > 0 ? `Up ${score}` : `Down ${-score}`, line));
+  if (st.state === 'FINAL') {
+    return (
+      <>
+        {margin === 0 ? (
+          <Plate tone="hollow" text="Push" />
+        ) : (
+          <Plate tone={margin > 0 ? 'hit' : 'miss'} icon={margin > 0 ? 'check' : 'cross'} text={margin > 0 ? 'Covered' : 'Not covered'} />
+        )}
+        {detail}
+      </>
+    );
+  }
+  // Navy while live, as with a moneyline lead: covering now isn't measured progress.
+  return (
+    <>
+      <Plate text={margin > 0 ? 'Covers' : `Needs ${Math.floor(-margin) + 1}`} />
+      {detail}
+    </>
+  );
 }

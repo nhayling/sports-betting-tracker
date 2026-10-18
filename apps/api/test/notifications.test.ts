@@ -125,6 +125,16 @@ describe('notificationEvents', () => {
     expect(lost[0]).toMatchObject({ kind: 'PICK_MISSED', title: '✗ CIN Bengals lost' });
   });
 
+  it('settles spreads on the final score plus the line, and stays quiet on a push', () => {
+    const sp = pick({ type: 'SPREAD', display: null, participantName: 'CIN Bengals +5.0', marketName: 'Point Spread - Including Overtime', line: 5, moneylineSide: 'away' });
+    expect(notificationEvents(view([sp], { state: state('LIVE', 30, 20) as never }))).toEqual([]);
+    const covered = notificationEvents(view([sp], { state: state('FINAL', 24, 20) as never }));
+    expect(covered[0]).toMatchObject({ kind: 'PICK_HIT', title: '✓ CIN Bengals +5.0 covered', body: 'Point spread · Final CIN 20 – 24 PIT · $5.00 +2494 bet' });
+    const missed = notificationEvents(view([sp], { state: state('FINAL', 27, 20) as never }));
+    expect(missed[0]).toMatchObject({ kind: 'PICK_MISSED', title: "✗ CIN Bengals +5.0 didn't cover" });
+    expect(notificationEvents(view([sp], { state: state('FINAL', 25, 20) as never }))).toEqual([]);
+  });
+
   it('stays quiet for in-progress picks, picks Island Luck already settled, and settled bets', () => {
     expect(notificationEvents(view([pick({ progress: progress('IN_PROGRESS', 20) })]))).toEqual([]);
     expect(notificationEvents(view([pick({ status: 'WON', progress: progress('TARGET_REACHED', 53) })]))).toEqual([]);

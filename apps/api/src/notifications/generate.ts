@@ -1,4 +1,4 @@
-import { americanOdds, betStanding, marketLabel, metricUnit, money, quarter } from '@sports-better/display';
+import { americanOdds, betStanding, gameMargin, marketLabel, metricUnit, money, quarter } from '@sports-better/display';
 import type { BetsView, CouponView, GameView, PickView } from '../views/betsViewTypes';
 
 /**
@@ -7,7 +7,7 @@ import type { BetsView, CouponView, GameView, PickView } from '../views/betsView
  * this runs every poll cycle.
  *
  * Events (chosen 2026-09-27):
- *  - PICK_HIT: a pick reaches its target by live stats (or a moneyline team wins).
+ *  - PICK_HIT: a pick reaches its target by live stats (or a moneyline team wins, a spread covers).
  *  - PICK_MISSED: a game ends without the pick being met.
  *  - PROBABLY_SETTLED: every game in an open bet is over but Island Luck still shows it open.
  * All of these are live-stats suggestions; none changes Kambi settlement.
@@ -32,7 +32,7 @@ export function notificationEvents(view: BetsView): NotificationEvent[] {
       for (const p of g.picks) {
         // Already settled by Island Luck: nothing new to say.
         if (p.status !== 'OPEN') continue;
-        const outcome = p.type === 'MONEYLINE' ? moneylineOutcome(p, g) : statOutcome(p);
+        const outcome = p.type === 'MONEYLINE' || p.type === 'SPREAD' ? gameOutcome(p, g) : statOutcome(p);
         if (!outcome) continue;
         events.push({
           kind: outcome,
@@ -67,12 +67,13 @@ function statOutcome(p: PickView): 'PICK_HIT' | 'PICK_MISSED' | null {
   return null;
 }
 
-function moneylineOutcome(p: PickView, g: GameView): 'PICK_HIT' | 'PICK_MISSED' | null {
+/** Moneylines and spreads, at the final whistle. A tie or a push says nothing. */
+function gameOutcome(p: PickView, g: GameView): 'PICK_HIT' | 'PICK_MISSED' | null {
   const st = g.state;
-  if (!st || st.state !== 'FINAL' || !p.moneylineSide || st.homeScore === null || st.awayScore === null) return null;
-  if (st.homeScore === st.awayScore) return null;
-  const homeWon = st.homeScore > st.awayScore;
-  return (p.moneylineSide === 'home') === homeWon ? 'PICK_HIT' : 'PICK_MISSED';
+  if (!st || st.state !== 'FINAL' || st.homeScore === null || st.awayScore === null) return null;
+  const margin = gameMargin(p, st);
+  if (margin === null || margin === 0) return null;
+  return margin > 0 ? 'PICK_HIT' : 'PICK_MISSED';
 }
 
 function text(kind: 'PICK_HIT' | 'PICK_MISSED', p: PickView, g: GameView, c: CouponView): { title: string; body: string } {
@@ -87,6 +88,12 @@ function text(kind: 'PICK_HIT' | 'PICK_MISSED', p: PickView, g: GameView, c: Cou
     return {
       title: kind === 'PICK_HIT' ? `✓ ${who} won` : `✗ ${who} lost`,
       body: `Moneyline · Final ${score} · ${bet}`,
+    };
+  }
+  if (p.type === 'SPREAD') {
+    return {
+      title: kind === 'PICK_HIT' ? `✓ ${who} covered` : `✗ ${who} didn't cover`,
+      body: `Point spread · Final ${score} · ${bet}`,
     };
   }
   const pr = p.progress!;

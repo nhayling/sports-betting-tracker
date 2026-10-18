@@ -95,6 +95,8 @@ docker compose exec app npm run import -w @sports-better/api -- /tmp/history.jso
 
 ## Updating and backups
 
+From your own machine, `npm run deploy` does the update in one go: it lists files on the server that are no longer in the repo (and stops if there are any), copies the code, then rebuilds and restarts. `deploy:sync`, `deploy:build`, `deploy:stale` and `deploy:logs` run one step each. Point it at your server with `DEPLOY_HOST=user@server` (and `DEPLOY_DIR` if the folder isn't `sports-better`).
+
 ```sh
 # update: rsync again, then
 docker compose up -d --build

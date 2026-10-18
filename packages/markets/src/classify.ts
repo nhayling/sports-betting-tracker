@@ -143,10 +143,24 @@ export function classifyMarket(m: MarketInput): Classification {
 /**
  * Markets decided by the game result rather than a stat. They have no
  * progress bar; the UI shows the live game (score, clock, possession) instead.
- * Only full-game moneylines for now; spreads/totals can join once seen in data.
+ * Full-game moneylines and point spreads; halves and quarters aren't tracked.
  */
-export type GameMarket = 'MONEYLINE';
+export type GameMarket = 'MONEYLINE' | 'SPREAD';
 
 export function gameMarket(marketName: string | null): GameMarket | null {
-  return /^Moneyline(?: - Including Overtime)?$/i.test(marketName?.trim() ?? '') ? 'MONEYLINE' : null;
+  const name = marketName?.trim() ?? '';
+  if (/^Moneyline(?: - Including Overtime)?$/i.test(name)) return 'MONEYLINE';
+  if (/^Point Spread(?: - Including Overtime)?$/i.test(name)) return 'SPREAD';
+  return null;
+}
+
+/**
+ * A spread pick's team and line. Island Luck's coupon names the pick with its
+ * line ("LV Raiders +5.0"), which team matching can't read, so it is split off;
+ * the outcome's own line wins when there is one.
+ */
+export function spreadPick(name: string | null, line: number | null): { team: string | null; line: number | null } {
+  const m = /^(.+?)\s+([+-]\d+(?:\.\d+)?|0(?:\.0)?)$/.exec(name?.trim() ?? '');
+  if (!m) return { team: name, line };
+  return { team: m[1]!, line: line ?? Number(m[2]) };
 }

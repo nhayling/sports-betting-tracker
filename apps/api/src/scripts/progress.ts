@@ -6,7 +6,7 @@
  *   npm run progress -w @sports-better/api
  */
 import { decimalToAmerican, formatMoney } from '@sports-better/kambi';
-import { classifyMarket, evaluateProgress, gameMarket, type Progress } from '@sports-better/markets';
+import { classifyMarket, evaluateProgress, gameMarket, spreadPick, type Progress } from '@sports-better/markets';
 import { matchEvent, matchPlayer, sportForLeague, teamMatches } from '@sports-better/matching';
 import { EspnProvider, ProviderError, type EventSnapshot, type EventState, type ProviderEvent, type ProviderPlayer, type Sport } from '@sports-better/sports-data';
 import { prisma } from '../db';
@@ -78,7 +78,7 @@ for (const c of coupons) {
       const official = s.status !== 'OPEN' ? `  [Island Luck: ${s.status}]` : '';
 
       if (gameMarket(s.marketName)) {
-        console.log(`${label} ${event ? pickScore(sport!, s.participantName, event) : 'Game unavailable'}${official}`);
+        console.log(`${label} ${event ? pickScore(sport!, spreadPick(s.participantName, null).team, event) : 'Game unavailable'}${official}`);
         continue;
       }
 
@@ -131,7 +131,7 @@ function quarter(p: number | null): string {
   return p <= 4 ? `Q${p}` : p === 5 ? 'OT' : `${p - 4}OT`;
 }
 
-/** Moneyline: the score from the picked team's side, no verdict. */
+/** Moneyline or spread: the score from the picked team's side, no verdict. */
 function pickScore(sport: Sport, team: string | null, e: ProviderEvent): string {
   const st = e.state;
   if (st.state === 'SCHEDULED') return '○ Not started';

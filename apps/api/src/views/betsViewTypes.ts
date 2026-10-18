@@ -37,7 +37,7 @@ export interface CouponView {
   pickCount: number;
   /**
    * Picks in this bet that have hit: settled WON by Island Luck, at target by
-   * live stats, or a moneyline whose team won at the final whistle.
+   * live stats, or a moneyline or spread whose team won or covered at the final whistle.
    * Out of pickCount.
    */
   picksHit: number;
@@ -85,9 +85,9 @@ export interface PickView {
   status: string;
   /** Picks in the same same-game bet builder share a group. */
   betBuilderGroup: number | null;
-  type: 'STAT' | 'MONEYLINE' | 'OTHER';
+  type: 'STAT' | 'MONEYLINE' | 'SPREAD' | 'OTHER';
   display: 'PROGRESS' | 'BINARY' | null;
-  /** Moneyline: which side of the game the pick is on. */
+  /** Moneyline or spread: which side of the game the pick is on (spreads add `line`, the picked side's). */
   moneylineSide: 'home' | 'away' | null;
   progress: ProgressView | null;
 }

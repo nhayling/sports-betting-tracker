@@ -1,4 +1,5 @@
-import { classifyMarket, gameMarket } from '@sports-better/markets';
+import { gameMargin } from '@sports-better/display';
+import { classifyMarket, gameMarket, spreadPick } from '@sports-better/markets';
 import type { StatKey } from '@sports-better/sports-data';
 import { DEFAULT_FUNDING_MAX_ODDS, MIN_SAMPLE, type Analysis, type StyleStats, type CashOutCheck, type MarketStats, type NearMiss, type ParlayBucket, type RecordRow, type WeekRow } from './types';
 
@@ -80,7 +81,8 @@ const rate = (won: number, n: number) => (n > 0 ? won / n : null);
 const mean = (xs: number[]) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null);
 
 export function marketOf(s: AnalysisSelection, sport: string | null): string {
-  if (gameMarket(s.marketName)) return 'Moneyline';
+  const gm = gameMarket(s.marketName);
+  if (gm) return gm === 'SPREAD' ? 'Point spread' : 'Moneyline';
   const cls = classifyMarket({ sport, marketName: s.marketName, selectionSide: s.selectionSide as never, line: s.line });
   return cls.supported ? (MARKET_NAMES[cls.metric] ?? 'Other') : 'Other';
 }
@@ -254,7 +256,8 @@ export function computeAnalysis(
   const teams = record(
     allPicks
       .filter(({ s }) => gameMarket(s.marketName) && s.participantName)
-      .map(({ s }) => ({ key: s.participantId ?? s.participantName!, name: s.participantName!, s })),
+      // A spread pick's name carries its line ("LV Raiders +5.0"); the team is the same either way.
+      .map(({ s }) => ({ key: s.participantId ?? spreadPick(s.participantName, null).team!, name: spreadPick(s.participantName, null).team!, s })),
   );
 
   // ── cash-out check ─────────────────────────────────────────────
@@ -317,15 +320,18 @@ export function computeAnalysis(
 /**
  * Island Luck stops settling picks once a bet is cashed out, so work out what
  * would have happened: its own result if it has one, else the final score
- * (moneylines) or final live stats (props).
+ * (moneylines, spreads) or final live stats (props).
  */
 function resultAfterCashOut(s: AnalysisSelection, l: AnalysisLeg): 'WON' | 'LOST' | null {
   if (s.status === 'WON' || s.status === 'LOST') return s.status;
-  if (gameMarket(s.marketName)) {
+  const gm = gameMarket(s.marketName);
+  if (gm) {
     const g = l.game;
-    if (!g || g.state !== 'FINAL' || !s.moneylineSide || g.homeScore === null || g.awayScore === null) return null;
-    if (g.homeScore === g.awayScore) return null;
-    return (s.moneylineSide === 'home') === g.homeScore > g.awayScore ? 'WON' : 'LOST';
+    if (!g || g.state !== 'FINAL' || g.homeScore === null || g.awayScore === null) return null;
+    const line = gm === 'SPREAD' ? spreadPick(s.participantName, s.line).line : null;
+    const margin = gameMargin({ type: gm, moneylineSide: s.moneylineSide, line }, g);
+    if (margin === null || margin === 0) return null;
+    return margin > 0 ? 'WON' : 'LOST';
   }
   if (s.progress?.status === 'FINAL_HIT') return 'WON';
   if (s.progress?.status === 'FINAL_MISSED') return 'LOST';

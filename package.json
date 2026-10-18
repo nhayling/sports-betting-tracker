@@ -11,7 +11,12 @@
     "test:watch": "vitest",
     "typecheck": "tsc -p packages/kambi --noEmit && tsc -p packages/sports-data --noEmit && tsc -p packages/matching --noEmit && tsc -p packages/markets --noEmit && tsc -p packages/display --noEmit && tsc -p apps/api --noEmit && tsc -p apps/web --noEmit",
     "dev:api": "npm run dev -w @sports-better/api",
-    "dev:web": "npm run dev -w @sports-better/web"
+    "dev:web": "npm run dev -w @sports-better/web",
+    "deploy": "sh deploy/deploy.sh",
+    "deploy:sync": "sh deploy/deploy.sh sync",
+    "deploy:build": "sh deploy/deploy.sh build",
+    "deploy:stale": "sh deploy/deploy.sh stale",
+    "deploy:logs": "sh deploy/deploy.sh logs"
   },
   "devDependencies": {
     "@types/node": "^22.20.4",

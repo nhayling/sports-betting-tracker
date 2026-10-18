@@ -261,7 +261,7 @@ export function Analysis({ onSignedOut }: { onSignedOut: () => void }) {
         </section>
         <section className="panel two-col">
           <RecordTable title="Players you back" rows={a.players} />
-          <RecordTable title="Teams (moneyline)" rows={a.teams} />
+          <RecordTable title="Teams (moneyline, spread)" rows={a.teams} />
         </section>
       </Group>
 

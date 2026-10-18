@@ -7,9 +7,26 @@ export interface StandingPick {
   status: string;
   type: string;
   display: string | null;
+  /** Moneyline or spread: which side of the game the pick is on. */
   moneylineSide: 'home' | 'away' | null;
+  /** Spread: the picked side's line (+5 for an underdog getting five). */
+  line?: number | null;
   progress: { status: string; metric: string | null } | null;
 }
+type Scores = { homeScore: number | null; awayScore: number | null };
+
+/**
+ * A moneyline or spread pick's margin from its own side: the score difference,
+ * plus the line for a spread. Above 0 wins (or covers), 0 is a tie (or push).
+ * Null when the side or a spread's line isn't known.
+ */
+export function gameMargin(p: Pick<StandingPick, 'type' | 'moneylineSide' | 'line'>, st: Scores): number | null {
+  if (!p.moneylineSide) return null;
+  const line = p.type === 'SPREAD' ? p.line : 0;
+  if (line === null || line === undefined) return null;
+  return (p.moneylineSide === 'home' ? 1 : -1) * ((st.homeScore ?? 0) - (st.awayScore ?? 0)) + line;
+}
+
 export interface StandingGame {
   state: { state: string; homeScore: number | null; awayScore: number | null } | null;
   picks: StandingPick[];
@@ -33,12 +50,13 @@ export function pickState(p: StandingPick, game: StandingGame): PickState {
   if (p.status === 'LOST') return 'missed';
   if (p.status === 'VOID') return 'void';
 
-  if (p.type === 'MONEYLINE') {
+  if (p.type === 'MONEYLINE' || p.type === 'SPREAD') {
     const st = game.state;
-    if (!st || st.state === 'SCHEDULED' || !p.moneylineSide) return 'waiting';
+    const margin = st ? gameMargin(p, st) : null;
+    if (!st || st.state === 'SCHEDULED' || margin === null) return 'waiting';
     if (st.state !== 'FINAL') return 'running';
-    const margin = (p.moneylineSide === 'home' ? 1 : -1) * ((st.homeScore ?? 0) - (st.awayScore ?? 0));
-    return margin > 0 ? 'hit' : margin < 0 ? 'missed' : 'waiting';
+    // A spread landing on the line is a push: the pick is voided and the bet rides on.
+    return margin > 0 ? 'hit' : margin < 0 ? 'missed' : p.type === 'SPREAD' ? 'void' : 'waiting';
   }
 
   switch (p.progress?.status) {
