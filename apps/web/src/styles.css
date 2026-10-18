@@ -181,8 +181,8 @@ button.link:hover { color: var(--text); }
 /* Under the totals: how many open bets stand where. Each count wears its standing's plate and jumps to the first such bet. */
 /* Grid tracks, not flex growth: a count that wraps keeps the first row's width, and a short row stays at the left. */
 .tally { display: grid; grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); gap: 6px; padding-block: 10px; border-top: 1px solid var(--navy); }
-/* Each standing is as wide as its label, and the count's block spans that width, not just the digits. */
-.tally button { justify-self: start; display: flex; flex-direction: column; align-items: stretch; gap: 3px; width: max-content; min-width: 40px; padding: 0; background: none; border: 0; cursor: pointer; }
+/* Each standing fills its grid track, so on desktop the blocks stay wide; the count's block spans the whole track, not just the digits. */
+.tally button { display: flex; flex-direction: column; align-items: stretch; gap: 3px; min-width: 0; padding: 0; background: none; border: 0; cursor: pointer; }
 .tally b, .tally span { display: block; }
 .tally b { animation: wipe 0.28s cubic-bezier(0.16, 1, 0.3, 1); padding: 2px 0; background: var(--navy); color: #fff; font-family: var(--cond); font-size: 24px; font-weight: 800; line-height: 1.15; text-align: center; }
 .tally span { font-family: var(--cond); font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; text-align: center; white-space: nowrap; color: var(--muted); }
