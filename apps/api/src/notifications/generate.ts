@@ -32,7 +32,7 @@ export function notificationEvents(view: BetsView): NotificationEvent[] {
       for (const p of g.picks) {
         // Already settled by Island Luck: nothing new to say.
         if (p.status !== 'OPEN') continue;
-        const outcome = p.type === 'MONEYLINE' || p.type === 'SPREAD' ? gameOutcome(p, g) : statOutcome(p);
+        const outcome = p.type === 'MONEYLINE' || p.type === 'SPREAD' || p.type === 'TOTAL' ? gameOutcome(p, g) : statOutcome(p);
         if (!outcome) continue;
         events.push({
           kind: outcome,
@@ -67,13 +67,19 @@ function statOutcome(p: PickView): 'PICK_HIT' | 'PICK_MISSED' | null {
   return null;
 }
 
-/** Moneylines and spreads, at the final whistle. A tie or a push says nothing. */
+/** Moneylines, spreads and totals, at the final whistle; a total also as soon as its line is passed. A tie or a push says nothing. */
 function gameOutcome(p: PickView, g: GameView): 'PICK_HIT' | 'PICK_MISSED' | null {
   const st = g.state;
-  if (!st || st.state !== 'FINAL' || st.homeScore === null || st.awayScore === null) return null;
+  if (!st || st.homeScore === null || st.awayScore === null) return null;
   const margin = gameMargin(p, st);
   if (margin === null || margin === 0) return null;
-  return margin > 0 ? 'PICK_HIT' : 'PICK_MISSED';
+  if (st.state === 'FINAL') return margin > 0 ? 'PICK_HIT' : 'PICK_MISSED';
+  // Points only go up, so a total decides itself mid-game once the line is passed.
+  if (st.state === 'LIVE' && p.type === 'TOTAL') {
+    if (p.selectionSide === 'OVER' && margin > 0) return 'PICK_HIT';
+    if (p.selectionSide === 'UNDER' && margin < 0) return 'PICK_MISSED';
+  }
+  return null;
 }
 
 function text(kind: 'PICK_HIT' | 'PICK_MISSED', p: PickView, g: GameView, c: CouponView): { title: string; body: string } {
@@ -88,6 +94,13 @@ function text(kind: 'PICK_HIT' | 'PICK_MISSED', p: PickView, g: GameView, c: Cou
     return {
       title: kind === 'PICK_HIT' ? `✓ ${who} won` : `✗ ${who} lost`,
       body: `Moneyline · Final ${score} · ${bet}`,
+    };
+  }
+  if (p.type === 'TOTAL') {
+    const pick = p.selectionLabel ?? `${p.selectionSide === 'UNDER' ? 'Under' : 'Over'} ${p.line ?? ''}`.trim();
+    return {
+      title: kind === 'PICK_HIT' ? `✓ ${pick} points hit` : p.selectionSide === 'UNDER' ? `✗ ${pick} points went over` : `✗ ${pick} points fell short`,
+      body: `Total points · ${when} ${score} · ${bet}`,
     };
   }
   if (p.type === 'SPREAD') {

@@ -84,17 +84,21 @@ function atMinimumBet(c: CouponView): Pick<CouponView, 'stakeMinor' | 'potential
   };
 }
 
-/** A pick counts as hit once Island Luck settles it WON, live stats reach its target, or (moneyline, spread) its team wins or covers. */
+/** A pick counts as hit once Island Luck settles it WON, live stats reach its target, (moneyline, spread) its team wins or covers, or (total) it goes over. */
 function pickHit(
   status: string,
   progress: { status: string } | null,
-  game: { type: string; moneylineSide: 'home' | 'away' | null; line: number | null } | null,
+  game: { type: string; moneylineSide: 'home' | 'away' | null; line: number | null; selectionSide: string | null } | null,
   state: GameStateView | null,
 ): boolean {
   if (status === 'WON') return true;
   if (status !== 'OPEN') return false;
   if (progress?.status === 'TARGET_REACHED' || progress?.status === 'FINAL_HIT') return true;
-  if (game && state?.state === 'FINAL' && state.homeScore !== null && state.awayScore !== null) return (gameMargin(game, state) ?? 0) > 0;
+  if (game && state && state.homeScore !== null && state.awayScore !== null) {
+    // Final for every game market; an over that has passed its line has also hit mid-game.
+    const over = game.type === 'TOTAL' && game.selectionSide === 'OVER' && state.state === 'LIVE';
+    if (state.state === 'FINAL' || over) return (gameMargin(game, state) ?? 0) > 0;
+  }
   return false;
 }
 
@@ -169,7 +173,7 @@ function couponView(c: CouponRow, states: Map<string, StateRow>, now: Date): Cou
       const outcomeLine = s.lineRaw === null ? null : s.lineRaw / 1000;
       const line = ml === 'SPREAD' ? spreadPick(s.participantName ?? s.selectionLabel, outcomeLine).line : outcomeLine;
       const type = ml ?? (cls?.supported ? 'STAT' : 'OTHER');
-      if (pickHit(s.status, cls?.supported ? p : null, ml ? { type, moneylineSide, line } : null, game.state)) picksHit++;
+      if (pickHit(s.status, cls?.supported ? p : null, ml ? { type, moneylineSide, line, selectionSide: s.selectionSide } : null, game.state)) picksHit++;
       game.picks.push({
         id: s.id,
         participantName: s.participantName,

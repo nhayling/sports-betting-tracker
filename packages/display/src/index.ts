@@ -66,6 +66,7 @@ export function marketLabel(marketName: string | null, selectionLabel: string | 
   if (/^Touchdown Scorer$/i.test(marketName)) return side === 'NO' ? 'No touchdown' : 'Anytime TD';
   if (/^Moneyline/i.test(marketName)) return 'Moneyline';
   if (/^Point Spread/i.test(marketName)) return 'Point spread';
+  if (/^Total Points(?: - Including Overtime)?$/i.test(marketName)) return 'Total points';
   const sacks = /^Player to have at least ([\d.]+) Sacks?/i.exec(marketName);
   if (sacks) return Number(sacks[1]) <= 1 ? (side === 'NO' ? 'No sack' : 'To record a sack') : `${side === 'NO' ? 'Under ' : ''}${sacks[1]}+ sacks`;
   if (/^Total Successful Field Goals/i.test(marketName)) return 'Total field goals (both teams)';

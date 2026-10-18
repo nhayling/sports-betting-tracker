@@ -143,14 +143,16 @@ export function classifyMarket(m: MarketInput): Classification {
 /**
  * Markets decided by the game result rather than a stat. They have no
  * progress bar; the UI shows the live game (score, clock, possession) instead.
- * Full-game moneylines and point spreads; halves and quarters aren't tracked.
+ * Full-game moneylines, point spreads and total points; halves, quarters and
+ * team totals aren't tracked.
  */
-export type GameMarket = 'MONEYLINE' | 'SPREAD';
+export type GameMarket = 'MONEYLINE' | 'SPREAD' | 'TOTAL';
 
 export function gameMarket(marketName: string | null): GameMarket | null {
   const name = marketName?.trim() ?? '';
   if (/^Moneyline(?: - Including Overtime)?$/i.test(name)) return 'MONEYLINE';
   if (/^Point Spread(?: - Including Overtime)?$/i.test(name)) return 'SPREAD';
+  if (/^Total Points(?: - Including Overtime)?$/i.test(name)) return 'TOTAL';
   return null;
 }
 

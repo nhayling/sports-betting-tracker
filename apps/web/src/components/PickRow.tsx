@@ -86,6 +86,7 @@ export function PickRow({ pick: p, game, live, state }: { pick: PickView; game: 
 function Progress({ pick: p, game, state }: { pick: PickView; game: GameView; state: PickState }) {
   if (p.type === 'MONEYLINE') return <MoneylineScore pick={p} game={game} />;
   if (p.type === 'SPREAD') return <SpreadScore pick={p} game={game} />;
+  if (p.type === 'TOTAL') return <TotalScore pick={p} game={game} />;
 
   const pr = p.progress;
   if (p.type === 'OTHER') {
@@ -210,6 +211,67 @@ function SpreadScore({ pick: p, game }: { pick: PickView; game: GameView }) {
     <>
       <Plate text={margin > 0 ? 'Covers' : `Needs ${Math.floor(-margin) + 1}`} />
       {detail}
+    </>
+  );
+}
+
+/** Points an under can still take and stay under: 6 at 41 on 47.5; 5 at 41 on 47, where 6 more would push. */
+const spare = (total: number, line: number) => Math.max(0, Number.isInteger(line) ? line - total - 1 : Math.floor(line - total));
+
+/**
+ * Total points: read like a stat over or under, on the game's combined score.
+ * Points only go up, so an over that passes its line has hit and an under that
+ * passes it has missed, mid-game.
+ */
+function TotalScore({ pick: p, game }: { pick: PickView; game: GameView }) {
+  const st = game.state;
+  if (!st || st.state === 'SCHEDULED') return p.status === 'OPEN' ? notStarted : null;
+  if (p.line === null || (p.selectionSide !== 'OVER' && p.selectionSide !== 'UNDER')) return null;
+  const total = (st.homeScore ?? 0) + (st.awayScore ?? 0);
+  const final = st.state === 'FINAL';
+  const push = final && total === p.line;
+  if (push) {
+    return (
+      <>
+        <Plate tone="hollow" text="Push" />
+        {note(parts(`${total} pts`, 'on the line'))}
+      </>
+    );
+  }
+  if (p.selectionSide === 'UNDER') {
+    const over = total > p.line;
+    return (
+      <>
+        <Plate tone={over ? 'miss' : final ? 'hit' : 'run'} icon={over ? 'cross' : final ? 'check' : undefined} text={String(total)} />
+        {note(parts('pts', `under ${p.line}`, over ? 'went over' : final ? '' : `${spare(total, p.line)} to spare`))}
+      </>
+    );
+  }
+  const needed = Math.floor(p.line) + 1;
+  if (total > p.line || final) {
+    const hit = total > p.line;
+    return (
+      <>
+        <Plate tone={hit ? 'hit' : 'miss'} icon={hit ? 'check' : 'cross'} text={`${total} / ${needed}`} />
+        {note(parts('pts', hit ? 'over' : 'fell short'))}
+      </>
+    );
+  }
+  return (
+    <>
+      <span
+        key={total}
+        className="plate run fill"
+        style={{ '--at': `${Math.min(total / needed, 1) * 100}%` } as CSSProperties}
+        role="progressbar"
+        aria-label="Total points"
+        aria-valuenow={total}
+        aria-valuemax={needed}
+        aria-valuetext={`${total} of ${needed} points`}
+      >
+        {total} / {needed}
+      </span>
+      {note(parts('pts', `${needed - total} to go`))}
     </>
   );
 }

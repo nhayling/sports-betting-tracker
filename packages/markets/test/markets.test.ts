@@ -78,13 +78,17 @@ describe('classifyMarket', () => {
 });
 
 describe('gameMarket', () => {
-  it('recognizes full-game moneylines and spreads', () => {
+  it('recognizes full-game moneylines, spreads and totals', () => {
     expect(gameMarket('Moneyline')).toBe('MONEYLINE');
     expect(gameMarket('Moneyline - Including Overtime')).toBe('MONEYLINE');
     expect(gameMarket('Moneyline - 1st Half')).toBeNull();
     expect(gameMarket('Point Spread')).toBe('SPREAD');
     expect(gameMarket('Point Spread - Including Overtime')).toBe('SPREAD');
     expect(gameMarket('Point Spread - 1st Half')).toBeNull();
+    expect(gameMarket('Total Points')).toBe('TOTAL');
+    expect(gameMarket('Total Points - Including Overtime')).toBe('TOTAL');
+    expect(gameMarket('Total Points - 1st Half')).toBeNull();
+    expect(gameMarket('Total Points by DAL Cowboys')).toBeNull();
     expect(gameMarket('Touchdown Scorer')).toBeNull();
     expect(gameMarket(null)).toBeNull();
   });

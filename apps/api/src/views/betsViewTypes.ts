@@ -85,7 +85,7 @@ export interface PickView {
   status: string;
   /** Picks in the same same-game bet builder share a group. */
   betBuilderGroup: number | null;
-  type: 'STAT' | 'MONEYLINE' | 'SPREAD' | 'OTHER';
+  type: 'STAT' | 'MONEYLINE' | 'SPREAD' | 'TOTAL' | 'OTHER';
   display: 'PROGRESS' | 'BINARY' | null;
   /** Moneyline or spread: which side of the game the pick is on (spreads add `line`, the picked side's). */
   moneylineSide: 'home' | 'away' | null;

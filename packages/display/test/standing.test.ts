@@ -39,3 +39,25 @@ describe('spreads', () => {
     expect(betStanding({ probablySettled: null, games: [g] }).state).toBe('dead');
   });
 });
+
+describe('totals', () => {
+  const total = (side: 'OVER' | 'UNDER', line = 47.5): StandingPick => ({ status: 'OPEN', type: 'TOTAL', display: null, moneylineSide: null, line, selectionSide: side, progress: null });
+
+  it('measures combined points against the line from the pick’s side', () => {
+    expect(gameMargin(total('OVER'), { homeScore: 28, awayScore: 20 })).toBe(0.5);
+    expect(gameMargin(total('UNDER'), { homeScore: 28, awayScore: 20 })).toBe(-0.5);
+  });
+
+  it('decides mid-game once the line is passed, because points only go up', () => {
+    expect(pickState(total('OVER'), game('LIVE', 21, 20))).toBe('running');
+    expect(pickState(total('OVER'), game('LIVE', 28, 20))).toBe('hit');
+    expect(pickState(total('UNDER'), game('LIVE', 21, 20))).toBe('running');
+    expect(pickState(total('UNDER'), game('LIVE', 28, 20))).toBe('missed');
+  });
+
+  it('settles at the final, a push on a whole line voiding the pick', () => {
+    expect(pickState(total('UNDER'), game('FINAL', 24, 20))).toBe('hit');
+    expect(pickState(total('OVER'), game('FINAL', 24, 20))).toBe('missed');
+    expect(pickState(total('OVER', 44), game('FINAL', 24, 20))).toBe('void');
+  });
+});

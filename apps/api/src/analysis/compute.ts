@@ -82,7 +82,7 @@ const mean = (xs: number[]) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.l
 
 export function marketOf(s: AnalysisSelection, sport: string | null): string {
   const gm = gameMarket(s.marketName);
-  if (gm) return gm === 'SPREAD' ? 'Point spread' : 'Moneyline';
+  if (gm) return gm === 'SPREAD' ? 'Point spread' : gm === 'TOTAL' ? 'Total points' : 'Moneyline';
   const cls = classifyMarket({ sport, marketName: s.marketName, selectionSide: s.selectionSide as never, line: s.line });
   return cls.supported ? (MARKET_NAMES[cls.metric] ?? 'Other') : 'Other';
 }
@@ -320,7 +320,7 @@ export function computeAnalysis(
 /**
  * Island Luck stops settling picks once a bet is cashed out, so work out what
  * would have happened: its own result if it has one, else the final score
- * (moneylines, spreads) or final live stats (props).
+ * (moneylines, spreads, totals) or final live stats (props).
  */
 function resultAfterCashOut(s: AnalysisSelection, l: AnalysisLeg): 'WON' | 'LOST' | null {
   if (s.status === 'WON' || s.status === 'LOST') return s.status;
@@ -328,8 +328,8 @@ function resultAfterCashOut(s: AnalysisSelection, l: AnalysisLeg): 'WON' | 'LOST
   if (gm) {
     const g = l.game;
     if (!g || g.state !== 'FINAL' || g.homeScore === null || g.awayScore === null) return null;
-    const line = gm === 'SPREAD' ? spreadPick(s.participantName, s.line).line : null;
-    const margin = gameMargin({ type: gm, moneylineSide: s.moneylineSide, line }, g);
+    const line = gm === 'SPREAD' ? spreadPick(s.participantName, s.line).line : gm === 'TOTAL' ? s.line : null;
+    const margin = gameMargin({ type: gm, moneylineSide: s.moneylineSide, line, selectionSide: s.selectionSide }, g);
     if (margin === null || margin === 0) return null;
     return margin > 0 ? 'WON' : 'LOST';
   }

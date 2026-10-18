@@ -9,18 +9,26 @@ export interface StandingPick {
   display: string | null;
   /** Moneyline or spread: which side of the game the pick is on. */
   moneylineSide: 'home' | 'away' | null;
-  /** Spread: the picked side's line (+5 for an underdog getting five). */
+  /** Spread: the picked side's line (+5 for an underdog getting five). Total: the points line. */
   line?: number | null;
+  /** Total: OVER or UNDER. */
+  selectionSide?: string | null;
   progress: { status: string; metric: string | null } | null;
 }
 type Scores = { homeScore: number | null; awayScore: number | null };
 
 /**
- * A moneyline or spread pick's margin from its own side: the score difference,
- * plus the line for a spread. Above 0 wins (or covers), 0 is a tie (or push).
- * Null when the side or a spread's line isn't known.
+ * A game pick's margin from its own side. Moneyline: the score difference.
+ * Spread: that plus the line. Total: points over the line for an over, under it
+ * for an under. Above 0 wins (or covers), 0 is a tie (or push). Null when the
+ * side or the line isn't known.
  */
-export function gameMargin(p: Pick<StandingPick, 'type' | 'moneylineSide' | 'line'>, st: Scores): number | null {
+export function gameMargin(p: Pick<StandingPick, 'type' | 'moneylineSide' | 'line' | 'selectionSide'>, st: Scores): number | null {
+  if (p.type === 'TOTAL') {
+    if (p.line === null || p.line === undefined || (p.selectionSide !== 'OVER' && p.selectionSide !== 'UNDER')) return null;
+    const total = (st.homeScore ?? 0) + (st.awayScore ?? 0);
+    return p.selectionSide === 'OVER' ? total - p.line : p.line - total;
+  }
   if (!p.moneylineSide) return null;
   const line = p.type === 'SPREAD' ? p.line : 0;
   if (line === null || line === undefined) return null;
@@ -50,13 +58,18 @@ export function pickState(p: StandingPick, game: StandingGame): PickState {
   if (p.status === 'LOST') return 'missed';
   if (p.status === 'VOID') return 'void';
 
-  if (p.type === 'MONEYLINE' || p.type === 'SPREAD') {
+  if (p.type === 'MONEYLINE' || p.type === 'SPREAD' || p.type === 'TOTAL') {
     const st = game.state;
     const margin = st ? gameMargin(p, st) : null;
     if (!st || st.state === 'SCHEDULED' || margin === null) return 'waiting';
-    if (st.state !== 'FINAL') return 'running';
-    // A spread landing on the line is a push: the pick is voided and the bet rides on.
-    return margin > 0 ? 'hit' : margin < 0 ? 'missed' : p.type === 'SPREAD' ? 'void' : 'waiting';
+    if (st.state !== 'FINAL') {
+      // Points only go up: an over past its line has won, an under past it has lost, mid-game.
+      if (p.type === 'TOTAL' && p.selectionSide === 'OVER' && margin > 0) return 'hit';
+      if (p.type === 'TOTAL' && p.selectionSide === 'UNDER' && margin < 0) return 'missed';
+      return 'running';
+    }
+    // A spread or total landing on the line is a push: the pick is voided and the bet rides on.
+    return margin > 0 ? 'hit' : margin < 0 ? 'missed' : p.type === 'MONEYLINE' ? 'waiting' : 'void';
   }
 
   switch (p.progress?.status) {

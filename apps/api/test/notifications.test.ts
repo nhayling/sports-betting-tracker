@@ -135,6 +135,16 @@ describe('notificationEvents', () => {
     expect(notificationEvents(view([sp], { state: state('FINAL', 25, 20) as never }))).toEqual([]);
   });
 
+  it('settles totals on combined points: an over as soon as it passes, an under when it goes over or at the final', () => {
+    const over = pick({ type: 'TOTAL', display: null, participantName: null, selectionLabel: 'Over 47.5', selectionSide: 'OVER', marketName: 'Total Points', line: 47.5 });
+    expect(notificationEvents(view([over], { state: state('LIVE', 21, 20) as never }))).toEqual([]);
+    expect(notificationEvents(view([over], { state: state('LIVE', 28, 20) as never }))[0]).toMatchObject({ kind: 'PICK_HIT', title: '✓ Over 47.5 points hit' });
+    expect(notificationEvents(view([over], { state: state('FINAL', 24, 20) as never }))[0]).toMatchObject({ kind: 'PICK_MISSED', title: '✗ Over 47.5 points fell short' });
+    const under = { ...over, selectionLabel: 'Under 47.5', selectionSide: 'UNDER' };
+    expect(notificationEvents(view([under], { state: state('LIVE', 28, 20) as never }))[0]).toMatchObject({ kind: 'PICK_MISSED', title: '✗ Under 47.5 points went over' });
+    expect(notificationEvents(view([under], { state: state('FINAL', 24, 20) as never }))[0]).toMatchObject({ kind: 'PICK_HIT' });
+  });
+
   it('stays quiet for in-progress picks, picks Island Luck already settled, and settled bets', () => {
     expect(notificationEvents(view([pick({ progress: progress('IN_PROGRESS', 20) })]))).toEqual([]);
     expect(notificationEvents(view([pick({ status: 'WON', progress: progress('TARGET_REACHED', 53) })]))).toEqual([]);
