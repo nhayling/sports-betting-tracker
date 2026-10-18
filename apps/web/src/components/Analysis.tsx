@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchAnalysis, SignedOutError, type Analysis as AnalysisData, type MarketStats, type StyleStats } from '../api';
 import { americanOdds, dateTime, money, REWARD_LABELS } from '../format';
+import { LoadError } from './LoadError';
 
 const MIN_SAMPLE = 30;
 const pct = (r: number | null) => (r === null ? '—' : `${Math.round(r * 100)}%`);
@@ -42,12 +43,20 @@ export function Analysis({ onSignedOut }: { onSignedOut: () => void }) {
     }
   };
 
-  useEffect(() => {
-    fetchAnalysis(cutoff).then(setA, (err) => (err instanceof SignedOutError ? onSignedOut() : setError(String(err.message ?? err))));
-  }, [onSignedOut, cutoff]);
+  const [attempt, setAttempt] = useState(0);
 
-  if (error) return <p className="banner error">{error}</p>;
-  if (!a) return <p className="muted center">Loading…</p>;
+  useEffect(() => {
+    setError(null);
+    fetchAnalysis(cutoff).then(setA, (err) => (err instanceof SignedOutError ? onSignedOut() : setError(String(err.message ?? err))));
+  }, [onSignedOut, cutoff, attempt]);
+
+  if (error && !a) return <LoadError onRetry={() => setAttempt((n) => n + 1)}>Can’t load your analysis.</LoadError>;
+  if (!a)
+    return (
+      <p className="muted center" role="status">
+        Loading…
+      </p>
+    );
   if (a.money.settledBets === 0) return <p className="muted center">Nothing settled yet. Stats appear once Island Luck settles your first bet.</p>;
 
   const m = a.money;

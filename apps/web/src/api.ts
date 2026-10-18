@@ -19,7 +19,7 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(path, { ...init, headers: { Accept: 'application/json', ...(init?.body ? { 'Content-Type': 'application/json' } : {}) } });
   if (res.status === 401) throw new SignedOutError();
   const body = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error((body as { error?: string }).error ?? `Tracker API ${res.status}`);
+  if (!res.ok) throw new Error((body as { error?: string }).error ?? `The tracker had a problem (${res.status}). Try again in a moment.`);
   return body as T;
 }
 
@@ -42,6 +42,8 @@ export const fetchPollerStatus = () => get<PollerStatus>('/api/live/status');
 export interface NotificationItem {
   id: string;
   kind: 'PICK_HIT' | 'PICK_MISSED' | 'PROBABLY_SETTLED';
+  /** The bet it is about, when it is about one. */
+  couponId: string | null;
   title: string;
   body: string;
   createdAt: string;

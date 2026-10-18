@@ -48,13 +48,16 @@ Constraints:
 - Stack stays as it is: React + Vite with plain CSS for the web app; plain HTML, CSS and JavaScript for the extension. No new UI framework or dependencies.
 - Light and dark themes both work, following the device setting.
 - Terminology: "picks" (never "legs"), American odds, Nassau local time.
-- Money is stored ×1000 (5000 = $5.00); shared formatting lives in `packages/display`.
+- Island Luck's raw amounts are ×1000 (5000 = $5.00); the API's bets view serves cents. Shared formatting lives in `packages/display`.
+- A bet is only called dead on a final miss. A line crossed or reached mid-game can still move, so it reads "at risk" or "there for now".
+- The bet slip is the unit of the app. A bet can span several games and sports, so games are never the organising structure.
 
 Open decisions:
 
 - The names "Sports Better" and "Island Luck Bet Sync" are the current names but were not confirmed as fixed.
 - The current feature set was not confirmed as fixed; a rebuild may reorganise or drop screens with the owner's agreement.
 - How public sign-up will work once the product opens beyond invites.
+- The extension is shared directly by the owner today. Publishing it on the browser extension store is a goal, not yet done; until then the app must not link to or name a store listing.
 
 ## Evidence on Hand
 

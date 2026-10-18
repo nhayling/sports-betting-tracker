@@ -1,12 +1,12 @@
-import type { KeyboardEvent } from 'react';
-import type { CouponView, PickView } from '../api';
+import { useState, type CSSProperties, type KeyboardEvent } from 'react';
+import type { CouponView, GameView, NotificationItem, PickView } from '../api';
+import { betStanding, pickState, type BetState, type PickState } from '../betState';
 import { useCollapsed } from '../collapsed';
-import { americanOdds, dateTime, money, REWARD_LABELS } from '../format';
-import { GameBlock } from './GameBlock';
+import { americanOdds, dateTime, money, relativeTime, REWARD_LABELS } from '../format';
 import { Icon } from './Icon';
+import { PickRow } from './PickRow';
 
 const STATUS_LABEL: Record<string, string> = {
-  OPEN: 'Open',
   WON: 'Won',
   LOST: 'Lost',
   VOID: 'Void',
@@ -16,100 +16,153 @@ const STATUS_LABEL: Record<string, string> = {
 };
 const STATUS_PLATE: Record<string, string> = { WON: 'hit', LOST: 'miss', CASHED_OUT: 'run' };
 
-/** A pick that can no longer hit: settled lost, or past its line by live stats. */
-const pickMissed = (p: PickView) => p.status === 'LOST' || p.progress?.status === 'FINAL_MISSED' || p.progress?.status === 'TARGET_EXCEEDED';
+/** An open bet's standing by live stats: the plate's look and words. */
+const STANDING: Record<BetState, { tone: string; label: (left: number) => string }> = {
+  'needs-one': { tone: 'run', label: () => 'Needs one' },
+  risk: { tone: 'risk', label: () => 'At risk' },
+  alive: { tone: '', label: (left) => `${left} to go` },
+  'all-hit': { tone: 'hit', label: () => 'All hit' },
+  unsynced: { tone: 'hollow', label: () => 'Needs sync' },
+  waiting: { tone: 'hollow', label: () => 'Not started' },
+  dead: { tone: 'miss', label: () => 'Dead' },
+};
+const CELL: Record<PickState, string> = { hit: 'hit', reached: 'hold', missed: 'miss', risk: 'risk', running: 'run', waiting: 'wait', void: 'wait' };
+/** Cells read left to right like the bet filling up: what has hit, what is on its way, what is in trouble. */
+const CELL_ORDER: PickState[] = ['hit', 'reached', 'running', 'waiting', 'void', 'risk', 'missed'];
+
+/** How far a running over has got, 0 to 1; a full cell for everything else. */
+function fraction(p: PickView): number {
+  const pr = p.progress;
+  if (!pr || pr.status !== 'IN_PROGRESS' || !(pr.operator === 'GTE' || pr.operator === 'GT') || !pr.target) return 1;
+  const needed = pr.operator === 'GT' ? Math.floor(pr.target) + 1 : pr.target;
+  return Math.min((pr.current ?? 0) / needed, 1);
+}
+
+/** Keeps a time on one line. */
+const nb = (s: string) => s.replace(/ /g, '\u00a0');
+
+type Row = { pick: PickView; game: GameView; state: PickState };
 
 /**
  * `minBetMinor`: someone else's bet whose owner doesn't share amounts. Its money
  * is what the bet pays at that minimum stake, so the card leaves the stake out
  * and says what the figures are based on.
+ * `latest`: the newest hit or miss on this bet, for its head line.
  */
-export function CouponCard({ coupon: c, minBetMinor }: { coupon: CouponView; minBetMinor?: number }) {
-  const picks = c.pickCount === 1 ? '1 pick' : `${c.pickCount} picks`;
-  const games = c.games.length === 1 ? '1 game' : `${c.games.length} games`;
-  const [collapsed, toggle] = useCollapsed(c.id);
+export function CouponCard({ coupon: c, minBetMinor, latest }: { coupon: CouponView; minBetMinor?: number; latest?: NotificationItem }) {
+  const open = c.status === 'OPEN';
+  const standing = betStanding(c);
+  const dead = open && standing.state === 'dead';
+  // A dead bet starts folded; its own key keeps that apart from a bet you folded yourself.
+  const [toggled, toggle] = useCollapsed(dead ? `${c.id}:dead` : c.id);
+  const collapsed = dead ? !toggled : toggled;
+  const [showHit, setShowHit] = useState(false);
   const onKey = (e: KeyboardEvent) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       toggle();
     }
   };
-  const gamesId = `games-${c.id}`;
-  const open = c.status === 'OPEN';
-  // From live stats, while Island Luck still has the bet open.
-  const missed = open ? c.games.reduce((n, g) => n + g.picks.filter(pickMissed).length, 0) : 0;
-  const tracking = open && c.pickCount > 1 && c.picksHit + missed > 0;
+  const picksId = `picks-${c.id}`;
+
+  const rows: Row[] = c.games.flatMap((game) => game.picks.map((pick) => ({ pick, game, state: pickState(pick, game) })));
+  // In the order asked for, so the reason a bet is at risk is its first row.
+  const of = (...states: PickState[]) => states.flatMap((s) => rows.filter((r) => r.state === s));
+  const hit = of('hit');
+  const list = (rs: Row[]) => rs.map((r) => <PickRow key={r.pick.id} pick={r.pick} game={r.game} live={open} state={r.state} />);
+  const leagues = [...new Set(c.games.map((g) => g.league).filter(Boolean))].join(' + ');
+  const plate = open ? STANDING[standing.state] : null;
 
   return (
-    <article className={`bet status-${c.status.toLowerCase()} ${collapsed ? 'collapsed' : ''}`}>
-      <header
-        className="bet-head"
-        role="button"
-        tabIndex={0}
-        aria-expanded={!collapsed}
-        aria-controls={gamesId}
-        onClick={toggle}
-        onKeyDown={onKey}
-        title={collapsed ? 'Show picks' : 'Hide picks'}
-      >
-        <div>
+    <article id={`bet-${c.id}`} className={`bet status-${c.status.toLowerCase()} ${collapsed ? 'collapsed' : ''}`}>
+      <header className="bet-head" role="button" tabIndex={0} aria-expanded={!collapsed} aria-controls={picksId} onClick={toggle} onKeyDown={onKey}>
+        {plate ? (
+          <span key={standing.state} className={`plate small-plate ${plate.tone}`}>
+            {plate.label(standing.left)}
+          </span>
+        ) : (
+          <span className={`plate small-plate ${STATUS_PLATE[c.status] ?? 'hollow'}`}>{STATUS_LABEL[c.status] ?? c.status}</span>
+        )}
+        <div className="bet-main">
           <div className="bet-title">
-            {tracking ? (
-              <span title="From live stats. Island Luck settles the bet.">
-                {c.picksHit} of {c.pickCount} picks hit
-                {missed > 0 && <span className="miss-count"> · {missed} missed</span>}
-              </span>
-            ) : (
-              c.pickCount > 0 && <span>{picks}</span>
-            )}
+            <span>{open && standing.counted > 1 ? `${standing.hit} of ${standing.counted} hit` : c.pickCount === 1 ? '1 pick' : `${c.pickCount} picks`}</span>
             {c.rewardType && <span className="chip">{REWARD_LABELS[c.rewardType] ?? c.rewardType}</span>}
           </div>
           <div className="bet-meta">
             <span className="chevron">
               <Icon name="chevron" />
             </span>{' '}
-            Placed {dateTime(c.placedAt)}
-            {collapsed && c.games.length > 0 && ` · ${games}`}
+            {open && latest ? `Latest: ${latest.title}, ${nb(relativeTime(latest.createdAt))}` : [leagues, nb(dateTime(c.placedAt))].filter(Boolean).join(' · ')}
           </div>
         </div>
-        <div className="bet-result">
-          {!open && (
-            <span className={`plate small-plate ${STATUS_PLATE[c.status] ?? 'hollow'}`} title="Official status from Island Luck">
-              {STATUS_LABEL[c.status] ?? c.status}
-            </span>
-          )}
-          <span className="odds">{americanOdds(c.oddsRaw)}</span>
-        </div>
+        <span className="odds">{americanOdds(c.oddsRaw)}</span>
       </header>
 
-      {c.probablySettled && (
-        <div className="settle-nudge" title="Island Luck hasn't settled this yet in the tracker. Open My Bets on Island Luck so the extension can sync it.">
-          {c.probablySettled === 'ALL_GAMES_FINAL' ? 'All games are final' : 'All games should be over'} · open My Bets on Island Luck to update
+      {/* One cell per pick, so a folded bet still shows where it stands. */}
+      {rows.length > 1 && (
+        <div className="cells" aria-hidden>
+          {of(...CELL_ORDER).map((r) => (
+            <i key={r.pick.id} className={CELL[r.state]} style={r.state === 'running' ? ({ '--at': `${fraction(r.pick) * 100}%` } as CSSProperties) : undefined} />
+          ))}
         </div>
       )}
 
-      <div className="games" id={gamesId} hidden={collapsed}>
-        {c.games.map((g) => (
-          <GameBlock key={g.eventId ?? g.name} game={g} couponOpen={open} />
-        ))}
+      {c.probablySettled && (
+        <div className="settle-nudge">
+          {c.probablySettled === 'ALL_GAMES_FINAL' ? 'All games are final.' : 'All games should be over.'} Open My Bets on{' '}
+          <a href="https://islandluck.com/" target="_blank" rel="noreferrer">
+            Island Luck
+          </a>{' '}
+          to update this bet.
+        </div>
+      )}
+      {open && (standing.state === 'dead' || standing.state === 'all-hit') && !c.probablySettled && (
+        <div className="bet-basis">From live stats. Island Luck settles the bet.</div>
+      )}
+
+      <div id={picksId} hidden={collapsed}>
+        {open ? (
+          <>
+            {of('missed').length > 0 && <h3 className="picks-label">Missed</h3>}
+            {list(of('missed'))}
+            {of('risk', 'running', 'reached', 'waiting').length > 0 && <h3 className="picks-label">Still needs</h3>}
+            {list(of('risk', 'running', 'reached', 'waiting'))}
+            {hit.length > 0 && (
+              <>
+                <button className="hit-fold" aria-expanded={showHit} onClick={() => setShowHit(!showHit)}>
+                  <span className="chevron">
+                    <Icon name="chevron" />
+                  </span>
+                  <span>
+                    <strong>{hit.length} hit:</strong> {hit.map((r) => r.pick.participantName ?? r.pick.selectionLabel).join(' · ')}
+                  </span>
+                </button>
+                {showHit && list(hit)}
+              </>
+            )}
+            {list(of('void'))}
+          </>
+        ) : (
+          list(rows)
+        )}
       </div>
 
       <footer className="bet-foot">
         {minBetMinor === undefined && <span>Stake {money(c.stakeMinor)}</span>}
-        <Payout coupon={c} minBetMinor={minBetMinor} />
+        <Payout coupon={c} minBetMinor={minBetMinor} dead={dead} />
       </footer>
     </article>
   );
 }
 
-function Payout({ coupon: c, minBetMinor }: { coupon: CouponView; minBetMinor?: number }) {
+function Payout({ coupon: c, minBetMinor, dead }: { coupon: CouponView; minBetMinor?: number; dead: boolean }) {
   // Not the owner's real money: every figure is for a minimum bet, and each card says so.
   const basis = minBetMinor === undefined ? null : <span className="muted small block min-bet">on a {money(minBetMinor).replace(/\.00$/, '')} minimum bet</span>;
   switch (c.status) {
     case 'OPEN':
       return (
-        <span className="payout">
-          To pay {money(c.potentialPayoutMinor)}
+        <span className={dead ? 'payout muted' : 'payout'}>
+          {dead ? 'Would have paid' : 'To pay'} {money(c.potentialPayoutMinor)}
           {basis}
         </span>
       );

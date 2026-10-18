@@ -1,9 +1,10 @@
 import type { CSSProperties, ReactNode } from 'react';
 import type { GameView, PickView } from '../api';
-import { binaryWords, marketLabel, metricUnit, UNAVAILABLE_REASONS } from '../format';
+import type { PickState } from '../betState';
+import { binaryWords, dateTime, marketLabel, metricUnit, quarter, UNAVAILABLE_REASONS } from '../format';
 import { Icon } from './Icon';
 
-type Tone = 'hit' | 'run' | 'miss' | 'hollow' | '';
+type Tone = 'hit' | 'hold' | 'run' | 'miss' | 'risk' | 'hollow' | '';
 
 const KAMBI_PICK: Record<string, { label: string; cls: string; tone: Tone; icon?: 'check' | 'cross' }> = {
   WON: { label: 'Won', cls: 'good', tone: 'hit', icon: 'check' },
@@ -29,34 +30,51 @@ const note = (children: ReactNode, title?: string) => (
   </span>
 );
 
+/** Joins what there is to say; a stat with no unit name leaves no stray separator. */
+const parts = (...bits: string[]) => bits.filter(Boolean).join(' · ');
+
+/** The pick's game in one line: the score and clock once it has started, the kickoff before. */
+function gameLine(game: GameView): string {
+  const st = game.state;
+  const scored = st && (st.state === 'LIVE' || st.state === 'FINAL');
+  if (!st || !scored) {
+    if (st && st.state !== 'SCHEDULED') return `${game.name ?? ''} · ${st.detail ?? st.state}`;
+    const started = !st && game.startAt && Date.parse(game.startAt) < Date.now();
+    return `${game.name ?? ''} · ${started ? '' : 'kicks off '}${dateTime(game.startAt)}`;
+  }
+  const score = `${st.away.abbreviation ?? game.awayName} ${st.awayScore ?? 0} – ${st.homeScore ?? 0} ${st.home.abbreviation ?? game.homeName}`;
+  if (st.state === 'FINAL') return `${score} · final`;
+  const when = /halftime|end of/i.test(st.detail ?? '') ? st.detail : `${quarter(st.period)} ${st.clock ?? ''}`.trim();
+  return `${score} · ${when}`;
+}
+
 /** `live` is false for settled bets: only Island Luck's result is shown then. */
-export function PickRow({ pick: p, game, live }: { pick: PickView; game: GameView; live: boolean }) {
+export function PickRow({ pick: p, game, live, state }: { pick: PickView; game: GameView; live: boolean; state: PickState }) {
   const official = KAMBI_PICK[p.status];
   return (
-    <div className="pick">
+    <div className={`pick pick-${state}`}>
       <div className="pick-what">
         <span className="pick-name">{p.participantName ?? p.selectionLabel}</span>
         <span className="pick-market">{marketLabel(p.marketName, p.selectionLabel, p.selectionSide)}</span>
+        <span className="pick-game">
+          {game.state?.state === 'LIVE' && <span className="live-dot" aria-hidden />}
+          {gameLine(game)}
+        </span>
       </div>
       <div className="pick-state">
-        {live && <Progress pick={p} game={game} />}
+        {live && <Progress pick={p} game={game} state={state} />}
         {official &&
           (live ? (
-            <span className={`official ${official.cls}`} title="Settled by Island Luck">
-              Island Luck: {official.label}
-            </span>
+            <span className={`official ${official.cls}`}>Island Luck: {official.label}</span>
           ) : (
-            <>
-              <Plate tone={official.tone} icon={official.icon} text={official.label} />
-              {note('Settled by Island Luck')}
-            </>
+            <Plate tone={official.tone} icon={official.icon} text={official.label} />
           ))}
       </div>
     </div>
   );
 }
 
-function Progress({ pick: p, game }: { pick: PickView; game: GameView }) {
+function Progress({ pick: p, game, state }: { pick: PickView; game: GameView; state: PickState }) {
   if (p.type === 'MONEYLINE') return <MoneylineScore pick={p} game={game} />;
 
   const pr = p.progress;
@@ -65,7 +83,7 @@ function Progress({ pick: p, game }: { pick: PickView; game: GameView }) {
     return p.status === 'OPEN' ? (
       <>
         {noStats}
-        {note('Progress unavailable')}
+        {note('Market not tracked')}
       </>
     ) : null;
   }
@@ -78,19 +96,21 @@ function Progress({ pick: p, game }: { pick: PickView; game: GameView }) {
     return (
       <>
         {noStats}
-        {note(pr.unavailableReason ? (UNAVAILABLE_REASONS[pr.unavailableReason] ?? pr.unavailableReason) : 'Progress unavailable', pr.unavailableReason ?? undefined)}
+        {note(pr.unavailableReason ? (UNAVAILABLE_REASONS[pr.unavailableReason] ?? pr.unavailableReason) : 'Progress unavailable')}
       </>
     );
   }
   if (pr.status === 'NOT_STARTED') return notStarted;
 
   const reached = pr.status === 'TARGET_REACHED' || pr.status === 'FINAL_HIT';
-  const missed = pr.status === 'FINAL_MISSED' || pr.status === 'TARGET_EXCEEDED';
+  const missed = pr.status === 'FINAL_MISSED';
+  // Past the line mid-game. The stat can still come back, so it is not a miss yet.
+  const atRisk = pr.status === 'TARGET_EXCEEDED';
 
   if (p.display === 'BINARY') {
     const words = binaryWords(pr.metric);
     if (reached) return <Plate tone="hit" icon="check" text={words.hit} />;
-    if (pr.status === 'FINAL_MISSED') return <Plate tone="miss" icon="cross" text={words.missed} />;
+    if (missed) return <Plate tone="miss" icon="cross" text={words.missed} />;
     return <Plate text={words.pending} />;
   }
 
@@ -98,31 +118,29 @@ function Progress({ pick: p, game }: { pick: PickView; game: GameView }) {
   const unit = metricUnit(pr.metric);
   const over = pr.operator === 'GTE' || pr.operator === 'GT';
   if (!over) {
-    // Unders: show how close to going over; no bar.
+    // Unders: show how close to going over; no fill.
     return (
       <>
-        <Plate tone={missed ? 'miss' : 'run'} icon={missed ? 'cross' : undefined} text={String(current)} />
-        {note(
-          <>
-            {unit} · under {pr.target}
-            {missed && ' · gone over'}
-          </>,
-        )}
+        <Plate tone={missed ? 'miss' : atRisk ? 'risk' : reached ? 'hit' : 'run'} icon={missed ? 'cross' : reached ? 'check' : undefined} text={String(current)} />
+        {note(parts(unit, `under ${pr.target}`, missed ? 'went over' : atRisk ? 'over for now' : ''))}
       </>
     );
   }
+  // Reached mid-game on a stat that can still drop back under the line.
+  const holding = state === 'reached';
   const needed = pr.operator === 'GT' ? Math.floor(pr.target ?? 0) + 1 : (pr.target ?? 0);
   const fraction = needed > 0 ? Math.min(current / needed, 1) : 1;
   return (
     <>
       {reached || missed ? (
-        <Plate tone={reached ? 'hit' : 'miss'} icon={reached ? 'check' : 'cross'} text={`${current} / ${needed}`} />
+        <Plate tone={reached ? (holding ? 'hold' : 'hit') : 'miss'} icon={reached ? 'check' : 'cross'} text={`${current} / ${needed}`} />
       ) : (
         <span
           key={current}
           className="plate run fill"
           style={{ '--at': `${fraction * 100}%` } as CSSProperties}
           role="progressbar"
+          aria-label={`${p.participantName ?? p.selectionLabel ?? ''} ${unit}`}
           aria-valuenow={current}
           aria-valuemax={needed}
           aria-valuetext={`${current} of ${needed} ${unit}`}
@@ -130,12 +148,7 @@ function Progress({ pick: p, game }: { pick: PickView; game: GameView }) {
           {current} / {needed}
         </span>
       )}
-      {note(
-        <>
-          {unit}
-          {reached ? ' · target reached' : missed ? ' · missed' : ` · ${needed - current} to go`}
-        </>,
-      )}
+      {note(parts(unit, reached ? (holding ? 'there for now' : 'target reached') : missed ? 'fell short' : `${needed - current} to go`))}
     </>
   );
 }
@@ -144,22 +157,11 @@ function MoneylineScore({ pick: p, game }: { pick: PickView; game: GameView }) {
   const st = game.state;
   if (!st || st.state === 'SCHEDULED') return p.status === 'OPEN' ? notStarted : null;
   if (!p.moneylineSide) return null;
-  const [us, them] = p.moneylineSide === 'home' ? [st.home, st.away] : [st.away, st.home];
-  const [usScore, themScore] = p.moneylineSide === 'home' ? [st.homeScore ?? 0, st.awayScore ?? 0] : [st.awayScore ?? 0, st.homeScore ?? 0];
-  const margin = usScore - themScore;
+  const sign = p.moneylineSide === 'home' ? 1 : -1;
+  const margin = sign * ((st.homeScore ?? 0) - (st.awayScore ?? 0));
   const final = st.state === 'FINAL';
   const text = margin === 0 ? 'Tied' : final ? (margin > 0 ? `Won by ${margin}` : `Lost by ${-margin}`) : margin > 0 ? `Up ${margin}` : `Down ${-margin}`;
   // Yellow is kept for measured progress; a lead is only a lead until the final whistle.
   const tone: Tone = !final || margin === 0 ? '' : margin > 0 ? 'hit' : 'miss';
-  return (
-    <>
-      <Plate tone={tone} text={text} />
-      {note(
-        <>
-          {us.abbreviation} {usScore} – {themScore} {them.abbreviation}
-          {final && ' (final)'}
-        </>,
-      )}
-    </>
-  );
+  return <Plate tone={tone} text={text} />;
 }

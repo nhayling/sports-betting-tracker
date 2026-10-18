@@ -44,7 +44,6 @@
   --plate-cell: var(--navy);
   --plate-run: #fff1a8;
   --ink: #ffffff;
-  --strip: var(--navy);
   --p-text: #ffffff;
   --p-muted: #b4c2d6;
   --p-rule: #2f507f;
@@ -83,7 +82,6 @@
     --plate-bg: #ffffff;
     --plate-cell: #eef2f7;
     --ink: var(--navy);
-    --strip: var(--navy-2);
     --p-text: var(--navy);
     --p-muted: #52637d;
     --p-rule: #d6dde8;
@@ -97,7 +95,7 @@
 }
 
 /* The shell is navy in both themes. */
-.shell, .app.auth, .game-strip {
+.shell, .app.auth {
   --text: #ffffff;
   --muted: #a9b9d0;
   --rule: #2a4a7a;
@@ -133,6 +131,8 @@ body { margin: 0; background: var(--ground); }
 button { font: inherit; color: inherit; -webkit-tap-highlight-color: transparent; }
 :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 ::selection { background: var(--yellow); color: var(--navy); }
+a { color: inherit; text-underline-offset: 3px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .icon { flex: none; width: 1em; height: 1em; vertical-align: -0.14em; }
 
 /* ── Shell ────────────────────────────────────────────── */
@@ -147,18 +147,15 @@ button { font: inherit; color: inherit; -webkit-tap-highlight-color: transparent
 
 button.link { background: none; border: 0; padding: 0; color: var(--muted); font-size: var(--fs-sm); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 button.link:hover { color: var(--text); }
-.shell button.link { font-family: var(--cond); font-size: var(--fs-base); font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none; white-space: nowrap; }
 
-/* How fresh the page is: live stats, then the last sync. */
-.status { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; margin-top: 8px; font-size: var(--fs-xs); }
-.live-indicator { display: inline-flex; align-items: center; gap: 6px; padding: 2px 8px; font-family: var(--cond); font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); box-shadow: inset 0 0 0 1px var(--rule); }
-.live-indicator .muted { font-weight: 600; }
+/* How fresh the page is: this page, then the last sync. */
+/* Segments stay whole and wrap between each other, so no line ever starts with a separator. */
+.status { display: flex; flex-wrap: wrap; gap: 0 14px; margin: 6px 0 0; font-size: var(--fs-xs); color: var(--muted); }
+.status span { white-space: nowrap; }
+.status .warn, .live-indicator.off { color: var(--warn-text); }
+.live-indicator { display: inline-flex; align-items: center; gap: 6px; padding: 2px 8px; font-family: var(--cond); font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; color: var(--muted); box-shadow: inset 0 0 0 1px var(--rule); }
 .live-indicator.on { background: var(--red); color: #fff; box-shadow: none; }
-.live-indicator.on .muted { color: #fff; }
-.live-indicator.off { color: var(--yellow); }
 .live-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
-.sync-line { margin: 0; }
-.sync-line.warn { color: var(--warn-text); }
 
 .tabs { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 14px; }
 .tab { background: none; border: 0; padding: 10px 0; cursor: pointer; font-family: var(--cond); font-size: var(--fs-lg); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); }
@@ -170,9 +167,22 @@ button.link:hover { color: var(--text); }
 
 /* The totals strip under the tabs. */
 .totals { background: var(--navy-2); }
-.totals .wrap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; padding-inline: 0; background: var(--navy); }
+.totals .wrap:not(.tally) { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; padding-inline: 0; background: var(--navy); }
 .totals .stat { background: var(--navy-2); padding: 12px 16px; }
 .totals .stat-value { font-size: 28px; }
+
+/* Under the totals: how many open bets stand where. Each count wears its standing's plate and jumps to the first such bet. */
+.tally { display: flex; flex-wrap: wrap; gap: 6px; padding-block: 10px; border-top: 1px solid var(--navy); }
+.tally button { flex: 1 1 0; min-width: 62px; display: flex; flex-direction: column; gap: 3px; padding: 0; background: none; border: 0; cursor: pointer; }
+.tally b { padding: 2px 0; background: var(--navy); color: #fff; font-family: var(--cond); font-size: 24px; font-weight: 800; line-height: 1.15; text-align: center; }
+.tally span { font-family: var(--cond); font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; text-align: center; white-space: nowrap; color: var(--muted); }
+.tally .run b { background: var(--yellow); color: var(--navy); }
+.tally .hit b { background: var(--green); color: var(--navy); }
+.tally .miss b { background: var(--red); }
+.tally .risk b { background: none; color: var(--bad-text); box-shadow: inset 0 0 0 2px var(--red); }
+.tally .hollow b { background: none; color: var(--muted); box-shadow: inset 0 0 0 1px var(--muted); }
+.tally button:hover span { color: var(--text); }
+.bet { scroll-margin-top: 12px; }
 
 .stat { display: flex; flex-direction: column; gap: 3px; min-width: 0; padding: 10px 12px; background: var(--plate-bg); }
 .stat-value { font-family: var(--cond); font-size: 24px; font-weight: 800; line-height: 1; }
@@ -187,8 +197,9 @@ button.link:hover { color: var(--text); }
 .center { text-align: center; padding: 32px 0; }
 .good { color: var(--good-text); }
 .bad { color: var(--bad-text); }
-.banner { padding: 10px 12px; margin: 8px 0; font-weight: 500; }
-.banner.error { background: var(--red); color: #fff; }
+.banner { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 12px; margin: 0 0 14px; font-weight: 500; }
+.banner.error { --text: #fff; --cell: rgb(255 255 255 / 0.16); background: var(--red); color: #fff; }
+.banner .btn { flex: none; }
 
 /* ── Plates: the state at the end of every pick, and a bet's result ── */
 .plate { display: inline-flex; align-items: center; justify-content: center; gap: 5px; min-width: 96px; padding: 4px 8px; background: var(--navy); color: #fff; font-family: var(--cond); font-size: var(--fs-xl); font-weight: 800; line-height: 1.15; letter-spacing: 0.01em; text-transform: uppercase; text-align: center; white-space: nowrap; animation: wipe 0.28s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -197,6 +208,8 @@ button.link:hover { color: var(--text); }
 /* An over on its way: the plate fills as the stat climbs. */
 .plate.run.fill { background: linear-gradient(90deg, var(--yellow) var(--at), var(--plate-run) var(--at)); color: var(--navy); }
 .plate.miss { background: var(--red); color: #fff; }
+.plate.hold { background: none; color: var(--good-text); box-shadow: inset 0 0 0 2px var(--green); }
+.plate.risk { background: none; color: var(--bad-text); box-shadow: inset 0 0 0 2px var(--red); }
 .plate.hollow { background: none; color: var(--muted); box-shadow: inset 0 0 0 1px var(--muted); font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.04em; }
 .plate.small-plate { min-width: 0; padding: 2px 8px; font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.05em; }
 /* A plate is rebuilt when its value changes, so the new value wipes in like an on-air update. */
@@ -204,47 +217,53 @@ button.link:hover { color: var(--text); }
 
 /* ── Bets ─────────────────────────────────────────────── */
 .list { display: flex; flex-direction: column; gap: 14px; }
-.bet-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-width: 0; padding: 10px 12px; border-bottom: 2px solid var(--ink); cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; }
+/* On a phone the two stacks dissolve and each bet takes its own place in the one list. */
+.list-col { display: contents; }
+.bet-head { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; padding: 10px 12px; border-bottom: 2px solid var(--ink); cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; }
 .bet-head:hover { background: var(--cell); }
 .bet-head:focus-visible { outline-offset: -2px; }
-.bet.collapsed .bet-head { border-bottom-width: 1px; border-bottom-color: var(--rule); }
-.bet-title { display: flex; align-items: baseline; flex-wrap: wrap; gap: 2px 8px; font-family: var(--cond); font-size: 19px; font-weight: 800; line-height: 1.15; letter-spacing: 0.01em; text-transform: uppercase; }
-.bet-title .miss-count { color: var(--bad-text); }
+.bet-main { min-width: 0; }
+.bet-title { display: flex; align-items: baseline; flex-wrap: wrap; gap: 2px 8px; font-family: var(--cond); font-size: var(--fs-lg); font-weight: 800; line-height: 1.15; letter-spacing: 0.01em; text-transform: uppercase; }
 .bet-meta { margin-top: 2px; font-size: var(--fs-xs); color: var(--muted); }
 .chevron { display: inline-block; line-height: 1; color: var(--text); vertical-align: -1px; transition: transform 0.15s ease; }
-.bet.collapsed .chevron { transform: rotate(-90deg); }
-.bet-result { display: flex; align-items: center; gap: 10px; flex: none; }
+.bet.collapsed .chevron, .hit-fold[aria-expanded='false'] .chevron { transform: rotate(-90deg); }
 .odds { font-family: var(--cond); font-size: 24px; font-weight: 800; line-height: 1; }
 .chip { display: inline-block; padding: 0 6px; font-family: var(--cond); font-size: var(--fs-xs); font-weight: 600; line-height: 1.5; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); box-shadow: inset 0 0 0 1px currentColor; vertical-align: 2px; }
 .chip .icon { margin-right: 2px; }
 
+/* One cell per pick, in the pick's own state. */
+.cells { display: flex; gap: 3px; padding: 8px 12px; border-bottom: 1px solid var(--rule); }
+.cells i { flex: 1; height: 12px; background: var(--plate-cell); }
+.cells .hit { background: var(--green); }
+.cells .run { background: linear-gradient(90deg, var(--yellow) var(--at, 100%), var(--plate-run) var(--at, 100%)); }
+.cells .hold { background: none; box-shadow: inset 0 0 0 2px var(--green); }
+.cells .miss { background: var(--red); }
+.cells .risk { background: color-mix(in srgb, var(--red) 40%, transparent); box-shadow: inset 0 0 0 2px var(--red); }
+.cells .wait { background: none; box-shadow: inset 0 0 0 1px var(--muted); }
+
 .settle-nudge { padding: 6px 12px; font-size: var(--fs-sm); font-weight: 600; background: var(--yellow); color: var(--navy); }
+.bet-basis { padding: 6px 12px; font-size: var(--fs-xs); color: var(--muted); border-bottom: 1px solid var(--rule); }
 
-.game-strip { display: flex; align-items: stretch; min-height: 38px; background: var(--strip); font-family: var(--cond); font-size: var(--fs-xl); font-weight: 700; line-height: 1.15; text-transform: uppercase; }
-.game-strip > * { display: flex; align-items: center; padding: 6px 12px; }
-.game-strip .team { flex: 1; min-width: 0; }
-.game-strip .score { justify-content: center; min-width: 46px; background: var(--white); color: var(--navy); font-size: 24px; font-weight: 800; box-shadow: inset -1px 0 0 var(--strip), inset 0 -1px 0 var(--strip), inset 0 1px 0 var(--strip); }
-.game-strip .matchup { flex: 1; min-width: 0; font-size: var(--fs-md); text-transform: none; font-family: var(--sans); font-weight: 600; }
-.game-strip .clock { flex: none; gap: 6px; font-size: var(--fs-md); letter-spacing: 0.03em; white-space: nowrap; color: var(--muted); }
-.game-strip .clock.live { background: var(--yellow); color: var(--navy); }
-.game-strip .clock.final { color: #fff; }
-.game-sub { padding: 5px 12px; font-size: var(--fs-xs); color: var(--muted); background: var(--cell); border-bottom: 1px solid var(--rule); }
-.red-zone { margin-left: 6px; padding: 0 5px; font-family: var(--cond); font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.05em; white-space: nowrap; background: var(--red); color: #fff; }
-
-/* Picks tied together in one same-game bet builder sit under one label. */
-.same-game-label { display: block; padding: 3px 12px; font-family: var(--cond); font-size: var(--fs-xs); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--rule); }
-
-.pick { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 10px; padding: 9px 12px; border-bottom: 1px solid var(--rule); }
+.picks-label { margin: 0; padding: 8px 12px 0; font-family: var(--cond); font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.pick { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 10px; padding: 8px 12px; border-bottom: 1px solid var(--rule); }
 .pick-what { display: flex; flex-direction: column; min-width: 0; }
 .pick-name { font-size: var(--fs-base); font-weight: 600; overflow-wrap: anywhere; }
-.pick-market { font-size: var(--fs-xs); color: var(--muted); }
+.pick-market, .pick-game { font-size: var(--fs-xs); color: var(--muted); }
+.pick-game .live-dot { margin-right: 5px; color: var(--red); vertical-align: 1px; }
 .pick-state { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; min-width: 96px; text-align: right; font-size: var(--fs-xs); }
 .pick-state:empty { display: none; }
 .pick-note { color: var(--muted); }
 .official { font-weight: 600; }
+/* Picks that already hit, folded to one line; tap to see them. */
+.hit-fold { display: flex; align-items: baseline; gap: 6px; width: 100%; min-height: 44px; padding: 10px 12px; background: none; border: 0; border-bottom: 1px solid var(--rule); font-size: var(--fs-sm); color: var(--muted); text-align: left; cursor: pointer; }
+.hit-fold:hover { background: var(--cell); }
+.hit-fold strong { color: var(--good-text); }
+.hit-fold:focus-visible { outline-offset: -2px; }
+
 .bet-foot { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-top: -1px; padding: 9px 12px; border-top: 2px solid var(--ink); font-family: var(--cond); font-size: var(--fs-md); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
 .bet-foot .payout { margin-left: auto; text-align: right; }
 .bet-foot .small { font-family: var(--sans); font-weight: 400; letter-spacing: 0; text-transform: none; }
+.bet.collapsed .bet-head { border-bottom-width: 1px; border-bottom-color: var(--rule); }
 .bet.collapsed .bet-foot { margin-top: 0; border-top: 0; }
 
 /* ── Notifications ────────────────────────────────────── */
@@ -343,7 +362,15 @@ button.primary:not(.btn) { padding: 11px; font-size: var(--fs-lg); }
 .style-title { font-family: var(--cond); font-size: var(--fs-md); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
 .style-net { font-family: var(--cond); font-size: 28px; font-weight: 800; line-height: 1.1; }
 
-.phone-sync { margin-bottom: 14px; }
+.account, .first-run { display: flex; flex-direction: column; gap: 14px; }
+.first-run .phone-sync { margin: 0; }
+.first-run-intro h2 { margin: 0 0 6px; font-family: var(--cond); font-size: 24px; font-weight: 800; line-height: 1.1; letter-spacing: 0.01em; text-transform: uppercase; }
+.first-run-intro .lede { margin: 0; }
+.address { overflow-wrap: anywhere; }
+.steps { margin: 6px 0 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; max-width: 70ch; }
+.waiting { margin: 0; font-size: var(--fs-sm); }
+.waiting .live-dot { margin-right: 6px; color: var(--yellow); }
+.phone-sync { margin: 14px 0; }
 .phone-sync ol { margin: 8px 0 12px; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; font-size: var(--fs-base); max-width: 70ch; }
 .phone-sync .install-link { display: inline-block; font-weight: 600; color: var(--text); text-underline-offset: 3px; margin-right: 6px; }
 
@@ -373,7 +400,7 @@ button.link.back { align-self: flex-start; display: inline-flex; align-items: ce
 
 @media (max-width: 520px) {
   .wrap { padding-inline: 12px; }
-  .top-right { gap: 12px; }
+  .top-right { gap: 8px; }
   .totals .stat { padding: 10px 12px; }
   .totals .stat-value { font-size: 24px; }
   .stat-value { font-size: var(--fs-xl); }
@@ -385,14 +412,23 @@ button.link.back { align-self: flex-start; display: inline-flex; align-items: ce
   .segmented button { min-height: 44px; padding: 5px 9px; }
   /* Fingers, not cursors: taller controls and a bigger target on the header links. */
   .btn { min-height: 44px; padding: 7px 13px; }
-  .top-right button.link { min-height: 44px; }
-  .bell { min-width: 44px; min-height: 44px; align-items: center; justify-content: center; margin: 0 -8px; }
+  .bell { min-width: 44px; min-height: 44px; align-items: center; justify-content: center; margin: 0 -6px; }
   .bell-count { top: 4px; right: 2px; }
-  .tab { min-height: 44px; }
+  /* Links inside a sentence stay in line; only standalone ones grow to a thumb's height. */
+  .name-link, button.link.back { min-height: 44px; }
   /* The bell isn't at the screen edge on phones, so the panel hangs from the
      whole header row (.top) instead of from the bell, at full width. */
   .notes { position: static; }
   .notes-panel { top: 100%; left: -4px; right: -4px; width: auto; max-height: 70dvh; }
+}
+
+/* Phones: the sections move to the bottom edge, in reach of a thumb. */
+@media (max-width: 760px) {
+  .tabs { position: fixed; z-index: 5; left: 0; right: 0; bottom: 0; margin: 0; padding-bottom: env(safe-area-inset-bottom); background: var(--navy); border-top: 1px solid var(--rule); }
+  .tab { min-height: 52px; }
+  .shell { padding-bottom: 10px; }
+  .totals { margin-top: 10px; margin-bottom: -10px; }
+  .page { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
 }
 
 @media (max-width: 380px) {
@@ -403,11 +439,17 @@ button.link.back { align-self: flex-start; display: inline-flex; align-items: ce
 /* Desktop: bets and analysis panels run in two columns. */
 @media (min-width: 1040px) {
   .wrap { max-width: 1120px; }
-  .list, .analysis { display: block; columns: 2; column-gap: 14px; }
-  .list > *, .analysis > * { break-inside: avoid; margin-bottom: 14px; }
-  .social, .phone-sync { max-width: 760px; }
+  .list { flex-direction: row; align-items: flex-start; }
+  .list-col { display: flex; flex: 1; min-width: 0; flex-direction: column; gap: 14px; }
+  .analysis { display: block; columns: 2; column-gap: 14px; }
+  .analysis > * { break-inside: avoid; margin-bottom: 14px; }
+  .social, .account, .first-run { max-width: 760px; }
+  /* A computer is in front of them, so that path leads. */
+  .first-run .on-computer { order: -1; }
+  .first-run-intro { order: -2; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; }
 }
+.account .phone-sync { margin: 0; }

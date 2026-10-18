@@ -50,6 +50,7 @@ export function Register({ token, onRegistered, onCancel }: { token: string; onR
     <div className="app auth">
       <form className="sign-in" onSubmit={submit}>
         <h1>Create your account</h1>
+        <p className="muted small">Sports Better copies your Island Luck bets and tracks every pick against live stats.</p>
         <label>
           Username
           <input autoComplete="username" autoCapitalize="none" autoCorrect="off" minLength={2} maxLength={40} pattern="[A-Za-z0-9._\-]+" title="Letters, numbers, . _ -" value={username} onChange={(e) => setUsername(e.target.value)} required />

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { createPhoneSyncLink } from '../api';
 
 /** Setup steps for syncing from a phone browser, with a personal install link for the userscript. */
-export function PhoneSync({ onClose }: { onClose: () => void }) {
+export function PhoneSync() {
   const [url, setUrl] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -21,12 +21,7 @@ export function PhoneSync({ onClose }: { onClose: () => void }) {
 
   return (
     <section className="panel phone-sync">
-      <div className="panel-head">
-        <h2>Sync from your phone</h2>
-        <button className="link" onClick={onClose}>
-          Close
-        </button>
-      </div>
+      <h2>Sync from your phone</h2>
       <p className="muted small">Do this once, on the phone you use for Island Luck. No computer needed afterwards.</p>
       <ol>
         <li>
@@ -36,7 +31,11 @@ export function PhoneSync({ onClose }: { onClose: () => void }) {
         <li>Open this page in that browser, create your install link below and tap it. The manager offers to install the script.</li>
         <li>Open My Bets on Island Luck. A green message confirms each sync; scroll to load older bets.</li>
       </ol>
-      {error && <p className="banner error">{error}</p>}
+      {error && (
+        <p className="banner error" role="alert">
+          {error}
+        </p>
+      )}
       {url ? (
         <p>
           <a className="install-link" href={url}>
