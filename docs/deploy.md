@@ -120,8 +120,8 @@ again afterwards.
 
 ## Bringing over older bets
 
-If the extension no longer holds some of your history, import a
-*Download captured JSON* file into your account:
+If the extension no longer holds some of your history, import a saved
+`history.json` response (in Island Luck's own shape) into your account:
 
 ```sh
 docker compose cp island-luck-history.raw.json app:/tmp/history.json

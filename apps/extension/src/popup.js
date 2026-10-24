@@ -21,7 +21,7 @@ async function render() {
   const hint = $('hint');
   hint.classList.toggle('err', Boolean(meta.lastCaptureError));
   hint.textContent = meta.lastCaptureError
-    ? `${meta.lastCaptureError}. Download the captured JSON and share it so the parser can be updated.`
+    ? `${meta.lastCaptureError}. The parser may need updating for this response.`
     : meta.lastCaptureAt
       ? `Last seen on Island Luck ${formatWhen(meta.lastCaptureAt)}. Open My Bets there to refresh; scroll to load older bets.`
       : 'Open My Bets on Island Luck while logged in. Bets are picked up as the page loads them.';
@@ -139,17 +139,6 @@ $('save').addEventListener('click', async () => {
     },
   });
   showMessage('Settings saved.');
-});
-
-$('download').addEventListener('click', async () => {
-  const data = await send('export');
-  const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }));
-  const a = Object.assign(document.createElement('a'), {
-    href: url,
-    download: `island-luck-history-${new Date().toISOString().slice(0, 10)}.raw.json`,
-  });
-  a.click();
-  URL.revokeObjectURL(url);
 });
 
 $('clear').addEventListener('click', async () => {

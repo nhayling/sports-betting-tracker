@@ -45,7 +45,7 @@ Web app (`apps/web`):
 - Social: people, friends and followers (accounts can be locked), profiles with other people's bets, a leaderboard by period, and social settings.
 - Sign in, register from an invite, sign out, phone sync setup.
 
-Extension (`apps/extension`): a popup showing last sync, bets found, open and settled counts, a "Sync now" action, and settings (tracker URL, sign in, account label, auto-sync, download captured JSON, clear captured bets).
+Extension (`apps/extension`): a popup showing last sync, bets found, open and settled counts, a "Sync now" action, and settings (tracker URL, sign in, account label, auto-sync, clear captured bets).
 
 Constraints:
 

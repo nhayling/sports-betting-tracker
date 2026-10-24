@@ -25,7 +25,7 @@ async function onCapture({ url, body, capturedAt = new Date().toISOString() }) {
   const coupons = extractCoupons(body);
 
   if (!coupons) {
-    // Unknown response shape: keep it so it can be downloaded and inspected.
+    // Unknown response shape: keep it so it can be reprocessed after a parser update.
     await chrome.storage.local.set({
       meta: { ...meta, lastCaptureAt: capturedAt, lastCaptureError: 'Unrecognized history response shape', unrecognized: body, unrecognizedAt: capturedAt },
     });
@@ -33,8 +33,6 @@ async function onCapture({ url, body, capturedAt = new Date().toISOString() }) {
   }
 
   const { store: next, added, changed } = mergeCoupons(store, coupons, capturedAt);
-  // Top-level fields besides coupons (e.g. range) are kept for fixture downloads.
-  const { coupons: _c, historyCoupons: _h, ...pageMeta } = body;
   await chrome.storage.local.set({
     coupons: next,
     meta: {
@@ -44,7 +42,6 @@ async function onCapture({ url, body, capturedAt = new Date().toISOString() }) {
       unrecognized: null,
       unrecognizedAt: null,
       lastCapture: { url, count: coupons.length, added, changed },
-      pageMeta,
     },
   });
   // Sync even when nothing changed, so "Last synced" in the tracker reflects this visit.
@@ -213,16 +210,6 @@ async function status() {
   return { summary: summarize(coupons), meta: { ...meta, unrecognized: meta.unrecognized ? true : undefined }, settings };
 }
 
-/** Everything captured, in the same shape as history.json, for fixtures/debugging. */
-async function exportCaptured() {
-  const { coupons, meta } = await getState();
-  return {
-    ...(meta.pageMeta ?? {}),
-    coupons: Object.values(coupons).map((e) => e.raw),
-    ...(meta.unrecognized ? { _unrecognizedLastResponse: meta.unrecognized } : {}),
-  };
-}
-
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   // Captures may only come from our content scripts; popup actions only from extension pages.
   const fromContentScript = sender.tab !== undefined;
@@ -247,7 +234,6 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     : {
         sync: () => runSync('manual'),
         status: () => status(),
-        export: () => exportCaptured(),
         connect: () => connect(msg),
         disconnect: () => disconnect(),
         'save-settings': async () => chrome.storage.local.set({ settings: { ...(await getState()).settings, ...msg.settings } }),

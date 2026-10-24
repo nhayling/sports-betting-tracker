@@ -171,8 +171,7 @@ the existing record.
 
 - The popup shows last sync, counts (found / open / settled / not yet synced),
   and **Sync Bets**, and the result shows created/updated/unchanged.
-  Settings covers the tracker URL and sign-in, *Download captured JSON* (the
-  fixture source), and Clear.
+  Settings covers the tracker URL and sign-in, and Clear.
 - Permissions: `storage`, plus content scripts on Island Luck. Tracker host
   access is optional and requested only for the configured tracker origin.
 - If the tracker is unreachable, captured coupons stay "not yet synced" and go
