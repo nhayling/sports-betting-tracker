@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Sports Better: Island Luck sync
 // @namespace    sports-better
-// @version      1.2.0
+// @version      1.4.0
 // @description  Keeps your Slip Club tracker up to date with your bets.
 // @match        https://islandluck.com/*
 // @match        https://*.islandluck.com/*
@@ -41,15 +41,44 @@
   let timer = null;
   let syncing = false;
 
+  const SVG = 'http://www.w3.org/2000/svg';
+  // The Slip Club app icon: the ticket "I" on navy.
+  function icon() {
+    const svg = document.createElementNS(SVG, 'svg');
+    svg.setAttribute('viewBox', '0 0 1024 1024');
+    svg.setAttribute('width', '20');
+    svg.setAttribute('height', '20');
+    svg.style.cssText = 'flex:none;display:block';
+    const bg = document.createElementNS(SVG, 'rect');
+    bg.setAttribute('width', '1024');
+    bg.setAttribute('height', '1024');
+    bg.setAttribute('rx', '224');
+    bg.setAttribute('fill', '#0B2340');
+    const ticket = document.createElementNS(SVG, 'path');
+    ticket.setAttribute('d', 'M387.8 170H636.2V458C553.4 458 553.4 566 636.2 566V854H387.8V566C470.6 566 470.6 458 387.8 458V170Z');
+    ticket.setAttribute('fill', '#FFCD16');
+    svg.appendChild(bg);
+    svg.appendChild(ticket);
+    return svg;
+  }
+
+  /** Icon | message, on Slip Club's navy (the app's red when something went wrong). */
   function toast(text, isError) {
     try {
       if (!document.body) return;
       const el = document.createElement('div');
-      el.textContent = text;
       el.style.cssText =
         'position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:2147483647;max-width:90vw;' +
-        'padding:10px 14px;border-radius:10px;font:13px/1.35 system-ui,sans-serif;color:#fff;' +
-        'box-shadow:0 4px 16px rgba(0,0,0,.35);background:' + (isError ? '#b3261e' : '#15803d');
+        'display:flex;align-items:center;gap:10px;padding:9px 14px 9px 10px;border-radius:6px;' +
+        'font:600 13px/1.35 system-ui,sans-serif;color:#fff;box-shadow:0 4px 16px rgba(0,0,0,.35);' +
+        'background:' + (isError ? '#c8102e' : '#0b2340');
+      const rule = document.createElement('span');
+      rule.style.cssText = 'flex:none;width:1px;align-self:stretch;background:rgba(255,255,255,.35)';
+      const message = document.createElement('span');
+      message.textContent = text;
+      el.appendChild(icon());
+      el.appendChild(rule);
+      el.appendChild(message);
       document.body.appendChild(el);
       setTimeout(() => el.remove(), isError ? 8000 : 4000);
     } catch {
@@ -77,11 +106,11 @@
           }),
         });
         if (res.status === 401 || res.status === 403) {
-          toast('Slip Club: sign-in expired. Install phone sync again from your tracker.', true);
+          toast('Sign-in expired. Install phone sync again from your tracker.', true);
           return;
         }
         if (!res.ok) {
-          toast('Slip Club: the tracker returned ' + res.status + '. Bets will be sent again next time My Bets loads.', true);
+          toast('The tracker returned ' + res.status + '. Bets will be sent again next time My Bets loads.', true);
           return;
         }
         const result = await res.json().catch(() => ({}));
@@ -95,10 +124,10 @@
       } while (pending.size > 0);
       if (totals.sent > 0) {
         const changes = [totals.created && totals.created + ' new', totals.updated && totals.updated + ' updated'].filter(Boolean).join(', ');
-        toast('Slip Club: ' + totals.sent + ' bet' + (totals.sent === 1 ? '' : 's') + ' synced' + (changes ? ' (' + changes + ')' : ''));
+        toast(totals.sent + ' bet' + (totals.sent === 1 ? '' : 's') + ' synced' + (changes ? ' (' + changes + ')' : ''));
       }
     } catch {
-      toast('Slip Club: could not reach the tracker. Bets will be sent again next time My Bets loads.', true);
+      toast('Couldn’t reach the tracker. Bets will be sent again next time My Bets loads.', true);
     } finally {
       syncing = false;
     }

@@ -14,6 +14,25 @@ interface Call {
   init?: { method?: string; credentials?: string; headers?: Record<string, string>; body?: string };
 }
 
+interface FakeElement {
+  style: Record<string, string>;
+  textContent: string;
+  children: FakeElement[];
+  appendChild(child: FakeElement): void;
+  setAttribute(name: string, value: string): void;
+  remove(): void;
+}
+const fakeElement = (): FakeElement => ({
+  style: {},
+  textContent: '',
+  children: [],
+  appendChild(child) {
+    this.children.push(child);
+  },
+  setAttribute() {},
+  remove() {},
+});
+
 /** Runs the userscript in a fake page whose own fetch answers Kambi and the tracker. */
 function page(tracker: (body: { coupons: { couponRef: number }[] }) => { status: number; json?: unknown }) {
   const calls: Call[] = [];
@@ -38,8 +57,10 @@ function page(tracker: (body: { coupons: { couponRef: number }[] }) => { status:
     XMLHttpRequest,
     Request: class {},
     document: {
-      body: { appendChild: (el: { textContent: string }) => toasts.push(el.textContent) },
-      createElement: () => ({ style: {}, remove() {}, textContent: '' }),
+      // A toast is icon | message: what it says is its children's text.
+      body: { appendChild: (el: FakeElement) => toasts.push(el.children.map((c) => c.textContent).join('')) },
+      createElement: fakeElement,
+      createElementNS: fakeElement,
     },
     // Timers are run by hand; toast removal timers are harmless no-ops.
     setTimeout: (fn: () => void) => timers.push(fn),
@@ -78,7 +99,7 @@ describe('phone userscript', () => {
     expect(body).toMatchObject({ provider: 'ISLAND_LUCK_KAMBI', accountLabel: 'Island Luck' });
     expect(body.coupons).toHaveLength(15);
     expect(Number.isNaN(Date.parse(body.capturedAt))).toBe(false);
-    expect(p.toasts).toEqual(['Slip Club: 15 bets synced (15 new)']);
+    expect(p.toasts).toEqual(['15 bets synced (15 new)']);
   });
 
   it('ignores other requests', async () => {
@@ -105,6 +126,6 @@ describe('phone userscript', () => {
     const p = page(() => ({ status: 401 }));
     await p.ctx.fetch(HISTORY);
     await p.runTimers();
-    expect(p.toasts).toEqual(['Slip Club: sign-in expired. Install phone sync again from your tracker.']);
+    expect(p.toasts).toEqual(['Sign-in expired. Install phone sync again from your tracker.']);
   });
 });
