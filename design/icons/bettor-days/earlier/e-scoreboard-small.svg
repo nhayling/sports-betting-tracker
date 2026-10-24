@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- E small · Scoreboard for 48px and under: no brackets, tiles larger. -->
+  <rect width="128" height="128" rx="28" fill="#0b1f3a"/>
+  <g transform="translate(64 64) scale(1.36) translate(-64 -64)">
+    <path fill="#ffffff" d="M33 36H57L62 41V87L57 92H33L28 87V41Z"/>
+    <path fill="#ffd200" d="M71 36H95L100 41V87L95 92H71L66 87V41Z"/>
+    <path fill="#0b1f3a" fill-rule="evenodd" d="M35 45H52L56 49V60L53 64L56 68V79L52 83H35ZM43 52V60H48V52ZM43 68V76H48V68Z"/>
+    <path fill="#0b1f3a" fill-rule="evenodd" d="M73 45H89L93 49V79L89 83H73ZM81 52V76H85V52Z"/>
+  </g>
+</svg>

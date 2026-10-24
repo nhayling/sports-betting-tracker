@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- G · Today's check on a slip: the rising check-arrow, now coming off a bet slip so it reads as a bet, not a stock. -->
+  <rect width="128" height="128" rx="28" fill="#0b1f3a"/>
+  <path fill="#ffd200" d="M22 52H86Q92 52 92 58V67A8 8 0 0 0 92 83V92Q92 98 86 98H22Q16 98 16 92V83A8 8 0 0 0 16 67V58Q16 52 22 52Z"/>
+  <polyline points="30,76 44,88 98,36" fill="none" stroke="#0b1f3a" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="30,76 44,88 98,36" fill="none" stroke="#ffffff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M84 30 L110 24 L104 50 Z" fill="#ffffff" stroke="#ffffff" stroke-width="3" stroke-linejoin="round"/>
+</svg>

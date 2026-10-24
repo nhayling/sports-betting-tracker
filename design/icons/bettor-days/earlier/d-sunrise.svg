@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- D · Sunrise: better days, a yellow sun coming up over a horizon plate. -->
+  <rect width="128" height="128" rx="28" fill="#0b1f3a"/>
+  <clipPath id="above"><rect width="128" height="84"/></clipPath>
+  <circle cx="64" cy="84" r="30" fill="#ffd200" clip-path="url(#above)"/>
+  <g stroke="#ffd200" stroke-width="8" stroke-linecap="round">
+    <line x1="64" y1="22" x2="64" y2="34"/>
+    <line x1="26" y1="46" x2="34" y2="54"/>
+    <line x1="102" y1="46" x2="94" y2="54"/>
+  </g>
+  <rect x="18" y="88" width="92" height="12" rx="3" fill="#ffffff"/>
+</svg>

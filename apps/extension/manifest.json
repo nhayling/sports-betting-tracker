@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Island Luck Bet Sync",
-  "version": "0.1.0",
-  "description": "Copies the bet history Island Luck already loads in your browser into your own bet tracker.",
+  "name": "Slip Club Sync",
+  "version": "0.2.0",
+  "description": "Keeps your Slip Club tracker up to date with your bets.",
   "permissions": [
     "storage"
   ],
@@ -41,7 +41,7 @@
   ],
   "action": {
     "default_popup": "src/popup.html",
-    "default_title": "Island Luck Bet Sync",
+    "default_title": "Slip Club Sync",
     "default_icon": {
       "16": "icons/icon-16.png",
       "32": "icons/icon-32.png",

@@ -44,7 +44,8 @@ export function socialRouter(db: Db): Router {
 
   const findUser = (req: Request) => {
     const username = String(req.params.username ?? '').trim().toLowerCase();
-    return USERNAME_PATTERN.test(username) ? db.user.findUnique({ where: { username } }) : null;
+    // Someone still waiting for approval isn't on the tracker yet.
+    return USERNAME_PATTERN.test(username) ? db.user.findFirst({ where: { username, status: 'ACTIVE' } }) : null;
   };
 
   /** The other person in a /:username route. Sends the error and returns null when it isn't someone else. */

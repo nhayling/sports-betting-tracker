@@ -39,6 +39,7 @@ services:
       - '443:443'
     environment:
       DOMAIN: ${DOMAIN:?set DOMAIN in .env}
+      OLD_DOMAINS: ${OLD_DOMAINS:-}
     volumes:
       - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data

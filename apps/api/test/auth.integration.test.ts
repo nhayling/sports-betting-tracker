@@ -38,10 +38,10 @@ describe.skipIf(!hasTestDb)('login and sessions', () => {
 
     const webDist = mkdtempSync(join(tmpdir(), 'web-'));
     mkdirSync(join(webDist, 'assets'));
-    writeFileSync(join(webDist, 'index.html'), '<!doctype html><title>Sports Better</title>');
+    writeFileSync(join(webDist, 'index.html'), '<!doctype html><title>Slip Club</title>');
     writeFileSync(join(webDist, 'assets', 'app.js'), 'console.log(1)');
 
-    const server = createApp(db, { webDist, loginLimiter: new LoginLimiter(() => now) }).listen(0);
+    const server = createApp(db, { webDist, loginLimiter: new LoginLimiter(() => now), signupLimiter: new LoginLimiter(() => now) }).listen(0);
     await new Promise((r) => server.once('listening', r));
     base = `http://127.0.0.1:${(server.address() as AddressInfo).port}`;
     close = () => server.close();
@@ -71,7 +71,7 @@ describe.skipIf(!hasTestDb)('login and sessions', () => {
   it('lets a session read bets but not sync', async () => {
     const cookie = cookieOf(await login('noah', 'a-long-password'));
     expect((await fetch(`${base}/api/bets`, { headers: { cookie } })).status).toBe(200);
-    expect((await fetch(`${base}/api/auth/me`, { headers: { cookie } }).then((r) => r.json()))).toEqual({ username: 'noah' });
+    expect((await fetch(`${base}/api/auth/me`, { headers: { cookie } }).then((r) => r.json()))).toEqual({ username: 'noah', email: null, emailVerified: false });
     const sync = await fetch(`${base}/api/integrations/island-luck/sync`, {
       method: 'POST',
       headers: { cookie, 'Content-Type': 'application/json' },
@@ -248,6 +248,62 @@ describe.skipIf(!hasTestDb)('login and sessions', () => {
     });
   });
 
+  describe('emails and asking for access', () => {
+    const post = (path: string, body: Record<string, unknown>, cookie?: string) =>
+      fetch(`${base}/api/auth/${path}`, { method: 'POST', headers: { 'Content-Type': 'application/json', ...(cookie ? { cookie } : {}) }, body: JSON.stringify(body) });
+    const setEmail = (cookie: string, email: unknown) =>
+      fetch(`${base}/api/auth/email`, { method: 'PATCH', headers: { 'Content-Type': 'application/json', cookie }, body: JSON.stringify({ email }) });
+
+    it('lets an existing account add an email later, and sign in with it', async () => {
+      const cookie = cookieOf(await login('buddy', 'another-password'));
+      expect((await setEmail(cookie, 'not an email')).status).toBe(400);
+      const res = await setEmail(cookie, ' Buddy@Example.COM ');
+      expect(await res.json()).toEqual({ email: 'buddy@example.com', emailVerified: false });
+      expect(await fetch(`${base}/api/auth/me`, { headers: { cookie } }).then((r) => r.json())).toMatchObject({ email: 'buddy@example.com' });
+      expect((await login('BUDDY@example.com', 'another-password')).status).toBe(200);
+      expect((await login('buddy@example.com', 'wrong-password')).status).toBe(401);
+      // An email is one account's.
+      const noah = cookieOf(await login('noah', 'a-long-password'));
+      expect((await setEmail(noah, 'buddy@example.com')).status).toBe(409);
+      expect((await fetch(`${base}/api/auth/email`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: '{}' })).status).toBe(401);
+    });
+
+    it('takes a request to join, which waits for approval before it can sign in', async () => {
+      expect((await post('signup', { username: 'newbie', password: 'long-enough-pw' })).status).toBe(400);
+      expect((await post('signup', { username: 'buddy', email: 'new@example.com', password: 'long-enough-pw' })).status).toBe(409);
+      expect((await post('signup', { username: 'newbie', email: 'buddy@example.com', password: 'long-enough-pw' })).status).toBe(409);
+      const res = await post('signup', { username: 'Newbie', email: 'New@Example.com', password: 'long-enough-pw', note: 'Buddy’s cousin' });
+      expect(res.status).toBe(201);
+      expect(await res.json()).toEqual({ status: 'PENDING' });
+      expect(res.headers.get('set-cookie')).toBeNull();
+      expect(await db.user.findUniqueOrThrow({ where: { username: 'newbie' } })).toMatchObject({ email: 'new@example.com', status: 'PENDING', accessNote: 'Buddy’s cousin' });
+
+      // The right password learns it's waiting; a wrong one learns nothing.
+      const waiting = await login('newbie', 'long-enough-pw');
+      expect(waiting.status).toBe(403);
+      expect(await waiting.json()).toMatchObject({ pending: true });
+      expect((await login('newbie', 'wrong-password')).status).toBe(401);
+      expect((await post('extension-token', { username: 'newbie', password: 'long-enough-pw' })).status).toBe(403);
+
+      // Not findable while waiting.
+      const noah = cookieOf(await login('noah', 'a-long-password'));
+      const people = await fetch(`${base}/api/social/people?q=newbie`, { headers: { cookie: noah } }).then((r) => r.json());
+      expect(people).toEqual({ people: [] });
+      expect((await fetch(`${base}/api/social/profiles/newbie`, { headers: { cookie: noah } })).status).toBe(404);
+
+      await db.user.update({ where: { username: 'newbie' }, data: { status: 'ACTIVE' } });
+      expect((await login('new@example.com', 'long-enough-pw')).status).toBe(200);
+    });
+
+    it('throttles requests to join', async () => {
+      // Four requests above, refused or not; a fifth is allowed and a sixth isn't, for 15 minutes.
+      expect((await post('signup', { username: 'spam1', email: 'spam1@example.com', password: 'long-enough-pw' })).status).toBe(201);
+      expect((await post('signup', { username: 'spam3', email: 'spam3@example.com', password: 'long-enough-pw' })).status).toBe(429);
+      now += 16 * 60_000;
+      expect((await post('signup', { username: 'spam2', email: 'spam2@example.com', password: 'long-enough-pw' })).status).toBe(201);
+    });
+  });
+
   it('signs out', async () => {
     const cookie = cookieOf(await login('noah', 'a-long-password'));
     await fetch(`${base}/api/auth/logout`, { method: 'POST', headers: { cookie } });
@@ -289,7 +345,7 @@ describe.skipIf(!hasTestDb)('login and sessions', () => {
   it('serves the web app, with JSON 404s under /api', async () => {
     const page = await fetch(`${base}/settled/anything`);
     expect(page.status).toBe(200);
-    expect(await page.text()).toContain('<title>Sports Better</title>');
+    expect(await page.text()).toContain('<title>Slip Club</title>');
     expect(page.headers.get('cache-control')).toBe('no-cache');
     const asset = await fetch(`${base}/assets/app.js`);
     expect(asset.headers.get('cache-control')).toContain('immutable');

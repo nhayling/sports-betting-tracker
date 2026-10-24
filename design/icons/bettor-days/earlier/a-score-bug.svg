@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- A · Score bug: "BD" like a broadcast score graphic, the yellow bar from the app's plates. -->
+  <rect width="128" height="128" rx="28" fill="#0b1f3a"/>
+  <path fill="#ffffff" fill-rule="evenodd" d="M24 26H48Q62 26 62 41Q62 50 56 54Q63 58 63 68Q63 86 48 86H24ZM37 38V50H46Q49 50 49 44Q49 38 46 38ZM37 61V74H47Q50 74 50 67Q50 61 47 61Z"/>
+  <path fill="#ffffff" fill-rule="evenodd" d="M68 26H88Q104 26 104 44V68Q104 86 88 86H68ZM81 38V74H87Q91 74 91 69V43Q91 38 87 38Z"/>
+  <rect x="24" y="96" width="80" height="10" rx="2" fill="#ffd200"/>
+</svg>

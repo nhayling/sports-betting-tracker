@@ -30,3 +30,14 @@ export async function verifyPassword(password: string, stored: string): Promise<
 export const MIN_PASSWORD_LENGTH = 10;
 /** Usernames are stored lowercase. */
 export const USERNAME_PATTERN = /^[a-z0-9._-]{2,40}$/;
+
+/** Something@something.tld, no spaces: a typo check, not proof the address works (nothing is sent yet). */
+export const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+export const MAX_EMAIL_LENGTH = 254;
+
+/** Trimmed and lowercased, or null if it doesn't look like an email. */
+export function normalizeEmail(raw: unknown): string | null {
+  if (typeof raw !== 'string') return null;
+  const email = raw.trim().toLowerCase();
+  return email.length <= MAX_EMAIL_LENGTH && EMAIL_PATTERN.test(email) ? email : null;
+}

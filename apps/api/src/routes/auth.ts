@@ -2,7 +2,7 @@ import { Router, type Request, type Response } from 'express';
 import type { Db } from '../db';
 import { LoginLimiter } from '../auth/loginLimiter';
 import { findUsableInvite } from '../auth/invites';
-import { hashPassword, MIN_PASSWORD_LENGTH, USERNAME_PATTERN, verifyPassword } from '../auth/password';
+import { hashPassword, MIN_PASSWORD_LENGTH, normalizeEmail, USERNAME_PATTERN, verifyPassword } from '../auth/password';
 import { bearerToken } from '../auth';
 import { createApiKey, deleteApiKey } from '../auth/apiKeys';
 import { createSession, deleteSession, findSession, readCookie, SESSION_COOKIE, SESSION_TTL_MS, sessionCookie } from '../auth/sessions';
@@ -10,13 +10,25 @@ import { createSession, deleteSession, findSession, readCookie, SESSION_COOKIE, 
 // Compared against when the username doesn't exist, so timing doesn't reveal valid usernames.
 const dummyHash = hashPassword('not-a-real-password');
 
+/** A note left when asking for access is for whoever approves it; this keeps it to a sentence or two. */
+export const MAX_ACCESS_NOTE_LENGTH = 280;
+
+const PENDING = 'Your request to join is waiting for approval. You can sign in once it’s approved.';
+
 /**
- * POST /api/auth/login, POST /api/auth/logout, GET /api/auth/me for the web app;
+ * POST /api/auth/login, POST /api/auth/logout, GET /api/auth/me, PATCH /api/auth/email for the web app;
  * POST and DELETE /api/auth/extension-token for the extension;
- * GET /api/auth/invite/:token and POST /api/auth/register for invite links.
+ * GET /api/auth/invite/:token and POST /api/auth/register for invite links;
+ * POST /api/auth/signup to ask for access (the account waits for approval: npm run access).
  */
-export function authRouter(db: Db, limiter = new LoginLimiter()): Router {
+export function authRouter(db: Db, limiter = new LoginLimiter(), signupLimiter = new LoginLimiter()): Router {
   const router = Router();
+
+  const sessionUser = async (req: Request) => {
+    const token = readCookie(req.get('cookie'), SESSION_COOKIE);
+    const session = token ? await findSession(db, token) : null;
+    return session ? db.user.findUnique({ where: { id: session.user.id } }) : null;
+  };
 
   /** Checks the posted username and password. Sends the error response and returns null if they fail. */
   const checkCredentials = async (req: Request, res: Response) => {
@@ -32,19 +44,26 @@ export function authRouter(db: Db, limiter = new LoginLimiter()): Router {
       return null;
     }
 
+    // `username` may be an email: anything with an @ is looked up that way.
     const { username, password } = req.body ?? {};
     if (typeof username !== 'string' || typeof password !== 'string' || !username || !password) {
       res.status(400).json({ error: 'Username and password are required' });
       return null;
     }
-    const user = await db.user.findUnique({ where: { username: username.trim().toLowerCase() } });
+    const login = username.trim().toLowerCase();
+    const user = await db.user.findUnique({ where: login.includes('@') ? { email: login } : { username: login } });
     const ok = await verifyPassword(password, user?.passwordHash ?? (await dummyHash));
     if (!user || !ok) {
       limiter.fail(client);
-      res.status(401).json({ error: 'Invalid username or password' });
+      res.status(401).json({ error: 'Invalid username, email or password' });
       return null;
     }
     limiter.succeed(client);
+    // Only someone who knows the password learns the request is still waiting.
+    if (user.status === 'PENDING') {
+      res.status(403).json({ error: PENDING, pending: true });
+      return null;
+    }
     return user;
   };
 
@@ -73,24 +92,87 @@ export function authRouter(db: Db, limiter = new LoginLimiter()): Router {
     res.json({ ok: true });
   });
 
-  // Registration is by invite only: the link is single-use, and whoever opens it picks the login.
+  /**
+   * The login fields both ways in share: username, password, and an email (required when
+   * asking for access, optional with an invite). Sends the error and returns null if they fail.
+   */
+  const checkNewLogin = async (req: Request, res: Response, emailRequired: boolean) => {
+    const username = typeof req.body?.username === 'string' ? req.body.username.trim().toLowerCase() : '';
+    const { password } = req.body ?? {};
+    const rawEmail = req.body?.email;
+    const email = normalizeEmail(rawEmail);
+    if (!USERNAME_PATTERN.test(username)) {
+      res.status(400).json({ error: 'Username must be 2-40 characters: letters, numbers, . _ -' });
+      return null;
+    }
+    if (!email && (emailRequired || (typeof rawEmail === 'string' && rawEmail.trim()))) {
+      res.status(400).json({ error: 'Enter a valid email address' });
+      return null;
+    }
+    if (typeof password !== 'string' || password.length < MIN_PASSWORD_LENGTH) {
+      res.status(400).json({ error: `Password must be at least ${MIN_PASSWORD_LENGTH} characters` });
+      return null;
+    }
+    if (await db.user.findUnique({ where: { username } })) {
+      res.status(409).json({ error: 'That username is taken' });
+      return null;
+    }
+    if (email && (await db.user.findUnique({ where: { email } }))) {
+      res.status(409).json({ error: 'That email already has an account. Sign in instead.' });
+      return null;
+    }
+    return { username, email, password };
+  };
+
+  /** Two sign-ups racing for the same username or email: the database's unique keys decide. */
+  const taken = (err: unknown) => (err as { code?: string; meta?: { target?: string[] } }).code === 'P2002';
+  const takenMessage = (err: unknown) =>
+    ((err as { meta?: { target?: string[] } }).meta?.target ?? []).includes('email') ? 'That email already has an account. Sign in instead.' : 'That username is taken';
+
+  // Asking for access: anyone can, and the account waits until it's approved.
+  router.post('/signup', async (req, res) => {
+    if (!req.is('application/json')) {
+      res.status(415).json({ error: 'Expected application/json' });
+      return;
+    }
+    // Every request counts, not just failures: 5 per 15 minutes from one address.
+    const client = req.ip ?? 'unknown';
+    const wait = signupLimiter.retryAfterSeconds(client);
+    if (wait !== null) {
+      res.set('Retry-After', String(wait)).status(429).json({ error: `Too many requests. Try again in ${Math.ceil(wait / 60)} min.` });
+      return;
+    }
+    signupLimiter.fail(client);
+    const note = typeof req.body?.note === 'string' ? req.body.note.trim() : '';
+    if (note.length > MAX_ACCESS_NOTE_LENGTH) {
+      res.status(400).json({ error: `Keep the note under ${MAX_ACCESS_NOTE_LENGTH} characters` });
+      return;
+    }
+    const login = await checkNewLogin(req, res, true);
+    if (!login) return;
+    try {
+      await db.user.create({
+        data: { username: login.username, email: login.email, passwordHash: await hashPassword(login.password), status: 'PENDING', accessNote: note || null },
+      });
+    } catch (err) {
+      if (!taken(err)) throw err;
+      res.status(409).json({ error: takenMessage(err) });
+      return;
+    }
+    // Shows in npm run deploy:logs; npm run access lists and approves.
+    console.log(`[access] ${login.username} <${login.email}> asked to join${note ? `: ${note}` : ''}`);
+    res.status(201).json({ status: 'PENDING' });
+  });
+
+  // Registration with an invite link: single-use, and whoever opens it picks the login. No approval needed.
   router.post('/register', async (req, res) => {
     if (!req.is('application/json')) {
       res.status(415).json({ error: 'Expected application/json' });
       return;
     }
-    const { token, password } = req.body ?? {};
-    const username = typeof req.body?.username === 'string' ? req.body.username.trim().toLowerCase() : '';
+    const { token } = req.body ?? {};
     if (typeof token !== 'string' || !token) {
       res.status(400).json({ error: 'An invite link is required to register' });
-      return;
-    }
-    if (!USERNAME_PATTERN.test(username)) {
-      res.status(400).json({ error: 'Username must be 2-40 characters: letters, numbers, . _ -' });
-      return;
-    }
-    if (typeof password !== 'string' || password.length < MIN_PASSWORD_LENGTH) {
-      res.status(400).json({ error: `Password must be at least ${MIN_PASSWORD_LENGTH} characters` });
       return;
     }
     const invite = await findUsableInvite(db, token);
@@ -98,10 +180,9 @@ export function authRouter(db: Db, limiter = new LoginLimiter()): Router {
       res.status(404).json({ error: INVITE_GONE });
       return;
     }
-    if (await db.user.findUnique({ where: { username } })) {
-      res.status(409).json({ error: 'That username is taken' });
-      return;
-    }
+    const login = await checkNewLogin(req, res, false);
+    if (!login) return;
+    const { username, email, password } = login;
     const passwordHash = await hashPassword(password);
     let user;
     try {
@@ -112,11 +193,11 @@ export function authRouter(db: Db, limiter = new LoginLimiter()): Router {
           data: { usedAt: new Date(), usedByUsername: username },
         });
         if (claimed.count !== 1) return null;
-        return tx.user.create({ data: { username, passwordHash } });
+        return tx.user.create({ data: { username, email, passwordHash } });
       });
     } catch (err) {
-      if ((err as { code?: string }).code !== 'P2002') throw err;
-      res.status(409).json({ error: 'That username is taken' });
+      if (!taken(err)) throw err;
+      res.status(409).json({ error: takenMessage(err) });
       return;
     }
     if (!user) {
@@ -143,13 +224,43 @@ export function authRouter(db: Db, limiter = new LoginLimiter()): Router {
   });
 
   router.get('/me', async (req, res) => {
-    const token = readCookie(req.get('cookie'), SESSION_COOKIE);
-    const session = token ? await findSession(db, token) : null;
-    if (!session) {
+    const user = await sessionUser(req);
+    if (!user) {
       res.status(401).json({ error: 'Not signed in' });
       return;
     }
-    res.json({ username: session.user.username });
+    res.json({ username: user.username, email: user.email, emailVerified: !!user.emailVerifiedAt });
+  });
+
+  // Adding (or changing) your email. Optional for accounts made before emails were asked for.
+  router.patch('/email', async (req, res) => {
+    if (!req.is('application/json')) {
+      res.status(415).json({ error: 'Expected application/json' });
+      return;
+    }
+    const user = await sessionUser(req);
+    if (!user) {
+      res.status(401).json({ error: 'Not signed in' });
+      return;
+    }
+    const email = normalizeEmail(req.body?.email);
+    if (!email) {
+      res.status(400).json({ error: 'Enter a valid email address' });
+      return;
+    }
+    if (email === user.email) {
+      res.json({ email, emailVerified: !!user.emailVerifiedAt });
+      return;
+    }
+    try {
+      // A new address hasn't been confirmed, whatever the old one was.
+      await db.user.update({ where: { id: user.id }, data: { email, emailVerifiedAt: null } });
+    } catch (err) {
+      if (!taken(err)) throw err;
+      res.status(409).json({ error: 'That email is already on another account' });
+      return;
+    }
+    res.json({ email, emailVerified: false });
   });
 
   return router;

@@ -16,15 +16,19 @@ They read bets the way Island Luck shows them: American odds (+1187), times in N
 
 ## Product Purpose
 
-Sports Better copies the bet history a person already has at Island Luck into their own tracker, then follows each open pick against live game statistics so they can see where a bet stands without working it out by hand. Success is a bettor glancing at their phone mid-game and knowing at once which picks have hit, which are still running, and which have missed.
+Slip Club copies the bet history a person already has at Island Luck into their own tracker, then follows each open pick against live game statistics so they can see where a bet stands without working it out by hand. Success is a bettor glancing at their phone mid-game and knowing at once which picks have hit, which are still running, and which have missed.
 
 ## Positioning
 
-Island Luck shows a bet as a slip; Sports Better shows it as progress. It reads the bettor's real bets (no manual entry) and tracks every pick, including bet-builder picks grouped by game, against live stats.
+Island Luck shows a bet as a slip; Slip Club shows it as progress. It reads the bettor's real bets (no manual entry) and tracks every pick, including bet-builder picks grouped by game, against live stats.
+
+## Name
+
+Slip Club (decided 2026-10-24, replacing Bettor Days from earlier the same day), and Slip Club Sync for the browser extension. The brand assets are in `assets/branding/08/SLIP CLUB`: the app icon is a ticket that is also the "I" of SLIP, and the primary wordmark sets that I in yellow. Neither name mentions the sportsbook: store listings are strict about other companies' trademarks, Island Luck runs on Kambi like other sportsbooks the product could add, and the extension's name and description shouldn't say how it works. Code, packages and storage keys still say sports-better; only what people see was renamed. The phone userscript keeps its old @name ("Sports Better: Island Luck sync"), because userscript managers match installed scripts by name and a new one would install a second copy. The domain is slipclub.app (bettordays.app is also owned).
 
 ## Operating Context
 
-- Bets arrive by sync from Island Luck, never by typing them in: the "Island Luck Bet Sync" browser extension on a computer, or a userscript installed on the phone through a personal install link.
+- Bets arrive by sync from Island Luck, never by typing them in: the "Slip Club Sync" browser extension on a computer, or a userscript installed on the phone through a personal install link.
 - The server polls live game statistics about every 30 seconds; the web app refreshes every 15 seconds while visible.
 - Used during live games, often repeatedly and briefly, on a phone added to the home screen. Also used on desktop.
 - New accounts join through an invite link.
@@ -55,7 +59,6 @@ Constraints:
 
 Open decisions:
 
-- The names "Sports Better" and "Island Luck Bet Sync" are the current names but were not confirmed as fixed.
 - The current feature set was not confirmed as fixed; a rebuild may reorganise or drop screens with the owner's agreement.
 - How public sign-up will work once the product opens beyond invites.
 - The extension is shared directly by the owner today. Publishing it on the browser extension store is a goal, not yet done; until then the app must not link to or name a store listing.

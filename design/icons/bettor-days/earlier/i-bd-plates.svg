@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- I · BD plates: the letters' holes are a bet's progress plates, two hit (green) and one running (yellow, part filled). -->
+  <rect width="128" height="128" rx="28" fill="#0b1f3a"/>
+  <path fill="#ffffff" d="M16 28H46Q60 28 60 42Q60 51 54 55Q62 59 62 71V80Q62 100 45 100H16Z"/>
+  <path fill="#ffffff" d="M66 28H89Q112 28 112 51V77Q112 100 89 100H66Z"/>
+  <path fill="#1fb86a" d="M26 38H45Q50 38 50 44V46Q50 52 45 52H26Z"/>
+  <path fill="#1fb86a" d="M26 61H46Q52 61 52 68V82Q52 90 45 90H26Z"/>
+  <clipPath id="d-hole"><path d="M76 38H88Q102 38 102 52V76Q102 90 88 90H76Z"/></clipPath>
+  <g clip-path="url(#d-hole)">
+    <rect x="76" y="38" width="26" height="52" fill="#2a4a7a"/>
+    <rect x="76" y="38" width="16" height="52" fill="#ffd200"/>
+  </g>
+</svg>

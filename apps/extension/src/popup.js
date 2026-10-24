@@ -88,7 +88,7 @@ const showMessage = (text) => {
 };
 
 $('connect').addEventListener('click', async () => {
-  const trackerUrl = $('tracker-url').value.trim() || 'http://localhost:4100';
+  const trackerUrl = $('tracker-url').value.trim() || 'https://slipclub.app';
   let origin;
   try {
     origin = new URL(trackerUrl).origin;

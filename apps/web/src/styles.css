@@ -150,6 +150,9 @@ a { color: inherit; text-underline-offset: 3px; }
 
 .top { position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 12px; }
 .top h1 { margin: 0; font-family: var(--cond); font-size: 28px; font-weight: 800; line-height: 1; letter-spacing: 0.01em; text-transform: uppercase; white-space: nowrap; }
+/* The wordmark: white letters, the ticket I in the brand's yellow. Sized to the old text's cap height. */
+.wordmark { display: block; height: 24px; width: auto; fill: #fff; }
+.wordmark .wordmark-ticket { fill: #ffcd16; }
 .top-right { display: flex; align-items: center; gap: 14px; }
 
 button.link { background: none; border: 0; padding: 0; color: var(--muted); font-size: var(--fs-sm); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
@@ -209,6 +212,8 @@ button.link:hover { color: var(--text); }
 .good { color: var(--good-text); }
 .bad { color: var(--bad-text); }
 .banner { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 12px; margin: 0 0 14px; font-weight: 500; }
+/* A quiet notice: not an error, just something to know (a request still waiting, an email to add). */
+.banner.note { background: var(--cell); }
 .banner.error { --text: #fff; --cell: rgb(255 255 255 / 0.16); background: var(--red); color: #fff; }
 .banner .btn { flex: none; }
 
@@ -314,8 +319,9 @@ button.link:hover { color: var(--text); }
 .sign-in { max-width: 360px; margin: 0 auto; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
 .sign-in h1 { margin: 0 0 4px; font-family: var(--cond); font-size: 28px; font-weight: 800; line-height: 1; letter-spacing: 0.01em; text-transform: uppercase; }
 .sign-in label { display: flex; flex-direction: column; gap: 4px; font-size: var(--fs-sm); font-weight: 500; color: var(--muted); }
-.sign-in input, .name-row input { font: inherit; font-size: var(--fs-md); color: var(--text); background: var(--plate-bg); border: 1px solid var(--muted); border-radius: 0; padding: 10px 12px; }
-.sign-in input:focus-visible, .name-row input:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+.sign-in input, .sign-in textarea, .name-row input { font: inherit; font-size: var(--fs-md); color: var(--text); background: var(--plate-bg); border: 1px solid var(--muted); border-radius: 0; padding: 10px 12px; }
+.sign-in textarea { resize: vertical; }
+.sign-in input:focus-visible, .sign-in textarea:focus-visible, .name-row input:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
 
 /* ── Controls ─────────────────────────────────────────── */
 .btn, button.primary { font-family: var(--cond); font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; border-radius: 0; }
@@ -438,6 +444,7 @@ button.link.back { align-self: flex-start; display: inline-flex; align-items: ce
 .switch-row input { flex: none; width: 16px; height: 16px; margin: 3px 0 0; }
 .name-form { display: flex; flex-direction: column; gap: 4px; }
 .name-form p { margin: 2px 0 0; }
+.account .name-form { margin: 0 0 14px; }
 .name-row { display: flex; gap: 8px; }
 .name-row input { flex: 1; min-width: 0; padding: 7px 10px; }
 /* People: the icon sits inside the box, which spans the panel. */
@@ -490,6 +497,7 @@ button.link.back { align-self: flex-start; display: inline-flex; align-items: ce
   .tally { grid-template-columns: repeat(auto-fill, minmax(52px, 1fr)); }
   .tally span { white-space: normal; line-height: 1.1; }
   .top h1 { font-size: 24px; }
+  .wordmark { height: 20px; }
   .top-right { gap: 10px; }
 }
 

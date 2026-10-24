@@ -113,12 +113,14 @@ export const PEOPLE_SEARCH_LIMIT = 20;
 export async function loadPeople(db: Db, viewerId: string, query?: string): Promise<Person[]> {
   const relations = await relationsOf(db, viewerId);
   const q = query?.trim().replace(/^@/, '');
+  // Someone still waiting for approval isn't on the tracker yet.
   const where: Prisma.UserWhereInput = q
     ? {
         id: { not: viewerId },
+        status: 'ACTIVE',
         OR: [{ username: { contains: q, mode: 'insensitive' } }, { displayName: { contains: q, mode: 'insensitive' } }],
       }
-    : { id: { in: [...relations.keys()].filter((id) => id !== viewerId) } };
+    : { id: { in: [...relations.keys()].filter((id) => id !== viewerId) }, status: 'ACTIVE' };
   const users = await db.user.findMany({
     where,
     select: { id: true, username: true, displayName: true, locked: true },
@@ -212,7 +214,7 @@ async function loadUnitBets(db: Db, userIds: string[]): Promise<Map<string, Unit
 export async function loadLeaderboard(db: Db, viewerId: string, period: Period, now = new Date()): Promise<LeaderboardView> {
   const [users, relations] = await Promise.all([
     db.user.findMany({
-      where: { showOnLeaderboard: true },
+      where: { showOnLeaderboard: true, status: 'ACTIVE' },
       select: { id: true, username: true, displayName: true, shareAmountsLeaderboard: true },
     }),
     relationsOf(db, viewerId),

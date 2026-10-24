@@ -25,6 +25,8 @@ export interface AppOptions {
   /** Built web app (apps/web/dist) to serve at /, so a phone only needs one URL. */
   webDist?: string;
   loginLimiter?: LoginLimiter;
+  /** Throttles asking for access (every request counts). */
+  signupLimiter?: LoginLimiter;
   /** Where people open the tracker, e.g. https://bets.example.com. Defaults to the request's own host. */
   publicUrl?: string;
 }
@@ -40,7 +42,7 @@ export function createApp(db: Db, opts: AppOptions = {}) {
     res.json({ ok: true });
   });
 
-  app.use('/api/auth', authRouter(db, opts.loginLimiter));
+  app.use('/api/auth', authRouter(db, opts.loginLimiter, opts.signupLimiter));
   app.use('/userscript', userscriptRouter(db, opts.publicUrl));
   app.use('/api/integrations/island-luck/sync', islandLuckCors);
   app.use('/api', authenticate(db));

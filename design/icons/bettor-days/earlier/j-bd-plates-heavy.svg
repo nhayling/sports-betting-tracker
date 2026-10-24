@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- J · BD plates, heavier: bold letters, with a bet's plates set into the holes, two hit (green) and one filling up (yellow). -->
+  <rect width="128" height="128" rx="28" fill="#0b1f3a"/>
+  <path fill="#ffffff" d="M14 26H46Q62 26 62 42Q62 52 56 57Q64 62 64 74V82Q64 102 46 102H14Z"/>
+  <path fill="#ffffff" d="M68 26H90Q114 26 114 50V78Q114 102 90 102H68Z"/>
+  <g fill="#0b1f3a">
+    <path d="M29 39H43Q48 39 48 44V52Q48 57 43 57H29Z"/>
+    <path d="M29 69H44Q50 69 50 75V83Q50 89 44 89H29Z"/>
+    <path d="M83 40H89Q99 40 99 50V78Q99 88 89 88H83Z"/>
+  </g>
+  <rect x="32" y="42" width="12" height="12" rx="2" fill="#1fb86a"/>
+  <rect x="32" y="72" width="14" height="14" rx="2" fill="#1fb86a"/>
+  <rect x="86" y="43" width="10" height="42" rx="2" fill="#2a4a7a"/>
+  <rect x="86" y="60" width="10" height="25" rx="2" fill="#ffd200"/>
+</svg>

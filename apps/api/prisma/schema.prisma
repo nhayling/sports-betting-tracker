@@ -283,11 +283,24 @@ model BetLegProgress {
 
 // ── Accounts. The web app signs in with a session cookie, the extension with an ApiKey. ──
 
+/// PENDING: asked for access on the sign-up page and waiting to be approved (npm run access); can't sign in.
+enum AccountStatus {
+  ACTIVE
+  PENDING
+}
+
 model User {
   id                 String              @id @default(uuid())
   username           String              @unique
   /// scrypt$N$r$p$salt$hash
   passwordHash       String
+  /// Lowercase. Optional for accounts made before emails were asked for; required on the sign-up page.
+  email              String?             @unique
+  /// Unset until there's a way to send a confirmation email.
+  emailVerifiedAt    DateTime?
+  status             AccountStatus       @default(ACTIVE)
+  /// What someone wrote when asking for access ("Noah's cousin"), for whoever approves it.
+  accessNote         String?
   sessions           Session[]
   apiKeys            ApiKey[]
   sportsbookAccounts SportsbookAccount[]

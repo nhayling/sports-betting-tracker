@@ -1,5 +1,5 @@
 ---
-name: Sports Better
+name: Slip Club
 description: Your Island Luck bets, wearing the graphics of the game you are watching.
 colors:
   navy: "#0b1f3a"
@@ -230,13 +230,13 @@ components:
     height: "18px"
 ---
 
-# Design System: Sports Better
+# Design System: Slip Club
 
 ## Overview
 
 **Creative North Star: "The Score Bug"**
 
-Sports Better dresses a bettor's own bets in the on-screen graphics of the game they are watching. The header is a broadcast-navy band, each bet is a slip that opens with a standing plate and a strip of one cell per pick, and every pick row ends in a plate: a flat, square, condensed-caps slab whose fill colour says hit, running or missed before the text is read. The bet slip is the unit. A bet can span several games and sports, so a game is one small line on each pick, never a strip or a section of its own. The system is shared by the web app (`apps/web`) and the extension popup (`apps/extension`), which carries the same tokens at a smaller base size.
+Slip Club dresses a bettor's own bets in the on-screen graphics of the game they are watching. The header is a broadcast-navy band, each bet is a slip that opens with a standing plate and a strip of one cell per pick, and every pick row ends in a plate: a flat, square, condensed-caps slab whose fill colour says hit, running or missed before the text is read. The bet slip is the unit. A bet can span several games and sports, so a game is one small line on each pick, never a strip or a section of its own. The system is shared by the web app (`apps/web`) and the extension popup (`apps/extension`), which carries the same tokens at a smaller base size.
 
 Density is high and deliberate: the screen is checked for a few seconds mid-game, mostly on a phone. Rank comes from two things only, filled plates and 2px rules. There are no rounded cards, no soft elevation between surfaces and no progress bar beside a pick; a pick's progress is a fill inside its plate, repeated once in the bet's cell strip. Fill also carries certainty: a filled green or red plate is a result that cannot change, an outlined one is a state that can still move. Light and dark follow the device. The shell (header, tabs, totals, sign-in backdrop) is navy in both themes; the page ground and the bet plates follow the theme, navy-2 with white text in dark and white with navy text in light.
 

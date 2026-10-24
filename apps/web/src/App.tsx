@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   fetchBets,
+  fetchMe,
   fetchNotifications,
   fetchPollerStatus,
   fetchSocialMe,
@@ -8,6 +9,7 @@ import {
   SignedOutError,
   type BetsView,
   type CouponView,
+  type Me,
   type NotificationItem,
   type PollerStatus,
   type SocialMe,
@@ -22,6 +24,8 @@ import { LoadError } from './components/LoadError';
 import { Notifications } from './components/Notifications';
 import { Register } from './components/Register';
 import { SignIn } from './components/SignIn';
+import { SignUp } from './components/SignUp';
+import { Wordmark } from './components/Wordmark';
 import { Social } from './components/Social';
 import { clockTime, money, relativeTime } from './format';
 
@@ -54,6 +58,24 @@ function readSeen(): number | null {
     return null;
   }
 }
+/** When this device last put off adding an email; asked again after a couple of weeks. */
+const EMAIL_LATER_KEY = 'sports-better:email-later';
+const EMAIL_LATER_MS = 14 * 24 * 60 * 60_000;
+function emailPutOff(): boolean {
+  try {
+    return Date.now() - Number(localStorage.getItem(EMAIL_LATER_KEY)) < EMAIL_LATER_MS;
+  } catch {
+    return false;
+  }
+}
+function putOffEmail() {
+  try {
+    localStorage.setItem(EMAIL_LATER_KEY, String(Date.now()));
+  } catch {
+    // Not remembered; asked again next visit.
+  }
+}
+
 function writeSeen(at: number) {
   try {
     localStorage.setItem(SEEN_KEY, String(at));
@@ -98,6 +120,10 @@ export function App() {
   const [signedOut, setSignedOut] = useState(false);
   // Opened from an invite link (/#invite=<token>): register instead of signing in.
   const [invite, setInvite] = useState(() => location.hash.match(/^#invite=([\w-]+)$/)?.[1] ?? null);
+  // Asking to join (/#join), from the sign-in screen or a shared link.
+  const [joining, setJoining] = useState(() => location.hash === '#join');
+  const [me, setMe] = useState<Me | null>(null);
+  const [emailLater, setEmailLater] = useState(emailPutOff);
   const closeInvite = (nowSignedOut: boolean) => {
     history.replaceState(null, '', location.pathname);
     setSignedOut(nowSignedOut);
@@ -135,7 +161,12 @@ export function App() {
   }, [view]);
 
   useEffect(() => {
-    if (signedOut || invite) return;
+    if (signedOut || invite || joining) return;
+    void fetchMe().then(setMe, () => {});
+  }, [signedOut, invite, joining]);
+
+  useEffect(() => {
+    if (signedOut || invite || joining) return;
     void load();
     // The server polls ESPN every ~30 s; refreshing the view every 15 s keeps it current.
     const id = setInterval(() => document.visibilityState === 'visible' && void load(), REFRESH_MS);
@@ -152,10 +183,31 @@ export function App() {
       clearInterval(id);
       document.removeEventListener('visibilitychange', onVisible);
     };
-  }, [load, signedOut, invite]);
+  }, [load, signedOut, invite, joining]);
 
   if (invite) return <Register token={invite} onRegistered={() => closeInvite(false)} onCancel={() => closeInvite(true)} />;
-  if (signedOut) return <SignIn onSignedIn={() => setSignedOut(false)} />;
+  if (joining) {
+    return (
+      <SignUp
+        onSignIn={() => {
+          history.replaceState(null, '', location.pathname);
+          setJoining(false);
+          setSignedOut(true);
+        }}
+      />
+    );
+  }
+  if (signedOut) {
+    return (
+      <SignIn
+        onSignedIn={() => setSignedOut(false)}
+        onJoin={() => {
+          history.replaceState(null, '', '#join');
+          setJoining(true);
+        }}
+      />
+    );
+  }
 
   /** Open bets by standing, but held in place between refreshes; new bets join at the top. */
   function heldOrder(list: CouponView[]): CouponView[] {
@@ -218,7 +270,9 @@ export function App() {
       <header className="shell">
         <div className="wrap">
           <div className="top">
-            <h1>Sports Better</h1>
+            <h1>
+              <Wordmark />
+            </h1>
             <div className="top-right">
               {/* While the tracker can't be reached the banner says so; a live count would be a guess. */}
               {!unreachable && <LiveIndicator poller={poller} />}
@@ -298,8 +352,29 @@ export function App() {
           </LoadError>
         )}
 
+        {/* Accounts made before emails were asked for: a reminder, never a wall. */}
+        {me && !me.email && !emailLater && !account && (
+          <div className="banner note" role="status">
+            <span>Add your email so you can sign in with it, and reset your password once that’s possible.</span>
+            <span className="actions">
+              <button className="btn primary" onClick={() => setAccount(true)}>
+                Add email
+              </button>
+              <button
+                className="btn"
+                onClick={() => {
+                  putOffEmail();
+                  setEmailLater(true);
+                }}
+              >
+                Later
+              </button>
+            </span>
+          </div>
+        )}
+
         {account ? (
-          <Account username={social?.username ?? null} onClose={() => setAccount(false)} onSignOut={doSignOut} />
+          <Account username={social?.username ?? null} me={me} onEmailSaved={(email) => setMe((m) => (m ? { ...m, email, emailVerified: false } : m))} onClose={() => setAccount(false)} onSignOut={doSignOut} />
         ) : (
           <>
             {tab === 'analysis' && <Analysis onSignedOut={onSignedOut} />}

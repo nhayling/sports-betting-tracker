@@ -15,10 +15,15 @@ export interface PollerStatus {
 /** The session is missing or expired; the app shows the sign-in screen. */
 export class SignedOutError extends Error {}
 
+/** Signed in with the right password, but the request to join is still waiting for approval. */
+export class PendingApprovalError extends Error {}
+
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(path, { ...init, headers: { Accept: 'application/json', ...(init?.body ? { 'Content-Type': 'application/json' } : {}) } });
-  if (res.status === 401) throw new SignedOutError();
   const body = await res.json().catch(() => ({}));
+  // Carries the server's words, so a wrong password on the sign-in form says so.
+  if (res.status === 401) throw new SignedOutError((body as { error?: string }).error ?? 'Not signed in');
+  if (res.status === 403 && (body as { pending?: boolean }).pending) throw new PendingApprovalError((body as { error: string }).error);
   if (!res.ok) throw new Error((body as { error?: string }).error ?? `The tracker had a problem (${res.status}). Try again in a moment.`);
   return body as T;
 }
@@ -28,10 +33,21 @@ const post = <T>(path: string, body: unknown = {}) => request<T>(path, { method:
 const patch = <T>(path: string, body: unknown) => request<T>(path, { method: 'PATCH', body: JSON.stringify(body) });
 const del = <T>(path: string) => request<T>(path, { method: 'DELETE' });
 
-export const signIn = (username: string, password: string) => post<{ username: string }>('/api/auth/login', { username, password });
+/** `login` is a username or an email. */
+export const signIn = (login: string, password: string) => post<{ username: string }>('/api/auth/login', { username: login, password });
+export const askToJoin = (username: string, email: string, password: string, note: string) =>
+  post<{ status: 'PENDING' }>('/api/auth/signup', { username, email, password, note });
+export interface Me {
+  username: string;
+  email: string | null;
+  emailVerified: boolean;
+}
+export const fetchMe = () => get<Me>('/api/auth/me');
+export const saveEmail = (email: string) => patch<Pick<Me, 'email' | 'emailVerified'>>('/api/auth/email', { email });
 export const signOut = () => post('/api/auth/logout');
 export const checkInvite = (token: string) => get<{ ok: true }>(`/api/auth/invite/${encodeURIComponent(token)}`);
-export const register = (token: string, username: string, password: string) => post<{ username: string }>('/api/auth/register', { token, username, password });
+export const register = (token: string, username: string, password: string, email: string) =>
+  post<{ username: string }>('/api/auth/register', { token, username, password, email });
 
 /** A personal install link for the phone userscript. It contains a sign-in token. */
 export const createPhoneSyncLink = () => post<{ url: string }>('/api/phone-sync');

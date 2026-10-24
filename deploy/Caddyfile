@@ -1,4 +1,6 @@
-{$DOMAIN} {
+# DOMAIN is the tracker's address. OLD_DOMAINS (optional, space-separated) keeps
+# answering on earlier addresses while installed extensions and phone sync move over.
+{$DOMAIN} {$OLD_DOMAINS} {
 	encode gzip
 	reverse_proxy app:4100
 }

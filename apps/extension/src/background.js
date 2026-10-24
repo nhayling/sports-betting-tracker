@@ -3,7 +3,7 @@ import { extractCoupons, isHistoryUrl, markAllPending, markSynced, mergeCoupons,
 const SYNC_PATH = '/api/integrations/island-luck/sync';
 const TOKEN_PATH = '/api/auth/extension-token';
 // apiKey is the token the tracker issues when you sign in; the password is never stored.
-const DEFAULT_SETTINGS = { trackerUrl: 'http://localhost:4100', apiKey: '', username: '', accountLabel: 'Island Luck', autoSync: true };
+const DEFAULT_SETTINGS = { trackerUrl: 'https://slipclub.app', apiKey: '', username: '', accountLabel: 'Island Luck', autoSync: true };
 // The page often loads several history pages in a row; wait for them to settle before auto-syncing.
 const AUTO_SYNC_DELAY_MS = 3000;
 

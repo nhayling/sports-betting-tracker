@@ -4,6 +4,7 @@ import { checkInvite, register } from '../api';
 /** Shown when the page is opened from an invite link: the invited person picks their own login. */
 export function Register({ token, onRegistered, onCancel }: { token: string; onRegistered: () => void; onCancel: () => void }) {
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeat, setRepeat] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -23,7 +24,7 @@ export function Register({ token, onRegistered, onCancel }: { token: string; onR
     setBusy(true);
     setError(null);
     try {
-      await register(token, username, password);
+      await register(token, username, password, email);
       onRegistered();
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
@@ -36,7 +37,7 @@ export function Register({ token, onRegistered, onCancel }: { token: string; onR
     return (
       <div className="app auth">
         <div className="sign-in">
-          <h1>Sports Better</h1>
+          <h1>Slip Club</h1>
           <p className="banner error">{invalid}</p>
           <button className="link" onClick={onCancel}>
             Already have an account? Sign in
@@ -50,10 +51,14 @@ export function Register({ token, onRegistered, onCancel }: { token: string; onR
     <div className="app auth">
       <form className="sign-in" onSubmit={submit}>
         <h1>Create your account</h1>
-        <p className="muted small">Sports Better copies your Island Luck bets and tracks every pick against live stats.</p>
+        <p className="muted small">Slip Club copies your Island Luck bets and tracks every pick against live stats.</p>
         <label>
           Username
           <input autoComplete="username" autoCapitalize="none" autoCorrect="off" minLength={2} maxLength={40} pattern="[A-Za-z0-9._\-]+" title="Letters, numbers, . _ -" value={username} onChange={(e) => setUsername(e.target.value)} required />
+        </label>
+        <label>
+          Email
+          <input type="email" autoComplete="email" autoCapitalize="none" maxLength={254} value={email} onChange={(e) => setEmail(e.target.value)} required />
         </label>
         <label>
           Password (at least 10 characters)

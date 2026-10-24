@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- F1 · Winning slip (first draft): a yellow bet slip, notched like a ticket, with a check. -->
+  <rect width="128" height="128" rx="28" fill="#0b1f3a"/>
+  <path fill="#ffd200" d="M22 36H106Q112 36 112 42V55A9 9 0 0 0 112 73V86Q112 92 106 92H22Q16 92 16 86V73A9 9 0 0 0 16 55V42Q16 36 22 36Z"/>
+  <line x1="88" y1="44" x2="88" y2="84" stroke="#0b1f3a" stroke-width="3" stroke-dasharray="4 4"/>
+  <polyline points="34,64 46,76 70,50" fill="none" stroke="#0b1f3a" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

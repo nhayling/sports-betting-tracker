@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Sports Better: Island Luck sync
 // @namespace    sports-better
-// @version      1.0.0
-// @description  Copies the bet history Island Luck loads in this browser into your Sports Better tracker.
+// @version      1.2.0
+// @description  Keeps your Slip Club tracker up to date with your bets.
 // @match        https://islandluck.com/*
 // @match        https://*.islandluck.com/*
 // @run-at       document-start
@@ -77,11 +77,11 @@
           }),
         });
         if (res.status === 401 || res.status === 403) {
-          toast('Sports Better: sign-in expired. Install phone sync again from your tracker.', true);
+          toast('Slip Club: sign-in expired. Install phone sync again from your tracker.', true);
           return;
         }
         if (!res.ok) {
-          toast('Sports Better: the tracker returned ' + res.status + '. Bets will be sent again next time My Bets loads.', true);
+          toast('Slip Club: the tracker returned ' + res.status + '. Bets will be sent again next time My Bets loads.', true);
           return;
         }
         const result = await res.json().catch(() => ({}));
@@ -95,10 +95,10 @@
       } while (pending.size > 0);
       if (totals.sent > 0) {
         const changes = [totals.created && totals.created + ' new', totals.updated && totals.updated + ' updated'].filter(Boolean).join(', ');
-        toast('Sports Better: ' + totals.sent + ' bet' + (totals.sent === 1 ? '' : 's') + ' synced' + (changes ? ' (' + changes + ')' : ''));
+        toast('Slip Club: ' + totals.sent + ' bet' + (totals.sent === 1 ? '' : 's') + ' synced' + (changes ? ' (' + changes + ')' : ''));
       }
     } catch {
-      toast('Sports Better: could not reach the tracker. Bets will be sent again next time My Bets loads.', true);
+      toast('Slip Club: could not reach the tracker. Bets will be sent again next time My Bets loads.', true);
     } finally {
       syncing = false;
     }

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- B · Today's mark, recoloured: the rising check in yellow on broadcast navy. -->
+  <rect width="128" height="128" rx="28" fill="#0b1f3a"/>
+  <polyline points="26,70 50,94 96,44" fill="none" stroke="#ffd200" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M74 36 L106 32 L102 64 Z" fill="#ffd200" stroke="#ffd200" stroke-width="4" stroke-linejoin="round"/>
+</svg>

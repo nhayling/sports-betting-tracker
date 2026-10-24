@@ -1,4 +1,4 @@
-# Sports Better: Island Luck importer and live prop progress
+# Slip Club: Island Luck importer and live prop progress
 
 ## What the real capture showed (2026-09-27)
 

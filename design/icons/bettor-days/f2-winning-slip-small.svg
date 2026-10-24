@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- F2 small · Winning slip for 48px and under: no tear line, check centred and heavier. -->
+  <rect width="128" height="128" rx="28" fill="#0b1f3a"/>
+  <path fill="#ffd200" d="M22 32H106Q113 32 113 39V54A10 10 0 0 0 113 74V89Q113 96 106 96H22Q15 96 15 89V74A10 10 0 0 0 15 54V39Q15 32 22 32Z"/>
+  <polyline points="38,64 55,81 90,46" fill="none" stroke="#0b1f3a" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

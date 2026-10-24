@@ -35,17 +35,52 @@ docker compose logs -f app        # "tracker listening" when ready
 
 Database migrations run on every start.
 
+## Moving to a new domain
+
+The tracker's address is stored in three places on people's devices: the
+extension's settings, each phone's userscript install link, and the home-screen
+web app. To move without breaking them, serve both addresses for a while:
+
+1. Point the new domain's DNS (A record, and AAAA if the server has IPv6) at the server.
+2. In the server's `.env`, set `DOMAIN=<new>` and `OLD_DOMAINS=<old>`, then
+   `docker compose up -d`. Caddy gets a certificate for each.
+3. Phone sync moves itself: the next time a userscript checks for updates (from
+   the old address, which still answers) it gets a copy pointing at the new one.
+4. Extensions keep syncing to the old address. Each person opens the popup,
+   changes Tracker URL to the new address and signs in again (the new address
+   needs its own permission, and the browser asks for it).
+5. Web app sign-ins are per address: everyone signs in again at the new one, and
+   re-adds it to their home screen on a phone.
+6. Once everyone has moved (`npm run deploy:logs` shows no more requests to the
+   old host), clear `OLD_DOMAINS` and `docker compose up -d` again.
+
 ## Accounts
 
-There is no public sign-up. To let someone in, send them an invite link:
+During the beta, anyone can ask to join at `https://<DOMAIN>/#join` (also
+linked from the sign-in screen). They pick a username, email and password and
+can say who they are; the account then waits for approval and can't sign in.
+Each request shows in `npm run deploy:logs` as `[access] …`. To see and answer them:
+
+```sh
+docker compose exec app npm run access -w @sports-better/api                        # waiting requests, and accounts with no email
+docker compose exec app npm run access -w @sports-better/api -- approve <username>  # they can sign in now
+docker compose exec app npm run access -w @sports-better/api -- decline <username>  # deletes the request
+```
+
+Nothing emails them either way yet, so tell them yourself.
+
+To let someone in without waiting for approval, send them an invite link:
 
 ```sh
 docker compose exec app npm run invite -w @sports-better/api
 # https://<DOMAIN>/#invite=…   Works once, for 7 days (-- --days 30 to change).
 ```
 
-They open it, pick their own username and password, and are signed in. Make
-one for yourself the same way.
+They open it, pick their own username, email and password, and are signed in.
+
+Emails are optional for accounts made before they were asked for: those people
+see a reminder to add one under Account. Anyone can sign in with their username
+or their email. Emails aren't verified yet (there's no way to send mail).
 
 To reset a forgotten password (or create a login directly), run this and type
 the new password. It signs that person out of every browser and extension:

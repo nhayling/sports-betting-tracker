@@ -78,7 +78,7 @@ describe('phone userscript', () => {
     expect(body).toMatchObject({ provider: 'ISLAND_LUCK_KAMBI', accountLabel: 'Island Luck' });
     expect(body.coupons).toHaveLength(15);
     expect(Number.isNaN(Date.parse(body.capturedAt))).toBe(false);
-    expect(p.toasts).toEqual(['Sports Better: 15 bets synced (15 new)']);
+    expect(p.toasts).toEqual(['Slip Club: 15 bets synced (15 new)']);
   });
 
   it('ignores other requests', async () => {
@@ -105,6 +105,6 @@ describe('phone userscript', () => {
     const p = page(() => ({ status: 401 }));
     await p.ctx.fetch(HISTORY);
     await p.runTimers();
-    expect(p.toasts).toEqual(['Sports Better: sign-in expired. Install phone sync again from your tracker.']);
+    expect(p.toasts).toEqual(['Slip Club: sign-in expired. Install phone sync again from your tracker.']);
   });
 });

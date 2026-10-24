@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
-  <rect width="128" height="128" fill="#22c55e"/>
-  <polyline points="26,70 50,94 96,44" fill="none" stroke="#0c1410" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M74 36 L106 32 L102 64 Z" fill="#0c1410" stroke="#0c1410" stroke-width="4" stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <!-- Slip Club, full-bleed for iOS, which rounds the corners itself. Same as the branding master (Ticket I/App icon master 1025.svg). -->
+  <rect width="1024" height="1024" fill="#0B2340"/>
+  <path d="M387.8 170H636.2V458C553.4 458 553.4 566 636.2 566V854H387.8V566C470.6 566 470.6 458 387.8 458V170Z" fill="#FFCD16"/>
 </svg>

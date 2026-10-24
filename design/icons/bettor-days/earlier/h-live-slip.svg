@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- H · Live slip: a white slip with its picks as the app shows them, two hit (green), one still running (yellow). -->
+  <rect width="128" height="128" rx="28" fill="#0b1f3a"/>
+  <path fill="#ffffff" d="M34 18H94Q100 18 100 24V56A8 8 0 0 0 100 72V104Q100 110 94 110H34Q28 110 28 104V72A8 8 0 0 0 28 56V24Q28 18 34 18Z"/>
+  <rect x="38" y="30" width="52" height="14" rx="3" fill="#1fb86a"/>
+  <line x1="40" y1="64" x2="88" y2="64" stroke="#c3cedd" stroke-width="3" stroke-dasharray="4 4"/>
+  <rect x="38" y="76" width="52" height="14" rx="3" fill="#1fb86a"/>
+  <rect x="38" y="94" width="52" height="8" rx="2" fill="#d9e1ec"/>
+  <rect x="38" y="94" width="30" height="8" rx="2" fill="#ffd200"/>
+</svg>

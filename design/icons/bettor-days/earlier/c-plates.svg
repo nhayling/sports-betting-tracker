@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- C · Progress plates: a bet's picks as the app shows them, hit (green), running (yellow fill), to come. -->
+  <rect width="128" height="128" rx="28" fill="#0b1f3a"/>
+  <rect x="24" y="30" width="80" height="18" rx="3" fill="#1fb86a"/>
+  <rect x="24" y="55" width="80" height="18" rx="3" fill="#2a4a7a"/>
+  <rect x="24" y="55" width="52" height="18" rx="3" fill="#ffd200"/>
+  <rect x="24" y="80" width="80" height="18" rx="3" fill="none" stroke="#a9b9d0" stroke-width="4"/>
+</svg>
