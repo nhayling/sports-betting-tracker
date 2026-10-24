@@ -25,6 +25,10 @@ colors:
   bad-text-dark: "#ff8a98"
   bad-text-light: "#b00d27"
   risk-dark: "#ff4252"
+  miss-mark-dark: "#ff4252"
+  green-edge-light: "#0b6e3c"
+  yellow-edge-light: "#6b5200"
+  ticket: "#ffcd16"
   warn-text-light: "#6b5200"
 typography:
   display:
@@ -157,7 +161,7 @@ components:
   pick-cell-risk:
     backgroundColor: "transparent"
   pick-cell-miss:
-    backgroundColor: "{colors.red}"
+    backgroundColor: "{colors.miss-mark-dark}"
   hit-fold:
     backgroundColor: "transparent"
     textColor: "{colors.plate-muted-dark}"
@@ -266,6 +270,8 @@ Broadcast navy carries the structure, signal yellow marks what is current, and g
 - **Hit Green** (`green`, #1fb86a): The fill of a plate or cell that has hit for good, or a bet that won, always with navy text. As a 2px outline with no fill, a yardage line reached that can still drop.
 - **Alert Red** (`red`, #c8102e): The fill of a final miss, a dead or lost bet, always with white text. As a 3px outline on light plates, a line crossed mid-game that can still come back (Risk Red takes that job on navy). Also the broadcast alert colour: the LIVE indicator, the live dot on a pick's game line, unread counts, error banners and the implied-odds marker on a rate bar.
 - **Risk Red** (`risk-dark`, #ff4252): An at-risk line in dark: its ring and its plate numerals. The brand red is too dark to read on navy; this one stays red, not pink, at 3.9:1 for large type and rings. Light uses Alert Red.
+- **Mark edges** (`miss-mark-dark` #ff4252, `green-edge-light` #0b6e3c, `yellow-edge-light` #6b5200): For marks with no text, which need 3:1 against the plate. In dark a missed pick cell and the implied-odds marker in Analysis use the brighter red, since Alert Red is 2.2:1 on navy-2; light keeps Alert Red. In light a green or yellow cell gets a 1px dark rim of its own hue, and the hold ring (plate and cell) is drawn in the dark green, because Hit Green and Signal Yellow fade on white. In dark the rim is the fill colour itself, so nothing changes.
+- **Ticket Yellow** (`ticket`, #ffcd16): Only the ticket "I" of the wordmark, as drawn in the brand art. Never used in the interface.
 - **Result text** (`good-text-dark` #5fe0a0, `good-text-light` #0b6e3c, `bad-text-dark` #ff8a98, `bad-text-light` #b00d27, `warn-text-light` #6b5200): Green, red and yellow re-tuned to work as text on a surface instead of as a fill. Used for payouts, the numerals inside a hold plate, the count on the hit fold, Island Luck's own result on a pick, notification titles and the warning parts of the freshness line on light ground.
 
 ### Neutral
@@ -322,7 +328,7 @@ Below the shell, plates stack with a 14px gap. Inside a bet the inset is 12px an
 
 Stat groups are grids of equal cells separated by a 1px gap that shows the rule colour through, three across, or four that fold to two under 520px.
 
-Under 520px every control reaches a 44px minimum target, the leaderboard drops its wide-only columns, two-column panels become one, and the notification panel hangs full width from the header row instead of from the bell.
+At 760px and under, wherever the bottom tab bar shows, every control reaches a 44px minimum target (a small standalone link such as Settings grows its target with negative margins so its row keeps its height). Under 520px a notice banner wraps its buttons under its text, the leaderboard drops its wide-only columns, two-column panels become one, and the notification panel hangs full width from the header row instead of from the bell.
 
 ## Elevation & Depth
 
@@ -363,7 +369,7 @@ A small plate at the left of every open bet's head, read from live stats.
 ### Pick cells
 A strip under the head with one equal-width cell per pick, shown when a bet has more than one pick and kept visible when the bet is folded.
 - **Shape:** square cells 12px tall with a 3px gap, in an 8px 12px row closed by a hairline. Decorative to assistive tech; the rows below say the same thing in words.
-- **States:** hit, green fill; hold, 2px green ring with no fill; run, yellow, with the same hard-stopped fill as the plate when the pick has a measured fraction and solid yellow when it is in play without one; wait, 1px muted ring (also a void pick); risk, 3px Risk Red ring with no fill (a tint would read as a pale miss); miss, red fill.
+- **States:** hit, green fill (with a 1px dark-green rim in light); hold, 2px green ring with no fill (dark green in light); run, yellow, with the same hard-stopped fill as the plate when the pick has a measured fraction and solid yellow when it is in play without one, with a 1px dark-gold rim in light; wait, 1px muted ring (also a void pick); risk, 3px Risk Red ring with no fill (a tint would read as a pale miss); miss, red fill (the brighter miss red in dark).
 - **Order:** left to right hit, hold, run, wait, risk, miss, so the strip reads like the bet filling up.
 
 ### Bet plate and panels
@@ -396,7 +402,8 @@ A strip under the head with one equal-width cell per pick, shown when a bet has 
 
 ### Inputs / Fields
 - **Style:** square, 1px border in the muted colour, the plate colour as background, 16px text, 10px 12px padding (7px 10px inline). Label above in Barlow 500 13px muted. In the popup, placeholder text is the muted colour at full opacity.
-- **Focus:** 2px outline in the focus colour, offset 1px. Caret and native checkboxes take the focus colour through `caret-color` and `accent-color`.
+- **Focus:** 2px outline in the focus colour, offset 1px. The caret takes the focus colour through `caret-color`.
+- **Checkbox:** drawn, not native, in the web app and the popup alike. An 18px square cell: off is a 2px inset ring in muted (text colour on hover); on is the chosen segment's fill (yellow in dark, navy in light) with a 14px tick in its text colour (the `--check` token, navy or white), wiping in like a plate. Disabled at 55% opacity. Its row (the age check, a privacy switch, the popup's auto-sync) is the tap target and at least 44px tall.
 
 ### Standings tally
 A row under the totals on Open: one count per standing that has bets, in the standing order, so the screen answers "how many are alive, how many are in trouble" before any scrolling.

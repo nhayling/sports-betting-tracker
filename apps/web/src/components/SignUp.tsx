@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import { askToJoin } from '../api';
+import { AgeCheck, FinePrint } from './Terms';
 
 /**
  * Asking to join (/#join). During the beta an account waits for approval, so
@@ -76,6 +77,7 @@ export function SignUp({ onSignIn }: { onSignIn: () => void }) {
           Who are you? (optional)
           <textarea rows={2} maxLength={280} placeholder="How you know us, or who sent you" value={note} onChange={(e) => setNote(e.target.value)} />
         </label>
+        <AgeCheck />
         {error && <p className="banner error">{error}</p>}
         <button className="primary" disabled={busy}>
           {busy ? 'Sending…' : 'Ask to join'}
@@ -83,6 +85,7 @@ export function SignUp({ onSignIn }: { onSignIn: () => void }) {
         <button type="button" className="link" onClick={onSignIn}>
           Already have an account? Sign in
         </button>
+        <FinePrint />
       </form>
     </div>
   );

@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import { PendingApprovalError, signIn } from '../api';
+import { FinePrint } from './Terms';
 
 export function SignIn({ onSignedIn, onJoin }: { onSignedIn: () => void; onJoin: () => void }) {
   const [username, setUsername] = useState('');
@@ -46,6 +47,7 @@ export function SignIn({ onSignedIn, onJoin }: { onSignedIn: () => void; onJoin:
         <button type="button" className="link" onClick={onJoin}>
           New here? Ask to join
         </button>
+        <FinePrint />
       </form>
     </div>
   );

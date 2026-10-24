@@ -1,8 +1,9 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { saveEmail, type Me } from '../api';
 import { PhoneSync } from './PhoneSync';
+import { About } from './Terms';
 
-/** The account screen behind the header's person button: your email, phone sync setup and signing out. */
+/** The account screen behind the header's person button: your email, phone sync setup, signing out, and what Slip Club is. */
 export function Account({
   username,
   me,
@@ -36,6 +37,7 @@ export function Account({
         </button>
       </section>
       <PhoneSync />
+      <About />
     </div>
   );
 }

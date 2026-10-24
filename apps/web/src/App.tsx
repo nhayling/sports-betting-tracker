@@ -277,7 +277,7 @@ export function App() {
               {/* While the tracker can't be reached the banner says so; a live count would be a guess. */}
               {!unreachable && <LiveIndicator poller={poller} />}
               {notes && <Notifications feed={notes} onRead={() => setNotes((prev) => prev && { ...prev, unread: 0, items: prev.items.map((n) => ({ ...n, readAt: n.readAt ?? new Date().toISOString() })) })} onOpenBet={openBet} canOpen={canOpen} />}
-              <button className="bell" aria-label="Account" aria-expanded={account} onClick={() => setAccount(!account)}>
+              <button className="bell" aria-label="Account" aria-pressed={account} onClick={() => setAccount(!account)}>
                 <Icon name="user" />
               </button>
             </div>
@@ -338,7 +338,7 @@ export function App() {
         )}
       </header>
 
-      <div className="wrap page">
+      <main className="wrap page">
         {unreachable && (
           <LoadError
             busy={retrying}
@@ -403,24 +403,27 @@ export function App() {
             )}
 
             {betsTab && coupons.length > 0 && (
-              <main className={coupons.length > 1 ? 'list stacks' : 'list single'}>
-                {/* Two stacks on a wide screen, dealt alternately so the order still reads top to bottom; one list on a phone. */}
-                {[0, 1].map((col) => (
-                  <div key={col} className="list-col">
-                    {coupons.map((c, i) =>
-                      (tab === 'open' ? column.current.get(c.id) : i % 2) === col ? (
-                        <div key={c.id} style={{ order: i }}>
-                          <CouponCard coupon={c} latest={latest.get(c.id)} fresh={isFresh(latest.get(c.id))} />
-                        </div>
-                      ) : null,
-                    )}
-                  </div>
-                ))}
-              </main>
+              <>
+                <h2 className="sr-only">{tab === 'open' ? 'Open bets' : 'Settled bets'}</h2>
+                <div className={coupons.length > 1 ? 'list stacks' : 'list single'}>
+                  {/* Two stacks on a wide screen, dealt alternately so the order still reads top to bottom; one list on a phone. */}
+                  {[0, 1].map((col) => (
+                    <div key={col} className="list-col">
+                      {coupons.map((c, i) =>
+                        (tab === 'open' ? column.current.get(c.id) : i % 2) === col ? (
+                          <div key={c.id} style={{ order: i }}>
+                            <CouponCard coupon={c} latest={latest.get(c.id)} fresh={isFresh(latest.get(c.id))} />
+                          </div>
+                        ) : null,
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </>
             )}
           </>
         )}
-      </div>
+      </main>
     </div>
   );
 }

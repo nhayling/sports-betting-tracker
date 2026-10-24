@@ -102,7 +102,7 @@ export function Analysis({ onSignedOut }: { onSignedOut: () => void }) {
       {m.settledBets > 0 && (
         <nav className="jumps" aria-label="Analysis sections">
           {SECTIONS.map(([id, label]) => (
-            <button key={id} className="jump" onClick={() => document.getElementById(`analysis-${id}`)?.scrollIntoView({ block: 'start' })}>
+            <button key={id} className="jump" onClick={() => jumpToSection(id)}>
               {label}
             </button>
           ))}
@@ -158,7 +158,7 @@ export function Analysis({ onSignedOut }: { onSignedOut: () => void }) {
 
       <Group id="up" title="Am I up or down">
         <section className="panel">
-          <h2>By week</h2>
+          <h3 className="panel-title">By week</h3>
           <table className="table">
             <thead>
               <tr>
@@ -187,7 +187,7 @@ export function Analysis({ onSignedOut }: { onSignedOut: () => void }) {
         </section>
         {m.promos.some((p) => p.rewardType !== 'NONE') && (
           <section className="panel">
-            <h2>Promos</h2>
+            <h3 className="panel-title">Promos</h3>
             <table className="table">
               <thead>
                 <tr>
@@ -217,7 +217,7 @@ export function Analysis({ onSignedOut }: { onSignedOut: () => void }) {
 
       <Group id="works" title="Which bets work">
         <section className="panel">
-          <h2>Hit rate by market</h2>
+          <h3 className="panel-title">Hit rate by market</h3>
           <p className="muted small">Settled picks from {a.period === 'all' ? 'all your bets' : `bets placed ${when}`}. Rates under {MIN_SAMPLE} picks are marked early: a couple of weekends can swing them a lot.</p>
           <ul className="markets">
             {a.markets.map((mk) => (
@@ -226,7 +226,7 @@ export function Analysis({ onSignedOut }: { onSignedOut: () => void }) {
           </ul>
         </section>
         <section className="panel">
-          <h2>Picks per bet vs your chances</h2>
+          <h3 className="panel-title">Picks per bet vs your chances</h3>
           <p className="lede">
             You've hit <strong>{pct(a.parlaySize.pickHitRate)}</strong> of your picks ({a.parlaySize.settledPicks} settled). Every pick has to hit, so each one
             you add multiplies the odds against you.
@@ -271,14 +271,14 @@ export function Analysis({ onSignedOut }: { onSignedOut: () => void }) {
 
       <Group id="close" title="How close you get">
         <section className="panel">
-          <h2>Lost bets</h2>
+          <h3 className="panel-title">Lost bets</h3>
           <p className="lede">
             Lost by one pick: <strong>{a.howClose.lostByOne}</strong> of {a.howClose.lostBets} lost bets.
           </p>
           <MissedChart data={a.howClose.missedDistribution} />
           {a.howClose.nearMisses.length > 0 && (
             <>
-              <h3>Yardage and catches that fell short</h3>
+              <h4>Yardage and catches that fell short</h4>
               <ul className="near-misses">
                 {a.howClose.nearMisses.slice(0, 12).map((n, i) => (
                   <li key={i}>
@@ -298,7 +298,7 @@ export function Analysis({ onSignedOut }: { onSignedOut: () => void }) {
         </section>
         {a.cashOuts.length > 0 && (
           <section className="panel">
-            <h2>Cash-out check</h2>
+            <h3 className="panel-title">Cash-out check</h3>
             <ul className="cashouts">
               {a.cashOuts.map((c) => (
                 <li key={c.couponId}>
@@ -329,11 +329,19 @@ export function Analysis({ onSignedOut }: { onSignedOut: () => void }) {
   );
 }
 
+/** Brings a question into view and moves focus to its heading, so the keyboard carries on from there. */
+function jumpToSection(id: string) {
+  const section = document.getElementById(`analysis-${id}`);
+  if (!section) return;
+  section.scrollIntoView({ block: 'start' });
+  section.querySelector<HTMLElement>('.group-head')?.focus({ preventScroll: true });
+}
+
 /** One of Analysis's questions: a heading on the page ground over its panels. */
 function Group({ id, title, children }: { id: string; title: string; children: ReactNode }) {
   return (
     <section className="analysis-group" id={`analysis-${id}`} aria-labelledby={`analysis-${id}-title`}>
-      <h2 className="group-head" id={`analysis-${id}-title`}>
+      <h2 className="group-head" id={`analysis-${id}-title`} tabIndex={-1}>
         {title}
       </h2>
       <div className="group-panels">{children}</div>
@@ -397,7 +405,7 @@ function MissedChart({ data }: { data: Array<{ missed: string; bets: number }> }
 function RecordTable({ title, rows }: { title: string; rows: Array<{ name: string; picks: number; won: number; lost: number; open: number }> }) {
   return (
     <div>
-      <h2>{title}</h2>
+      <h3 className="panel-title">{title}</h3>
       {rows.length === 0 ? (
         <p className="muted small">None yet.</p>
       ) : (
@@ -451,7 +459,7 @@ function StylesPanel({
   return (
     <section className="panel">
       <div className="panel-head">
-        <h2>Split by payout</h2>
+        <h3 className="panel-title">Split by payout</h3>
         <div className="segmented" role="radiogroup" aria-label="Funding cutoff">
           {CUTOFFS.map((c) => (
             <button key={c} role="radio" aria-checked={cutoff === c} className={cutoff === c ? 'on' : ''} onClick={() => onCutoff(c)}>

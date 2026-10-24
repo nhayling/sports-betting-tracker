@@ -1,5 +1,6 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { checkInvite, register } from '../api';
+import { AgeCheck, FinePrint } from './Terms';
 
 /** Shown when the page is opened from an invite link: the invited person picks their own login. */
 export function Register({ token, onRegistered, onCancel }: { token: string; onRegistered: () => void; onCancel: () => void }) {
@@ -68,10 +69,12 @@ export function Register({ token, onRegistered, onCancel }: { token: string; onR
           Repeat password
           <input type="password" autoComplete="new-password" value={repeat} onChange={(e) => setRepeat(e.target.value)} required />
         </label>
+        <AgeCheck />
         {error && <p className="banner error">{error}</p>}
         <button className="primary" disabled={busy}>
           {busy ? 'Creating…' : 'Create account'}
         </button>
+        <FinePrint />
       </form>
     </div>
   );

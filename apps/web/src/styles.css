@@ -57,6 +57,15 @@
   --p-focus: var(--yellow);
   /* At risk: a red that still reads as red on navy (3.9:1, for large type and rings) where the brand red would vanish. */
   --risk: #ff4252;
+  /* A miss drawn without text (a pick cell, a chart mark) needs the brighter red to show on navy. */
+  --miss-mark: #ff4252;
+  /* The edge of a green or yellow mark. On navy the fill is its own edge; on a white plate it takes a dark rim. */
+  --green-edge: var(--green);
+  --yellow-edge: var(--yellow);
+  /* The wordmark's ticket, as drawn in the brand art; a shade warmer than the interface yellow. */
+  --ticket: #ffcd16;
+  /* The tick on a checked checkbox, in the chosen segment's text colour (navy on yellow; white on navy in light). */
+  --check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.5l3 3 6-7' fill='none' stroke='%230b1f3a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 
   font-family: var(--sans);
   font-size: 15px;
@@ -64,7 +73,7 @@
   color: var(--text);
   background: var(--ground);
   font-variant-numeric: tabular-nums;
-  /* The parts the browser draws: caret, native checkboxes, scrollbar. */
+  /* The parts the browser draws: caret, scrollbar, and anything native left unstyled. */
   caret-color: var(--focus);
   accent-color: var(--focus);
   scrollbar-color: var(--muted) transparent;
@@ -97,6 +106,10 @@
     --p-on-fg: #ffffff;
     --p-focus: var(--navy-2);
     --risk: var(--red);
+    --miss-mark: var(--red);
+    --green-edge: #0b6e3c;
+    --yellow-edge: #6b5200;
+    --check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.5l3 3 6-7' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   }
 }
 
@@ -151,8 +164,8 @@ a { color: inherit; text-underline-offset: 3px; }
 .top { position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 12px; }
 .top h1 { margin: 0; font-family: var(--cond); font-size: 28px; font-weight: 800; line-height: 1; letter-spacing: 0.01em; text-transform: uppercase; white-space: nowrap; }
 /* The wordmark: white letters, the ticket I in the brand's yellow. Sized to the old text's cap height. */
-.wordmark { display: block; height: 24px; width: auto; fill: #fff; }
-.wordmark .wordmark-ticket { fill: #ffcd16; }
+.wordmark { display: block; height: 24px; width: auto; fill: var(--white); }
+.wordmark .wordmark-ticket { fill: var(--ticket); }
 .top-right { display: flex; align-items: center; gap: 14px; }
 
 button.link { background: none; border: 0; padding: 0; color: var(--muted); font-size: var(--fs-sm); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
@@ -164,7 +177,7 @@ button.link:hover { color: var(--text); }
 .status span, .status a { white-space: nowrap; }
 .status .warn, .live-indicator.off { color: var(--warn-text); }
 .live-indicator { display: inline-flex; align-items: center; gap: 6px; padding: 2px 8px; font-family: var(--cond); font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; color: var(--muted); box-shadow: inset 0 0 0 1px var(--rule); }
-.live-indicator.on { background: var(--red); color: #fff; box-shadow: none; }
+.live-indicator.on { background: var(--red); color: var(--white); box-shadow: none; }
 .live-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
 
 .tabs { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 14px; }
@@ -173,7 +186,7 @@ button.link:hover { color: var(--text); }
 .tab.active { background: var(--yellow); color: var(--navy); }
 .tab:focus-visible { outline-offset: -4px; }
 .tab.active:focus-visible { outline-color: var(--navy); }
-.count { display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; margin-left: 6px; padding: 0 5px; background: var(--red); color: #fff; font-family: var(--cond); font-size: var(--fs-sm); font-weight: 700; letter-spacing: 0; vertical-align: 2px; }
+.count { display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; margin-left: 6px; padding: 0 5px; background: var(--red); color: var(--white); font-family: var(--cond); font-size: var(--fs-sm); font-weight: 700; letter-spacing: 0; vertical-align: 2px; }
 
 /* The totals strip under the tabs. */
 .totals { background: var(--navy-2); }
@@ -187,7 +200,7 @@ button.link:hover { color: var(--text); }
 /* Each standing fills its grid track, so on desktop the blocks stay wide; the count's block spans the whole track, not just the digits. */
 .tally button { display: flex; flex-direction: column; align-items: stretch; gap: 3px; min-width: 0; padding: 0; background: none; border: 0; cursor: pointer; }
 .tally b, .tally span { display: block; }
-.tally b { animation: wipe 0.28s cubic-bezier(0.16, 1, 0.3, 1); padding: 2px 0; background: var(--navy); color: #fff; font-family: var(--cond); font-size: 24px; font-weight: 800; line-height: 1.15; text-align: center; }
+.tally b { animation: wipe 0.28s cubic-bezier(0.16, 1, 0.3, 1); padding: 2px 0; background: var(--navy); color: var(--white); font-family: var(--cond); font-size: 24px; font-weight: 800; line-height: 1.15; text-align: center; }
 .tally span { font-family: var(--cond); font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; text-align: center; white-space: nowrap; color: var(--muted); }
 .tally .run b { background: var(--yellow); color: var(--navy); }
 .tally .hit b { background: var(--green); color: var(--navy); }
@@ -214,17 +227,17 @@ button.link:hover { color: var(--text); }
 .banner { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 12px; margin: 0 0 14px; font-weight: 500; }
 /* A quiet notice: not an error, just something to know (a request still waiting, an email to add). */
 .banner.note { background: var(--cell); }
-.banner.error { --text: #fff; --cell: rgb(255 255 255 / 0.16); background: var(--red); color: #fff; }
+.banner.error { --text: var(--white); --cell: rgb(255 255 255 / 0.16); background: var(--red); color: var(--white); }
 .banner .btn { flex: none; }
 
 /* ── Plates: the state at the end of every pick, and a bet's result ── */
-.plate { display: inline-flex; align-items: center; justify-content: center; gap: 5px; min-width: 96px; padding: 4px 8px; background: var(--navy); color: #fff; font-family: var(--cond); font-size: var(--fs-xl); font-weight: 800; line-height: 1.15; letter-spacing: 0.01em; text-transform: uppercase; text-align: center; white-space: nowrap; animation: wipe 0.28s cubic-bezier(0.16, 1, 0.3, 1); }
+.plate { display: inline-flex; align-items: center; justify-content: center; gap: 5px; min-width: 96px; padding: 4px 8px; background: var(--navy); color: var(--white); font-family: var(--cond); font-size: var(--fs-xl); font-weight: 800; line-height: 1.15; letter-spacing: 0.01em; text-transform: uppercase; text-align: center; white-space: nowrap; animation: wipe 0.28s cubic-bezier(0.16, 1, 0.3, 1); }
 .plate.hit { background: var(--green); color: var(--navy); }
 .plate.run { background: var(--yellow); color: var(--navy); }
 /* An over on its way: the plate fills as the stat climbs. */
 .plate.run.fill { background: linear-gradient(90deg, var(--yellow) var(--at), var(--plate-run) var(--at)); color: var(--navy); }
-.plate.miss { background: var(--red); color: #fff; }
-.plate.hold { background: none; color: var(--good-text); box-shadow: inset 0 0 0 2px var(--green); }
+.plate.miss { background: var(--red); color: var(--white); }
+.plate.hold { background: none; color: var(--good-text); box-shadow: inset 0 0 0 2px var(--green-edge); }
 .plate.sync { background: none; color: var(--warn-text); box-shadow: inset 0 0 0 2px var(--warn-text); }
 .plate.risk { background: none; color: var(--risk); box-shadow: inset 0 0 0 3px var(--risk); }
 /* At 15px the risk red is too faint as text; the small plate keeps the red ring and plain text. */
@@ -257,10 +270,10 @@ button.link:hover { color: var(--text); }
 /* One cell per pick, in the pick's own state. */
 .cells { display: flex; gap: 3px; padding: 8px 12px; border-bottom: 1px solid var(--rule); }
 .cells i { flex: 1; height: 12px; background: var(--plate-cell); }
-.cells .hit { background: var(--green); }
-.cells .run { background: linear-gradient(90deg, var(--yellow) var(--at, 100%), var(--plate-run) var(--at, 100%)); }
-.cells .hold { background: none; box-shadow: inset 0 0 0 2px var(--green); }
-.cells .miss { background: var(--red); }
+.cells .hit { background: var(--green); box-shadow: inset 0 0 0 1px var(--green-edge); }
+.cells .run { background: linear-gradient(90deg, var(--yellow) var(--at, 100%), var(--plate-run) var(--at, 100%)); box-shadow: inset 0 0 0 1px var(--yellow-edge); }
+.cells .hold { background: none; box-shadow: inset 0 0 0 2px var(--green-edge); }
+.cells .miss { background: var(--miss-mark); }
 .cells .risk { background: none; box-shadow: inset 0 0 0 3px var(--risk); }
 .cells .wait { background: none; box-shadow: inset 0 0 0 1px var(--muted); }
 
@@ -292,9 +305,9 @@ button.link:hover { color: var(--text); }
 /* ── Notifications ────────────────────────────────────── */
 .notes { position: relative; display: flex; }
 .bell { position: relative; display: inline-flex; background: none; border: 0; padding: 4px; font-size: var(--fs-xl); color: var(--muted); cursor: pointer; line-height: 1; }
-.bell:hover, .bell[aria-expanded='true'] { color: var(--text); }
-.bell-count { position: absolute; top: -4px; right: -7px; min-width: 17px; height: 17px; padding: 0 4px; background: var(--red); color: #fff; font-family: var(--cond); font-size: var(--fs-sm); font-weight: 700; display: flex; align-items: center; justify-content: center; }
-.notes-panel { position: absolute; right: 0; top: calc(100% + 8px); width: min(360px, calc(100vw - 24px)); max-height: 70vh; overflow-y: auto; box-shadow: 0 12px 32px rgb(4 12 26 / 0.45); z-index: 10; }
+.bell:hover, .bell[aria-expanded='true'], .bell[aria-pressed='true'] { color: var(--text); }
+.bell-count { position: absolute; top: -4px; right: -7px; min-width: 17px; height: 17px; padding: 0 4px; background: var(--red); color: var(--white); font-family: var(--cond); font-size: var(--fs-sm); font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.notes-panel { position: absolute; right: 0; top: calc(100% + 8px); width: min(360px, calc(100vw - 24px)); max-height: 70vh; overflow-y: auto; border-bottom: 2px solid var(--ink); box-shadow: 0 12px 32px rgb(4 12 26 / 0.45); z-index: 10; }
 .notes-panel ul { list-style: none; margin: 0; padding: 0; }
 .notes-empty { padding: 14px; margin: 0; }
 .note { padding: 10px 14px; border-bottom: 1px solid var(--rule); }
@@ -319,11 +332,18 @@ button.link:hover { color: var(--text); }
 .sign-in { max-width: 360px; margin: 0 auto; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
 .sign-in h1 { margin: 0 0 4px; font-family: var(--cond); font-size: 28px; font-weight: 800; line-height: 1; letter-spacing: 0.01em; text-transform: uppercase; }
 .sign-in label { display: flex; flex-direction: column; gap: 4px; font-size: var(--fs-sm); font-weight: 500; color: var(--muted); }
-.sign-in input, .sign-in textarea, .name-row input { font: inherit; font-size: var(--fs-md); color: var(--text); background: var(--plate-bg); border: 1px solid var(--muted); border-radius: 0; padding: 10px 12px; }
+.sign-in input:not([type='checkbox']), .sign-in textarea, .name-row input { font: inherit; font-size: var(--fs-md); color: var(--text); background: var(--plate-bg); border: 1px solid var(--muted); border-radius: 0; padding: 10px 12px; }
 .sign-in textarea { resize: vertical; }
+.sign-in label.age-check { flex-direction: row; align-items: center; gap: 10px; min-height: 44px; color: var(--text); cursor: pointer; }
+.fine-print { margin: 4px 0 0; font-size: var(--fs-xs); color: var(--muted); text-align: center; }
 .sign-in input:focus-visible, .sign-in textarea:focus-visible, .name-row input:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
 
 /* ── Controls ─────────────────────────────────────────── */
+/* A checkbox is a square cell: off, a hollow ring; on, the chosen-segment fill with a check, wiping in like a plate. */
+input[type='checkbox'] { appearance: none; flex: none; width: 18px; height: 18px; margin: 0; padding: 0; border: 0; border-radius: 0; background: none; box-shadow: inset 0 0 0 2px var(--muted); cursor: pointer; }
+input[type='checkbox']:hover:not(:disabled) { box-shadow: inset 0 0 0 2px var(--text); }
+input[type='checkbox']:checked { background: var(--check) center / 14px no-repeat, var(--on-bg); box-shadow: none; animation: wipe 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
+input[type='checkbox']:disabled { opacity: 0.55; cursor: default; }
 .btn, button.primary { font-family: var(--cond); font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; border-radius: 0; }
 .btn { background: none; border: 1px solid var(--text); padding: 5px 12px; }
 .btn:hover:not(:disabled) { background: var(--cell); }
@@ -350,6 +370,8 @@ button.primary:not(.btn) { padding: 11px; font-size: var(--fs-lg); }
 .jump { min-height: 44px; padding: 0; background: none; border: 0; cursor: pointer; font-family: var(--cond); font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--rule); }
 .jump:hover { color: var(--text); text-decoration-color: currentColor; }
 .analysis-group { display: flex; flex-direction: column; gap: 10px; scroll-margin-top: 12px; }
+.group-head:focus { outline: none; }
+.group-head:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .group-head { margin: 8px 0 0; padding-bottom: 6px; border-bottom: 2px solid var(--text); font-family: var(--cond); font-size: 24px; font-weight: 800; line-height: 1.1; letter-spacing: 0.01em; text-transform: uppercase; }
 .group-panels { display: flex; flex-direction: column; gap: 14px; }
 .standing-panel .lede { font-size: var(--fs-lg); }
@@ -366,10 +388,10 @@ p.relation { margin: 8px 0 0; }
 .more-menu { display: flex; flex-direction: column; align-items: stretch; gap: 6px; margin-top: 6px; }
 .btn.danger { border-color: var(--bad-text); color: var(--bad-text); }
 .panel { padding: 12px 14px 14px; }
-.panel h2 { margin: 0 0 10px; padding-bottom: 8px; border-bottom: 2px solid var(--ink); font-family: var(--cond); font-size: 19px; font-weight: 800; line-height: 1.15; letter-spacing: 0.02em; text-transform: uppercase; }
-.panel h3 { margin: 18px 0 6px; font-family: var(--cond); font-size: var(--fs-sm); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.panel h2, .panel .panel-title { margin: 0 0 10px; padding-bottom: 8px; border-bottom: 2px solid var(--ink); font-family: var(--cond); font-size: 19px; font-weight: 800; line-height: 1.15; letter-spacing: 0.02em; text-transform: uppercase; }
+.panel h3:where(:not(.panel-title)), .panel h4 { margin: 18px 0 6px; font-family: var(--cond); font-size: var(--fs-sm); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 .panel-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 2px solid var(--ink); }
-.panel-head h2, .panel-head h3 { margin: 0; padding: 0; border: 0; }
+.panel-head h2, .panel-head h3, .panel-head .panel-title { margin: 0; padding: 0; border: 0; }
 .panel .record-head { margin-top: 16px; border-bottom-width: 1px; border-bottom-color: var(--rule); }
 .bets-head { margin: 4px 0 10px; border-bottom-color: var(--text); }
 .bets-head h2 { font-family: var(--cond); font-size: 19px; font-weight: 800; letter-spacing: 0.02em; text-transform: uppercase; }
@@ -394,7 +416,7 @@ p.relation { margin: 8px 0 0; }
 .rate-bar { position: relative; height: 16px; background: var(--rule); }
 .rate-fill { display: block; height: 100%; background: var(--ink); }
 /* What the odds implied: a red marker so it's not confused with the bar. */
-.rate-mark { position: absolute; top: -3px; width: 3px; height: 22px; margin-left: -1px; background: var(--red); }
+.rate-mark { position: absolute; top: -3px; width: 3px; height: 22px; margin-left: -1px; background: var(--miss-mark); }
 .market .small { margin-top: 3px; }
 
 .missed-chart { margin: 4px 0 0; }
@@ -440,8 +462,8 @@ button.link.back { align-self: flex-start; display: inline-flex; align-items: ce
 .profile-chips { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0 0; }
 .profile .actions { margin-top: 10px; }
 
-.switch-row { display: flex; align-items: flex-start; gap: 10px; padding: 9px 0; border-top: 1px solid var(--rule); font-size: var(--fs-base); cursor: pointer; }
-.switch-row input { flex: none; width: 16px; height: 16px; margin: 3px 0 0; }
+.switch-row { display: flex; align-items: flex-start; gap: 10px; min-height: 44px; padding: 11px 0; border-top: 1px solid var(--rule); font-size: var(--fs-base); cursor: pointer; }
+.switch-row input { margin-top: 2px; }
 .name-form { display: flex; flex-direction: column; gap: 4px; }
 .name-form p { margin: 2px 0 0; }
 .account .name-form { margin: 0 0 14px; }
@@ -470,13 +492,9 @@ button.link.back { align-self: flex-start; display: inline-flex; align-items: ce
   /* The board keeps rank, name, units and record; ROI and best hit are on each profile. */
   .wide-only { display: none; }
   .summary.four { grid-template-columns: repeat(2, 1fr); }
-  .segmented button { min-height: 44px; padding: 5px 9px; }
-  /* Fingers, not cursors: taller controls and a bigger target on the header links. */
-  .btn { min-height: 44px; padding: 7px 13px; }
-  .bell { min-width: 44px; min-height: 44px; align-items: center; justify-content: center; margin: 0 -6px; }
-  .bell-count { top: 4px; right: 2px; }
-  /* Links inside a sentence stay in line; only standalone ones grow to a thumb's height. */
-  .name-link, button.link.back { min-height: 44px; }
+  .segmented button { padding: 5px 9px; }
+  /* A notice's text takes the full width; its buttons line up underneath. */
+  .banner { flex-wrap: wrap; }
   /* The bell isn't at the screen edge on phones, so the panel hangs from the
      whole header row (.top) instead of from the bell, at full width. */
   .notes { position: static; }
@@ -487,6 +505,15 @@ button.link.back { align-self: flex-start; display: inline-flex; align-items: ce
 @media (max-width: 760px) {
   .tabs { position: fixed; z-index: 5; left: 0; right: 0; bottom: 0; margin: 0; padding-bottom: env(safe-area-inset-bottom); background: var(--navy); border-top: 1px solid var(--rule); }
   .tab { min-height: 52px; }
+  /* Fingers, not cursors: wherever the phone tab bar shows, controls are a thumb's height. */
+  .segmented button { min-height: 44px; }
+  .btn { min-height: 44px; padding: 7px 13px; }
+  .bell { min-width: 44px; min-height: 44px; align-items: center; justify-content: center; margin: 0 -6px; }
+  .bell-count { top: 4px; right: 2px; }
+  /* Links inside a sentence stay in line; only standalone ones grow to a thumb's height. */
+  .name-link, button.link.back { min-height: 44px; }
+  /* A small standalone link (Settings, Ask to join) grows its target without pushing its row apart. */
+  button.link:not(.back) { min-height: 44px; margin-block: -12px; }
   .shell { padding-bottom: 10px; }
   .totals { margin-top: 10px; margin-bottom: -10px; }
   .page { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
@@ -522,3 +549,5 @@ button.link.back { align-self: flex-start; display: inline-flex; align-items: ce
   * { transition: none !important; animation: none !important; }
 }
 .account .phone-sync { margin: 0; }
+.about p { margin: 0 0 8px; font-size: var(--fs-sm); color: var(--muted); max-width: 70ch; }
+.about p:last-child { margin: 0; }
