@@ -1,0 +1,335 @@
+{
+ "team": {
+  "id": "15",
+  "abbreviation": "MIL",
+  "location": "Milwaukee",
+  "name": "Bucks",
+  "displayName": "Milwaukee Bucks"
+ },
+ "athletes": [
+  {
+   "id": "5164559",
+   "uid": "s:40~l:46~a:5164559",
+   "firstName": "Nate",
+   "lastName": "Ament",
+   "fullName": "Nate Ament",
+   "displayName": "Nate Ament",
+   "shortName": "N. Ament",
+   "jersey": "15",
+   "position": {
+    "abbreviation": "F",
+    "name": "Forward"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "5082206",
+   "uid": "s:40~l:46~a:5082206",
+   "firstName": "Brayden",
+   "lastName": "Burries",
+   "fullName": "Brayden Burries",
+   "displayName": "Brayden Burries",
+   "shortName": "B. Burries",
+   "jersey": "0",
+   "position": {
+    "abbreviation": "G",
+    "name": "Guard"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "4997526",
+   "uid": "s:40~l:46~a:4997526",
+   "firstName": "Ousmane",
+   "lastName": "Dieng",
+   "fullName": "Ousmane Dieng",
+   "displayName": "Ousmane Dieng",
+   "shortName": "O. Dieng",
+   "jersey": "21",
+   "position": {
+    "abbreviation": "F",
+    "name": "Forward"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "4397475",
+   "uid": "s:40~l:46~a:4397475",
+   "firstName": "AJ",
+   "lastName": "Green",
+   "fullName": "AJ Green",
+   "displayName": "AJ Green",
+   "shortName": "A. Green",
+   "jersey": "20",
+   "position": {
+    "abbreviation": "G",
+    "name": "Guard"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "4395725",
+   "uid": "s:40~l:46~a:4395725",
+   "firstName": "Tyler",
+   "lastName": "Herro",
+   "fullName": "Tyler Herro",
+   "displayName": "Tyler Herro",
+   "shortName": "T. Herro",
+   "jersey": "11",
+   "position": {
+    "abbreviation": "G",
+    "name": "Guard"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "5214640",
+   "uid": "s:40~l:46~a:5214640",
+   "firstName": "Kasparas",
+   "lastName": "Jakucionis",
+   "fullName": "Kasparas Jakucionis",
+   "displayName": "Kasparas Jakucionis",
+   "shortName": "K. Jakucionis",
+   "jersey": "25",
+   "position": {
+    "abbreviation": "G",
+    "name": "Guard"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "4432848",
+   "uid": "s:40~l:46~a:4432848",
+   "firstName": "Jaime",
+   "lastName": "Jaquez Jr.",
+   "fullName": "Jaime Jaquez Jr.",
+   "displayName": "Jaime Jaquez Jr.",
+   "shortName": "J. Jaquez Jr.",
+   "jersey": "24",
+   "position": {
+    "abbreviation": "F",
+    "name": "Forward"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "4697268",
+   "uid": "s:40~l:46~a:4697268",
+   "firstName": "Kam",
+   "lastName": "Jones",
+   "fullName": "Kam Jones",
+   "displayName": "Kam Jones",
+   "shortName": "K. Jones",
+   "jersey": "19",
+   "position": {
+    "abbreviation": "G",
+    "name": "Guard"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "3134907",
+   "uid": "s:40~l:46~a:3134907",
+   "firstName": "Kyle",
+   "lastName": "Kuzma",
+   "fullName": "Kyle Kuzma",
+   "displayName": "Kyle Kuzma",
+   "shortName": "K. Kuzma",
+   "jersey": "18",
+   "position": {
+    "abbreviation": "F",
+    "name": "Forward"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "2991043",
+   "uid": "s:40~l:46~a:2991043",
+   "firstName": "Caris",
+   "lastName": "LeVert",
+   "fullName": "Caris LeVert",
+   "displayName": "Caris LeVert",
+   "shortName": "C. LeVert",
+   "jersey": "12",
+   "position": {
+    "abbreviation": "G",
+    "name": "Guard"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "5214989",
+   "uid": "s:40~l:46~a:5214989",
+   "firstName": "Bogoljub",
+   "lastName": "Markovic",
+   "fullName": "Bogoljub Markovic",
+   "displayName": "Bogoljub Markovic",
+   "shortName": "B. Markovic",
+   "jersey": "23",
+   "position": {
+    "abbreviation": "F",
+    "name": "Forward"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "4397233",
+   "uid": "s:40~l:46~a:4397233",
+   "firstName": "Pete",
+   "lastName": "Nance",
+   "fullName": "Pete Nance",
+   "displayName": "Pete Nance",
+   "shortName": "P. Nance",
+   "jersey": "35",
+   "position": {
+    "abbreviation": "F",
+    "name": "Forward"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "4591725",
+   "uid": "s:40~l:46~a:4591725",
+   "firstName": "Ryan",
+   "lastName": "Rollins",
+   "fullName": "Ryan Rollins",
+   "displayName": "Ryan Rollins",
+   "shortName": "R. Rollins",
+   "jersey": "13",
+   "position": {
+    "abbreviation": "G",
+    "name": "Guard"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "4397114",
+   "uid": "s:40~l:46~a:4397114",
+   "firstName": "Cormac",
+   "lastName": "Ryan",
+   "fullName": "Cormac Ryan",
+   "displayName": "Cormac Ryan",
+   "shortName": "C. Ryan",
+   "jersey": "30",
+   "position": {
+    "abbreviation": "G",
+    "name": "Guard"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "4277922",
+   "uid": "s:40~l:46~a:4277922",
+   "firstName": "Jericho",
+   "lastName": "Sims",
+   "fullName": "Jericho Sims",
+   "displayName": "Jericho Sims",
+   "shortName": "J. Sims",
+   "jersey": "00",
+   "position": {
+    "abbreviation": "C",
+    "name": "Center"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "4277843",
+   "uid": "s:40~l:46~a:4277843",
+   "firstName": "Gary",
+   "lastName": "Trent Jr.",
+   "fullName": "Gary Trent Jr.",
+   "displayName": "Gary Trent Jr.",
+   "shortName": "G. Trent Jr.",
+   "jersey": "5",
+   "position": {
+    "abbreviation": "G",
+    "name": "Guard"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "3133628",
+   "uid": "s:40~l:46~a:3133628",
+   "firstName": "Myles",
+   "lastName": "Turner",
+   "fullName": "Myles Turner",
+   "displayName": "Myles Turner",
+   "shortName": "M. Turner",
+   "jersey": "3",
+   "position": {
+    "abbreviation": "C",
+    "name": "Center"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "5105623",
+   "uid": "s:40~l:46~a:5105623",
+   "firstName": "Kel'el",
+   "lastName": "Ware",
+   "fullName": "Kel'el Ware",
+   "displayName": "Kel'el Ware",
+   "shortName": "K. Ware",
+   "jersey": "9",
+   "position": {
+    "abbreviation": "C",
+    "name": "Center"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  }
+ ]
+}

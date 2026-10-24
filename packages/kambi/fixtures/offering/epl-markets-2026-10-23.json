@@ -1,0 +1,1076 @@
+{
+ "source": "eu.offering-api.kambicdn.com/offering/v2018/islandluck betoffer/event, 3 football/england/premier_league games, 2026-10-23",
+ "markets": [
+  {
+   "criterion": "2nd Half",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "3-Way Spread",
+   "sides": [],
+   "line": 3000
+  },
+  {
+   "criterion": "3-Way Spread - 1st Half",
+   "sides": [],
+   "line": 1000
+  },
+  {
+   "criterion": "Arsenal given a Red Card",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Arsenal to score from a penalty",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Arsenal to Win and Both Teams To Score",
+   "sides": [
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Arsenal to Win At Least One Half",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Arsenal to Win to Nil",
+   "sides": [
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Asian Handicap",
+   "sides": [],
+   "line": 500
+  },
+  {
+   "criterion": "Asian Handicap - 1st Half",
+   "sides": [],
+   "line": 500
+  },
+  {
+   "criterion": "Asian Total",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 3000
+  },
+  {
+   "criterion": "Asian Total - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Aston Villa given a Red Card",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Aston Villa to score from a penalty",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Aston Villa to Win and Both Teams To Score",
+   "sides": [
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Aston Villa to Win At Least One Half",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Aston Villa to Win to Nil",
+   "sides": [
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Both Teams To Score",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Both Teams To Score - 1st Half",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Both Teams To Score - 2nd Half",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Cards 3-Way Spread",
+   "sides": [],
+   "line": -1000
+  },
+  {
+   "criterion": "Corners 3-Way Spread",
+   "sides": [],
+   "line": 1000
+  },
+  {
+   "criterion": "Correct Score",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Correct Score - 1st Half",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Coventry City given a Red Card",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Coventry City to score from a penalty",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Coventry City to Win and Both Teams To Score",
+   "sides": [
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Coventry City to Win At Least One Half",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Coventry City to Win to Nil",
+   "sides": [
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Double Chance",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Double Chance - 1st Half",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Double Chance - 2nd Half",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Either Player To Score",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Either Player to Score First",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Everton given a Red Card",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Everton to score from a penalty",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Everton to Win and Both Teams To Score",
+   "sides": [
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Everton to Win At Least One Half",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Everton to Win to Nil",
+   "sides": [
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "First Goal (Tie: No Goals)",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "First Goal Scorer",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Fulham given a Red Card",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Fulham to score from a penalty",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Fulham to Win and Both Teams To Score",
+   "sides": [
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Fulham to Win At Least One Half",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Fulham to Win to Nil",
+   "sides": [
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Full Time",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Full Time - 2UP Early Payout",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Goal in Both Halves",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Half Time",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Half Time/Regular Time",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Interval Winner - 0:00-14:59",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Interval Winner - 0:00-4:59",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Manchester City given a Red Card",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Manchester City to score from a penalty",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Manchester City to Win and Both Teams To Score",
+   "sides": [
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Manchester City to Win At Least One Half",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Manchester City to Win to Nil",
+   "sides": [
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Most Cards",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Most Cards - 1st Half",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Most Cards - 2nd Half",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Most Corners",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Most Corners - 1st Half",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Most Corners - 2nd Half",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Next Corner, No Corner No Bet (1)",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Own goal",
+   "sides": [
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Penalty Kick awarded",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Player To Score - 1st Half",
+   "sides": [
+    "YES"
+   ],
+   "line": 1000
+  },
+  {
+   "criterion": "Player To Score 0:00-14:59",
+   "sides": [
+    "YES"
+   ],
+   "line": 1000
+  },
+  {
+   "criterion": "Player's Headed Shots on Target",
+   "sides": [
+    "OVER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Player's Shots on Target Outside the Box",
+   "sides": [
+    "OVER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Red Card given",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Spread",
+   "sides": [],
+   "line": 500
+  },
+  {
+   "criterion": "Tie No Bet",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Tie No Bet - 1st Half",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Tie No Bet - 2nd Half",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "To Get a Card",
+   "sides": [
+    "YES"
+   ],
+   "line": 1000
+  },
+  {
+   "criterion": "To Get a Red Card",
+   "sides": [
+    "YES"
+   ],
+   "line": 1000
+  },
+  {
+   "criterion": "To Score",
+   "sides": [
+    "YES"
+   ],
+   "line": 1000
+  },
+  {
+   "criterion": "To score at least 2 goals",
+   "sides": [
+    "YES"
+   ],
+   "line": 2000
+  },
+  {
+   "criterion": "To score at least 3 goals",
+   "sides": [
+    "YES"
+   ],
+   "line": 3000
+  },
+  {
+   "criterion": "To score at least 4 goals",
+   "sides": [
+    "YES"
+   ],
+   "line": 4000
+  },
+  {
+   "criterion": "To score at least 5 goals",
+   "sides": [
+    "YES"
+   ],
+   "line": 5000
+  },
+  {
+   "criterion": "To score from a header",
+   "sides": [
+    "YES"
+   ],
+   "line": 1000
+  },
+  {
+   "criterion": "To score from outside the penalty box",
+   "sides": [
+    "YES"
+   ],
+   "line": 1000
+  },
+  {
+   "criterion": "To score most goals",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "To Score or Get a Card",
+   "sides": [
+    "YES"
+   ],
+   "line": 1000
+  },
+  {
+   "criterion": "Total Cards",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 4500
+  },
+  {
+   "criterion": "Total Cards - Arsenal",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Cards - Aston Villa",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Cards - Coventry City",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Cards - Everton",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 2500
+  },
+  {
+   "criterion": "Total Cards - Fulham",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Cards - Manchester City",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Corners",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 7500
+  },
+  {
+   "criterion": "Total Corners - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 3500
+  },
+  {
+   "criterion": "Total Corners - 2nd Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 5500
+  },
+  {
+   "criterion": "Total Corners by Arsenal",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 6500
+  },
+  {
+   "criterion": "Total Corners By Arsenal - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 2500
+  },
+  {
+   "criterion": "Total Corners By Arsenal - 2nd Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 3500
+  },
+  {
+   "criterion": "Total Corners by Aston Villa",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 4500
+  },
+  {
+   "criterion": "Total Corners By Aston Villa - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 2500
+  },
+  {
+   "criterion": "Total Corners By Aston Villa - 2nd Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 2500
+  },
+  {
+   "criterion": "Total Corners by Coventry City",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 3500
+  },
+  {
+   "criterion": "Total Corners By Coventry City - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 2500
+  },
+  {
+   "criterion": "Total Corners By Coventry City - 2nd Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 2500
+  },
+  {
+   "criterion": "Total Corners by Everton",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 4500
+  },
+  {
+   "criterion": "Total Corners By Everton - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Corners By Everton - 2nd Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Corners by Fulham",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 4500
+  },
+  {
+   "criterion": "Total Corners By Fulham - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Corners By Fulham - 2nd Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 3500
+  },
+  {
+   "criterion": "Total Corners by Manchester City",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 6500
+  },
+  {
+   "criterion": "Total Corners By Manchester City - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Corners By Manchester City - 2nd Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 3500
+  },
+  {
+   "criterion": "Total Corners Interval - 0:00-14:59",
+   "sides": [
+    "OVER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Corners Interval - 0:00-4:59",
+   "sides": [
+    "OVER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 6500
+  },
+  {
+   "criterion": "Total Goals - 0:00-14:59",
+   "sides": [
+    "OVER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals - 0:00-4:59",
+   "sides": [
+    "OVER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Goals - 2nd Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Goals by Arsenal",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals By Arsenal - 0:00-14:59",
+   "sides": [
+    "OVER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals By Arsenal - 0:00-4:59",
+   "sides": [
+    "OVER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals by Arsenal - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Goals by Arsenal - 2nd Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals by Aston Villa",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals By Aston Villa - 0:00-14:59",
+   "sides": [
+    "OVER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals By Aston Villa - 0:00-4:59",
+   "sides": [
+    "OVER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals by Aston Villa - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Goals by Aston Villa - 2nd Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals by Coventry City",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 2500
+  },
+  {
+   "criterion": "Total Goals By Coventry City - 0:00-14:59",
+   "sides": [
+    "OVER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals By Coventry City - 0:00-4:59",
+   "sides": [
+    "OVER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals by Coventry City - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Goals by Coventry City - 2nd Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals by Everton",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Goals By Everton - 0:00-14:59",
+   "sides": [
+    "OVER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals By Everton - 0:00-4:59",
+   "sides": [
+    "OVER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals by Everton - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals by Everton - 2nd Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals by Fulham",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 3500
+  },
+  {
+   "criterion": "Total Goals By Fulham - 0:00-14:59",
+   "sides": [
+    "OVER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals By Fulham - 0:00-4:59",
+   "sides": [
+    "OVER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals by Fulham - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Goals by Fulham - 2nd Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals by Manchester City",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Goals By Manchester City - 0:00-14:59",
+   "sides": [
+    "OVER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals By Manchester City - 0:00-4:59",
+   "sides": [
+    "OVER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals by Manchester City - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Goals by Manchester City - 2nd Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  }
+ ]
+}

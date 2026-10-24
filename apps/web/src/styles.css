@@ -440,6 +440,12 @@ button.link.back { align-self: flex-start; display: inline-flex; align-items: ce
 .name-form p { margin: 2px 0 0; }
 .name-row { display: flex; gap: 8px; }
 .name-row input { flex: 1; min-width: 0; padding: 7px 10px; }
+/* People: the icon sits inside the box, which spans the panel. */
+.people-search { position: relative; display: block; margin-bottom: 6px; }
+.people-search .icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+.people-search input { width: 100%; font: inherit; font-size: var(--fs-md); color: var(--text); background: var(--plate-bg); border: 1px solid var(--muted); border-radius: 0; padding: 10px 12px 10px 36px; }
+.people-search input::placeholder { color: var(--muted); }
+.people-search input:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
 
 /* Someone else's bets shown at the minimum stake: the note above the list, and the line on each card.
    It's information, not a warning, so it stays out of the yellow used for live and unsynced bets. */

@@ -1,5 +1,5 @@
 import { gameMargin } from '@sports-better/display';
-import { classifyMarket, gameMarket, spreadPick } from '@sports-better/markets';
+import { classifyMarket, gameMarket, spreadPick, type GameMarket } from '@sports-better/markets';
 import type { StatKey } from '@sports-better/sports-data';
 import { DEFAULT_FUNDING_MAX_ODDS, MIN_SAMPLE, type Analysis, type StyleStats, type CashOutCheck, type MarketStats, type NearMiss, type ParlayBucket, type RecordRow, type WeekRow } from './types';
 
@@ -54,6 +54,31 @@ const MARKET_NAMES: Partial<Record<StatKey, string>> = {
   PASSING_TDS: 'Passing TDs',
   PASS_COMPLETIONS: 'Pass completions',
   PASS_ATTEMPTS: 'Pass attempts',
+  POINTS: 'Points',
+  REBOUNDS: 'Rebounds',
+  ASSISTS: 'Assists',
+  STEALS: 'Steals',
+  BLOCKS: 'Blocks',
+  THREES_MADE: 'Threes',
+  POINTS_REBOUNDS: 'Pts + reb',
+  POINTS_ASSISTS: 'Pts + ast',
+  REBOUNDS_ASSISTS: 'Reb + ast',
+  POINTS_REBOUNDS_ASSISTS: 'Pts + reb + ast',
+  STEALS_BLOCKS: 'Stl + blk',
+  DOUBLE_DOUBLE: 'Double-double',
+  TRIPLE_DOUBLE: 'Triple-double',
+  HITS: 'Hits',
+  RUNS: 'Runs',
+  RBIS: 'RBIs',
+  HOME_RUNS: 'Home runs',
+  HITS_RUNS_RBIS: 'Hits + runs + RBIs',
+  PITCHER_STRIKEOUTS: 'Strikeouts (pitcher)',
+  OUTS_RECORDED: 'Outs recorded',
+  GOALS: 'Goals',
+  SHOTS_ON_GOAL: 'Shots on goal',
+  CARDS: 'Cards',
+  RED_CARDS: 'Red cards',
+  CORNERS: 'Corners (game)',
 };
 const UNITS: Partial<Record<string, string>> = {
   RUSHING_YARDS: 'rush yds',
@@ -64,6 +89,26 @@ const UNITS: Partial<Record<string, string>> = {
   PASS_ATTEMPTS: 'pass att',
   RECEPTIONS: 'rec',
   FIELD_GOALS_MADE: 'FG',
+  POINTS: 'pts',
+  REBOUNDS: 'reb',
+  ASSISTS: 'ast',
+  STEALS: 'stl',
+  BLOCKS: 'blk',
+  THREES_MADE: 'threes',
+  POINTS_REBOUNDS: 'pts+reb',
+  POINTS_ASSISTS: 'pts+ast',
+  REBOUNDS_ASSISTS: 'reb+ast',
+  POINTS_REBOUNDS_ASSISTS: 'pts+reb+ast',
+  STEALS_BLOCKS: 'stl+blk',
+  HITS: 'hits',
+  RUNS: 'runs',
+  RBIS: 'RBIs',
+  HITS_RUNS_RBIS: 'H+R+RBI',
+  PITCHER_STRIKEOUTS: 'K',
+  OUTS_RECORDED: 'outs',
+  GOALS: 'goals',
+  SHOTS_ON_GOAL: 'SOG',
+  CORNERS: 'corners',
 };
 
 const BUCKETS: Array<[string, number, number | null]> = [
@@ -80,9 +125,18 @@ const real = (c: AnalysisCoupon) => (c.rewardType === 'FREE_BET' ? 0 : c.stakeMi
 const rate = (won: number, n: number) => (n > 0 ? won / n : null);
 const mean = (xs: number[]) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null);
 
+const GAME_MARKET_NAMES: Record<GameMarket, string> = {
+  MONEYLINE: 'Moneyline',
+  SPREAD: 'Point spread',
+  TOTAL: 'Total points',
+  RESULT: 'Match result',
+  BTTS: 'Both teams to score',
+  FIGHT: 'UFC',
+};
+
 export function marketOf(s: AnalysisSelection, sport: string | null): string {
   const gm = gameMarket(s.marketName);
-  if (gm) return gm === 'SPREAD' ? 'Point spread' : gm === 'TOTAL' ? 'Total points' : 'Moneyline';
+  if (gm) return GAME_MARKET_NAMES[gm];
   const cls = classifyMarket({ sport, marketName: s.marketName, selectionSide: s.selectionSide as never, line: s.line });
   return cls.supported ? (MARKET_NAMES[cls.metric] ?? 'Other') : 'Other';
 }
@@ -330,7 +384,8 @@ function resultAfterCashOut(s: AnalysisSelection, l: AnalysisLeg): 'WON' | 'LOST
     if (!g || g.state !== 'FINAL' || g.homeScore === null || g.awayScore === null) return null;
     const line = gm === 'SPREAD' ? spreadPick(s.participantName, s.line).line : gm === 'TOTAL' ? s.line : null;
     const margin = gameMargin({ type: gm, moneylineSide: s.moneylineSide, line, selectionSide: s.selectionSide }, g);
-    if (margin === null || margin === 0) return null;
+    // A draw beats both teams on a three-way result; anywhere else a tie or push decides nothing.
+    if (margin === null || (margin === 0 && gm !== 'RESULT')) return null;
     return margin > 0 ? 'WON' : 'LOST';
   }
   if (s.progress?.status === 'FINAL_HIT') return 'WON';

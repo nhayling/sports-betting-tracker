@@ -146,6 +146,11 @@ describe('parseOutcomeLabel', () => {
     // Whole-game totals have no name (Total Successful Field Goals).
     ['Over 3.5', { name: null, side: 'OVER', labelLine: 3.5 }],
     ['Under 44.5', { name: null, side: 'UNDER', labelLine: 44.5 }],
+    // Whole-game yes/no (Both Teams To Score, To go the distance).
+    ['Yes', { name: null, side: 'YES', labelLine: null }],
+    ['No', { name: null, side: 'NO', labelLine: null }],
+    // Three-way picks are labelled by position; the tracker maps them to the teams.
+    ['X', { name: 'X', side: null, labelLine: null }],
   ])('%s', (label, expected) => {
     expect(parseOutcomeLabel(label)).toEqual(expected);
   });

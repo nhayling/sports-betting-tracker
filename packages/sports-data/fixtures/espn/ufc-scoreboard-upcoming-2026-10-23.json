@@ -1,0 +1,657 @@
+{
+ "events": [
+  {
+   "id": "600061267",
+   "uid": "s:3301~l:3321~e:600061267",
+   "date": "2026-10-24T14:00Z",
+   "name": "UFC 333: Volkanovski vs. Evloev",
+   "shortName": "UFC 333",
+   "competitions": [
+    {
+     "id": "401930917",
+     "date": "2026-10-24T14:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "-",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 10:00 AM EDT",
+       "shortDetail": "10/24 - 10:00 AM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "4239113",
+       "order": 2,
+       "winner": false,
+       "athlete": {
+        "fullName": "Nicolle Caliari",
+        "displayName": "Nicolle Caliari",
+        "shortName": "N. Caliari"
+       }
+      },
+      {
+       "id": "5080935",
+       "order": 1,
+       "winner": false,
+       "athlete": {
+        "fullName": "Iasmin Lucindo",
+        "displayName": "Iasmin Lucindo",
+        "shortName": "I. Lucindo"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    },
+    {
+     "id": "401930916",
+     "date": "2026-10-24T14:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "-",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 10:00 AM EDT",
+       "shortDetail": "10/24 - 10:00 AM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "5145777",
+       "order": 2,
+       "winner": false,
+       "athlete": {
+        "fullName": "Noah Gugnon",
+        "displayName": "Noah Gugnon",
+        "shortName": "N. Gugnon"
+       }
+      },
+      {
+       "id": "5212351",
+       "order": 1,
+       "winner": false,
+       "athlete": {
+        "fullName": "Kody Steele",
+        "displayName": "Kody Steele",
+        "shortName": "K. Steele"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    },
+    {
+     "id": "401930915",
+     "date": "2026-10-24T14:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "-",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 10:00 AM EDT",
+       "shortDetail": "10/24 - 10:00 AM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "4881997",
+       "order": 2,
+       "winner": false,
+       "athlete": {
+        "fullName": "Daniel Santos",
+        "displayName": "Daniel Santos",
+        "shortName": "D. Santos"
+       }
+      },
+      {
+       "id": "5145682",
+       "order": 1,
+       "winner": false,
+       "athlete": {
+        "fullName": "Bolaji Oki",
+        "displayName": "Bolaji Oki",
+        "shortName": "B. Oki"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    },
+    {
+     "id": "401930357",
+     "date": "2026-10-24T14:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "-",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 10:00 AM EDT",
+       "shortDetail": "10/24 - 10:00 AM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "3960340",
+       "order": 1,
+       "winner": false,
+       "athlete": {
+        "fullName": "Abubakar Vagaev",
+        "displayName": "Abubakar Vagaev",
+        "shortName": "A. Vagaev"
+       }
+      },
+      {
+       "id": "4687434",
+       "order": 2,
+       "winner": false,
+       "athlete": {
+        "fullName": "Jacob Malkoun",
+        "displayName": "Jacob Malkoun",
+        "shortName": "J. Malkoun"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    },
+    {
+     "id": "401928047",
+     "date": "2026-10-24T14:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "-",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 10:00 AM EDT",
+       "shortDetail": "10/24 - 10:00 AM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "5264462",
+       "order": 1,
+       "winner": false,
+       "athlete": {
+        "fullName": "Colby Thicknesse",
+        "displayName": "Colby Thicknesse",
+        "shortName": "C. Thicknesse"
+       }
+      },
+      {
+       "id": "5454811",
+       "order": 2,
+       "winner": false,
+       "athlete": {
+        "fullName": "Asaf Chopurov",
+        "displayName": "Asaf Chopurov",
+        "shortName": "A. Chopurov"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    },
+    {
+     "id": "401911640",
+     "date": "2026-10-24T16:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "-",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 12:00 PM EDT",
+       "shortDetail": "10/24 - 12:00 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "3931156",
+       "order": 1,
+       "winner": false,
+       "athlete": {
+        "fullName": "Grant Dawson",
+        "displayName": "Grant Dawson",
+        "shortName": "G. Dawson"
+       }
+      },
+      {
+       "id": "5092398",
+       "order": 2,
+       "winner": false,
+       "athlete": {
+        "fullName": "Nurullo Aliev",
+        "displayName": "Nurullo Aliev",
+        "shortName": "N. Aliev"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    },
+    {
+     "id": "401911638",
+     "date": "2026-10-24T16:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "-",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 12:00 PM EDT",
+       "shortDetail": "10/24 - 12:00 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "3077822",
+       "order": 1,
+       "winner": false,
+       "athlete": {
+        "fullName": "Abus Magomedov",
+        "displayName": "Abus Magomedov",
+        "shortName": "A. Magomedov"
+       }
+      },
+      {
+       "id": "4694832",
+       "order": 2,
+       "winner": false,
+       "athlete": {
+        "fullName": "Cam Rowston",
+        "displayName": "Cam Rowston",
+        "shortName": "C. Rowston"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    },
+    {
+     "id": "401911639",
+     "date": "2026-10-24T16:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "-",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 12:00 PM EDT",
+       "shortDetail": "10/24 - 12:00 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "3026263",
+       "order": 1,
+       "winner": false,
+       "athlete": {
+        "fullName": "Nikita Krylov",
+        "displayName": "Nikita Krylov",
+        "shortName": "N. Krylov"
+       }
+      },
+      {
+       "id": "5291025",
+       "order": 2,
+       "winner": false,
+       "athlete": {
+        "fullName": "Abdul-Rakhman Yakhyaev",
+        "displayName": "Abdul-Rakhman Yakhyaev",
+        "shortName": "A. Yakhyaev"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    },
+    {
+     "id": "401911637",
+     "date": "2026-10-24T16:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "-",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 12:00 PM EDT",
+       "shortDetail": "10/24 - 12:00 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "4227265",
+       "order": 1,
+       "winner": false,
+       "athlete": {
+        "fullName": "Azamat Murzakanov",
+        "displayName": "Azamat Murzakanov",
+        "shortName": "A. Murzakanov"
+       }
+      },
+      {
+       "id": "4233039",
+       "order": 2,
+       "winner": false,
+       "athlete": {
+        "fullName": "Dominick Reyes",
+        "displayName": "Dominick Reyes",
+        "shortName": "D. Reyes"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    },
+    {
+     "id": "401929495",
+     "date": "2026-10-24T18:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "-",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 2:00 PM EDT",
+       "shortDetail": "10/24 - 2:00 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "4199009",
+       "order": 1,
+       "winner": false,
+       "athlete": {
+        "fullName": "Aaron Pico",
+        "displayName": "Aaron Pico",
+        "shortName": "A. Pico"
+       }
+      },
+      {
+       "id": "5192314",
+       "order": 2,
+       "winner": false,
+       "athlete": {
+        "fullName": "Losene Keita",
+        "displayName": "Losene Keita",
+        "shortName": "L. Keita"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    },
+    {
+     "id": "401911635",
+     "date": "2026-10-24T18:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "-",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 2:00 PM EDT",
+       "shortDetail": "10/24 - 2:00 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "2993650",
+       "order": 1,
+       "winner": false,
+       "athlete": {
+        "fullName": "Alexander Volkov",
+        "displayName": "Alexander Volkov",
+        "shortName": "A. Volkov"
+       }
+      },
+      {
+       "id": "4001837",
+       "order": 2,
+       "winner": false,
+       "athlete": {
+        "fullName": "Rizvan Kuniev",
+        "displayName": "Rizvan Kuniev",
+        "shortName": "R. Kuniev"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    },
+    {
+     "id": "401911634",
+     "date": "2026-10-24T18:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "-",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 2:00 PM EDT",
+       "shortDetail": "10/24 - 2:00 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "4895691",
+       "order": 2,
+       "winner": false,
+       "athlete": {
+        "fullName": "Ramazan Temirov",
+        "displayName": "Ramazan Temirov",
+        "shortName": "R. Temirov"
+       }
+      },
+      {
+       "id": "5147737",
+       "order": 1,
+       "winner": false,
+       "athlete": {
+        "fullName": "Lone'er Kavanagh",
+        "displayName": "Lone'er Kavanagh",
+        "shortName": "L. Kavanagh"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    },
+    {
+     "id": "401911633",
+     "date": "2026-10-24T18:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "-",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 2:00 PM EDT",
+       "shortDetail": "10/24 - 2:00 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "3948572",
+       "order": 2,
+       "winner": false,
+       "athlete": {
+        "fullName": "Merab Dvalishvili",
+        "displayName": "Merab Dvalishvili",
+        "shortName": "M. Dvalishvili"
+       }
+      },
+      {
+       "id": "4293517",
+       "order": 1,
+       "winner": false,
+       "athlete": {
+        "fullName": "Petr Yan",
+        "displayName": "Petr Yan",
+        "shortName": "P. Yan"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 5
+      }
+     }
+    },
+    {
+     "id": "401911632",
+     "date": "2026-10-24T18:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "-",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 2:00 PM EDT",
+       "shortDetail": "10/24 - 2:00 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "3949584",
+       "order": 1,
+       "winner": false,
+       "athlete": {
+        "fullName": "Alexander Volkanovski",
+        "displayName": "Alexander Volkanovski",
+        "shortName": "A. Volkanovski"
+       }
+      },
+      {
+       "id": "4029275",
+       "order": 2,
+       "winner": false,
+       "athlete": {
+        "fullName": "Movsar Evloev",
+        "displayName": "Movsar Evloev",
+        "shortName": "M. Evloev"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 5
+      }
+     }
+    }
+   ]
+  }
+ ]
+}

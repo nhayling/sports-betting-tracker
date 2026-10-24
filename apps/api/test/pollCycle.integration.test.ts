@@ -15,9 +15,14 @@ const fixture = (name: string) =>
   JSON.parse(readFileSync(fileURLToPath(new URL(`../../../packages/sports-data/fixtures/espn/${name}.json`, import.meta.url)), 'utf8'));
 
 /** ESPN served from today's fixtures. Games without a saved box score/roster 404, exercising the error path. */
-function fakeEspn() {
+function fakeEspn(scoreboard?: unknown) {
   const urls: string[] = [];
   const routes: Array<[RegExp, string]> = [
+    // NBA first: team ids overlap with the NFL's (15 is Milwaukee and Miami).
+    [/nba\/scoreboard/, 'nba-scoreboard-live'],
+    [/nba\/summary\?event=401909848$/, 'nba-summary-chi-mil-live'],
+    [/nba\/teams\/15\/roster/, 'nba-roster-mil'],
+    [/nba\/teams\/4\/roster/, 'nba-roster-chi'],
     [/nfl\/scoreboard/, 'nfl-scoreboard-situation'],
     [/summary\?event=401872952$/, 'nfl-summary-kc-mia-live'],
     [/summary\?event=401872954$/, 'nfl-summary-nyj-det-live'],
@@ -28,6 +33,7 @@ function fakeEspn() {
   ];
   const provider = new EspnProvider(async (url) => {
     urls.push(url);
+    if (scoreboard && /scoreboard/.test(url)) return scoreboard;
     const hit = routes.find(([re]) => re.test(url));
     if (!hit) throw new ProviderError('NOT_FOUND', `no fixture for ${url}`);
     return fixture(hit[1]);
@@ -230,6 +236,63 @@ describe.skipIf(!hasTestDb)('runPollCycle against Postgres', () => {
     });
   });
 
+  it('tracks NBA player props and moneylines from the live box score', async () => {
+    // CHI Bulls @ MIL Bucks, 1:22 left in the 2nd quarter (ESPN fixture), as Island Luck would send it.
+    const event = {
+      eventId: 1028754210,
+      eventName: 'CHI Bulls @ MIL Bucks',
+      homeName: 'MIL Bucks',
+      awayName: 'CHI Bulls',
+      sport: 'BASKETBALL',
+      eventGroups: [{ id: 1000093652, name: 'Basketball' }, { id: 1000093653, name: 'NBA' }],
+      eventStartDate: '2026-10-23T20:15:00Z',
+    };
+    const pick = (i: number, label: string, participantId: number, criterion: string, line: number | null, boType: string) => ({
+      outcome: { outcomeId: 991000010 + i, betOfferId: 991000020 + i, eventId: 1028754210, label, line, participantId, status: 'OPEN' },
+      betOffer: { betOfferId: 991000020 + i, criterion, boType, boTypeId: 0, line },
+      row: { index: i, selectionType: 'SIMPLE', outcomeId: 991000010 + i, playedOdds: 1500, status: 'OPEN' },
+    });
+    const picks = [
+      pick(0, 'Tyler Herro - Yes', 1005375160, '10+ Points Scored By The Player - Including Overtime', 10000, 'Player Occurrence Line'),
+      pick(1, 'Kyle Kuzma - Over 5.5', 1004274186, 'Rebounds by the player - Including Overtime', 5500, 'Player Over/Under'),
+      pick(2, 'Tyler Herro - Yes', 1005375160, 'To record a double-double - Including Overtime', 2000, 'Player Occurrence Line'),
+      pick(3, 'CHI Bulls', 1000000215, 'Moneyline', null, 'Match'),
+    ];
+    await syncCoupons(db, {
+      userId,
+      accountLabel: 'Island Luck',
+      capturedAt: new Date('2026-10-23T20:00:00Z'),
+      coupons: [
+        {
+          couponRef: 991000001,
+          placedDate: '2026-10-23T19:55:00Z',
+          currency: 'USD',
+          bets: [{ betRef: 991000002, stake: 5000, playedOdds: 5000, betOdds: 5000, potentialPayout: 25000, betStatus: 'OPEN', couponRowIndexes: [0, 1, 2, 3] }],
+          couponRows: picks.map((p) => p.row),
+          outcomes: picks.map((p) => p.outcome),
+          betOffers: picks.map((p) => p.betOffer),
+          events: [event],
+        },
+      ] as never,
+    });
+
+    const { provider, urls } = fakeEspn();
+    const r = await runPollCycle(db, provider, new Date('2026-10-23T21:12:00Z'));
+    expect(r.errors).toEqual([]);
+    expect(urls.filter((u) => u.includes('basketball/nba/summary'))).toHaveLength(1);
+
+    const progress = (marketName: string) => db.betLegProgress.findFirst({ where: { legSelection: { marketName, betLeg: { eventId: '1028754210' } } } });
+    expect(await progress('10+ Points Scored By The Player - Including Overtime')).toMatchObject({ metric: 'POINTS', status: 'TARGET_REACHED', currentValue: 12 });
+    expect(await progress('Rebounds by the player - Including Overtime')).toMatchObject({ metric: 'REBOUNDS', operator: 'GT', target: 5.5, status: 'TARGET_REACHED', currentValue: 6 });
+    expect(await progress('To record a double-double - Including Overtime')).toMatchObject({ metric: 'DOUBLE_DOUBLE', status: 'IN_PROGRESS', currentValue: 0 });
+
+    const view = await loadBetsView(db, { userId, view: 'open', limit: 500 });
+    const game = view.coupons.find((c) => c.externalCouponRef === '991000001')!.games[0]!;
+    expect(game.state).toMatchObject({ state: 'LIVE', period: 2, homeScore: 54, awayScore: 59 });
+    expect(game.picks.find((p) => p.marketName === 'Moneyline')).toMatchObject({ type: 'MONEYLINE', moneylineSide: 'away' });
+    expect(game.picks.find((p) => p.marketName?.startsWith('To record'))).toMatchObject({ type: 'STAT', display: 'BINARY' });
+  });
+
   it('re-parses bets stored by an older parser version', async () => {
     const { reparseOutdated } = await import('../src/sync/reparse');
     await db.coupon.updateMany({ data: { parserVersion: 1 } });
@@ -250,11 +313,38 @@ describe.skipIf(!hasTestDb)('runPollCycle against Postgres', () => {
     expect(await progressFor('Kenneth Walker III', '100+ Rushing Yards By The Player - Including Overtime')).toMatchObject({ currentValue: 52 });
   });
 
-  it('ignores settled bets', async () => {
+  it('reads a final box score again only for the games a backfill asks for', async () => {
+    // KC @ MIA as if it had ended and its final box score was already read once.
+    const board = fixture('nfl-scoreboard-situation');
+    const game = board.events.find((e: { id: string }) => e.id === '401872952');
+    Object.assign(game.competitions[0].status.type, { state: 'post', completed: true, name: 'STATUS_FINAL', detail: 'Final' });
+    await db.providerEventState.updateMany({ where: { providerEventId: '401872952' }, data: { finalizedAt: NOW } });
+    const { sportsbookEventId } = await db.externalEventMapping.findFirstOrThrow({ where: { providerEventId: '401872952' } });
+    const boxScore = (urls: string[]) => urls.filter((u) => /summary\?event=401872952$/.test(u));
+
+    const poll = fakeEspn(board);
+    await runPollCycle(db, poll.provider, NOW);
+    expect(boxScore(poll.urls)).toEqual([]);
+
+    const backfill = fakeEspn(board);
+    await runPollCycle(db, backfill.provider, NOW, { refetchFinal: new Set([sportsbookEventId]) });
+    expect(boxScore(backfill.urls)).toHaveLength(1);
+    expect(await progressFor('Kenneth Walker III', '100+ Rushing Yards By The Player - Including Overtime')).toMatchObject({ currentValue: 52 });
+  });
+
+  it('keeps following settled bets until their games are over', async () => {
+    // A parlay that lost early: Island Luck only says lost, so its picks keep their stats.
     await db.coupon.updateMany({ data: { status: 'LOST' } });
-    const { provider, urls } = fakeEspn();
-    const r = await runPollCycle(db, provider, NOW);
-    expect(r.legsInWindow).toBe(0);
-    expect(urls).toEqual([]);
+    const live = fakeEspn();
+    const r = await runPollCycle(db, live.provider, NOW);
+    expect(r.legsInWindow).toBeGreaterThan(0);
+    expect(r.requests.summary).toBeGreaterThan(0);
+    expect(await progressFor('Kenneth Walker III', '100+ Rushing Yards By The Player - Including Overtime')).toMatchObject({ currentValue: 52 });
+
+    // Past the game window: nothing is fetched for them.
+    const later = fakeEspn();
+    const after = await runPollCycle(db, later.provider, new Date(NOW.getTime() + 24 * 60 * 60_000));
+    expect(after.legsInWindow).toBe(0);
+    expect(later.urls).toEqual([]);
   });
 });

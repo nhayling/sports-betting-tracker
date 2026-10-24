@@ -1,0 +1,69 @@
+{
+ "events": [
+  {
+   "id": "401908028",
+   "uid": "s:1~l:10~e:401908028",
+   "date": "2026-10-20T00:00Z",
+   "name": "Cleveland Guardians at Tampa Bay Rays",
+   "shortName": "CLE @ TB",
+   "competitions": [
+    {
+     "id": "401908028",
+     "date": "2026-10-20T00:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 9,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "30",
+       "homeAway": "home",
+       "score": "7",
+       "winner": true,
+       "team": {
+        "id": "30",
+        "uid": "s:1~l:10~t:30",
+        "abbreviation": "TB",
+        "location": "Tampa Bay",
+        "name": "Rays",
+        "displayName": "Tampa Bay Rays",
+        "shortDisplayName": "Rays"
+       }
+      },
+      {
+       "id": "5",
+       "homeAway": "away",
+       "score": "3",
+       "winner": false,
+       "team": {
+        "id": "5",
+        "uid": "s:1~l:10~t:5",
+        "abbreviation": "CLE",
+        "location": "Cleveland",
+        "name": "Guardians",
+        "displayName": "Cleveland Guardians",
+        "shortDisplayName": "Guardians"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 9
+      }
+     }
+    }
+   ]
+  }
+ ]
+}

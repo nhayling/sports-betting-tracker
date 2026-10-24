@@ -111,7 +111,7 @@ function parseRow(row: RawCouponRow, lk: Lookups, warnings: string[]): ParsedLeg
     homeName: event?.homeName ?? null,
     awayName: event?.awayName ?? null,
     sport: event?.sport ?? null,
-    league: event?.eventGroups?.at(-1)?.name ?? null,
+    league: leagueOf(event?.eventGroups),
     eventStartAt: toIso(event?.eventStartDate),
     oddsRaw: odds?.raw ?? null,
     odds: odds?.decimal ?? null,
@@ -164,6 +164,17 @@ function parseSelection(outcomeId: number, lk: Lookups, warnings: string[]): Par
  *   "Drake London - Over 5.5"   → Drake London, OVER, 5.5
  *   "TB Buccaneers"             → TB Buccaneers, no side
  */
+/**
+ * The league under the sport group: "NFL", "NBA", "UFC". Soccer leagues keep
+ * their country ("England / Premier League"), since Kambi has a Premier League
+ * in a dozen countries.
+ */
+function leagueOf(groups: Array<{ name?: string }> | undefined): string | null {
+  const names = (groups ?? []).map((g) => g.name).filter((n): n is string => !!n);
+  if (names.length === 0) return null;
+  return names.length > 1 ? names.slice(1).join(' / ') : names[0]!;
+}
+
 export function parseOutcomeLabel(label: string | undefined): {
   name: string | null;
   side: SelectionSide | null;
@@ -180,6 +191,9 @@ export function parseOutcomeLabel(label: string | undefined): {
       labelLine: Number(overUnder[3]),
     };
   }
+  // Yes/no on the whole game ("Both Teams To Score", "To go the distance") has no name either.
+  const bareYesNo = /^(Yes|No)$/i.exec(label.trim());
+  if (bareYesNo) return { name: null, side: bareYesNo[1]!.toUpperCase() as SelectionSide, labelLine: null };
   // Whole-game totals have no name: "Over 3.5".
   const bare = /^(Over|Under) (\d+(?:\.\d+)?)$/i.exec(label.trim());
   if (bare) return { name: null, side: bare[1]!.toUpperCase() as SelectionSide, labelLine: Number(bare[2]) };

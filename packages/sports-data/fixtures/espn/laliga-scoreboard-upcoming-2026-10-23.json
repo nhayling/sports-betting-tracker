@@ -1,0 +1,580 @@
+{
+ "events": [
+  {
+   "id": "401882830",
+   "uid": "s:600~l:740~e:401882830",
+   "date": "2026-10-24T12:00Z",
+   "name": "Elche at Rayo Vallecano",
+   "shortName": "ELC @ RAY",
+   "competitions": [
+    {
+     "id": "401882830",
+     "date": "2026-10-24T12:00Z",
+     "status": {
+      "clock": 0,
+      "displayClock": "0'",
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 8:00 AM EDT",
+       "shortDetail": "Scheduled"
+      }
+     },
+     "competitors": [
+      {
+       "id": "101",
+       "homeAway": "home",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "101",
+        "uid": "s:600~t:101",
+        "abbreviation": "RAY",
+        "location": "Rayo Vallecano",
+        "name": "Rayo Vallecano",
+        "displayName": "Rayo Vallecano",
+        "shortDisplayName": "Rayo"
+       }
+      },
+      {
+       "id": "3751",
+       "homeAway": "away",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "3751",
+        "uid": "s:600~t:3751",
+        "abbreviation": "ELC",
+        "location": "Elche",
+        "name": "Elche",
+        "displayName": "Elche",
+        "shortDisplayName": "Elche"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 2
+      }
+     },
+     "details": []
+    }
+   ]
+  },
+  {
+   "id": "401882831",
+   "uid": "s:600~l:740~e:401882831",
+   "date": "2026-10-24T14:15Z",
+   "name": "Espanyol at Racing Santander",
+   "shortName": "ESP @ RAC",
+   "competitions": [
+    {
+     "id": "401882831",
+     "date": "2026-10-24T14:15Z",
+     "status": {
+      "clock": 0,
+      "displayClock": "0'",
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 10:15 AM EDT",
+       "shortDetail": "Scheduled"
+      }
+     },
+     "competitors": [
+      {
+       "id": "87",
+       "homeAway": "home",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "87",
+        "uid": "s:600~t:87",
+        "abbreviation": "RAC",
+        "location": "Racing Santander",
+        "name": "Racing Santander",
+        "displayName": "Racing Santander",
+        "shortDisplayName": "Racing"
+       }
+      },
+      {
+       "id": "88",
+       "homeAway": "away",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "88",
+        "uid": "s:600~t:88",
+        "abbreviation": "ESP",
+        "location": "Espanyol",
+        "name": "Espanyol",
+        "displayName": "Espanyol",
+        "shortDisplayName": "Espanyol"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 2
+      }
+     },
+     "details": []
+    }
+   ]
+  },
+  {
+   "id": "401882827",
+   "uid": "s:600~l:740~e:401882827",
+   "date": "2026-10-24T16:30Z",
+   "name": "Villarreal at Valencia",
+   "shortName": "VIL @ VAL",
+   "competitions": [
+    {
+     "id": "401882827",
+     "date": "2026-10-24T16:30Z",
+     "status": {
+      "clock": 0,
+      "displayClock": "0'",
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 12:30 PM EDT",
+       "shortDetail": "Scheduled"
+      }
+     },
+     "competitors": [
+      {
+       "id": "94",
+       "homeAway": "home",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "94",
+        "uid": "s:600~t:94",
+        "abbreviation": "VAL",
+        "location": "Valencia",
+        "name": "Valencia",
+        "displayName": "Valencia",
+        "shortDisplayName": "Valencia"
+       }
+      },
+      {
+       "id": "102",
+       "homeAway": "away",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "102",
+        "uid": "s:600~t:102",
+        "abbreviation": "VIL",
+        "location": "Villarreal",
+        "name": "Villarreal",
+        "displayName": "Villarreal",
+        "shortDisplayName": "Villarreal"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 2
+      }
+     },
+     "details": []
+    }
+   ]
+  },
+  {
+   "id": "401882834",
+   "uid": "s:600~l:740~e:401882834",
+   "date": "2026-10-24T19:00Z",
+   "name": "Deportivo at Atlético Madrid",
+   "shortName": "DEP @ ATM",
+   "competitions": [
+    {
+     "id": "401882834",
+     "date": "2026-10-24T19:00Z",
+     "status": {
+      "clock": 0,
+      "displayClock": "0'",
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 3:00 PM EDT",
+       "shortDetail": "Scheduled"
+      }
+     },
+     "competitors": [
+      {
+       "id": "1068",
+       "homeAway": "home",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "1068",
+        "uid": "s:600~t:1068",
+        "abbreviation": "ATM",
+        "location": "Atlético Madrid",
+        "name": "Atlético Madrid",
+        "displayName": "Atlético Madrid",
+        "shortDisplayName": "Atlético"
+       }
+      },
+      {
+       "id": "90",
+       "homeAway": "away",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "90",
+        "uid": "s:600~t:90",
+        "abbreviation": "DEP",
+        "location": "Deportivo",
+        "name": "Deportivo",
+        "displayName": "Deportivo",
+        "shortDisplayName": "Deportivo"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 2
+      }
+     },
+     "details": []
+    }
+   ]
+  },
+  {
+   "id": "401882835",
+   "uid": "s:600~l:740~e:401882835",
+   "date": "2026-10-25T13:00Z",
+   "name": "Getafe at Athletic Club",
+   "shortName": "GET @ ATH",
+   "competitions": [
+    {
+     "id": "401882835",
+     "date": "2026-10-25T13:00Z",
+     "status": {
+      "clock": 0,
+      "displayClock": "0'",
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sun, October 25th at 9:00 AM EDT",
+       "shortDetail": "Scheduled"
+      }
+     },
+     "competitors": [
+      {
+       "id": "93",
+       "homeAway": "home",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "93",
+        "uid": "s:600~t:93",
+        "abbreviation": "ATH",
+        "location": "Athletic Club",
+        "name": "Athletic Club",
+        "displayName": "Athletic Club",
+        "shortDisplayName": "Athletic"
+       }
+      },
+      {
+       "id": "2922",
+       "homeAway": "away",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "2922",
+        "uid": "s:600~t:2922",
+        "abbreviation": "GET",
+        "location": "Getafe",
+        "name": "Getafe",
+        "displayName": "Getafe",
+        "shortDisplayName": "Getafe"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 2
+      }
+     },
+     "details": []
+    }
+   ]
+  },
+  {
+   "id": "401882833",
+   "uid": "s:600~l:740~e:401882833",
+   "date": "2026-10-25T15:15Z",
+   "name": "Real Betis at Celta Vigo",
+   "shortName": "BET @ CEL",
+   "competitions": [
+    {
+     "id": "401882833",
+     "date": "2026-10-25T15:15Z",
+     "status": {
+      "clock": 0,
+      "displayClock": "0'",
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sun, October 25th at 11:15 AM EDT",
+       "shortDetail": "Scheduled"
+      }
+     },
+     "competitors": [
+      {
+       "id": "85",
+       "homeAway": "home",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "85",
+        "uid": "s:600~t:85",
+        "abbreviation": "CEL",
+        "location": "Celta Vigo",
+        "name": "Celta Vigo",
+        "displayName": "Celta Vigo",
+        "shortDisplayName": "Celta Vigo"
+       }
+      },
+      {
+       "id": "244",
+       "homeAway": "away",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "244",
+        "uid": "s:600~t:244",
+        "abbreviation": "BET",
+        "location": "Real Betis",
+        "name": "Real Betis",
+        "displayName": "Real Betis",
+        "shortDisplayName": "Betis"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 2
+      }
+     },
+     "details": []
+    }
+   ]
+  },
+  {
+   "id": "401882829",
+   "uid": "s:600~l:740~e:401882829",
+   "date": "2026-10-25T17:30Z",
+   "name": "Levante at Real Sociedad",
+   "shortName": "LEV @ RSO",
+   "competitions": [
+    {
+     "id": "401882829",
+     "date": "2026-10-25T17:30Z",
+     "status": {
+      "clock": 0,
+      "displayClock": "0'",
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sun, October 25th at 1:30 PM EDT",
+       "shortDetail": "Scheduled"
+      }
+     },
+     "competitors": [
+      {
+       "id": "89",
+       "homeAway": "home",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "89",
+        "uid": "s:600~t:89",
+        "abbreviation": "RSO",
+        "location": "Real Sociedad",
+        "name": "Real Sociedad",
+        "displayName": "Real Sociedad",
+        "shortDisplayName": "Real Sociedad"
+       }
+      },
+      {
+       "id": "1538",
+       "homeAway": "away",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "1538",
+        "uid": "s:600~t:1538",
+        "abbreviation": "LEV",
+        "location": "Levante",
+        "name": "Levante",
+        "displayName": "Levante",
+        "shortDisplayName": "Levante"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 2
+      }
+     },
+     "details": []
+    }
+   ]
+  },
+  {
+   "id": "401882832",
+   "uid": "s:600~l:740~e:401882832",
+   "date": "2026-10-25T20:00Z",
+   "name": "Real Madrid at Barcelona",
+   "shortName": "RMA @ BAR",
+   "competitions": [
+    {
+     "id": "401882832",
+     "date": "2026-10-25T20:00Z",
+     "status": {
+      "clock": 0,
+      "displayClock": "0'",
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sun, October 25th at 4:00 PM EDT",
+       "shortDetail": "Scheduled"
+      }
+     },
+     "competitors": [
+      {
+       "id": "83",
+       "homeAway": "home",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "83",
+        "uid": "s:600~t:83",
+        "abbreviation": "BAR",
+        "location": "Barcelona",
+        "name": "Barcelona",
+        "displayName": "Barcelona",
+        "shortDisplayName": "Barcelona"
+       }
+      },
+      {
+       "id": "86",
+       "homeAway": "away",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "86",
+        "uid": "s:600~t:86",
+        "abbreviation": "RMA",
+        "location": "Real Madrid",
+        "name": "Real Madrid",
+        "displayName": "Real Madrid",
+        "shortDisplayName": "Real Madrid"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 2
+      }
+     },
+     "details": []
+    }
+   ]
+  },
+  {
+   "id": "401882828",
+   "uid": "s:600~l:740~e:401882828",
+   "date": "2026-10-26T20:00Z",
+   "name": "Osasuna at Sevilla",
+   "shortName": "OSA @ SEV",
+   "competitions": [
+    {
+     "id": "401882828",
+     "date": "2026-10-26T20:00Z",
+     "status": {
+      "clock": 0,
+      "displayClock": "0'",
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Mon, October 26th at 4:00 PM EDT",
+       "shortDetail": "Scheduled"
+      }
+     },
+     "competitors": [
+      {
+       "id": "243",
+       "homeAway": "home",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "243",
+        "uid": "s:600~t:243",
+        "abbreviation": "SEV",
+        "location": "Sevilla",
+        "name": "Sevilla",
+        "displayName": "Sevilla",
+        "shortDisplayName": "Sevilla"
+       }
+      },
+      {
+       "id": "97",
+       "homeAway": "away",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "97",
+        "uid": "s:600~t:97",
+        "abbreviation": "OSA",
+        "location": "Osasuna",
+        "name": "Osasuna",
+        "displayName": "Osasuna",
+        "shortDisplayName": "Osasuna"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 2
+      }
+     },
+     "details": []
+    }
+   ]
+  }
+ ]
+}

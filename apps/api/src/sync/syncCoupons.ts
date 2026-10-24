@@ -2,6 +2,7 @@ import { PARSER_VERSION, parseCoupon, type ParsedCoupon, type RawCoupon } from '
 import type { Db } from '../db';
 import { hashPayload } from './hash';
 import { betFields, couponFields, legFields, selectionFields } from './records';
+import { flagUntracked, untrackedIn, type UntrackedSeen } from './untrackedMarkets';
 
 export interface SyncInput {
   /** The tracker user these bets belong to. */
@@ -21,6 +22,8 @@ export interface SyncResult {
   failed: number;
   warnings: string[];
   errors: Array<{ couponRef: string; error: string }>;
+  /** Markets seen for the first time that the tracker can't follow. */
+  untrackedMarkets: string[];
 }
 
 type Outcome = 'created' | 'updated' | 'unchanged' | 'stale';
@@ -32,7 +35,7 @@ type Outcome = 'created' | 'updated' | 'unchanged' | 'stale';
  * settled → settled regrades.
  */
 export async function syncCoupons(db: Db, input: SyncInput): Promise<SyncResult> {
-  const result: SyncResult = { created: 0, updated: 0, unchanged: 0, stale: 0, failed: 0, warnings: [], errors: [] };
+  const result: SyncResult = { created: 0, updated: 0, unchanged: 0, stale: 0, failed: 0, warnings: [], errors: [], untrackedMarkets: [] };
 
   const account = await db.sportsbookAccount.upsert({
     where: { userId_provider_label: { userId: input.userId, provider: 'ISLAND_LUCK_KAMBI', label: input.accountLabel } },
@@ -40,6 +43,8 @@ export async function syncCoupons(db: Db, input: SyncInput): Promise<SyncResult>
     update: {},
   });
 
+  // Checked on every capture, unchanged coupons too, so bets synced before a market was flagged still count.
+  const untracked: UntrackedSeen[] = [];
   for (const raw of input.coupons) {
     const ref = String(raw?.couponRef ?? '');
     try {
@@ -48,10 +53,18 @@ export async function syncCoupons(db: Db, input: SyncInput): Promise<SyncResult>
       result.warnings.push(...parsed.warnings.map((w) => `coupon ${ref}: ${w}`));
       const outcome = await syncOne(db, account.id, parsed, input.capturedAt, result.warnings);
       result[outcome]++;
+      if (outcome !== 'stale') untracked.push(...untrackedIn(parsed));
     } catch (err) {
       result.failed++;
       result.errors.push({ couponRef: ref || '(unknown)', error: err instanceof Error ? err.message : String(err) });
     }
+  }
+  try {
+    const fresh = await flagUntracked(db, [...new Map(untracked.map((m) => [`${m.sport}|${m.marketName}`, m])).values()]);
+    result.untrackedMarkets = fresh.map((m) => m.marketName);
+  } catch (err) {
+    // Flagging is bookkeeping; it never fails a sync.
+    console.error('[untracked-market] flagging failed', err);
   }
   // Never move lastCapturedAt backwards: a delayed older capture can arrive after a newer one.
   await db.sportsbookAccount.update({

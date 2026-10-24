@@ -12,6 +12,7 @@ const state = (s: string, home: number, away: number) => ({
   home: { id: '23', abbreviation: 'PIT' },
   away: { id: '4', abbreviation: 'CIN' },
   situation: null,
+  fight: null,
   updatedAt: '2026-09-27T19:00:00Z',
 });
 
@@ -27,6 +28,7 @@ const pick = (over: Partial<PickView>): PickView => ({
   type: 'STAT',
   display: 'PROGRESS',
   moneylineSide: null,
+  fightGrade: null,
   progress: null,
   ...over,
 });

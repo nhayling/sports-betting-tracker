@@ -1,12 +1,12 @@
 import { Prisma } from '@prisma/client';
 import { classifyMarket, evaluateProgress, gameMarket, type Classification } from '@sports-better/markets';
 import { AUTO_LINK_THRESHOLD, matchEvent, matchPlayer, sportForLeague } from '@sports-better/matching';
-import type { EventSnapshot, ProviderEvent, ProviderPlayer, Sport, SportsDataProvider } from '@sports-better/sports-data';
+import { SPORT_KIND, type EventSnapshot, type ProviderEvent, type ProviderPlayer, type Sport, type SportsDataProvider } from '@sports-better/sports-data';
 import type { Db } from '../db';
 
 /**
  * One pass of the live-progress poller. Network use is limited to:
- *  - one scoreboard per sport, only when an OPEN bet has a game between
+ *  - one scoreboard per sport, only when a bet (open or settled) has a game between
  *    15 min before kickoff and 6 h after it;
  *  - one box score per LIVE game that has a player/total prop (plus one after FINAL);
  *  - team rosters only while a player is still unmatched (cached 12 h).
@@ -34,7 +34,16 @@ type Selection = Leg['selections'][number];
 
 const rosterCache = new Map<string, { at: number; players: ProviderPlayer[] }>();
 
-export async function runPollCycle(db: Db, provider: SportsDataProvider, now = new Date()): Promise<CycleReport> {
+export interface CycleOptions {
+  /**
+   * Kambi events whose final box score is read again even though it was
+   * already read once (npm run backfill: picks that stopped updating before
+   * their game ended).
+   */
+  refetchFinal?: Set<string>;
+}
+
+export async function runPollCycle(db: Db, provider: SportsDataProvider, now = new Date(), opts: CycleOptions = {}): Promise<CycleReport> {
   const report: CycleReport = {
     at: now.toISOString(),
     legsInWindow: 0,
@@ -48,9 +57,9 @@ export async function runPollCycle(db: Db, provider: SportsDataProvider, now = n
 
   const legs: Leg[] = await db.betLeg.findMany({
     where: {
-      // Cashed-out bets too: Island Luck stops settling their picks, and the
-      // Analysis tab's cash-out check needs their final scores.
-      coupon: { status: { in: ['OPEN', 'CASHED_OUT'] } },
+      // Settled bets too, until their games end: a parlay that loses early
+      // still shows each pick's final stat (Island Luck only says won or
+      // lost), and the Analysis tab's cash-out check needs final scores.
       eventStartAt: { gte: new Date(now.getTime() - MAX_GAME_MS), lte: new Date(now.getTime() + PREGAME_MS) },
     },
     include: { selections: { include: { progress: true } } },
@@ -135,7 +144,8 @@ export async function runPollCycle(db: Db, provider: SportsDataProvider, now = n
         for (const { s, cls } of tracked) await write.progress(s, cls, evaluateProgress(cls, null, 'SCHEDULED')!, event, null);
         continue;
       }
-      const needsBoxScore = event.state.state === 'LIVE' || (event.state.state === 'FINAL' && !stored.finalizedAt);
+      const needsBoxScore =
+        event.state.state === 'LIVE' || (event.state.state === 'FINAL' && (!stored.finalizedAt || !!opts.refetchFinal?.has(kambiEventId)));
       if (!needsBoxScore) continue;
 
       let snap: EventSnapshot;
@@ -151,8 +161,8 @@ export async function runPollCycle(db: Db, provider: SportsDataProvider, now = n
       for (const { s, cls } of tracked) {
         const inPlay = snap.state.state === 'LIVE' || snap.state.state === 'FINAL';
         if (cls.scope === 'GAME') {
-          // Whole-game totals (e.g. field goals): sum the stat across both teams.
-          const total = snap.players.reduce((n, p) => n + (p.stats[cls.metric] ?? 0), 0);
+          // Whole-game totals (e.g. field goals): sum the stat across both teams, or ESPN's own team total (corners).
+          const total = snap.gameStats?.[cls.metric] ?? snap.players.reduce((n, p) => n + (p.stats[cls.metric] ?? 0), 0);
           const p = evaluateProgress(cls, inPlay ? total : null, snap.state.state);
           if (!p) await write.unavailable(s, 'NO_STAT');
           else await write.progress(s, cls, p, event, null);
@@ -214,8 +224,9 @@ async function resolvePlayer(
   }
 
   // Match against everyone in this game: box score players plus both full rosters.
+  // A soccer summary already lists both match-day squads.
   const pool = [...snap.players.map((p) => p.player)];
-  for (const team of [snap.home, snap.away]) {
+  for (const team of SPORT_KIND[sport] === 'soccer' ? [] : [snap.home, snap.away]) {
     try {
       pool.push(...(await roster(provider, sport, team.id, report)));
     } catch (err) {
@@ -272,6 +283,7 @@ async function saveEventState(db: Db, provider: string, e: ProviderEvent) {
     homeScore: e.state.homeScore,
     awayScore: e.state.awayScore,
     situation: e.state.situation ? (e.state.situation as unknown as Prisma.InputJsonValue) : Prisma.JsonNull,
+    result: e.state.fight ? (e.state.fight as unknown as Prisma.InputJsonValue) : Prisma.JsonNull,
   };
   return db.providerEventState.upsert({
     where: { provider_providerEventId: { provider, providerEventId: e.id } },

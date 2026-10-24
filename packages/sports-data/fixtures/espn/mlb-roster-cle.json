@@ -1,0 +1,503 @@
+{
+ "team": {
+  "id": "5",
+  "abbreviation": "CLE",
+  "location": "Cleveland",
+  "name": "Guardians",
+  "displayName": "Cleveland Guardians"
+ },
+ "athletes": [
+  {
+   "position": "Pitchers",
+   "items": [
+    {
+     "id": "33499",
+     "uid": "s:1~l:10~a:33499",
+     "firstName": "Shawn",
+     "lastName": "Armstrong",
+     "fullName": "Shawn Armstrong",
+     "displayName": "Shawn Armstrong",
+     "shortName": "S. Armstrong",
+     "jersey": "43",
+     "position": {
+      "abbreviation": "RP",
+      "name": "Relief Pitcher"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4345278",
+     "uid": "s:1~l:10~a:4345278",
+     "firstName": "Tanner",
+     "lastName": "Bibee",
+     "fullName": "Tanner Bibee",
+     "displayName": "Tanner Bibee",
+     "shortName": "T. Bibee",
+     "jersey": "28",
+     "position": {
+      "abbreviation": "SP",
+      "name": "Starting Pitcher"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "42488",
+     "uid": "s:1~l:10~a:42488",
+     "firstName": "Joey",
+     "lastName": "Cantillo",
+     "fullName": "Joey Cantillo",
+     "displayName": "Joey Cantillo",
+     "shortName": "J. Cantillo",
+     "jersey": "54",
+     "position": {
+      "abbreviation": "SP",
+      "name": "Starting Pitcher"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "41462",
+     "uid": "s:1~l:10~a:41462",
+     "firstName": "Slade",
+     "lastName": "Cecconi",
+     "fullName": "Slade Cecconi",
+     "displayName": "Slade Cecconi",
+     "shortName": "S. Cecconi",
+     "jersey": "44",
+     "position": {
+      "abbreviation": "SP",
+      "name": "Starting Pitcher"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "42438",
+     "uid": "s:1~l:10~a:42438",
+     "firstName": "Daniel",
+     "lastName": "Espino",
+     "fullName": "Daniel Espino",
+     "displayName": "Daniel Espino",
+     "shortName": "D. Espino",
+     "jersey": "41",
+     "position": {
+      "abbreviation": "RP",
+      "name": "Relief Pitcher"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "39871",
+     "uid": "s:1~l:10~a:39871",
+     "firstName": "Matt",
+     "lastName": "Festa",
+     "fullName": "Matt Festa",
+     "displayName": "Matt Festa",
+     "shortName": "M. Festa",
+     "jersey": "52",
+     "position": {
+      "abbreviation": "RP",
+      "name": "Relief Pitcher"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4187661",
+     "uid": "s:1~l:10~a:4187661",
+     "firstName": "Hunter",
+     "lastName": "Gaddis",
+     "fullName": "Hunter Gaddis",
+     "displayName": "Hunter Gaddis",
+     "shortName": "H. Gaddis",
+     "jersey": "33",
+     "position": {
+      "abbreviation": "RP",
+      "name": "Relief Pitcher"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "33773",
+     "uid": "s:1~l:10~a:33773",
+     "firstName": "Foster",
+     "lastName": "Griffin",
+     "fullName": "Foster Griffin",
+     "displayName": "Foster Griffin",
+     "shortName": "F. Griffin",
+     "jersey": "22",
+     "position": {
+      "abbreviation": "SP",
+      "name": "Starting Pitcher"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4228579",
+     "uid": "s:1~l:10~a:4228579",
+     "firstName": "Tim",
+     "lastName": "Herrin",
+     "fullName": "Tim Herrin",
+     "displayName": "Tim Herrin",
+     "shortName": "T. Herrin",
+     "jersey": "29",
+     "position": {
+      "abbreviation": "RP",
+      "name": "Relief Pitcher"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4619898",
+     "uid": "s:1~l:10~a:4619898",
+     "firstName": "Parker",
+     "lastName": "Messick",
+     "fullName": "Parker Messick",
+     "displayName": "Parker Messick",
+     "shortName": "P. Messick",
+     "jersey": "77",
+     "position": {
+      "abbreviation": "SP",
+      "name": "Starting Pitcher"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "5194333",
+     "uid": "s:1~l:10~a:5194333",
+     "firstName": "Erik",
+     "lastName": "Sabrowski",
+     "fullName": "Erik Sabrowski",
+     "displayName": "Erik Sabrowski",
+     "shortName": "E. Sabrowski",
+     "jersey": "62",
+     "position": {
+      "abbreviation": "RP",
+      "name": "Relief Pitcher"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4987924",
+     "uid": "s:1~l:10~a:4987924",
+     "firstName": "Cade",
+     "lastName": "Smith",
+     "fullName": "Cade Smith",
+     "displayName": "Cade Smith",
+     "shortName": "C. Smith",
+     "jersey": "36",
+     "position": {
+      "abbreviation": "RP",
+      "name": "Relief Pitcher"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4345076",
+     "uid": "s:1~l:10~a:4345076",
+     "firstName": "Gavin",
+     "lastName": "Williams",
+     "fullName": "Gavin Williams",
+     "displayName": "Gavin Williams",
+     "shortName": "G. Williams",
+     "jersey": "32",
+     "position": {
+      "abbreviation": "SP",
+      "name": "Starting Pitcher"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    }
+   ]
+  },
+  {
+   "position": "Catchers",
+   "items": [
+    {
+     "id": "4345843",
+     "uid": "s:1~l:10~a:4345843",
+     "firstName": "Patrick",
+     "lastName": "Bailey",
+     "fullName": "Patrick Bailey",
+     "displayName": "Patrick Bailey",
+     "shortName": "P. Bailey",
+     "jersey": "16",
+     "position": {
+      "abbreviation": "C",
+      "name": "Catcher"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "32168",
+     "uid": "s:1~l:10~a:32168",
+     "firstName": "Austin",
+     "lastName": "Hedges",
+     "fullName": "Austin Hedges",
+     "displayName": "Austin Hedges",
+     "shortName": "A. Hedges",
+     "jersey": "27",
+     "position": {
+      "abbreviation": "C",
+      "name": "Catcher"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    }
+   ]
+  },
+  {
+   "position": "Infielders",
+   "items": [
+    {
+     "id": "5007707",
+     "uid": "s:1~l:10~a:5007707",
+     "firstName": "Travis",
+     "lastName": "Bazzana",
+     "fullName": "Travis Bazzana",
+     "displayName": "Travis Bazzana",
+     "shortName": "T. Bazzana",
+     "jersey": "37",
+     "position": {
+      "abbreviation": "2B",
+      "name": "Second Base"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "5204351",
+     "uid": "s:1~l:10~a:5204351",
+     "firstName": "Angel",
+     "lastName": "Genao",
+     "fullName": "Angel Genao",
+     "displayName": "Angel Genao",
+     "shortName": "A. Genao",
+     "jersey": "17",
+     "position": {
+      "abbreviation": "2B",
+      "name": "Second Base"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "40538",
+     "uid": "s:1~l:10~a:40538",
+     "firstName": "Nathaniel",
+     "lastName": "Lowe",
+     "fullName": "Nathaniel Lowe",
+     "displayName": "Nathaniel Lowe",
+     "shortName": "N. Lowe",
+     "jersey": "46",
+     "position": {
+      "abbreviation": "1B",
+      "name": "First Base"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "32801",
+     "uid": "s:1~l:10~a:32801",
+     "firstName": "Jose",
+     "lastName": "Ramirez",
+     "fullName": "Jose Ramirez",
+     "displayName": "Jose Ramirez",
+     "shortName": "J. Ramirez",
+     "jersey": "11",
+     "position": {
+      "abbreviation": "3B",
+      "name": "Third Base"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "41217",
+     "uid": "s:1~l:10~a:41217",
+     "firstName": "Brayan",
+     "lastName": "Rocchio",
+     "fullName": "Brayan Rocchio",
+     "displayName": "Brayan Rocchio",
+     "shortName": "B. Rocchio",
+     "jersey": "4",
+     "position": {
+      "abbreviation": "SS",
+      "name": "Shortstop"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    }
+   ]
+  },
+  {
+   "position": "Outfielders",
+   "items": [
+    {
+     "id": "40854",
+     "uid": "s:1~l:10~a:40854",
+     "firstName": "Jo",
+     "lastName": "Adell",
+     "fullName": "Jo Adell",
+     "displayName": "Jo Adell",
+     "shortName": "J. Adell",
+     "jersey": "7",
+     "position": {
+      "abbreviation": "RF",
+      "name": "Right Field"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4619649",
+     "uid": "s:1~l:10~a:4619649",
+     "firstName": "Chase",
+     "lastName": "DeLauter",
+     "fullName": "Chase DeLauter",
+     "displayName": "Chase DeLauter",
+     "shortName": "C. DeLauter",
+     "jersey": "24",
+     "position": {
+      "abbreviation": "RF",
+      "name": "Right Field"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "41672",
+     "uid": "s:1~l:10~a:41672",
+     "firstName": "David",
+     "lastName": "Fry",
+     "fullName": "David Fry",
+     "displayName": "David Fry",
+     "shortName": "D. Fry",
+     "jersey": "6",
+     "position": {
+      "abbreviation": "RF",
+      "name": "Right Field"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4722962",
+     "uid": "s:1~l:10~a:4722962",
+     "firstName": "Petey",
+     "lastName": "Halpin",
+     "fullName": "Petey Halpin",
+     "displayName": "Petey Halpin",
+     "shortName": "P. Halpin",
+     "jersey": "0",
+     "position": {
+      "abbreviation": "CF",
+      "name": "Center Field"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "41996",
+     "uid": "s:1~l:10~a:41996",
+     "firstName": "Steven",
+     "lastName": "Kwan",
+     "fullName": "Steven Kwan",
+     "displayName": "Steven Kwan",
+     "shortName": "S. Kwan",
+     "jersey": "38",
+     "position": {
+      "abbreviation": "LF",
+      "name": "Left Field"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "42497",
+     "uid": "s:1~l:10~a:42497",
+     "firstName": "Angel",
+     "lastName": "Martinez",
+     "fullName": "Angel Martinez",
+     "displayName": "Angel Martinez",
+     "shortName": "A. Martinez",
+     "jersey": "1",
+     "position": {
+      "abbreviation": "LF",
+      "name": "Left Field"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    }
+   ]
+  },
+  {
+   "position": "Designated Hitter",
+   "items": []
+  }
+ ]
+}

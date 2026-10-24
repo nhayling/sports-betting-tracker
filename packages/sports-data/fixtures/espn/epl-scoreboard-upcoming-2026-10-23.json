@@ -1,0 +1,580 @@
+{
+ "events": [
+  {
+   "id": "401879256",
+   "uid": "s:600~l:700~e:401879256",
+   "date": "2026-10-24T11:30Z",
+   "name": "Manchester City at Aston Villa",
+   "shortName": "MNC @ AVL",
+   "competitions": [
+    {
+     "id": "401879256",
+     "date": "2026-10-24T11:30Z",
+     "status": {
+      "clock": 0,
+      "displayClock": "0'",
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 7:30 AM EDT",
+       "shortDetail": "Scheduled"
+      }
+     },
+     "competitors": [
+      {
+       "id": "362",
+       "homeAway": "home",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "362",
+        "uid": "s:600~t:362",
+        "abbreviation": "AVL",
+        "location": "Aston Villa",
+        "name": "Aston Villa",
+        "displayName": "Aston Villa",
+        "shortDisplayName": "Aston Villa"
+       }
+      },
+      {
+       "id": "382",
+       "homeAway": "away",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "382",
+        "uid": "s:600~t:382",
+        "abbreviation": "MNC",
+        "location": "Manchester City",
+        "name": "Manchester City",
+        "displayName": "Manchester City",
+        "shortDisplayName": "Man City"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 2
+      }
+     },
+     "details": []
+    }
+   ]
+  },
+  {
+   "id": "401878768",
+   "uid": "s:600~l:700~e:401878768",
+   "date": "2026-10-24T14:00Z",
+   "name": "Everton at Arsenal",
+   "shortName": "EVE @ ARS",
+   "competitions": [
+    {
+     "id": "401878768",
+     "date": "2026-10-24T14:00Z",
+     "status": {
+      "clock": 0,
+      "displayClock": "0'",
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 10:00 AM EDT",
+       "shortDetail": "Scheduled"
+      }
+     },
+     "competitors": [
+      {
+       "id": "359",
+       "homeAway": "home",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "359",
+        "uid": "s:600~t:359",
+        "abbreviation": "ARS",
+        "location": "Arsenal",
+        "name": "Arsenal",
+        "displayName": "Arsenal",
+        "shortDisplayName": "Arsenal"
+       }
+      },
+      {
+       "id": "368",
+       "homeAway": "away",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "368",
+        "uid": "s:600~t:368",
+        "abbreviation": "EVE",
+        "location": "Everton",
+        "name": "Everton",
+        "displayName": "Everton",
+        "shortDisplayName": "Everton"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 2
+      }
+     },
+     "details": []
+    }
+   ]
+  },
+  {
+   "id": "401879255",
+   "uid": "s:600~l:700~e:401879255",
+   "date": "2026-10-24T14:00Z",
+   "name": "Fulham at Coventry City",
+   "shortName": "FUL @ COV",
+   "competitions": [
+    {
+     "id": "401879255",
+     "date": "2026-10-24T14:00Z",
+     "status": {
+      "clock": 0,
+      "displayClock": "0'",
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 10:00 AM EDT",
+       "shortDetail": "Scheduled"
+      }
+     },
+     "competitors": [
+      {
+       "id": "388",
+       "homeAway": "home",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "388",
+        "uid": "s:600~t:388",
+        "abbreviation": "COV",
+        "location": "Coventry City",
+        "name": "Coventry City",
+        "displayName": "Coventry City",
+        "shortDisplayName": "Coventry"
+       }
+      },
+      {
+       "id": "370",
+       "homeAway": "away",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "370",
+        "uid": "s:600~t:370",
+        "abbreviation": "FUL",
+        "location": "Fulham",
+        "name": "Fulham",
+        "displayName": "Fulham",
+        "shortDisplayName": "Fulham"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 2
+      }
+     },
+     "details": []
+    }
+   ]
+  },
+  {
+   "id": "401878767",
+   "uid": "s:600~l:700~e:401878767",
+   "date": "2026-10-24T16:30Z",
+   "name": "Tottenham Hotspur at Chelsea",
+   "shortName": "TOT @ CHE",
+   "competitions": [
+    {
+     "id": "401878767",
+     "date": "2026-10-24T16:30Z",
+     "status": {
+      "clock": 0,
+      "displayClock": "0'",
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 12:30 PM EDT",
+       "shortDetail": "Scheduled"
+      }
+     },
+     "competitors": [
+      {
+       "id": "363",
+       "homeAway": "home",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "363",
+        "uid": "s:600~t:363",
+        "abbreviation": "CHE",
+        "location": "Chelsea",
+        "name": "Chelsea",
+        "displayName": "Chelsea",
+        "shortDisplayName": "Chelsea"
+       }
+      },
+      {
+       "id": "367",
+       "homeAway": "away",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "367",
+        "uid": "s:600~t:367",
+        "abbreviation": "TOT",
+        "location": "Tottenham Hotspur",
+        "name": "Tottenham Hotspur",
+        "displayName": "Tottenham Hotspur",
+        "shortDisplayName": "Spurs"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 2
+      }
+     },
+     "details": []
+    }
+   ]
+  },
+  {
+   "id": "401879254",
+   "uid": "s:600~l:700~e:401879254",
+   "date": "2026-10-25T14:00Z",
+   "name": "Newcastle United at Crystal Palace",
+   "shortName": "NEW @ CRY",
+   "competitions": [
+    {
+     "id": "401879254",
+     "date": "2026-10-25T14:00Z",
+     "status": {
+      "clock": 0,
+      "displayClock": "0'",
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sun, October 25th at 10:00 AM EDT",
+       "shortDetail": "Scheduled"
+      }
+     },
+     "competitors": [
+      {
+       "id": "384",
+       "homeAway": "home",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "384",
+        "uid": "s:600~t:384",
+        "abbreviation": "CRY",
+        "location": "Crystal Palace",
+        "name": "Crystal Palace",
+        "displayName": "Crystal Palace",
+        "shortDisplayName": "C Palace"
+       }
+      },
+      {
+       "id": "361",
+       "homeAway": "away",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "361",
+        "uid": "s:600~t:361",
+        "abbreviation": "NEW",
+        "location": "Newcastle United",
+        "name": "Newcastle United",
+        "displayName": "Newcastle United",
+        "shortDisplayName": "Newcastle"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 2
+      }
+     },
+     "details": []
+    }
+   ]
+  },
+  {
+   "id": "401878766",
+   "uid": "s:600~l:700~e:401878766",
+   "date": "2026-10-25T14:00Z",
+   "name": "Brentford at Hull City",
+   "shortName": "BRE @ HUL",
+   "competitions": [
+    {
+     "id": "401878766",
+     "date": "2026-10-25T14:00Z",
+     "status": {
+      "clock": 0,
+      "displayClock": "0'",
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sun, October 25th at 10:00 AM EDT",
+       "shortDetail": "Scheduled"
+      }
+     },
+     "competitors": [
+      {
+       "id": "306",
+       "homeAway": "home",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "306",
+        "uid": "s:600~t:306",
+        "abbreviation": "HUL",
+        "location": "Hull City",
+        "name": "Hull City",
+        "displayName": "Hull City",
+        "shortDisplayName": "Hull"
+       }
+      },
+      {
+       "id": "337",
+       "homeAway": "away",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "337",
+        "uid": "s:600~t:337",
+        "abbreviation": "BRE",
+        "location": "Brentford",
+        "name": "Brentford",
+        "displayName": "Brentford",
+        "shortDisplayName": "Brentford"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 2
+      }
+     },
+     "details": []
+    }
+   ]
+  },
+  {
+   "id": "401878765",
+   "uid": "s:600~l:700~e:401878765",
+   "date": "2026-10-25T14:00Z",
+   "name": "Brighton & Hove Albion at Liverpool",
+   "shortName": "BHA @ LIV",
+   "competitions": [
+    {
+     "id": "401878765",
+     "date": "2026-10-25T14:00Z",
+     "status": {
+      "clock": 0,
+      "displayClock": "0'",
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sun, October 25th at 10:00 AM EDT",
+       "shortDetail": "Scheduled"
+      }
+     },
+     "competitors": [
+      {
+       "id": "364",
+       "homeAway": "home",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "364",
+        "uid": "s:600~t:364",
+        "abbreviation": "LIV",
+        "location": "Liverpool",
+        "name": "Liverpool",
+        "displayName": "Liverpool",
+        "shortDisplayName": "Liverpool"
+       }
+      },
+      {
+       "id": "331",
+       "homeAway": "away",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "331",
+        "uid": "s:600~t:331",
+        "abbreviation": "BHA",
+        "location": "Brighton & Hove Albion",
+        "name": "Brighton & Hove Albion",
+        "displayName": "Brighton & Hove Albion",
+        "shortDisplayName": "Brighton"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 2
+      }
+     },
+     "details": []
+    }
+   ]
+  },
+  {
+   "id": "401879252",
+   "uid": "s:600~l:700~e:401879252",
+   "date": "2026-10-25T14:00Z",
+   "name": "AFC Bournemouth at Manchester United",
+   "shortName": "BOU @ MAN",
+   "competitions": [
+    {
+     "id": "401879252",
+     "date": "2026-10-25T14:00Z",
+     "status": {
+      "clock": 0,
+      "displayClock": "0'",
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sun, October 25th at 10:00 AM EDT",
+       "shortDetail": "Scheduled"
+      }
+     },
+     "competitors": [
+      {
+       "id": "360",
+       "homeAway": "home",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "360",
+        "uid": "s:600~t:360",
+        "abbreviation": "MAN",
+        "location": "Manchester United",
+        "name": "Manchester United",
+        "displayName": "Manchester United",
+        "shortDisplayName": "Man United"
+       }
+      },
+      {
+       "id": "349",
+       "homeAway": "away",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "349",
+        "uid": "s:600~t:349",
+        "abbreviation": "BOU",
+        "location": "AFC Bournemouth",
+        "name": "AFC Bournemouth",
+        "displayName": "AFC Bournemouth",
+        "shortDisplayName": "Bournemouth"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 2
+      }
+     },
+     "details": []
+    }
+   ]
+  },
+  {
+   "id": "401878764",
+   "uid": "s:600~l:700~e:401878764",
+   "date": "2026-10-25T16:30Z",
+   "name": "Leeds United at Sunderland",
+   "shortName": "LEE @ SUN",
+   "competitions": [
+    {
+     "id": "401878764",
+     "date": "2026-10-25T16:30Z",
+     "status": {
+      "clock": 0,
+      "displayClock": "0'",
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sun, October 25th at 12:30 PM EDT",
+       "shortDetail": "Scheduled"
+      }
+     },
+     "competitors": [
+      {
+       "id": "366",
+       "homeAway": "home",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "366",
+        "uid": "s:600~t:366",
+        "abbreviation": "SUN",
+        "location": "Sunderland",
+        "name": "Sunderland",
+        "displayName": "Sunderland",
+        "shortDisplayName": "Sunderland"
+       }
+      },
+      {
+       "id": "357",
+       "homeAway": "away",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "357",
+        "uid": "s:600~t:357",
+        "abbreviation": "LEE",
+        "location": "Leeds United",
+        "name": "Leeds United",
+        "displayName": "Leeds United",
+        "shortDisplayName": "Leeds"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 2
+      }
+     },
+     "details": []
+    }
+   ]
+  }
+ ]
+}

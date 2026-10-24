@@ -1,0 +1,575 @@
+{
+ "team": {
+  "id": "13",
+  "abbreviation": "NYR",
+  "location": "New York",
+  "name": "Rangers",
+  "displayName": "New York Rangers"
+ },
+ "athletes": [
+  {
+   "position": "Centers",
+   "items": [
+    {
+     "id": "3067879",
+     "uid": "s:70~l:90~a:3067879",
+     "firstName": "Justin",
+     "lastName": "Dowling",
+     "fullName": "Justin Dowling",
+     "displayName": "Justin Dowling",
+     "shortName": "J. Dowling",
+     "jersey": "37",
+     "position": {
+      "abbreviation": "C",
+      "name": "Center"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "2335062",
+     "uid": "s:70~l:90~a:2335062",
+     "firstName": "Luke",
+     "lastName": "Glendening",
+     "fullName": "Luke Glendening",
+     "displayName": "Luke Glendening",
+     "shortName": "L. Glendening",
+     "position": {
+      "abbreviation": "C",
+      "name": "Center"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "5188370",
+     "uid": "s:70~l:90~a:5188370",
+     "firstName": "Noah",
+     "lastName": "Laba",
+     "fullName": "Noah Laba",
+     "displayName": "Noah Laba",
+     "shortName": "N. Laba",
+     "jersey": "42",
+     "position": {
+      "abbreviation": "C",
+      "name": "Center"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4867883",
+     "uid": "s:70~l:90~a:4867883",
+     "firstName": "Juuso",
+     "lastName": "Parssinen",
+     "fullName": "Juuso Parssinen",
+     "displayName": "Juuso Parssinen",
+     "shortName": "J. Parssinen",
+     "jersey": "71",
+     "position": {
+      "abbreviation": "C",
+      "name": "Center"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4697820",
+     "uid": "s:70~l:90~a:4697820",
+     "firstName": "Matt",
+     "lastName": "Rempe",
+     "fullName": "Matt Rempe",
+     "displayName": "Matt Rempe",
+     "shortName": "M. Rempe",
+     "jersey": "73",
+     "position": {
+      "abbreviation": "C",
+      "name": "Center"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4352804",
+     "uid": "s:70~l:90~a:4352804",
+     "firstName": "Joe",
+     "lastName": "Veleno",
+     "fullName": "Joe Veleno",
+     "displayName": "Joe Veleno",
+     "shortName": "J. Veleno",
+     "jersey": "90",
+     "position": {
+      "abbreviation": "C",
+      "name": "Center"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "2562637",
+     "uid": "s:70~l:90~a:2562637",
+     "firstName": "Mika",
+     "lastName": "Zibanejad",
+     "fullName": "Mika Zibanejad",
+     "displayName": "Mika Zibanejad",
+     "shortName": "M. Zibanejad",
+     "jersey": "93",
+     "position": {
+      "abbreviation": "C",
+      "name": "Center"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    }
+   ]
+  },
+  {
+   "position": "Left Wings",
+   "items": [
+    {
+     "id": "4697468",
+     "uid": "s:70~l:90~a:4697468",
+     "firstName": "Will",
+     "lastName": "Cuylle",
+     "fullName": "Will Cuylle",
+     "displayName": "Will Cuylle",
+     "shortName": "W. Cuylle",
+     "jersey": "50",
+     "position": {
+      "abbreviation": "LW",
+      "name": "Left Wing"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4588750",
+     "uid": "s:70~l:90~a:4588750",
+     "firstName": "Tye",
+     "lastName": "Kartye",
+     "fullName": "Tye Kartye",
+     "displayName": "Tye Kartye",
+     "shortName": "T. Kartye",
+     "jersey": "24",
+     "position": {
+      "abbreviation": "LW",
+      "name": "Left Wing"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4697382",
+     "uid": "s:70~l:90~a:4697382",
+     "firstName": "Alexis",
+     "lastName": "Lafreniere",
+     "fullName": "Alexis Lafreniere",
+     "displayName": "Alexis Lafreniere",
+     "shortName": "A. Lafreniere",
+     "jersey": "13",
+     "position": {
+      "abbreviation": "LW",
+      "name": "Left Wing"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "2590852",
+     "uid": "s:70~l:90~a:2590852",
+     "firstName": "J.T.",
+     "lastName": "Miller",
+     "fullName": "J.T. Miller",
+     "displayName": "J.T. Miller",
+     "shortName": "J.T. Miller",
+     "jersey": "10",
+     "position": {
+      "abbreviation": "LW",
+      "name": "Left Wing"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "5080232",
+     "uid": "s:70~l:90~a:5080232",
+     "firstName": "Adam",
+     "lastName": "Sykora",
+     "fullName": "Adam Sykora",
+     "displayName": "Adam Sykora",
+     "shortName": "A. Sykora",
+     "jersey": "38",
+     "position": {
+      "abbreviation": "LW",
+      "name": "Left Wing"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    }
+   ]
+  },
+  {
+   "position": "Right Wings",
+   "items": [
+    {
+     "id": "3042095",
+     "uid": "s:70~l:90~a:3042095",
+     "firstName": "Oliver",
+     "lastName": "Bjorkstrand",
+     "fullName": "Oliver Bjorkstrand",
+     "displayName": "Oliver Bjorkstrand",
+     "shortName": "O. Bjorkstrand",
+     "jersey": "28",
+     "position": {
+      "abbreviation": "RW",
+      "name": "Right Wing"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4587588",
+     "uid": "s:70~l:90~a:4587588",
+     "firstName": "Pavel",
+     "lastName": "Dorofeyev",
+     "fullName": "Pavel Dorofeyev",
+     "displayName": "Pavel Dorofeyev",
+     "shortName": "P. Dorofeyev",
+     "jersey": "16",
+     "position": {
+      "abbreviation": "RW",
+      "name": "Right Wing"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "5149204",
+     "uid": "s:70~l:90~a:5149204",
+     "firstName": "Gabe",
+     "lastName": "Perreault",
+     "fullName": "Gabe Perreault",
+     "displayName": "Gabe Perreault",
+     "shortName": "G. Perreault",
+     "jersey": "94",
+     "position": {
+      "abbreviation": "RW",
+      "name": "Right Wing"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4063502",
+     "uid": "s:70~l:90~a:4063502",
+     "firstName": "Taylor",
+     "lastName": "Raddysh",
+     "fullName": "Taylor Raddysh",
+     "displayName": "Taylor Raddysh",
+     "shortName": "T. Raddysh",
+     "jersey": "14",
+     "position": {
+      "abbreviation": "RW",
+      "name": "Right Wing"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4233720",
+     "uid": "s:70~l:90~a:4233720",
+     "firstName": "Eeli",
+     "lastName": "Tolvanen",
+     "fullName": "Eeli Tolvanen",
+     "displayName": "Eeli Tolvanen",
+     "shortName": "E. Tolvanen",
+     "jersey": "17",
+     "position": {
+      "abbreviation": "RW",
+      "name": "Right Wing"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    }
+   ]
+  },
+  {
+   "position": "Defense",
+   "items": [
+    {
+     "id": "4378683",
+     "uid": "s:70~l:90~a:4378683",
+     "firstName": "Sean",
+     "lastName": "Durzi",
+     "fullName": "Sean Durzi",
+     "displayName": "Sean Durzi",
+     "shortName": "S. Durzi",
+     "jersey": "5",
+     "position": {
+      "abbreviation": "D",
+      "name": "Defense"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4197146",
+     "uid": "s:70~l:90~a:4197146",
+     "firstName": "Adam",
+     "lastName": "Fox",
+     "fullName": "Adam Fox",
+     "displayName": "Adam Fox",
+     "shortName": "A. Fox",
+     "jersey": "23",
+     "position": {
+      "abbreviation": "D",
+      "name": "Defense"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "3942292",
+     "uid": "s:70~l:90~a:3942292",
+     "firstName": "Vladislav",
+     "lastName": "Gavrikov",
+     "fullName": "Vladislav Gavrikov",
+     "displayName": "Vladislav Gavrikov",
+     "shortName": "V. Gavrikov",
+     "jersey": "44",
+     "position": {
+      "abbreviation": "D",
+      "name": "Defense"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4874915",
+     "uid": "s:70~l:90~a:4874915",
+     "firstName": "Vincent",
+     "lastName": "Iorio",
+     "fullName": "Vincent Iorio",
+     "displayName": "Vincent Iorio",
+     "shortName": "V. Iorio",
+     "jersey": "6",
+     "position": {
+      "abbreviation": "D",
+      "name": "Defense"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4874882",
+     "uid": "s:70~l:90~a:4874882",
+     "firstName": "Scott",
+     "lastName": "Morrow",
+     "fullName": "Scott Morrow",
+     "displayName": "Scott Morrow",
+     "shortName": "S. Morrow",
+     "jersey": "60",
+     "position": {
+      "abbreviation": "D",
+      "name": "Defense"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "3114995",
+     "uid": "s:70~l:90~a:3114995",
+     "firstName": "Marcus",
+     "lastName": "Pettersson",
+     "fullName": "Marcus Pettersson",
+     "displayName": "Marcus Pettersson",
+     "shortName": "M. Pettersson",
+     "jersey": "26",
+     "position": {
+      "abbreviation": "D",
+      "name": "Defense"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4697402",
+     "uid": "s:70~l:90~a:4697402",
+     "firstName": "Braden",
+     "lastName": "Schneider",
+     "fullName": "Braden Schneider",
+     "displayName": "Braden Schneider",
+     "shortName": "B. Schneider",
+     "jersey": "4",
+     "position": {
+      "abbreviation": "D",
+      "name": "Defense"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "5334662",
+     "uid": "s:70~l:90~a:5334662",
+     "firstName": "Alberts",
+     "lastName": "Smits",
+     "fullName": "Alberts Smits",
+     "displayName": "Alberts Smits",
+     "shortName": "A. Smits",
+     "jersey": "12",
+     "position": {
+      "abbreviation": "D",
+      "name": "Defense"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4233619",
+     "uid": "s:70~l:90~a:4233619",
+     "firstName": "Urho",
+     "lastName": "Vaakanainen",
+     "fullName": "Urho Vaakanainen",
+     "displayName": "Urho Vaakanainen",
+     "shortName": "U. Vaakanainen",
+     "jersey": "18",
+     "position": {
+      "abbreviation": "D",
+      "name": "Defense"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    }
+   ]
+  },
+  {
+   "position": "Goalies",
+   "items": [
+    {
+     "id": "4697705",
+     "uid": "s:70~l:90~a:4697705",
+     "firstName": "Dylan",
+     "lastName": "Garand",
+     "fullName": "Dylan Garand",
+     "displayName": "Dylan Garand",
+     "shortName": "D. Garand",
+     "jersey": "33",
+     "position": {
+      "abbreviation": "G",
+      "name": "Goaltender"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "3069266",
+     "uid": "s:70~l:90~a:3069266",
+     "firstName": "Joonas",
+     "lastName": "Korpisalo",
+     "fullName": "Joonas Korpisalo",
+     "displayName": "Joonas Korpisalo",
+     "shortName": "J. Korpisalo",
+     "jersey": "70",
+     "position": {
+      "abbreviation": "G",
+      "name": "Goaltender"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "3042069",
+     "uid": "s:70~l:90~a:3042069",
+     "firstName": "Spencer",
+     "lastName": "Martin",
+     "fullName": "Spencer Martin",
+     "displayName": "Spencer Martin",
+     "shortName": "S. Martin",
+     "jersey": "41",
+     "position": {
+      "abbreviation": "G",
+      "name": "Goaltender"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "3151297",
+     "uid": "s:70~l:90~a:3151297",
+     "firstName": "Igor",
+     "lastName": "Shesterkin",
+     "fullName": "Igor Shesterkin",
+     "displayName": "Igor Shesterkin",
+     "shortName": "I. Shesterkin",
+     "jersey": "31",
+     "position": {
+      "abbreviation": "G",
+      "name": "Goaltender"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    }
+   ]
+  }
+ ]
+}

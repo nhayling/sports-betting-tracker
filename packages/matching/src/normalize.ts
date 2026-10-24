@@ -38,7 +38,7 @@ export function normalizePersonName(name: string): NormalizedName {
   };
 }
 
-/** Removes a leading or trailing college ranking: "(1) Texas" → "Texas". */
+/** Removes a leading or trailing ranking: "(1) Texas" → "Texas", and a UFC champion's "(C) Petr Yan" → "Petr Yan". */
 export function stripRanking(teamName: string): string {
-  return teamName.replace(/^\s*\(\d+\)\s*/, '').replace(/\s*\(\d+\)\s*$/, '').trim();
+  return teamName.replace(/^\s*\((?:\d+|C)\)\s*/i, '').replace(/\s*\((?:\d+|C)\)\s*$/i, '').trim();
 }

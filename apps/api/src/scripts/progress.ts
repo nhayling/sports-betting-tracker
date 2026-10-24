@@ -23,7 +23,7 @@ const coupons = await prisma.coupon.findMany({
 // ESPN scoreboards are per US Eastern calendar day.
 const easternDay = (iso: Date) => new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York' }).format(iso);
 const eventsBySport = new Map<Sport, ProviderEvent[]>();
-for (const sport of ['NFL', 'NCAAF'] as const) {
+for (const sport of ['NFL', 'NCAAF', 'NBA'] as const) {
   const days = [...new Set(coupons.flatMap((c) => c.legs).filter((l) => sportForLeague(l.league) === sport && l.eventStartAt).map((l) => easternDay(l.eventStartAt!)))];
   if (days.length) eventsBySport.set(sport, await espn.listEvents(sport, days));
 }

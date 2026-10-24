@@ -1,0 +1,1033 @@
+{
+ "source": "eu.offering-api.kambicdn.com/offering/v2018/islandluck betoffer/event, 3 football/spain/la_liga games, 2026-10-23",
+ "markets": [
+  {
+   "criterion": "2nd Half",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "3-Way Spread",
+   "sides": [],
+   "line": -2000
+  },
+  {
+   "criterion": "3-Way Spread - 1st Half",
+   "sides": [],
+   "line": -2000
+  },
+  {
+   "criterion": "Asian Handicap",
+   "sides": [],
+   "line": -1000
+  },
+  {
+   "criterion": "Asian Handicap - 1st Half",
+   "sides": [],
+   "line": -500
+  },
+  {
+   "criterion": "Asian Total",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 2750
+  },
+  {
+   "criterion": "Asian Total - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1000
+  },
+  {
+   "criterion": "Both Teams To Score",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Both Teams To Score - 1st Half",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Both Teams To Score - 2nd Half",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Cards 3-Way Spread",
+   "sides": [],
+   "line": -1000
+  },
+  {
+   "criterion": "Corners 3-Way Spread",
+   "sides": [],
+   "line": -2000
+  },
+  {
+   "criterion": "Correct Score",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Correct Score - 1st Half",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Double Chance",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Double Chance - 1st Half",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Double Chance - 2nd Half",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Elche given a Red Card",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Elche to score from a penalty",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Elche to Win and Both Teams To Score",
+   "sides": [
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Elche to Win At Least One Half",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Elche to Win to Nil",
+   "sides": [
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Espanyol given a Red Card",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Espanyol to score from a penalty",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Espanyol to Win and Both Teams To Score",
+   "sides": [
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Espanyol to Win At Least One Half",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Espanyol to Win to Nil",
+   "sides": [
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "First Goal (Tie: No Goals)",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "First Goal Scorer",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Full Time",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Full Time - 2UP Early Payout",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Goal in Both Halves",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Half Time",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Half Time/Regular Time",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Interval Winner - 0:00-14:59",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Interval Winner - 0:00-4:59",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Most Cards",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Most Cards - 1st Half",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Most Cards - 2nd Half",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Most Corners",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Most Corners - 1st Half",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Most Corners - 2nd Half",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Next Corner, No Corner No Bet (1)",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Own goal",
+   "sides": [
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Penalty Kick awarded",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Player To Score - 1st Half",
+   "sides": [
+    "YES"
+   ],
+   "line": 1000
+  },
+  {
+   "criterion": "Racing Santander given a Red Card",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Racing Santander to score from a penalty",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Racing Santander to Win and Both Teams To Score",
+   "sides": [
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Racing Santander to Win At Least One Half",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Racing Santander to Win to Nil",
+   "sides": [
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Rayo Vallecano given a Red Card",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Rayo Vallecano to score from a penalty",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Rayo Vallecano to Win and Both Teams To Score",
+   "sides": [
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Rayo Vallecano to Win At Least One Half",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Rayo Vallecano to Win to Nil",
+   "sides": [
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Red Card given",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Spread",
+   "sides": [],
+   "line": 500
+  },
+  {
+   "criterion": "Tie No Bet",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Tie No Bet - 1st Half",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Tie No Bet - 2nd Half",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "To Get a Card",
+   "sides": [
+    "YES"
+   ],
+   "line": 1000
+  },
+  {
+   "criterion": "To Get a Red Card",
+   "sides": [
+    "YES"
+   ],
+   "line": 1000
+  },
+  {
+   "criterion": "To Score",
+   "sides": [
+    "YES"
+   ],
+   "line": 1000
+  },
+  {
+   "criterion": "To score at least 2 goals",
+   "sides": [
+    "YES"
+   ],
+   "line": 2000
+  },
+  {
+   "criterion": "To score at least 3 goals",
+   "sides": [
+    "YES"
+   ],
+   "line": 3000
+  },
+  {
+   "criterion": "To score at least 4 goals",
+   "sides": [
+    "YES"
+   ],
+   "line": 4000
+  },
+  {
+   "criterion": "To score from a header",
+   "sides": [
+    "YES"
+   ],
+   "line": 1000
+  },
+  {
+   "criterion": "To score from outside the penalty box",
+   "sides": [
+    "YES"
+   ],
+   "line": 1000
+  },
+  {
+   "criterion": "To Score or Get a Card",
+   "sides": [
+    "YES"
+   ],
+   "line": 1000
+  },
+  {
+   "criterion": "Total Cards",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 4500
+  },
+  {
+   "criterion": "Total Cards - Elche",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 2500
+  },
+  {
+   "criterion": "Total Cards - Espanyol",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 2500
+  },
+  {
+   "criterion": "Total Cards - Racing Santander",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 2500
+  },
+  {
+   "criterion": "Total Cards - Rayo Vallecano",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 2500
+  },
+  {
+   "criterion": "Total Cards - Valencia",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 2500
+  },
+  {
+   "criterion": "Total Cards - Villarreal",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 2500
+  },
+  {
+   "criterion": "Total Corners",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 12500
+  },
+  {
+   "criterion": "Total Corners - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 5500
+  },
+  {
+   "criterion": "Total Corners - 2nd Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 5500
+  },
+  {
+   "criterion": "Total Corners by Elche",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 4500
+  },
+  {
+   "criterion": "Total Corners By Elche - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Corners By Elche - 2nd Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Corners by Espanyol",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 3500
+  },
+  {
+   "criterion": "Total Corners By Espanyol - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Corners By Espanyol - 2nd Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 3500
+  },
+  {
+   "criterion": "Total Corners by Racing Santander",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 5500
+  },
+  {
+   "criterion": "Total Corners By Racing Santander - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 2500
+  },
+  {
+   "criterion": "Total Corners By Racing Santander - 2nd Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 2500
+  },
+  {
+   "criterion": "Total Corners by Rayo Vallecano",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 6500
+  },
+  {
+   "criterion": "Total Corners By Rayo Vallecano - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 3500
+  },
+  {
+   "criterion": "Total Corners By Rayo Vallecano - 2nd Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 2500
+  },
+  {
+   "criterion": "Total Corners by Valencia",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 3500
+  },
+  {
+   "criterion": "Total Corners By Valencia - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Corners By Valencia - 2nd Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 2500
+  },
+  {
+   "criterion": "Total Corners by Villarreal",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 3500
+  },
+  {
+   "criterion": "Total Corners By Villarreal - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 3500
+  },
+  {
+   "criterion": "Total Corners By Villarreal - 2nd Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 2500
+  },
+  {
+   "criterion": "Total Corners Interval - 0:00-14:59",
+   "sides": [
+    "OVER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Corners Interval - 0:00-4:59",
+   "sides": [
+    "OVER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 3500
+  },
+  {
+   "criterion": "Total Goals - 0:00-14:59",
+   "sides": [
+    "OVER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals - 0:00-4:59",
+   "sides": [
+    "OVER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 2500
+  },
+  {
+   "criterion": "Total Goals - 2nd Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Goals by Elche",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 2500
+  },
+  {
+   "criterion": "Total Goals By Elche - 0:00-14:59",
+   "sides": [
+    "OVER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals By Elche - 0:00-4:59",
+   "sides": [
+    "OVER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals by Elche - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals by Elche - 2nd Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals by Espanyol",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals By Espanyol - 0:00-14:59",
+   "sides": [
+    "OVER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals By Espanyol - 0:00-4:59",
+   "sides": [
+    "OVER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals by Espanyol - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals by Espanyol - 2nd Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Goals by Racing Santander",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Goals By Racing Santander - 0:00-14:59",
+   "sides": [
+    "OVER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals By Racing Santander - 0:00-4:59",
+   "sides": [
+    "OVER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals by Racing Santander - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Goals by Racing Santander - 2nd Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Goals by Rayo Vallecano",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals By Rayo Vallecano - 0:00-14:59",
+   "sides": [
+    "OVER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals By Rayo Vallecano - 0:00-4:59",
+   "sides": [
+    "OVER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals by Rayo Vallecano - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Goals by Rayo Vallecano - 2nd Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Goals by Valencia",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 3500
+  },
+  {
+   "criterion": "Total Goals By Valencia - 0:00-14:59",
+   "sides": [
+    "OVER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals By Valencia - 0:00-4:59",
+   "sides": [
+    "OVER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals by Valencia - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals by Valencia - 2nd Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals by Villarreal",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 3500
+  },
+  {
+   "criterion": "Total Goals By Villarreal - 0:00-14:59",
+   "sides": [
+    "OVER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals By Villarreal - 0:00-4:59",
+   "sides": [
+    "OVER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals by Villarreal - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Goals by Villarreal - 2nd Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Valencia given a Red Card",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Valencia to score from a penalty",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Valencia to Win and Both Teams To Score",
+   "sides": [
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Valencia to Win At Least One Half",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Valencia to Win to Nil",
+   "sides": [
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Villarreal given a Red Card",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Villarreal to score from a penalty",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Villarreal to Win and Both Teams To Score",
+   "sides": [
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Villarreal to Win At Least One Half",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Villarreal to Win to Nil",
+   "sides": [
+    "YES"
+   ],
+   "line": null
+  }
+ ]
+}

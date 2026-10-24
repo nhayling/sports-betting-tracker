@@ -1,0 +1,540 @@
+{
+ "team": {
+  "id": "21",
+  "abbreviation": "TOR",
+  "location": "Toronto",
+  "name": "Maple Leafs",
+  "displayName": "Toronto Maple Leafs"
+ },
+ "athletes": [
+  {
+   "position": "Centers",
+   "items": [
+    {
+     "id": "3024916",
+     "uid": "s:70~l:90~a:3024916",
+     "firstName": "Teddy",
+     "lastName": "Blueger",
+     "fullName": "Teddy Blueger",
+     "displayName": "Teddy Blueger",
+     "shortName": "T. Blueger",
+     "jersey": "73",
+     "position": {
+      "abbreviation": "C",
+      "name": "Center"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4378685",
+     "uid": "s:70~l:90~a:4378685",
+     "firstName": "Bo",
+     "lastName": "Groulx",
+     "fullName": "Bo Groulx",
+     "displayName": "Bo Groulx",
+     "shortName": "B. Groulx",
+     "jersey": "29",
+     "position": {
+      "abbreviation": "C",
+      "name": "Center"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "5206955",
+     "uid": "s:70~l:90~a:5206955",
+     "firstName": "Luke",
+     "lastName": "Haymes",
+     "fullName": "Luke Haymes",
+     "displayName": "Luke Haymes",
+     "shortName": "L. Haymes",
+     "jersey": "37",
+     "position": {
+      "abbreviation": "C",
+      "name": "Center"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "3095892",
+     "uid": "s:70~l:90~a:3095892",
+     "firstName": "Vinni",
+     "lastName": "Lettieri",
+     "fullName": "Vinni Lettieri",
+     "displayName": "Vinni Lettieri",
+     "shortName": "V. Lettieri",
+     "jersey": "71",
+     "position": {
+      "abbreviation": "C",
+      "name": "Center"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4063569",
+     "uid": "s:70~l:90~a:4063569",
+     "firstName": "Zack",
+     "lastName": "MacEwen",
+     "fullName": "Zack MacEwen",
+     "displayName": "Zack MacEwen",
+     "shortName": "Z. MacEwen",
+     "jersey": "19",
+     "position": {
+      "abbreviation": "C",
+      "name": "Center"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4024123",
+     "uid": "s:70~l:90~a:4024123",
+     "firstName": "Auston",
+     "lastName": "Matthews",
+     "fullName": "Auston Matthews",
+     "displayName": "Auston Matthews",
+     "shortName": "A. Matthews",
+     "jersey": "34",
+     "position": {
+      "abbreviation": "C",
+      "name": "Center"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4874912",
+     "uid": "s:70~l:90~a:4874912",
+     "firstName": "Aatu",
+     "lastName": "Raty",
+     "fullName": "Aatu Raty",
+     "displayName": "Aatu Raty",
+     "shortName": "A. Raty",
+     "jersey": "54",
+     "position": {
+      "abbreviation": "C",
+      "name": "Center"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "3904098",
+     "uid": "s:70~l:90~a:3904098",
+     "firstName": "Jack",
+     "lastName": "Roslovic",
+     "fullName": "Jack Roslovic",
+     "displayName": "Jack Roslovic",
+     "shortName": "J. Roslovic",
+     "jersey": "96",
+     "position": {
+      "abbreviation": "C",
+      "name": "Center"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "2993474",
+     "uid": "s:70~l:90~a:2993474",
+     "firstName": "Colton",
+     "lastName": "Sissons",
+     "fullName": "Colton Sissons",
+     "displayName": "Colton Sissons",
+     "shortName": "C. Sissons",
+     "jersey": "15",
+     "position": {
+      "abbreviation": "C",
+      "name": "Center"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "5160",
+     "uid": "s:70~l:90~a:5160",
+     "firstName": "John",
+     "lastName": "Tavares",
+     "fullName": "John Tavares",
+     "displayName": "John Tavares",
+     "shortName": "J. Tavares",
+     "jersey": "91",
+     "position": {
+      "abbreviation": "C",
+      "name": "Center"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    }
+   ]
+  },
+  {
+   "position": "Left Wings",
+   "items": [
+    {
+     "id": "5342529",
+     "uid": "s:70~l:90~a:5342529",
+     "firstName": "Gavin",
+     "lastName": "McKenna",
+     "fullName": "Gavin McKenna",
+     "displayName": "Gavin McKenna",
+     "shortName": "G. McKenna",
+     "jersey": "92",
+     "position": {
+      "abbreviation": "LW",
+      "name": "Left Wing"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "3042111",
+     "uid": "s:70~l:90~a:3042111",
+     "firstName": "Nick",
+     "lastName": "Paul",
+     "fullName": "Nick Paul",
+     "displayName": "Nick Paul",
+     "shortName": "N. Paul",
+     "jersey": "20",
+     "position": {
+      "abbreviation": "LW",
+      "name": "Left Wing"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "3042110",
+     "uid": "s:70~l:90~a:3042110",
+     "firstName": "Miles",
+     "lastName": "Wood",
+     "fullName": "Miles Wood",
+     "displayName": "Miles Wood",
+     "shortName": "M. Wood",
+     "jersey": "18",
+     "position": {
+      "abbreviation": "LW",
+      "name": "Left Wing"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    }
+   ]
+  },
+  {
+   "position": "Right Wings",
+   "items": [
+    {
+     "id": "5149211",
+     "uid": "s:70~l:90~a:5149211",
+     "firstName": "Easton",
+     "lastName": "Cowan",
+     "fullName": "Easton Cowan",
+     "displayName": "Easton Cowan",
+     "shortName": "E. Cowan",
+     "jersey": "53",
+     "position": {
+      "abbreviation": "RW",
+      "name": "Right Wing"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4197009",
+     "uid": "s:70~l:90~a:4197009",
+     "firstName": "Brandon",
+     "lastName": "Duhaime",
+     "fullName": "Brandon Duhaime",
+     "displayName": "Brandon Duhaime",
+     "shortName": "B. Duhaime",
+     "jersey": "24",
+     "position": {
+      "abbreviation": "RW",
+      "name": "Right Wing"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4587996",
+     "uid": "s:70~l:90~a:4587996",
+     "firstName": "Kirill",
+     "lastName": "Marchenko",
+     "fullName": "Kirill Marchenko",
+     "displayName": "Kirill Marchenko",
+     "shortName": "K. Marchenko",
+     "jersey": "86",
+     "position": {
+      "abbreviation": "RW",
+      "name": "Right Wing"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "3114736",
+     "uid": "s:70~l:90~a:3114736",
+     "firstName": "William",
+     "lastName": "Nylander",
+     "fullName": "William Nylander",
+     "displayName": "William Nylander",
+     "shortName": "W. Nylander",
+     "jersey": "88",
+     "position": {
+      "abbreviation": "RW",
+      "name": "Right Wing"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    }
+   ]
+  },
+  {
+   "position": "Defense",
+   "items": [
+    {
+     "id": "4781550",
+     "uid": "s:70~l:90~a:4781550",
+     "firstName": "Nick",
+     "lastName": "Blankenburg",
+     "fullName": "Nick Blankenburg",
+     "displayName": "Nick Blankenburg",
+     "shortName": "N. Blankenburg",
+     "jersey": "3",
+     "position": {
+      "abbreviation": "D",
+      "name": "Defense"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "5488",
+     "uid": "s:70~l:90~a:5488",
+     "firstName": "Oliver",
+     "lastName": "Ekman-Larsson",
+     "fullName": "Oliver Ekman-Larsson",
+     "displayName": "Oliver Ekman-Larsson",
+     "shortName": "O. Ekman-Larsson",
+     "jersey": "95",
+     "position": {
+      "abbreviation": "D",
+      "name": "Defense"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4316995",
+     "uid": "s:70~l:90~a:4316995",
+     "firstName": "Matt",
+     "lastName": "Hellickson",
+     "fullName": "Matt Hellickson",
+     "displayName": "Matt Hellickson",
+     "shortName": "M. Hellickson",
+     "jersey": "66",
+     "position": {
+      "abbreviation": "D",
+      "name": "Defense"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "3020803",
+     "uid": "s:70~l:90~a:3020803",
+     "firstName": "Jake",
+     "lastName": "McCabe",
+     "fullName": "Jake McCabe",
+     "displayName": "Jake McCabe",
+     "shortName": "J. McCabe",
+     "jersey": "22",
+     "position": {
+      "abbreviation": "D",
+      "name": "Defense"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "3149843",
+     "uid": "s:70~l:90~a:3149843",
+     "firstName": "Darren",
+     "lastName": "Raddysh",
+     "fullName": "Darren Raddysh",
+     "displayName": "Darren Raddysh",
+     "shortName": "D. Raddysh",
+     "jersey": "43",
+     "position": {
+      "abbreviation": "D",
+      "name": "Defense"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "2976833",
+     "uid": "s:70~l:90~a:2976833",
+     "firstName": "Morgan",
+     "lastName": "Rielly",
+     "fullName": "Morgan Rielly",
+     "displayName": "Morgan Rielly",
+     "shortName": "M. Rielly",
+     "jersey": "44",
+     "position": {
+      "abbreviation": "D",
+      "name": "Defense"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4419778",
+     "uid": "s:70~l:90~a:4419778",
+     "firstName": "Marshall",
+     "lastName": "Rifai",
+     "fullName": "Marshall Rifai",
+     "displayName": "Marshall Rifai",
+     "shortName": "M. Rifai",
+     "jersey": "83",
+     "position": {
+      "abbreviation": "D",
+      "name": "Defense"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "3096102",
+     "uid": "s:70~l:90~a:3096102",
+     "firstName": "Troy",
+     "lastName": "Stecher",
+     "fullName": "Troy Stecher",
+     "displayName": "Troy Stecher",
+     "shortName": "T. Stecher",
+     "jersey": "28",
+     "position": {
+      "abbreviation": "D",
+      "name": "Defense"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "5592",
+     "uid": "s:70~l:90~a:5592",
+     "firstName": "Chris",
+     "lastName": "Tanev",
+     "fullName": "Chris Tanev",
+     "displayName": "Chris Tanev",
+     "shortName": "C. Tanev",
+     "jersey": "8",
+     "position": {
+      "abbreviation": "D",
+      "name": "Defense"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    }
+   ]
+  },
+  {
+   "position": "Goalies",
+   "items": [
+    {
+     "id": "5571",
+     "uid": "s:70~l:90~a:5571",
+     "firstName": "Sergei",
+     "lastName": "Bobrovsky",
+     "fullName": "Sergei Bobrovsky",
+     "displayName": "Sergei Bobrovsky",
+     "shortName": "S. Bobrovsky",
+     "jersey": "72",
+     "position": {
+      "abbreviation": "G",
+      "name": "Goaltender"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "3067313",
+     "uid": "s:70~l:90~a:3067313",
+     "firstName": "Anthony",
+     "lastName": "Stolarz",
+     "fullName": "Anthony Stolarz",
+     "displayName": "Anthony Stolarz",
+     "shortName": "A. Stolarz",
+     "jersey": "41",
+     "position": {
+      "abbreviation": "G",
+      "name": "Goaltender"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    }
+   ]
+  }
+ ]
+}

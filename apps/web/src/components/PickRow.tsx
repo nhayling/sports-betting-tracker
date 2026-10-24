@@ -42,18 +42,46 @@ const overBy = (current: number, line: number) => {
 /** Joins what there is to say; a stat with no unit name leaves no stray separator. */
 const parts = (...bits: string[]) => bits.filter(Boolean).join(' · ');
 
+/** Leagues whose clock reads "Q3 4:12"; the rest (periods, innings, minutes, rounds) take ESPN's own words. */
+const QUARTERS = new Set(['NFL', 'NCAAF', 'NBA', 'WNBA']);
+
+/** "KO/TKO R2 2:11", "Submission R1 4:52", "Decision", "Draw": how a fight ended. */
+function fightResult(f: NonNullable<GameView['state']>['fight']): string {
+  if (!f) return '';
+  const clock = f.clockSeconds === null ? '' : `${Math.floor(f.clockSeconds / 60)}:${String(f.clockSeconds % 60).padStart(2, '0')}`;
+  const when = f.round === null ? '' : `R${f.round} ${clock}`.trim();
+  if (f.method === 'DECISION') return f.winner ? 'Decision' : 'Draw';
+  if (!f.winner) return 'No winner';
+  return [f.method === 'KO_TKO' ? 'KO/TKO' : f.method === 'SUBMISSION' ? 'Submission' : 'Finish', when].join(' ');
+}
+
 /** The pick's game in one line: the score and clock once it has started, the kickoff before. */
 function gameLine(game: GameView): string {
   const st = game.state;
+  if (st?.fight) {
+    // Fighters have no score: the bout, then the round or how it ended.
+    const f = st.fight;
+    // The plate says how it ended; this says who won.
+    const winner = f.winner === 'home' ? st.home : f.winner === 'away' ? st.away : null;
+    const last = winner?.displayName?.split(' ').at(-1);
+    if (st.state === 'FINAL') return `${game.name ?? ''} · ${last ? `${last} won` : fightResult(f)}`;
+    if (st.state === 'LIVE') return `${game.name ?? ''} · ${st.detail ?? `R${f.round ?? ''}`}`;
+  }
   const scored = st && (st.state === 'LIVE' || st.state === 'FINAL');
   if (!st || !scored) {
     if (st && st.state !== 'SCHEDULED') return `${game.name ?? ''} · ${st.detail ?? st.state}`;
     const started = !st && game.startAt && Date.parse(game.startAt) < Date.now();
     return `${game.name ?? ''} · ${started ? '' : 'kicks off '}${dateTime(game.startAt)}`;
   }
-  const score = `${st.away.abbreviation ?? game.awayName} ${st.awayScore ?? 0} – ${st.homeScore ?? 0} ${st.home.abbreviation ?? game.homeName}`;
+  const home = `${st.home.abbreviation ?? game.homeName}`;
+  const away = `${st.away.abbreviation ?? game.awayName}`;
+  // Soccer writes the home side first ("BHA 1 – 0 CRY"); American sports the visitors.
+  const score = game.league?.includes(' / ')
+    ? `${home} ${st.homeScore ?? 0} – ${st.awayScore ?? 0} ${away}`
+    : `${away} ${st.awayScore ?? 0} – ${st.homeScore ?? 0} ${home}`;
   if (st.state === 'FINAL') return `${score} · final`;
-  const when = /halftime|end of/i.test(st.detail ?? '') ? st.detail : `${quarter(st.period)} ${st.clock ?? ''}`.trim();
+  const quarters = QUARTERS.has(game.league ?? '');
+  const when = !quarters || /halftime|end of/i.test(st.detail ?? '') ? st.detail : `${quarter(st.period)} ${st.clock ?? ''}`.trim();
   return `${score} · ${when}`;
 }
 
@@ -63,7 +91,7 @@ export function PickRow({ pick: p, game, live, state }: { pick: PickView; game: 
   return (
     <div className={`pick pick-${state}`}>
       <div className="pick-what">
-        <span className="pick-name">{p.participantName ?? p.selectionLabel}</span>
+        <span className="pick-name">{p.participantName ?? (p.type === 'FIGHT' ? game.name : p.selectionLabel)}</span>
         <span className="pick-market">{marketLabel(p.marketName, p.selectionLabel, p.selectionSide)}</span>
         <span className="pick-game">
           {game.state?.state === 'LIVE' && <span className="live-dot" aria-hidden />}
@@ -76,15 +104,81 @@ export function PickRow({ pick: p, game, live, state }: { pick: PickView; game: 
           (live ? (
             <span className={`official ${official.cls}`}>Island Luck: {official.label}</span>
           ) : (
-            <Plate tone={official.tone} icon={official.icon} text={official.label} />
+            <Settled pick={p} game={game} official={official} />
           ))}
       </div>
     </div>
   );
 }
 
+/**
+ * A settled pick: the stat it finished on, in Island Luck's colour and mark,
+ * with the result under it ("Lost · rec yds"). Picks with no stat, or a stat
+ * that disagrees with Island Luck, show the result alone.
+ */
+function Settled({ pick: p, game, official }: { pick: PickView; game: GameView; official: (typeof KAMBI_PICK)[string] }) {
+  const stat = finalStat(p, game);
+  // The poller stops when a bet settles, so a stat can stop short of what decided it.
+  const agrees = stat && (p.status === 'VOID' || stat.hit === (p.status === 'WON'));
+  if (!agrees) return <Plate tone={official.tone} icon={official.icon} text={official.label} />;
+  return (
+    <>
+      <Plate tone={official.tone} icon={official.icon} text={stat.text} />
+      {note(parts(official.label, stat.detail))}
+    </>
+  );
+}
+
+const signed = (n: number) => (n > 0 ? `+${n}` : n < 0 ? `−${-n}` : 'Tied');
+
+/** What a pick finished on, read the way its live plate reads it, and whether that hit. */
+function finalStat(p: PickView, game: GameView): { text: string; detail: string; hit: boolean } | null {
+  const st = game.state;
+  if (p.type === 'FIGHT') {
+    // A void (draw) or an ungraded finish shows Island Luck's result alone.
+    if (st?.state !== 'FINAL' || !st.fight || !p.fightGrade) return null;
+    return { text: fightResult(st.fight), detail: '', hit: p.fightGrade > 0 };
+  }
+  if (p.type === 'RESULT' || p.type === 'BTTS') {
+    if (!st || st.state === 'SCHEDULED' || st.homeScore === null || st.awayScore === null) return null;
+    const margin = gameMargin(p, st);
+    if (margin === null) return null;
+    if (p.type === 'BTTS') return { text: Math.min(st.homeScore, st.awayScore) > 0 ? 'Both scored' : 'Not both', detail: '', hit: margin > 0 };
+    if (p.moneylineSide === 'draw') return { text: margin > 0 ? 'Draw' : 'No draw', detail: '', hit: margin > 0 };
+    return { text: signed(margin), detail: '', hit: margin > 0 };
+  }
+  if (p.type === 'MONEYLINE' || p.type === 'SPREAD' || p.type === 'TOTAL') {
+    if (!st || st.state === 'SCHEDULED' || st.homeScore === null || st.awayScore === null) return null;
+    const margin = gameMargin(p, st);
+    if (margin === null || (p.type !== 'MONEYLINE' && p.line === null)) return null;
+    if (p.type === 'TOTAL') {
+      const total = st.homeScore + st.awayScore;
+      if (p.selectionSide === 'UNDER') return { text: String(total), detail: parts('pts', `under ${p.line}`), hit: margin > 0 };
+      return { text: `${total} / ${Math.floor(p.line!) + 1}`, detail: 'pts', hit: margin > 0 };
+    }
+    // The pick's side's lead in the final score; a spread's note keeps its line.
+    const lead = (p.moneylineSide === 'home' ? 1 : -1) * (st.homeScore - st.awayScore);
+    const line = p.type === 'SPREAD' ? (p.line! > 0 ? `+${p.line}` : String(p.line)) : '';
+    return { text: signed(lead), detail: line, hit: margin > 0 };
+  }
+
+  const pr = p.progress;
+  if (p.type !== 'STAT' || !pr || pr.current === null || pr.status === 'UNAVAILABLE' || pr.status === 'NOT_STARTED') return null;
+  const current = pr.current;
+  const target = pr.target ?? 0;
+  const unit = metricUnit(pr.metric);
+  if (pr.operator === 'GTE' || pr.operator === 'GT') {
+    const needed = pr.operator === 'GT' ? Math.floor(target) + 1 : target;
+    return { text: `${current} / ${needed}`, detail: unit, hit: current >= needed };
+  }
+  return { text: String(current), detail: parts(unit, `under ${target}`), hit: pr.operator === 'LTE' ? current <= target : current < target };
+}
+
 function Progress({ pick: p, game, state }: { pick: PickView; game: GameView; state: PickState }) {
   if (p.type === 'MONEYLINE') return <MoneylineScore pick={p} game={game} />;
+  if (p.type === 'RESULT') return <ResultScore pick={p} game={game} />;
+  if (p.type === 'BTTS') return <BttsScore pick={p} game={game} />;
+  if (p.type === 'FIGHT') return <FightScore pick={p} game={game} />;
   if (p.type === 'SPREAD') return <SpreadScore pick={p} game={game} />;
   if (p.type === 'TOTAL') return <TotalScore pick={p} game={game} />;
 
@@ -180,6 +274,49 @@ function MoneylineScore({ pick: p, game }: { pick: PickView; game: GameView }) {
   // Yellow is kept for measured progress; a lead is only a lead until the final whistle.
   const tone: Tone = !final || margin === 0 ? '' : margin > 0 ? 'hit' : 'miss';
   return <Plate tone={tone} text={text} />;
+}
+
+/** Three-way result (soccer's Full Time): a team must win outright; a draw pick wants it level. */
+function ResultScore({ pick: p, game }: { pick: PickView; game: GameView }) {
+  const st = game.state;
+  if (!st || st.state === 'SCHEDULED') return p.status === 'OPEN' ? notStarted : null;
+  const margin = gameMargin(p, st);
+  if (margin === null) return null;
+  const final = st.state === 'FINAL';
+  if (p.moneylineSide === 'draw') {
+    const text = margin > 0 ? (final ? 'Draw' : 'Level') : final ? 'No draw' : `${-margin} apart`;
+    return <Plate tone={final ? (margin > 0 ? 'hit' : 'miss') : ''} icon={final ? (margin > 0 ? 'check' : 'cross') : undefined} text={text} />;
+  }
+  const text = margin === 0 ? (final ? 'Draw' : 'Level') : final ? (margin > 0 ? `Won by ${margin}` : `Lost by ${-margin}`) : margin > 0 ? `Up ${margin}` : `Down ${-margin}`;
+  return <Plate tone={final ? (margin > 0 ? 'hit' : 'miss') : ''} icon={final ? (margin > 0 ? 'check' : 'cross') : undefined} text={text} />;
+}
+
+/** Both teams to score: decided early once both have, else at the final whistle. */
+function BttsScore({ pick: p, game }: { pick: PickView; game: GameView }) {
+  const st = game.state;
+  if (!st || st.state === 'SCHEDULED') return p.status === 'OPEN' ? notStarted : null;
+  const margin = gameMargin(p, st);
+  if (margin === null) return null;
+  const both = Math.min(st.homeScore ?? 0, st.awayScore ?? 0) > 0;
+  const decided = both || st.state === 'FINAL';
+  const blank = [st.homeScore ? null : st.home.abbreviation, st.awayScore ? null : st.away.abbreviation].filter(Boolean).join(' & ');
+  return (
+    <>
+      <Plate tone={decided ? (margin > 0 ? 'hit' : 'miss') : ''} icon={decided ? (margin > 0 ? 'check' : 'cross') : undefined} text={both ? 'Both scored' : decided ? 'Not both' : 'Not yet'} />
+      {!both && note(`${blank} ${st.state === 'FINAL' ? 'didn’t score' : 'yet to score'}`)}
+    </>
+  );
+}
+
+/** UFC: graded on the server once the fight is over; the round while it's on. */
+function FightScore({ pick: p, game }: { pick: PickView; game: GameView }) {
+  const st = game.state;
+  if (!st || st.state === 'SCHEDULED') return p.status === 'OPEN' ? notStarted : null;
+  if (st.state !== 'FINAL') return <Plate text={st.fight?.round ? `R${st.fight.round}` : 'Live'} />;
+  if (p.fightGrade === null) return <Plate tone="hollow" text="Result unclear" />;
+  if (p.fightGrade === 0) return <Plate tone="hollow" text="Void" />;
+  const won = p.fightGrade > 0;
+  return <Plate tone={won ? 'hit' : 'miss'} icon={won ? 'check' : 'cross'} text={fightResult(st.fight)} />;
 }
 
 /**

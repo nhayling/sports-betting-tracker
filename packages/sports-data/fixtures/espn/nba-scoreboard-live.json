@@ -1,0 +1,710 @@
+{
+ "events": [
+  {
+   "id": "401909848",
+   "uid": "s:40~l:46~e:401909848",
+   "date": "2026-10-23T20:00Z",
+   "name": "Chicago Bulls at Milwaukee Bucks",
+   "shortName": "CHI @ MIL",
+   "competitions": [
+    {
+     "id": "401909848",
+     "date": "2026-10-23T20:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 82,
+      "displayClock": "1:22",
+      "period": 2,
+      "type": {
+       "id": "2",
+       "name": "STATUS_IN_PROGRESS",
+       "state": "in",
+       "completed": false,
+       "description": "In Progress",
+       "detail": "1:22 - 2nd Quarter",
+       "shortDetail": "1:22 - 2nd"
+      }
+     },
+     "competitors": [
+      {
+       "id": "15",
+       "homeAway": "home",
+       "score": "54",
+       "team": {
+        "id": "15",
+        "uid": "s:40~l:46~t:15",
+        "abbreviation": "MIL",
+        "location": "Milwaukee",
+        "name": "Bucks",
+        "displayName": "Milwaukee Bucks",
+        "shortDisplayName": "Bucks"
+       }
+      },
+      {
+       "id": "4",
+       "homeAway": "away",
+       "score": "59",
+       "team": {
+        "id": "4",
+        "uid": "s:40~l:46~t:4",
+        "abbreviation": "CHI",
+        "location": "Chicago",
+        "name": "Bulls",
+        "displayName": "Chicago Bulls",
+        "shortDisplayName": "Bulls"
+       }
+      }
+     ],
+     "situation": {
+      "lastPlay": {
+       "id": "401909848358",
+       "text": "Tyler Herro offensive rebound",
+       "type": {
+        "id": "156",
+        "text": "Offensive Rebound"
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "401909095",
+   "uid": "s:40~l:46~e:401909095",
+   "date": "2026-10-23T23:00Z",
+   "name": "New York Knicks at Boston Celtics",
+   "shortName": "NY @ BOS",
+   "competitions": [
+    {
+     "id": "401909095",
+     "date": "2026-10-23T23:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0.0",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Fri, October 23rd at 7:00 PM EDT",
+       "shortDetail": "10/23 - 7:00 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "2",
+       "homeAway": "home",
+       "score": "0",
+       "team": {
+        "id": "2",
+        "uid": "s:40~l:46~t:2",
+        "abbreviation": "BOS",
+        "location": "Boston",
+        "name": "Celtics",
+        "displayName": "Boston Celtics",
+        "shortDisplayName": "Celtics"
+       }
+      },
+      {
+       "id": "18",
+       "homeAway": "away",
+       "score": "0",
+       "team": {
+        "id": "18",
+        "uid": "s:40~l:46~t:18",
+        "abbreviation": "NY",
+        "location": "New York",
+        "name": "Knicks",
+        "displayName": "New York Knicks",
+        "shortDisplayName": "Knicks"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401909843",
+   "uid": "s:40~l:46~e:401909843",
+   "date": "2026-10-23T23:00Z",
+   "name": "Atlanta Hawks at Charlotte Hornets",
+   "shortName": "ATL @ CHA",
+   "competitions": [
+    {
+     "id": "401909843",
+     "date": "2026-10-23T23:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0.0",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Fri, October 23rd at 7:00 PM EDT",
+       "shortDetail": "10/23 - 7:00 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "30",
+       "homeAway": "home",
+       "score": "0",
+       "team": {
+        "id": "30",
+        "uid": "s:40~l:46~t:30",
+        "abbreviation": "CHA",
+        "location": "Charlotte",
+        "name": "Hornets",
+        "displayName": "Charlotte Hornets",
+        "shortDisplayName": "Hornets"
+       }
+      },
+      {
+       "id": "1",
+       "homeAway": "away",
+       "score": "0",
+       "team": {
+        "id": "1",
+        "uid": "s:40~l:46~t:1",
+        "abbreviation": "ATL",
+        "location": "Atlanta",
+        "name": "Hawks",
+        "displayName": "Atlanta Hawks",
+        "shortDisplayName": "Hawks"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401909844",
+   "uid": "s:40~l:46~e:401909844",
+   "date": "2026-10-23T23:00Z",
+   "name": "Dallas Mavericks at Indiana Pacers",
+   "shortName": "DAL @ IND",
+   "competitions": [
+    {
+     "id": "401909844",
+     "date": "2026-10-23T23:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0.0",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Fri, October 23rd at 7:00 PM EDT",
+       "shortDetail": "10/23 - 7:00 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "11",
+       "homeAway": "home",
+       "score": "0",
+       "team": {
+        "id": "11",
+        "uid": "s:40~l:46~t:11",
+        "abbreviation": "IND",
+        "location": "Indiana",
+        "name": "Pacers",
+        "displayName": "Indiana Pacers",
+        "shortDisplayName": "Pacers"
+       }
+      },
+      {
+       "id": "6",
+       "homeAway": "away",
+       "score": "0",
+       "team": {
+        "id": "6",
+        "uid": "s:40~l:46~t:6",
+        "abbreviation": "DAL",
+        "location": "Dallas",
+        "name": "Mavericks",
+        "displayName": "Dallas Mavericks",
+        "shortDisplayName": "Mavericks"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401909845",
+   "uid": "s:40~l:46~e:401909845",
+   "date": "2026-10-23T23:00Z",
+   "name": "Minnesota Timberwolves at Orlando Magic",
+   "shortName": "MIN @ ORL",
+   "competitions": [
+    {
+     "id": "401909845",
+     "date": "2026-10-23T23:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0.0",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Fri, October 23rd at 7:00 PM EDT",
+       "shortDetail": "10/23 - 7:00 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "19",
+       "homeAway": "home",
+       "score": "0",
+       "team": {
+        "id": "19",
+        "uid": "s:40~l:46~t:19",
+        "abbreviation": "ORL",
+        "location": "Orlando",
+        "name": "Magic",
+        "displayName": "Orlando Magic",
+        "shortDisplayName": "Magic"
+       }
+      },
+      {
+       "id": "16",
+       "homeAway": "away",
+       "score": "0",
+       "team": {
+        "id": "16",
+        "uid": "s:40~l:46~t:16",
+        "abbreviation": "MIN",
+        "location": "Minnesota",
+        "name": "Timberwolves",
+        "displayName": "Minnesota Timberwolves",
+        "shortDisplayName": "Timberwolves"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401909846",
+   "uid": "s:40~l:46~e:401909846",
+   "date": "2026-10-23T23:00Z",
+   "name": "Toronto Raptors at Washington Wizards",
+   "shortName": "TOR @ WSH",
+   "competitions": [
+    {
+     "id": "401909846",
+     "date": "2026-10-23T23:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0.0",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Fri, October 23rd at 7:00 PM EDT",
+       "shortDetail": "10/23 - 7:00 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "27",
+       "homeAway": "home",
+       "score": "0",
+       "team": {
+        "id": "27",
+        "uid": "s:40~l:46~t:27",
+        "abbreviation": "WSH",
+        "location": "Washington",
+        "name": "Wizards",
+        "displayName": "Washington Wizards",
+        "shortDisplayName": "Wizards"
+       }
+      },
+      {
+       "id": "28",
+       "homeAway": "away",
+       "score": "0",
+       "team": {
+        "id": "28",
+        "uid": "s:40~l:46~t:28",
+        "abbreviation": "TOR",
+        "location": "Toronto",
+        "name": "Raptors",
+        "displayName": "Toronto Raptors",
+        "shortDisplayName": "Raptors"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401909847",
+   "uid": "s:40~l:46~e:401909847",
+   "date": "2026-10-24T00:00Z",
+   "name": "Detroit Pistons at Miami Heat",
+   "shortName": "DET @ MIA",
+   "competitions": [
+    {
+     "id": "401909847",
+     "date": "2026-10-24T00:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0.0",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Fri, October 23rd at 8:00 PM EDT",
+       "shortDetail": "10/23 - 8:00 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "14",
+       "homeAway": "home",
+       "score": "0",
+       "team": {
+        "id": "14",
+        "uid": "s:40~l:46~t:14",
+        "abbreviation": "MIA",
+        "location": "Miami",
+        "name": "Heat",
+        "displayName": "Miami Heat",
+        "shortDisplayName": "Heat"
+       }
+      },
+      {
+       "id": "8",
+       "homeAway": "away",
+       "score": "0",
+       "team": {
+        "id": "8",
+        "uid": "s:40~l:46~t:8",
+        "abbreviation": "DET",
+        "location": "Detroit",
+        "name": "Pistons",
+        "displayName": "Detroit Pistons",
+        "shortDisplayName": "Pistons"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401909096",
+   "uid": "s:40~l:46~e:401909096",
+   "date": "2026-10-24T01:30Z",
+   "name": "Houston Rockets at San Antonio Spurs",
+   "shortName": "HOU @ SA",
+   "competitions": [
+    {
+     "id": "401909096",
+     "date": "2026-10-24T01:30Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0.0",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Fri, October 23rd at 9:30 PM EDT",
+       "shortDetail": "10/23 - 9:30 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "24",
+       "homeAway": "home",
+       "score": "0",
+       "team": {
+        "id": "24",
+        "uid": "s:40~l:46~t:24",
+        "abbreviation": "SA",
+        "location": "San Antonio",
+        "name": "Spurs",
+        "displayName": "San Antonio Spurs",
+        "shortDisplayName": "Spurs"
+       }
+      },
+      {
+       "id": "10",
+       "homeAway": "away",
+       "score": "0",
+       "team": {
+        "id": "10",
+        "uid": "s:40~l:46~t:10",
+        "abbreviation": "HOU",
+        "location": "Houston",
+        "name": "Rockets",
+        "displayName": "Houston Rockets",
+        "shortDisplayName": "Rockets"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401909849",
+   "uid": "s:40~l:46~e:401909849",
+   "date": "2026-10-24T01:30Z",
+   "name": "New Orleans Pelicans at Utah Jazz",
+   "shortName": "NO @ UTAH",
+   "competitions": [
+    {
+     "id": "401909849",
+     "date": "2026-10-24T01:30Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0.0",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Fri, October 23rd at 9:30 PM EDT",
+       "shortDetail": "10/23 - 9:30 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "26",
+       "homeAway": "home",
+       "score": "0",
+       "team": {
+        "id": "26",
+        "uid": "s:40~l:46~t:26",
+        "abbreviation": "UTAH",
+        "location": "Utah",
+        "name": "Jazz",
+        "displayName": "Utah Jazz",
+        "shortDisplayName": "Jazz"
+       }
+      },
+      {
+       "id": "3",
+       "homeAway": "away",
+       "score": "0",
+       "team": {
+        "id": "3",
+        "uid": "s:40~l:46~t:3",
+        "abbreviation": "NO",
+        "location": "New Orleans",
+        "name": "Pelicans",
+        "displayName": "New Orleans Pelicans",
+        "shortDisplayName": "Pelicans"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401909850",
+   "uid": "s:40~l:46~e:401909850",
+   "date": "2026-10-24T02:00Z",
+   "name": "Memphis Grizzlies at Golden State Warriors",
+   "shortName": "MEM @ GS",
+   "competitions": [
+    {
+     "id": "401909850",
+     "date": "2026-10-24T02:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0.0",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Fri, October 23rd at 10:00 PM EDT",
+       "shortDetail": "10/23 - 10:00 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "9",
+       "homeAway": "home",
+       "score": "0",
+       "team": {
+        "id": "9",
+        "uid": "s:40~l:46~t:9",
+        "abbreviation": "GS",
+        "location": "Golden State",
+        "name": "Warriors",
+        "displayName": "Golden State Warriors",
+        "shortDisplayName": "Warriors"
+       }
+      },
+      {
+       "id": "29",
+       "homeAway": "away",
+       "score": "0",
+       "team": {
+        "id": "29",
+        "uid": "s:40~l:46~t:29",
+        "abbreviation": "MEM",
+        "location": "Memphis",
+        "name": "Grizzlies",
+        "displayName": "Memphis Grizzlies",
+        "shortDisplayName": "Grizzlies"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401909851",
+   "uid": "s:40~l:46~e:401909851",
+   "date": "2026-10-24T02:00Z",
+   "name": "LA Clippers at Los Angeles Lakers",
+   "shortName": "LAC @ LAL",
+   "competitions": [
+    {
+     "id": "401909851",
+     "date": "2026-10-24T02:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0.0",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Fri, October 23rd at 10:00 PM EDT",
+       "shortDetail": "10/23 - 10:00 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "13",
+       "homeAway": "home",
+       "score": "0",
+       "team": {
+        "id": "13",
+        "uid": "s:40~l:46~t:13",
+        "abbreviation": "LAL",
+        "location": "Los Angeles",
+        "name": "Lakers",
+        "displayName": "Los Angeles Lakers",
+        "shortDisplayName": "Lakers"
+       }
+      },
+      {
+       "id": "12",
+       "homeAway": "away",
+       "score": "0",
+       "team": {
+        "id": "12",
+        "uid": "s:40~l:46~t:12",
+        "abbreviation": "LAC",
+        "location": "LA",
+        "name": "Clippers",
+        "displayName": "LA Clippers",
+        "shortDisplayName": "Clippers"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401909852",
+   "uid": "s:40~l:46~e:401909852",
+   "date": "2026-10-24T02:00Z",
+   "name": "Portland Trail Blazers at Sacramento Kings",
+   "shortName": "POR @ SAC",
+   "competitions": [
+    {
+     "id": "401909852",
+     "date": "2026-10-24T02:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0.0",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Fri, October 23rd at 10:00 PM EDT",
+       "shortDetail": "10/23 - 10:00 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "23",
+       "homeAway": "home",
+       "score": "0",
+       "team": {
+        "id": "23",
+        "uid": "s:40~l:46~t:23",
+        "abbreviation": "SAC",
+        "location": "Sacramento",
+        "name": "Kings",
+        "displayName": "Sacramento Kings",
+        "shortDisplayName": "Kings"
+       }
+      },
+      {
+       "id": "22",
+       "homeAway": "away",
+       "score": "0",
+       "team": {
+        "id": "22",
+        "uid": "s:40~l:46~t:22",
+        "abbreviation": "POR",
+        "location": "Portland",
+        "name": "Trail Blazers",
+        "displayName": "Portland Trail Blazers",
+        "shortDisplayName": "Trail Blazers"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

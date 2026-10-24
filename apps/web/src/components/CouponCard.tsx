@@ -71,7 +71,8 @@ export function CouponCard({ coupon: c, minBetMinor, latest, fresh = false }: { 
   const of = (...states: PickState[]) => states.flatMap((s) => rows.filter((r) => r.state === s));
   const hit = of('hit');
   const list = (rs: Row[]) => rs.map((r) => <PickRow key={r.pick.id} pick={r.pick} game={r.game} live={open} state={r.state} />);
-  const leagues = [...new Set(c.games.map((g) => g.league).filter(Boolean))].join(' + ');
+  // Soccer leagues come with their country ("England / Premier League"); the header shows the league.
+  const leagues = [...new Set(c.games.map((g) => g.league?.split(' / ').at(-1)).filter(Boolean))].join(' + ');
   const plate = open ? STANDING[standing.state] : null;
   const over = c.probablySettled === 'ALL_GAMES_FINAL' ? 'All games are final' : 'All games should be over';
 

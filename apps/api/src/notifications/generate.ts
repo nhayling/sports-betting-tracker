@@ -1,4 +1,4 @@
-import { americanOdds, betStanding, gameMargin, marketLabel, metricUnit, money, quarter } from '@sports-better/display';
+import { americanOdds, betStanding, GAME_TYPES, gameMargin, marketLabel, metricUnit, money, quarter } from '@sports-better/display';
 import type { BetsView, CouponView, GameView, PickView } from '../views/betsViewTypes';
 
 /**
@@ -32,7 +32,7 @@ export function notificationEvents(view: BetsView): NotificationEvent[] {
       for (const p of g.picks) {
         // Already settled by Island Luck: nothing new to say.
         if (p.status !== 'OPEN') continue;
-        const outcome = p.type === 'MONEYLINE' || p.type === 'SPREAD' || p.type === 'TOTAL' ? gameOutcome(p, g) : statOutcome(p);
+        const outcome = GAME_TYPES.has(p.type) ? gameOutcome(p, g) : statOutcome(p);
         if (!outcome) continue;
         events.push({
           kind: outcome,
@@ -67,17 +67,21 @@ function statOutcome(p: PickView): 'PICK_HIT' | 'PICK_MISSED' | null {
   return null;
 }
 
-/** Moneylines, spreads and totals, at the final whistle; a total also as soon as its line is passed. A tie or a push says nothing. */
+/**
+ * Game picks at the final whistle; a total, or both teams to score, also as soon as it's decided mid-game.
+ * A tie or a push says nothing, except a three-way result, where a draw beats both teams.
+ */
 function gameOutcome(p: PickView, g: GameView): 'PICK_HIT' | 'PICK_MISSED' | null {
   const st = g.state;
-  if (!st || st.homeScore === null || st.awayScore === null) return null;
+  if (!st || (p.type !== 'FIGHT' && (st.homeScore === null || st.awayScore === null))) return null;
   const margin = gameMargin(p, st);
-  if (margin === null || margin === 0) return null;
+  if (margin === null || (margin === 0 && p.type !== 'RESULT')) return null;
   if (st.state === 'FINAL') return margin > 0 ? 'PICK_HIT' : 'PICK_MISSED';
-  // Points only go up, so a total decides itself mid-game once the line is passed.
-  if (st.state === 'LIVE' && p.type === 'TOTAL') {
-    if (p.selectionSide === 'OVER' && margin > 0) return 'PICK_HIT';
-    if (p.selectionSide === 'UNDER' && margin < 0) return 'PICK_MISSED';
+  // Scores only go up, so these decide themselves mid-game.
+  if (st.state === 'LIVE' && (p.type === 'TOTAL' || p.type === 'BTTS')) {
+    const yes = p.selectionSide === 'OVER' || p.selectionSide === 'YES';
+    if (yes && margin > 0) return 'PICK_HIT';
+    if (!yes && margin < 0) return 'PICK_MISSED';
   }
   return null;
 }
@@ -103,6 +107,27 @@ function text(kind: 'PICK_HIT' | 'PICK_MISSED', p: PickView, g: GameView, c: Cou
       body: `Total points · ${when} ${score} · ${bet}`,
     };
   }
+  if (p.type === 'RESULT') {
+    const draw = p.moneylineSide === 'draw';
+    return {
+      title: kind === 'PICK_HIT' ? (draw ? '✓ Draw' : `✓ ${who} won`) : draw ? '✗ No draw' : `✗ ${who} didn't win`,
+      body: `Match result · Final ${score} · ${bet}`,
+    };
+  }
+  if (p.type === 'BTTS') {
+    // A yes that hit, or a no that missed, means both teams scored.
+    const both = (kind === 'PICK_HIT') === (p.selectionSide === 'YES');
+    return {
+      title: `${kind === 'PICK_HIT' ? '✓' : '✗'} ${both ? 'Both teams scored' : 'Not both teams scored'}`,
+      body: `Both teams to score · ${when} ${score} · ${bet}`,
+    };
+  }
+  if (p.type === 'FIGHT') {
+    return {
+      title: `${kind === 'PICK_HIT' ? '✓' : '✗'} ${who}: ${market}`,
+      body: `${g.name ?? 'UFC'} · ${st?.detail ?? 'Final'} · ${bet}`,
+    };
+  }
   if (p.type === 'SPREAD') {
     return {
       title: kind === 'PICK_HIT' ? `✓ ${who} covered` : `✗ ${who} didn't cover`,
@@ -113,6 +138,13 @@ function text(kind: 'PICK_HIT' | 'PICK_MISSED', p: PickView, g: GameView, c: Cou
   if (p.display === 'BINARY' && pr.metric === 'SACKS') {
     return {
       title: kind === 'PICK_HIT' ? `✓ ${who} got a sack` : `✗ ${who} had no sack`,
+      body: `${market} · ${when} ${score} · ${bet}`,
+    };
+  }
+  const multiple = pr.metric === 'DOUBLE_DOUBLE' ? 'double-double' : pr.metric === 'TRIPLE_DOUBLE' ? 'triple-double' : null;
+  if (p.display === 'BINARY' && multiple) {
+    return {
+      title: kind === 'PICK_HIT' ? `✓ ${who} got a ${multiple}` : `✗ ${who} had no ${multiple}`,
       body: `${market} · ${when} ${score} · ${bet}`,
     };
   }

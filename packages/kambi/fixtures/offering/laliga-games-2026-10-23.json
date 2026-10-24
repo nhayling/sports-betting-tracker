@@ -1,0 +1,202 @@
+{
+ "events": [
+  {
+   "event": {
+    "id": 1028209180,
+    "name": "Rayo Vallecano - Elche",
+    "homeName": "Rayo Vallecano",
+    "awayName": "Elche",
+    "start": "2026-10-24T12:00:00Z",
+    "sport": "FOOTBALL",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "Soccer"
+     },
+     {
+      "name": "Spain"
+     },
+     {
+      "name": "La Liga"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1028209178,
+    "name": "Racing Santander - Espanyol",
+    "homeName": "Racing Santander",
+    "awayName": "Espanyol",
+    "start": "2026-10-24T14:15:00Z",
+    "sport": "FOOTBALL",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "Soccer"
+     },
+     {
+      "name": "Spain"
+     },
+     {
+      "name": "La Liga"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1028209232,
+    "name": "Valencia - Villarreal",
+    "homeName": "Valencia",
+    "awayName": "Villarreal",
+    "start": "2026-10-24T16:30:00Z",
+    "sport": "FOOTBALL",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "Soccer"
+     },
+     {
+      "name": "Spain"
+     },
+     {
+      "name": "La Liga"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1028209176,
+    "name": "Atl\u00e9tico Madrid - Deportivo A Coru\u00f1a",
+    "homeName": "Atl\u00e9tico Madrid",
+    "awayName": "Deportivo A Coru\u00f1a",
+    "start": "2026-10-24T19:00:00Z",
+    "sport": "FOOTBALL",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "Soccer"
+     },
+     {
+      "name": "Spain"
+     },
+     {
+      "name": "La Liga"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1028209188,
+    "name": "Athletic Bilbao - Getafe",
+    "homeName": "Athletic Bilbao",
+    "awayName": "Getafe",
+    "start": "2026-10-25T13:00:00Z",
+    "sport": "FOOTBALL",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "Soccer"
+     },
+     {
+      "name": "Spain"
+     },
+     {
+      "name": "La Liga"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1028209183,
+    "name": "Celta Vigo - Real Betis",
+    "homeName": "Celta Vigo",
+    "awayName": "Real Betis",
+    "start": "2026-10-25T15:15:00Z",
+    "sport": "FOOTBALL",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "Soccer"
+     },
+     {
+      "name": "Spain"
+     },
+     {
+      "name": "La Liga"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1028209223,
+    "name": "Real Sociedad - Levante",
+    "homeName": "Real Sociedad",
+    "awayName": "Levante",
+    "start": "2026-10-25T17:30:00Z",
+    "sport": "FOOTBALL",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "Soccer"
+     },
+     {
+      "name": "Spain"
+     },
+     {
+      "name": "La Liga"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1028209185,
+    "name": "FC Barcelona - Real Madrid",
+    "homeName": "FC Barcelona",
+    "awayName": "Real Madrid",
+    "start": "2026-10-25T20:00:00Z",
+    "sport": "FOOTBALL",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "Soccer"
+     },
+     {
+      "name": "Spain"
+     },
+     {
+      "name": "La Liga"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1028209231,
+    "name": "Sevilla - Osasuna",
+    "homeName": "Sevilla",
+    "awayName": "Osasuna",
+    "start": "2026-10-26T20:00:00Z",
+    "sport": "FOOTBALL",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "Soccer"
+     },
+     {
+      "name": "Spain"
+     },
+     {
+      "name": "La Liga"
+     }
+    ]
+   }
+  }
+ ]
+}

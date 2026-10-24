@@ -1,8 +1,8 @@
 import type { Prisma } from '@prisma/client';
 import { gameMargin } from '@sports-better/display';
-import { classifyMarket, gameMarket, spreadPick } from '@sports-better/markets';
-import { sportForLeague, teamMatches } from '@sports-better/matching';
-import type { GameSituation, ProviderTeam } from '@sports-better/sports-data';
+import { classifyMarket, fightPick, gameMarket, gradeFight, spreadPick, type GameMarket } from '@sports-better/markets';
+import { sportForLeague, stripRanking, teamMatches } from '@sports-better/matching';
+import type { FightResult, GameSituation, ProviderTeam } from '@sports-better/sports-data';
 import type { BetsView, CouponView, GameStateView, GameView } from './betsViewTypes';
 
 export type * from './betsViewTypes';
@@ -84,22 +84,31 @@ function atMinimumBet(c: CouponView): Pick<CouponView, 'stakeMinor' | 'potential
   };
 }
 
-/** A pick counts as hit once Island Luck settles it WON, live stats reach its target, (moneyline, spread) its team wins or covers, or (total) it goes over. */
-function pickHit(
-  status: string,
-  progress: { status: string } | null,
-  game: { type: string; moneylineSide: 'home' | 'away' | null; line: number | null; selectionSide: string | null } | null,
-  state: GameStateView | null,
-): boolean {
+type GamePick = { type: string; moneylineSide: 'home' | 'away' | 'draw' | null; line: number | null; selectionSide: string | null; fightGrade: 1 | -1 | 0 | null };
+
+/**
+ * A pick counts as hit once Island Luck settles it WON, live stats reach its target, (moneyline, spread, result)
+ * its side wins or covers, (total, both teams to score) the score gets there, or (UFC) the result says so.
+ */
+function pickHit(status: string, progress: { status: string } | null, game: GamePick | null, state: GameStateView | null): boolean {
   if (status === 'WON') return true;
   if (status !== 'OPEN') return false;
   if (progress?.status === 'TARGET_REACHED' || progress?.status === 'FINAL_HIT') return true;
-  if (game && state && state.homeScore !== null && state.awayScore !== null) {
-    // Final for every game market; an over that has passed its line has also hit mid-game.
-    const over = game.type === 'TOTAL' && game.selectionSide === 'OVER' && state.state === 'LIVE';
-    if (state.state === 'FINAL' || over) return (gameMargin(game, state) ?? 0) > 0;
+  if (game && state && (game.type === 'FIGHT' || (state.homeScore !== null && state.awayScore !== null))) {
+    // Final for every game market; an over past its line, or both teams having scored, has also hit mid-game.
+    const early = state.state === 'LIVE' && ((game.type === 'TOTAL' && game.selectionSide === 'OVER') || (game.type === 'BTTS' && game.selectionSide === 'YES'));
+    if (state.state === 'FINAL' || early) return (gameMargin(game, state) ?? 0) > 0;
   }
   return false;
+}
+
+/** Three-way and fight picks are labelled by position ("1", "X", "2"); this names them after their side. */
+function sideName(label: string | null, leg: { homeName: string | null; awayName: string | null }): string | null {
+  const l = label?.trim() ?? '';
+  if (l === '1') return leg.homeName;
+  if (l === '2') return leg.awayName;
+  if (/^(x|draw|tie)$/i.test(l)) return 'Draw';
+  return label;
 }
 
 export type StateRow = Awaited<ReturnType<Db['providerEventState']['findMany']>>[number];
@@ -123,7 +132,7 @@ export async function loadEventStates(db: Db, kambiEventIds: string[]): Promise<
   );
 }
 
-/** Which side of the game a moneyline or spread pick ("KC Chiefs", "LV Raiders +5.0") is on, or null if unclear. */
+/** Which side of the game a moneyline, spread or fight pick ("KC Chiefs", "LV Raiders +5.0", "Kody Steele") is on, or null if unclear. */
 export function moneylineSideOf(
   league: string | null,
   participantName: string | null,
@@ -162,21 +171,31 @@ function couponView(c: CouponRow, states: Map<string, StateRow>, now: Date): Cou
     }
 
     for (const s of leg.selections) {
-      const ml = gameMarket(s.marketName);
+      const ml: GameMarket | null = gameMarket(s.marketName);
       const cls = ml ? null : classifyMarket({ sport: leg.sport, marketName: s.marketName, selectionSide: s.selectionSide, line: s.lineRaw === null ? null : s.lineRaw / 1000 });
       // A saved "unsupported" reason is stale once the market becomes supported
       // (the poller only revisits it near kickoff).
       const p =
         s.progress?.status === 'UNAVAILABLE' && s.progress.unavailableReason?.startsWith('UNSUPPORTED') && cls?.supported ? null : s.progress;
-      const moneylineSide =
-        ml && game.state ? moneylineSideOf(leg.league, s.participantName, game.state.home as ProviderTeam, game.state.away as ProviderTeam) : null;
+      const st = game.state;
+      // Game picks are named after their side; a team or fighter stands in for Kambi's "1"/"2".
+      const name = ml ? sideName(s.participantName ?? s.selectionLabel, leg) : s.participantName;
+      const sideOf = (n: string | null) => (st ? moneylineSideOf(leg.league, n, st.home as ProviderTeam, st.away as ProviderTeam) : null);
+      const pickSide = ml === 'RESULT' && name === 'Draw' ? 'draw' : ml && ml !== 'TOTAL' && ml !== 'BTTS' ? sideOf(name) : null;
+      const moneylineSide = pickSide ?? null;
       const outcomeLine = s.lineRaw === null ? null : s.lineRaw / 1000;
       const line = ml === 'SPREAD' ? spreadPick(s.participantName ?? s.selectionLabel, outcomeLine).line : outcomeLine;
       const type = ml ?? (cls?.supported ? 'STAT' : 'OTHER');
-      if (pickHit(s.status, cls?.supported ? p : null, ml ? { type, moneylineSide, line, selectionSide: s.selectionSide } : null, game.state)) picksHit++;
+      const fight = ml === 'FIGHT' ? fightPick(s.marketName, name, s.selectionSide, outcomeLine) : null;
+      const fightGrade = fight && st?.state === 'FINAL' && st.fight ? gradeFight(fight, st.fight, (n) => sideOf(n)) : null;
+      if (pickHit(s.status, cls?.supported ? p : null, ml ? { type, moneylineSide, line, selectionSide: s.selectionSide, fightGrade } : null, st)) picksHit++;
+      // Shown as the pick's name: a fighter named in the market ("Kody Steele to win by Decision"); nothing for
+      // fight-wide picks, which show the bout. Both teams to score has no participant at all.
+      const fighter = fight && 'fighter' in fight ? fight.fighter : null;
+      const shownName = ml === 'BTTS' ? 'Both teams to score' : ml === 'FIGHT' ? (fighter ? stripRanking(fighter) : null) : name;
       game.picks.push({
         id: s.id,
-        participantName: s.participantName,
+        participantName: shownName,
         marketName: s.marketName,
         selectionLabel: s.selectionLabel,
         selectionSide: s.selectionSide,
@@ -186,6 +205,7 @@ function couponView(c: CouponRow, states: Map<string, StateRow>, now: Date): Cou
         type,
         display: cls?.supported ? cls.display : null,
         moneylineSide,
+        fightGrade,
         progress: p
           ? {
               status: p.status,
@@ -252,6 +272,7 @@ function stateView(st: StateRow): GameStateView {
     home: { ...home, abbreviation: home.abbreviation },
     away: { ...away, abbreviation: away.abbreviation },
     situation: (st.situation as unknown as GameSituation | null) ?? null,
+    fight: (st.result as unknown as FightResult | null) ?? null,
     updatedAt: st.updatedAt.toISOString(),
   };
 }

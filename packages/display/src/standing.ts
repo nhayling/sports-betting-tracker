@@ -7,32 +7,47 @@ export interface StandingPick {
   status: string;
   type: string;
   display: string | null;
-  /** Moneyline or spread: which side of the game the pick is on. */
-  moneylineSide: 'home' | 'away' | null;
+  /** Moneyline, spread or three-way result: which side of the game the pick is on. */
+  moneylineSide: 'home' | 'away' | 'draw' | null;
   /** Spread: the picked side's line (+5 for an underdog getting five). Total: the points line. */
   line?: number | null;
-  /** Total: OVER or UNDER. */
+  /** Total: OVER or UNDER. Both teams to score: YES or NO. */
   selectionSide?: string | null;
+  /** UFC: graded on the server from the result (1 won, -1 lost, 0 void). */
+  fightGrade?: number | null;
   progress: { status: string; metric: string | null } | null;
 }
 type Scores = { homeScore: number | null; awayScore: number | null };
 
+/** Picks decided by the game rather than a stat. */
+export const GAME_TYPES = new Set(['MONEYLINE', 'SPREAD', 'TOTAL', 'RESULT', 'BTTS', 'FIGHT']);
+
 /**
- * A game pick's margin from its own side. Moneyline: the score difference.
- * Spread: that plus the line. Total: points over the line for an over, under it
- * for an under. Above 0 wins (or covers), 0 is a tie (or push). Null when the
- * side or the line isn't known.
+ * A game pick's margin from its own side. Moneyline and three-way result: the
+ * score difference (a draw pick: 1 while level, else minus the gap). Spread:
+ * that plus the line. Total: points over the line for an over, under it for an
+ * under. Both teams to score: 1 when the pick is right so far, else -1. UFC:
+ * the server's grade. Above 0 wins (or covers), 0 is a tie (or push). Null
+ * when the side or the line isn't known.
  */
-export function gameMargin(p: Pick<StandingPick, 'type' | 'moneylineSide' | 'line' | 'selectionSide'>, st: Scores): number | null {
+export function gameMargin(p: Pick<StandingPick, 'type' | 'moneylineSide' | 'line' | 'selectionSide' | 'fightGrade'>, st: Scores): number | null {
+  if (p.type === 'FIGHT') return p.fightGrade ?? null;
+  if (p.type === 'BTTS') {
+    if (p.selectionSide !== 'YES' && p.selectionSide !== 'NO') return null;
+    const both = Math.min(st.homeScore ?? 0, st.awayScore ?? 0) > 0;
+    return both === (p.selectionSide === 'YES') ? 1 : -1;
+  }
   if (p.type === 'TOTAL') {
     if (p.line === null || p.line === undefined || (p.selectionSide !== 'OVER' && p.selectionSide !== 'UNDER')) return null;
     const total = (st.homeScore ?? 0) + (st.awayScore ?? 0);
     return p.selectionSide === 'OVER' ? total - p.line : p.line - total;
   }
   if (!p.moneylineSide) return null;
+  const diff = (st.homeScore ?? 0) - (st.awayScore ?? 0);
+  if (p.moneylineSide === 'draw') return diff === 0 ? 1 : -Math.abs(diff);
   const line = p.type === 'SPREAD' ? p.line : 0;
   if (line === null || line === undefined) return null;
-  return (p.moneylineSide === 'home' ? 1 : -1) * ((st.homeScore ?? 0) - (st.awayScore ?? 0)) + line;
+  return (p.moneylineSide === 'home' ? 1 : -1) * diff + line;
 }
 
 export interface StandingGame {
@@ -58,18 +73,24 @@ export function pickState(p: StandingPick, game: StandingGame): PickState {
   if (p.status === 'LOST') return 'missed';
   if (p.status === 'VOID') return 'void';
 
-  if (p.type === 'MONEYLINE' || p.type === 'SPREAD' || p.type === 'TOTAL') {
+  if (GAME_TYPES.has(p.type)) {
     const st = game.state;
     const margin = st ? gameMargin(p, st) : null;
-    if (!st || st.state === 'SCHEDULED' || margin === null) return 'waiting';
+    // A fight has no margin until it's over.
+    if (!st || st.state === 'SCHEDULED' || (margin === null && (p.type !== 'FIGHT' || st.state === 'FINAL'))) return 'waiting';
     if (st.state !== 'FINAL') {
-      // Points only go up: an over past its line has won, an under past it has lost, mid-game.
-      if (p.type === 'TOTAL' && p.selectionSide === 'OVER' && margin > 0) return 'hit';
-      if (p.type === 'TOTAL' && p.selectionSide === 'UNDER' && margin < 0) return 'missed';
+      // Scores only go up: an over past its line has won, an under past it has lost, mid-game; so has
+      // both teams to score once they both have.
+      const early = p.type === 'TOTAL' || p.type === 'BTTS';
+      const yes = p.selectionSide === 'OVER' || p.selectionSide === 'YES';
+      if (early && margin !== null && yes && margin > 0) return 'hit';
+      if (early && margin !== null && !yes && margin < 0) return 'missed';
       return 'running';
     }
+    // A three-way result has no tie to wait on: a draw beats both teams.
+    if (p.type === 'RESULT') return margin! > 0 ? 'hit' : 'missed';
     // A spread or total landing on the line is a push: the pick is voided and the bet rides on.
-    return margin > 0 ? 'hit' : margin < 0 ? 'missed' : p.type === 'MONEYLINE' ? 'waiting' : 'void';
+    return margin! > 0 ? 'hit' : margin! < 0 ? 'missed' : p.type === 'MONEYLINE' ? 'waiting' : 'void';
   }
 
   switch (p.progress?.status) {

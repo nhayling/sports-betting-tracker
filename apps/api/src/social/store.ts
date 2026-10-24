@@ -1,4 +1,4 @@
-import type { User } from '@prisma/client';
+import type { Prisma, User } from '@prisma/client';
 import type { Db } from '../db';
 import { MIN_BETS, type LeaderboardView, type Period, type Person, type ProfileView, type Relation, type SocialSettings } from './types';
 import { inPeriod, netMinor, rank, unitStats, type UnitBet } from './units';
@@ -102,11 +102,29 @@ export async function pendingRequests(db: Db, userId: string): Promise<number> {
 }
 
 /** Everyone else on the tracker, with how you stand with them. */
-export async function loadPeople(db: Db, viewerId: string): Promise<Person[]> {
-  const [users, relations] = await Promise.all([
-    db.user.findMany({ where: { id: { not: viewerId } }, select: { id: true, username: true, displayName: true, locked: true }, orderBy: { username: 'asc' } }),
-    relationsOf(db, viewerId),
-  ]);
+/** A search returns at most this many people; typing more narrows it. */
+export const PEOPLE_SEARCH_LIMIT = 20;
+
+/**
+ * Without a query: the people you have any tie with (friends, follows and
+ * requests either way). With one: anyone whose username or display name
+ * contains it, so a tracker with many people never lists them all.
+ */
+export async function loadPeople(db: Db, viewerId: string, query?: string): Promise<Person[]> {
+  const relations = await relationsOf(db, viewerId);
+  const q = query?.trim().replace(/^@/, '');
+  const where: Prisma.UserWhereInput = q
+    ? {
+        id: { not: viewerId },
+        OR: [{ username: { contains: q, mode: 'insensitive' } }, { displayName: { contains: q, mode: 'insensitive' } }],
+      }
+    : { id: { in: [...relations.keys()].filter((id) => id !== viewerId) } };
+  const users = await db.user.findMany({
+    where,
+    select: { id: true, username: true, displayName: true, locked: true },
+    orderBy: { username: 'asc' },
+    ...(q ? { take: PEOPLE_SEARCH_LIMIT } : {}),
+  });
   return users.map((u) => ({
     username: u.username,
     displayName: u.displayName,

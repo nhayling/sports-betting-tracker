@@ -1,0 +1,23 @@
+{
+ "events": [
+  {
+   "event": {
+    "id": 1029561854,
+    "name": "TB Rays @ MIL Brewers",
+    "homeName": "MIL Brewers",
+    "awayName": "TB Rays",
+    "start": "2026-10-24T00:00:00Z",
+    "sport": "BASEBALL",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "Baseball"
+     },
+     {
+      "name": "MLB"
+     }
+    ]
+   }
+  }
+ ]
+}

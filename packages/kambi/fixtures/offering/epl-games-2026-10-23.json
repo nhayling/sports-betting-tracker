@@ -1,0 +1,202 @@
+{
+ "events": [
+  {
+   "event": {
+    "id": 1028072715,
+    "name": "Aston Villa - Manchester City",
+    "homeName": "Aston Villa",
+    "awayName": "Manchester City",
+    "start": "2026-10-24T11:30:00Z",
+    "sport": "FOOTBALL",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "Soccer"
+     },
+     {
+      "name": "England"
+     },
+     {
+      "name": "Premier League"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1028072719,
+    "name": "Arsenal - Everton",
+    "homeName": "Arsenal",
+    "awayName": "Everton",
+    "start": "2026-10-24T14:00:00Z",
+    "sport": "FOOTBALL",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "Soccer"
+     },
+     {
+      "name": "England"
+     },
+     {
+      "name": "Premier League"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1028072722,
+    "name": "Coventry City - Fulham",
+    "homeName": "Coventry City",
+    "awayName": "Fulham",
+    "start": "2026-10-24T14:00:00Z",
+    "sport": "FOOTBALL",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "Soccer"
+     },
+     {
+      "name": "England"
+     },
+     {
+      "name": "Premier League"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1028072725,
+    "name": "Chelsea - Tottenham",
+    "homeName": "Chelsea",
+    "awayName": "Tottenham",
+    "start": "2026-10-24T16:30:00Z",
+    "sport": "FOOTBALL",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "Soccer"
+     },
+     {
+      "name": "England"
+     },
+     {
+      "name": "Premier League"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1028072804,
+    "name": "Manchester United - Bournemouth",
+    "homeName": "Manchester United",
+    "awayName": "Bournemouth",
+    "start": "2026-10-25T14:00:00Z",
+    "sport": "FOOTBALL",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "Soccer"
+     },
+     {
+      "name": "England"
+     },
+     {
+      "name": "Premier League"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1028072739,
+    "name": "Liverpool - Brighton",
+    "homeName": "Liverpool",
+    "awayName": "Brighton",
+    "start": "2026-10-25T14:00:00Z",
+    "sport": "FOOTBALL",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "Soccer"
+     },
+     {
+      "name": "England"
+     },
+     {
+      "name": "Premier League"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1028072735,
+    "name": "Crystal Palace - Newcastle",
+    "homeName": "Crystal Palace",
+    "awayName": "Newcastle",
+    "start": "2026-10-25T14:00:00Z",
+    "sport": "FOOTBALL",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "Soccer"
+     },
+     {
+      "name": "England"
+     },
+     {
+      "name": "Premier League"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1028072732,
+    "name": "Hull City - Brentford",
+    "homeName": "Hull City",
+    "awayName": "Brentford",
+    "start": "2026-10-25T14:00:00Z",
+    "sport": "FOOTBALL",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "Soccer"
+     },
+     {
+      "name": "England"
+     },
+     {
+      "name": "Premier League"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1028072814,
+    "name": "Sunderland - Leeds United",
+    "homeName": "Sunderland",
+    "awayName": "Leeds United",
+    "start": "2026-10-25T16:30:00Z",
+    "sport": "FOOTBALL",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "Soccer"
+     },
+     {
+      "name": "England"
+     },
+     {
+      "name": "Premier League"
+     }
+    ]
+   }
+  }
+ ]
+}

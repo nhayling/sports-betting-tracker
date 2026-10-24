@@ -1,0 +1,3542 @@
+{
+ "header": {
+  "id": "401882842",
+  "uid": "s:600~l:740~e:401882842",
+  "competitions": [
+   {
+    "id": "401882842",
+    "date": "2026-10-19T19:00Z",
+    "neutralSite": false,
+    "status": {
+     "type": {
+      "id": "28",
+      "name": "STATUS_FULL_TIME",
+      "state": "post",
+      "completed": true,
+      "description": "Full Time",
+      "detail": "FT",
+      "shortDetail": "FT"
+     }
+    },
+    "competitors": [
+     {
+      "id": "2922",
+      "homeAway": "home",
+      "score": "1",
+      "winner": false,
+      "team": {
+       "id": "2922",
+       "uid": "s:600~t:2922",
+       "abbreviation": "GET",
+       "location": "Getafe",
+       "name": "Getafe",
+       "displayName": "Getafe",
+       "shortDisplayName": "Getafe"
+      }
+     },
+     {
+      "id": "101",
+      "homeAway": "away",
+      "score": "1",
+      "winner": false,
+      "team": {
+       "id": "101",
+       "uid": "s:600~t:101",
+       "abbreviation": "RAY",
+       "location": "Rayo Vallecano",
+       "name": "Rayo Vallecano",
+       "displayName": "Rayo Vallecano",
+       "shortDisplayName": "Rayo"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "boxscore": {
+  "players": [],
+  "teams": [
+   {
+    "team": {
+     "id": "2922",
+     "uid": "s:600~t:2922",
+     "abbreviation": "GET",
+     "location": "Getafe",
+     "name": "Getafe",
+     "displayName": "Getafe",
+     "shortDisplayName": "Getafe"
+    },
+    "statistics": [
+     {
+      "name": "foulsCommitted",
+      "displayValue": "12"
+     },
+     {
+      "name": "yellowCards",
+      "displayValue": "6"
+     },
+     {
+      "name": "redCards",
+      "displayValue": "1"
+     },
+     {
+      "name": "offsides",
+      "displayValue": "0"
+     },
+     {
+      "name": "wonCorners",
+      "displayValue": "8"
+     },
+     {
+      "name": "saves",
+      "displayValue": "4"
+     },
+     {
+      "name": "possessionPct",
+      "displayValue": "31.6"
+     },
+     {
+      "name": "totalShots",
+      "displayValue": "12"
+     },
+     {
+      "name": "shotsOnTarget",
+      "displayValue": "4"
+     },
+     {
+      "name": "shotPct",
+      "displayValue": "0.3"
+     },
+     {
+      "name": "penaltyKickGoals",
+      "displayValue": "0"
+     },
+     {
+      "name": "penaltyKickShots",
+      "displayValue": "0"
+     },
+     {
+      "name": "accuratePasses",
+      "displayValue": "184"
+     },
+     {
+      "name": "totalPasses",
+      "displayValue": "255"
+     },
+     {
+      "name": "passPct",
+      "displayValue": "0.7"
+     },
+     {
+      "name": "accurateCrosses",
+      "displayValue": "5"
+     },
+     {
+      "name": "totalCrosses",
+      "displayValue": "22"
+     },
+     {
+      "name": "crossPct",
+      "displayValue": "0.2"
+     },
+     {
+      "name": "totalLongBalls",
+      "displayValue": "57"
+     },
+     {
+      "name": "accurateLongBalls",
+      "displayValue": "22"
+     },
+     {
+      "name": "longballPct",
+      "displayValue": "0.4"
+     },
+     {
+      "name": "blockedShots",
+      "displayValue": "4"
+     },
+     {
+      "name": "effectiveTackles",
+      "displayValue": "5"
+     },
+     {
+      "name": "totalTackles",
+      "displayValue": "14"
+     },
+     {
+      "name": "tacklePct",
+      "displayValue": "0.4"
+     },
+     {
+      "name": "interceptions",
+      "displayValue": "9"
+     },
+     {
+      "name": "effectiveClearance",
+      "displayValue": "25"
+     },
+     {
+      "name": "totalClearance",
+      "displayValue": "25"
+     }
+    ]
+   },
+   {
+    "team": {
+     "id": "101",
+     "uid": "s:600~t:101",
+     "abbreviation": "RAY",
+     "location": "Rayo Vallecano",
+     "name": "Rayo Vallecano",
+     "displayName": "Rayo Vallecano",
+     "shortDisplayName": "Rayo"
+    },
+    "statistics": [
+     {
+      "name": "foulsCommitted",
+      "displayValue": "9"
+     },
+     {
+      "name": "yellowCards",
+      "displayValue": "3"
+     },
+     {
+      "name": "redCards",
+      "displayValue": "0"
+     },
+     {
+      "name": "offsides",
+      "displayValue": "3"
+     },
+     {
+      "name": "wonCorners",
+      "displayValue": "8"
+     },
+     {
+      "name": "saves",
+      "displayValue": "3"
+     },
+     {
+      "name": "possessionPct",
+      "displayValue": "68.4"
+     },
+     {
+      "name": "totalShots",
+      "displayValue": "21"
+     },
+     {
+      "name": "shotsOnTarget",
+      "displayValue": "5"
+     },
+     {
+      "name": "shotPct",
+      "displayValue": "0.2"
+     },
+     {
+      "name": "penaltyKickGoals",
+      "displayValue": "0"
+     },
+     {
+      "name": "penaltyKickShots",
+      "displayValue": "0"
+     },
+     {
+      "name": "accuratePasses",
+      "displayValue": "519"
+     },
+     {
+      "name": "totalPasses",
+      "displayValue": "579"
+     },
+     {
+      "name": "passPct",
+      "displayValue": "0.9"
+     },
+     {
+      "name": "accurateCrosses",
+      "displayValue": "5"
+     },
+     {
+      "name": "totalCrosses",
+      "displayValue": "23"
+     },
+     {
+      "name": "crossPct",
+      "displayValue": "0.2"
+     },
+     {
+      "name": "totalLongBalls",
+      "displayValue": "36"
+     },
+     {
+      "name": "accurateLongBalls",
+      "displayValue": "19"
+     },
+     {
+      "name": "longballPct",
+      "displayValue": "0.5"
+     },
+     {
+      "name": "blockedShots",
+      "displayValue": "8"
+     },
+     {
+      "name": "effectiveTackles",
+      "displayValue": "7"
+     },
+     {
+      "name": "totalTackles",
+      "displayValue": "10"
+     },
+     {
+      "name": "tacklePct",
+      "displayValue": "0.7"
+     },
+     {
+      "name": "interceptions",
+      "displayValue": "10"
+     },
+     {
+      "name": "effectiveClearance",
+      "displayValue": "30"
+     },
+     {
+      "name": "totalClearance",
+      "displayValue": "30"
+     }
+    ]
+   }
+  ]
+ },
+ "rosters": [
+  {
+   "homeAway": "home",
+   "team": {
+    "id": "2922",
+    "abbreviation": "GET",
+    "displayName": "Getafe"
+   },
+   "roster": [
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "196339",
+      "uid": "s:600~a:196339",
+      "lastName": "Soria",
+      "fullName": "David Soria",
+      "displayName": "David Soria",
+      "shortName": "D. Soria"
+     },
+     "position": {
+      "abbreviation": "G"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 0
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 1
+      },
+      {
+       "name": "saves",
+       "value": 4
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "395479",
+      "uid": "s:600~a:395479",
+      "lastName": "Valou",
+      "fullName": "Jean Ives Valou",
+      "displayName": "Jean Ives Valou",
+      "shortName": "J. Valou"
+     },
+     "position": {
+      "abbreviation": "CD-L"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 0
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 1
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 2
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "181355",
+      "uid": "s:600~a:181355",
+      "fullName": "Djené",
+      "displayName": "Djené",
+      "shortName": "Djené"
+     },
+     "position": {
+      "abbreviation": "CD-R"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 2
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 1
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 1
+      },
+      {
+       "name": "goalsConceded",
+       "value": 1
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "173247",
+      "uid": "s:600~a:173247",
+      "lastName": "Mojica",
+      "fullName": "Johan Mojica",
+      "displayName": "Johan Mojica",
+      "shortName": "J. Mojica"
+     },
+     "position": {
+      "abbreviation": "LB"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 0
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 1
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "168531",
+      "uid": "s:600~a:168531",
+      "lastName": "Carvajal",
+      "fullName": "Dani Carvajal",
+      "displayName": "Dani Carvajal",
+      "shortName": "D. Carvajal"
+     },
+     "position": {
+      "abbreviation": "RB"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 0
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 1
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 1
+      },
+      {
+       "name": "goalsConceded",
+       "value": 1
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "357147",
+      "uid": "s:600~a:357147",
+      "lastName": "Martín",
+      "fullName": "Mario Martín",
+      "displayName": "Mario Martín",
+      "shortName": "M. Martín"
+     },
+     "position": {
+      "abbreviation": "CM-L"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 1
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 1
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 1
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "136673",
+      "uid": "s:600~a:136673",
+      "lastName": "Gudelj",
+      "fullName": "Nemanja Gudelj",
+      "displayName": "Nemanja Gudelj",
+      "shortName": "N. Gudelj"
+     },
+     "position": {
+      "abbreviation": "CM-R"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 3
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 1
+      },
+      {
+       "name": "goalsConceded",
+       "value": 1
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "284854",
+      "uid": "s:600~a:284854",
+      "lastName": "Satriano",
+      "fullName": "Martín Satriano",
+      "displayName": "Martín Satriano",
+      "shortName": "M. Satriano"
+     },
+     "position": {
+      "abbreviation": "LM"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 1
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 3
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 1
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 3
+      },
+      {
+       "name": "totalGoals",
+       "value": 1
+      },
+      {
+       "name": "totalShots",
+       "value": 4
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "125749",
+      "uid": "s:600~a:125749",
+      "lastName": "Femenía",
+      "fullName": "Kiko Femenía",
+      "displayName": "Kiko Femenía",
+      "shortName": "K. Femenía"
+     },
+     "position": {
+      "abbreviation": "RM"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 1
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 1
+      },
+      {
+       "name": "goalsConceded",
+       "value": 1
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "218122",
+      "uid": "s:600~a:218122",
+      "lastName": "Ünal",
+      "fullName": "Enes Ünal",
+      "displayName": "Enes Ünal",
+      "shortName": "E. Ünal"
+     },
+     "position": {
+      "abbreviation": "CF-L"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 2
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 1
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 1
+      },
+      {
+       "name": "goalsConceded",
+       "value": 1
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 1
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 1
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "309838",
+      "uid": "s:600~a:309838",
+      "lastName": "Terrats",
+      "fullName": "Ramón Terrats",
+      "displayName": "Ramón Terrats",
+      "shortName": "R. Terrats"
+     },
+     "position": {
+      "abbreviation": "CF-R"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 0
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 1
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 2
+      }
+     ]
+    },
+    {
+     "starter": false,
+     "subbedIn": false,
+     "athlete": {
+      "id": "383912",
+      "uid": "s:600~a:383912",
+      "lastName": "Risco",
+      "fullName": "Alberto Risco",
+      "displayName": "Alberto Risco",
+      "shortName": "A. Risco"
+     },
+     "position": {
+      "abbreviation": "SUB"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 0
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 0
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 0
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": false,
+     "subbedIn": true,
+     "athlete": {
+      "id": "359826",
+      "uid": "s:600~a:359826",
+      "lastName": "Boselli",
+      "fullName": "Sebastián Boselli",
+      "displayName": "Sebastián Boselli",
+      "shortName": "S. Boselli"
+     },
+     "position": {
+      "abbreviation": "SUB"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 0
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 1
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 0
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": false,
+     "subbedIn": true,
+     "athlete": {
+      "id": "277876",
+      "uid": "s:600~a:277876",
+      "lastName": "Abqar",
+      "fullName": "Abdel Abqar",
+      "displayName": "Abdel Abqar",
+      "shortName": "A. Abqar"
+     },
+     "position": {
+      "abbreviation": "SUB"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 0
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 2
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 1
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 0
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": false,
+     "subbedIn": false,
+     "athlete": {
+      "id": "314403",
+      "uid": "s:600~a:314403",
+      "lastName": "Sazonov",
+      "fullName": "Saba Sazonov",
+      "displayName": "Saba Sazonov",
+      "shortName": "S. Sazonov"
+     },
+     "position": {
+      "abbreviation": "SUB"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 0
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 0
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 0
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": false,
+     "subbedIn": false,
+     "athlete": {
+      "id": "406832",
+      "uid": "s:600~a:406832",
+      "lastName": "Cordón Mancha",
+      "fullName": "Davinchi",
+      "displayName": "Davinchi",
+      "shortName": "Davinchi"
+     },
+     "position": {
+      "abbreviation": "SUB"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 0
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 0
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 0
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": false,
+     "subbedIn": true,
+     "athlete": {
+      "id": "356080",
+      "uid": "s:600~a:356080",
+      "lastName": "García",
+      "fullName": "Andrés García",
+      "displayName": "Andrés García",
+      "shortName": "A. García"
+     },
+     "position": {
+      "abbreviation": "SUB"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 0
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 1
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 1
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 0
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 1
+      }
+     ]
+    },
+    {
+     "starter": false,
+     "subbedIn": true,
+     "athlete": {
+      "id": "307186",
+      "uid": "s:600~a:307186",
+      "lastName": "Serrano",
+      "fullName": "Francho Serrano",
+      "displayName": "Francho Serrano",
+      "shortName": "F. Serrano"
+     },
+     "position": {
+      "abbreviation": "SUB"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 2
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 1
+      },
+      {
+       "name": "yellowCards",
+       "value": 1
+      },
+      {
+       "name": "goalsConceded",
+       "value": 0
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 1
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 1
+      }
+     ]
+    },
+    {
+     "starter": false,
+     "subbedIn": false,
+     "athlete": {
+      "id": "388898",
+      "uid": "s:600~a:388898",
+      "lastName": "Ferrer",
+      "fullName": "Diego Ferrer",
+      "displayName": "Diego Ferrer",
+      "shortName": "D. Ferrer"
+     },
+     "position": {
+      "abbreviation": "SUB"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 0
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 0
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 0
+      },
+      {
+       "name": "saves",
+       "value": 0
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": false,
+     "subbedIn": false,
+     "athlete": {
+      "id": "344245",
+      "uid": "s:600~a:344245",
+      "lastName": "Letácek",
+      "fullName": "Jirí Letácek",
+      "displayName": "Jirí Letácek",
+      "shortName": "J. Letácek"
+     },
+     "position": {
+      "abbreviation": "SUB"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 0
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 0
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 0
+      },
+      {
+       "name": "saves",
+       "value": 0
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": false,
+     "subbedIn": true,
+     "athlete": {
+      "id": "218793",
+      "uid": "s:600~a:218793",
+      "lastName": "Mayoral",
+      "fullName": "Borja Mayoral",
+      "displayName": "Borja Mayoral",
+      "shortName": "B. Mayoral"
+     },
+     "position": {
+      "abbreviation": "SUB"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 0
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 1
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 0
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "homeAway": "away",
+   "team": {
+    "id": "101",
+    "abbreviation": "RAY",
+    "displayName": "Rayo Vallecano"
+   },
+   "roster": [
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "207834",
+      "uid": "s:600~a:207834",
+      "lastName": "Audero",
+      "fullName": "Emil Audero",
+      "displayName": "Emil Audero",
+      "shortName": "E. Audero"
+     },
+     "position": {
+      "abbreviation": "G"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 0
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 1
+      },
+      {
+       "name": "saves",
+       "value": 3
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "265996",
+      "uid": "s:600~a:265996",
+      "lastName": "Sadick",
+      "fullName": "Mujaid Sadick",
+      "displayName": "Mujaid Sadick",
+      "shortName": "M. Sadick"
+     },
+     "position": {
+      "abbreviation": "CD-L"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 1
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 1
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 1
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "140754",
+      "uid": "s:600~a:140754",
+      "lastName": "Lejeune",
+      "fullName": "Florian Lejeune",
+      "displayName": "Florian Lejeune",
+      "shortName": "F. Lejeune"
+     },
+     "position": {
+      "abbreviation": "CD-R"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 1
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 2
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 1
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 2
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "277292",
+      "uid": "s:600~a:277292",
+      "lastName": "Pedrosa",
+      "fullName": "Adrià Pedrosa",
+      "displayName": "Adrià Pedrosa",
+      "shortName": "A. Pedrosa"
+     },
+     "position": {
+      "abbreviation": "LB"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 0
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 1
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 1
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 1
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 3
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "158151",
+      "uid": "s:600~a:158151",
+      "lastName": "Balliu",
+      "fullName": "Iván Balliu",
+      "displayName": "Iván Balliu",
+      "shortName": "I. Balliu"
+     },
+     "position": {
+      "abbreviation": "RB"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 1
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 1
+      },
+      {
+       "name": "goalsConceded",
+       "value": 1
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "276652",
+      "uid": "s:600~a:276652",
+      "lastName": "Camello",
+      "fullName": "Sergio Camello",
+      "displayName": "Sergio Camello",
+      "shortName": "S. Camello"
+     },
+     "position": {
+      "abbreviation": "AM"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 1
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 2
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 1
+      },
+      {
+       "name": "goalsConceded",
+       "value": 1
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 1
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 3
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "294228",
+      "uid": "s:600~a:294228",
+      "lastName": "Ciss",
+      "fullName": "Pathé Ciss",
+      "displayName": "Pathé Ciss",
+      "shortName": "P. Ciss"
+     },
+     "position": {
+      "abbreviation": "LM"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 3
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 1
+      },
+      {
+       "name": "goalsConceded",
+       "value": 1
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "203711",
+      "uid": "s:600~a:203711",
+      "lastName": "López",
+      "fullName": "Unai López",
+      "displayName": "Unai López",
+      "shortName": "U. López"
+     },
+     "position": {
+      "abbreviation": "RM"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 0
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 2
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 1
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 1
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 3
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "260740",
+      "uid": "s:600~a:260740",
+      "lastName": "de Frutos",
+      "fullName": "Jorge de Frutos",
+      "displayName": "Jorge de Frutos",
+      "shortName": "J. de Frutos"
+     },
+     "position": {
+      "abbreviation": "F"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 0
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 1
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 1
+      },
+      {
+       "name": "offsides",
+       "value": 2
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "125200",
+      "uid": "s:600~a:125200",
+      "lastName": "García",
+      "fullName": "Álvaro García",
+      "displayName": "Álvaro García",
+      "shortName": "Á. García"
+     },
+     "position": {
+      "abbreviation": "AM-L"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 0
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 1
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 1
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 1
+      },
+      {
+       "name": "totalGoals",
+       "value": 1
+      },
+      {
+       "name": "totalShots",
+       "value": 2
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "264197",
+      "uid": "s:600~a:264197",
+      "lastName": "Palazón",
+      "fullName": "Isi Palazón",
+      "displayName": "Isi Palazón",
+      "shortName": "I. Palazón"
+     },
+     "position": {
+      "abbreviation": "AM-R"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 1
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 1
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 1
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 1
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": false,
+     "subbedIn": false,
+     "athlete": {
+      "id": "192893",
+      "uid": "s:600~a:192893",
+      "lastName": "Cárdenas",
+      "fullName": "Daniel Cárdenas",
+      "displayName": "Daniel Cárdenas",
+      "shortName": "D. Cárdenas"
+     },
+     "position": {
+      "abbreviation": "SUB"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 0
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 0
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 0
+      },
+      {
+       "name": "saves",
+       "value": 0
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": false,
+     "subbedIn": true,
+     "athlete": {
+      "id": "276067",
+      "uid": "s:600~a:276067",
+      "lastName": "Tsitaishvili",
+      "fullName": "Giorgi Tsitaishvili",
+      "displayName": "Giorgi Tsitaishvili",
+      "shortName": "G. Tsitaishvili"
+     },
+     "position": {
+      "abbreviation": "SUB"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 0
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 1
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 0
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 1
+      }
+     ]
+    },
+    {
+     "starter": false,
+     "subbedIn": true,
+     "athlete": {
+      "id": "264078",
+      "uid": "s:600~a:264078",
+      "lastName": "Díaz",
+      "fullName": "Pedro Díaz",
+      "displayName": "Pedro Díaz",
+      "shortName": "P. Díaz"
+     },
+     "position": {
+      "abbreviation": "SUB"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 0
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 1
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 1
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 0
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 1
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 5
+      }
+     ]
+    },
+    {
+     "starter": false,
+     "subbedIn": false,
+     "athlete": {
+      "id": "386579",
+      "uid": "s:600~a:386579",
+      "lastName": "Fernández",
+      "fullName": "Pelayo Fernández",
+      "displayName": "Pelayo Fernández",
+      "shortName": "P. Fernández"
+     },
+     "position": {
+      "abbreviation": "SUB"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 0
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 0
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 0
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": false,
+     "subbedIn": true,
+     "athlete": {
+      "id": "264217",
+      "uid": "s:600~a:264217",
+      "fullName": "Óscar Valentín",
+      "displayName": "Óscar Valentín",
+      "shortName": "Óscar Valentín"
+     },
+     "position": {
+      "abbreviation": "SUB"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 0
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 1
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 0
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 1
+      }
+     ]
+    },
+    {
+     "starter": false,
+     "subbedIn": false,
+     "athlete": {
+      "id": "3115984",
+      "uid": "s:600~a:3115984",
+      "lastName": "Bouare Samake",
+      "fullName": "Gnangoro Bouare Samake",
+      "displayName": "Gnangoro Bouare Samake",
+      "shortName": "G. Bouare Samake"
+     },
+     "position": {
+      "abbreviation": "SUB"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 0
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 0
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 0
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": false,
+     "subbedIn": false,
+     "athlete": {
+      "id": "377843",
+      "uid": "s:600~a:377843",
+      "lastName": "Belaid",
+      "fullName": "Rayane Belaid",
+      "displayName": "Rayane Belaid",
+      "shortName": "R. Belaid"
+     },
+     "position": {
+      "abbreviation": "SUB"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 0
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 0
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 0
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": false,
+     "subbedIn": false,
+     "athlete": {
+      "id": "261403",
+      "uid": "s:600~a:261403",
+      "lastName": "Kumbulla",
+      "fullName": "Marash Kumbulla",
+      "displayName": "Marash Kumbulla",
+      "shortName": "M. Kumbulla"
+     },
+     "position": {
+      "abbreviation": "SUB"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 0
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 0
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 0
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": false,
+     "subbedIn": false,
+     "athlete": {
+      "id": "3128651",
+      "uid": "s:600~a:3128651",
+      "lastName": "Alonso Martín",
+      "fullName": "Iván Alonso Martín",
+      "displayName": "Iván Alonso Martín",
+      "shortName": "I. Alonso Martín"
+     },
+     "position": {
+      "abbreviation": "SUB"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 0
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 0
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 0
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": false,
+     "subbedIn": true,
+     "athlete": {
+      "id": "313024",
+      "uid": "s:600~a:313024",
+      "fullName": "Alexandre Alemão",
+      "displayName": "Alexandre Alemão",
+      "shortName": "Alexandre Alemão"
+     },
+     "position": {
+      "abbreviation": "SUB"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 0
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 1
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 0
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 1
+      }
+     ]
+    },
+    {
+     "starter": false,
+     "subbedIn": true,
+     "athlete": {
+      "id": "324505",
+      "uid": "s:600~a:324505",
+      "lastName": "Pérez",
+      "fullName": "Fran Pérez",
+      "displayName": "Fran Pérez",
+      "shortName": "F. Pérez"
+     },
+     "position": {
+      "abbreviation": "SUB"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 1
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 1
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 0
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": false,
+     "subbedIn": false,
+     "athlete": {
+      "id": "319231",
+      "uid": "s:600~a:319231",
+      "lastName": "Vertrouwd",
+      "fullName": "Jozhua Vertrouwd",
+      "displayName": "Jozhua Vertrouwd",
+      "shortName": "J. Vertrouwd"
+     },
+     "position": {
+      "abbreviation": "SUB"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 0
+      },
+      {
+       "name": "foulsCommitted",
+       "value": 0
+      },
+      {
+       "name": "foulsSuffered",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 0
+      },
+      {
+       "name": "shotsFaced",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "offsides",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

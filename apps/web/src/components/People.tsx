@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { addTie, fetchPeople, removeTie, SignedOutError, type Person, type Relation, type Tie } from '../api';
 import { Icon } from './Icon';
 import { LoadError } from './LoadError';
@@ -106,10 +106,19 @@ export function RelationActions({
   );
 }
 
+/** Waits this long after the last keystroke before searching. */
+const SEARCH_DELAY_MS = 250;
+/** Matches PEOPLE_SEARCH_LIMIT on the server: a full page means there may be more. */
+const SEARCH_LIMIT = 20;
+
 export function People({ onOpen, onChanged, onSignedOut }: { onOpen: (username: string) => void; onChanged: () => void; onSignedOut: () => void }) {
   const [people, setPeople] = useState<Person[] | null>(null);
+  const [query, setQuery] = useState('');
+  // The results and the query they answer, so a slow reply to an older query is never shown.
+  const [results, setResults] = useState<{ q: string; people: Person[] } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const q = query.trim();
 
   const fail = useCallback((err: unknown) => (err instanceof SignedOutError ? onSignedOut() : setError(err instanceof Error ? err.message : String(err))), [onSignedOut]);
   const load = useCallback(
@@ -122,11 +131,23 @@ export function People({ onOpen, onChanged, onSignedOut }: { onOpen: (username: 
   );
   useEffect(() => void load(), [load]);
 
+  const latest = useRef('');
+  const search = useCallback(
+    (term: string) => fetchPeople(term).then((r) => setResults((cur) => (term === latest.current ? { q: term, people: r.people } : cur)), fail),
+    [fail],
+  );
+  useEffect(() => {
+    latest.current = q;
+    if (!q) return setResults(null);
+    const id = setTimeout(() => void search(q), SEARCH_DELAY_MS);
+    return () => clearTimeout(id);
+  }, [q, search]);
+
   const act: Act = async (action, tie, username) => {
     setBusy(true);
     try {
       await (action === 'add' ? addTie : removeTie)(tie, username);
-      await load();
+      await Promise.all([load(), q ? search(q) : null]);
       onChanged();
     } catch (err) {
       fail(err);
@@ -140,25 +161,44 @@ export function People({ onOpen, onChanged, onSignedOut }: { onOpen: (username: 
   return (
     <>
       {error && <LoadError onRetry={() => void load()}>That didn’t go through. Try again.</LoadError>}
-      <PeopleList people={people} busy={busy} onOpen={onOpen} onAct={act} />
+      <PeopleList people={people} query={query} onQuery={setQuery} results={results?.q === q ? results.people : null} busy={busy} onOpen={onOpen} onAct={act} />
     </>
   );
 }
 
-export function PeopleList({ people, busy, onOpen, onAct }: { people: Person[]; busy: boolean; onOpen: (username: string) => void; onAct: Act }) {
-  if (people.length === 0) {
-    return <p className="muted center">Nobody else is on this tracker yet. New people join with an invite link from whoever runs it.</p>;
-  }
+/**
+ * Requests waiting on you, then a search box over everyone on the tracker.
+ * With nothing typed, the list is the people you already have a tie with.
+ */
+export function PeopleList({
+  people,
+  query,
+  onQuery,
+  results,
+  busy,
+  onOpen,
+  onAct,
+}: {
+  people: Person[];
+  query: string;
+  onQuery: (q: string) => void;
+  /** Null while a search is on its way. */
+  results: Person[] | null;
+  busy: boolean;
+  onOpen: (username: string) => void;
+  onAct: Act;
+}) {
   const friendRequests = people.filter((p) => p.relation.friend === 'RECEIVED');
   // Only a locked account gets these; on an open one people just follow.
   const followRequests = people.filter((p) => p.relation.followsYou === 'REQUESTED');
-  const sorted = [...people].sort((a, b) => closeness(a.relation) - closeness(b.relation) || a.username.localeCompare(b.username));
+  const searching = query.trim() !== '';
+  const shown = searching ? results : people;
+  const sorted = shown && [...shown].sort((a, b) => closeness(a.relation) - closeness(b.relation) || a.username.localeCompare(b.username));
   const name = (p: Person) => (
     <button className="name-link" onClick={() => onOpen(p.username)}>
       {nameOf(p)}
     </button>
   );
-
   return (
     <div className="analysis">
       {friendRequests.length + followRequests.length > 0 && (
@@ -198,30 +238,58 @@ export function PeopleList({ people, busy, onOpen, onAct }: { people: Person[]; 
 
       <section className="panel">
         <h2>People</h2>
-        <ul className="people">
-          {sorted.map((p) => (
-            <li key={p.username} className="person">
-              <span className="person-name">
-                {name(p)}
-                {p.displayName && <span className="muted small"> @{p.username}</span>}
-                {p.locked && (
-                  <span className="chip">
-                    <Icon name="lock" /> Locked
+        <label className="people-search">
+          <Icon name="search" />
+          <span className="sr-only">Find people</span>
+          <input
+            type="search"
+            value={query}
+            placeholder="Find people by name or @username"
+            autoComplete="off"
+            autoCapitalize="none"
+            autoCorrect="off"
+            spellCheck={false}
+            maxLength={50}
+            onChange={(e) => onQuery(e.target.value)}
+          />
+        </label>
+        {!sorted ? (
+          <p className="muted small" role="status">
+            Searching…
+          </p>
+        ) : sorted.length === 0 ? (
+          <p className="muted small" role="status">
+            {searching
+              ? `Nobody matches “${query.trim()}”. Check the spelling, or ask them for their username.`
+              : 'Find someone you know above to add them as a friend or follow them. New people join with an invite link from whoever runs the tracker.'}
+          </p>
+        ) : (
+          <ul className="people">
+            {sorted.map((p) => (
+              <li key={p.username} className="person">
+                <span className="person-name">
+                  {name(p)}
+                  {p.displayName && <span className="muted small"> @{p.username}</span>}
+                  {p.locked && (
+                    <span className="chip">
+                      <Icon name="lock" /> Locked
+                    </span>
+                  )}
+                  {relationPhrase(p.relation) && <span className="relation">{relationPhrase(p.relation)}</span>}
+                </span>
+                {/* One step per row; following and everything else is on their profile. */}
+                {p.relation.friend === 'NONE' && (
+                  <span className="actions">
+                    <button className="btn" disabled={busy} onClick={() => onAct('add', 'friends', p.username)}>
+                      Add friend
+                    </button>
                   </span>
                 )}
-                {relationPhrase(p.relation) && <span className="relation">{relationPhrase(p.relation)}</span>}
-              </span>
-              {/* One step per row; following and everything else is on their profile. */}
-              {p.relation.friend === 'NONE' && (
-                <span className="actions">
-                  <button className="btn" disabled={busy} onClick={() => onAct('add', 'friends', p.username)}>
-                    Add friend
-                  </button>
-                </span>
-              )}
-            </li>
-          ))}
-        </ul>
+              </li>
+            ))}
+          </ul>
+        )}
+        {searching && sorted && sorted.length === SEARCH_LIMIT && <p className="muted small">Showing the first {SEARCH_LIMIT}. Keep typing to narrow it down.</p>}
         <p className="muted small">Friends see each other’s picks; both of you agree. Following is one-way: you see their picks, and a locked account approves you first. Open someone’s profile to follow, unfollow or unfriend.</p>
       </section>
     </div>

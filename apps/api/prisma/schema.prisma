@@ -248,6 +248,8 @@ model ProviderEventState {
   homeScore       Int?
   awayScore       Int?
   situation       Json?
+  /// UFC: winner, method and round (FightResult). Null for every other sport.
+  result          Json?
   /// Set after the post-final box score has been fetched; the game is then never polled again.
   finalizedAt     DateTime?
   updatedAt       DateTime  @updatedAt
@@ -408,4 +410,22 @@ model Notification {
   deliveredAt    DateTime?
 
   @@index([userId, createdAt])
+}
+
+// ── Markets the tracker can't follow yet (flagged by sync; npm run markets lists them). ──
+
+/// A sport + market name seen on a synced pick that classifyMarket doesn't support.
+/// One row per market, first seen once; picks on it show "Market not tracked".
+model UntrackedMarket {
+  id             String   @id @default(uuid())
+  sport          String   @default("")
+  marketName     String
+  /// classifyMarket's reason when first seen: UNSUPPORTED_MARKET, UNSUPPORTED_SPORT, LINE_MISMATCH…
+  reason         String
+  /// A pick on it, to look up: "A.J. Brown · Yes".
+  example        String?
+  firstSeenAt    DateTime @default(now())
+  lastSeenAt     DateTime @default(now())
+
+  @@unique([sport, marketName])
 }

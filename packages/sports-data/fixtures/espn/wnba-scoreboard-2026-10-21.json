@@ -1,0 +1,69 @@
+{
+ "events": [
+  {
+   "id": "401918307",
+   "uid": "s:40~l:59~e:401918307",
+   "date": "2026-10-22T00:00Z",
+   "name": "Golden State Valkyries at Atlanta Dream",
+   "shortName": "GS @ ATL",
+   "competitions": [
+    {
+     "id": "401918307",
+     "date": "2026-10-22T00:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 600,
+      "displayClock": "10:00",
+      "period": 4,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "20",
+       "homeAway": "home",
+       "score": "97",
+       "winner": true,
+       "team": {
+        "id": "20",
+        "uid": "s:40~l:59~t:20",
+        "abbreviation": "ATL",
+        "location": "Atlanta",
+        "name": "Dream",
+        "displayName": "Atlanta Dream",
+        "shortDisplayName": "Dream"
+       }
+      },
+      {
+       "id": "129689",
+       "homeAway": "away",
+       "score": "71",
+       "winner": false,
+       "team": {
+        "id": "129689",
+        "uid": "s:40~l:59~t:129689",
+        "abbreviation": "GS",
+        "location": "Golden State",
+        "name": "Valkyries",
+        "displayName": "Golden State Valkyries",
+        "shortDisplayName": "Valkyries"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 4
+      }
+     }
+    }
+   ]
+  }
+ ]
+}

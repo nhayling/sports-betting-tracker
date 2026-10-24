@@ -1,0 +1,23 @@
+{
+ "events": [
+  {
+   "event": {
+    "id": 1029441909,
+    "name": "Golden State Valkyries @ Atlanta Dream",
+    "homeName": "Atlanta Dream",
+    "awayName": "Golden State Valkyries",
+    "start": "2026-10-24T17:00:00Z",
+    "sport": "BASKETBALL",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "Basketball"
+     },
+     {
+      "name": "WNBA"
+     }
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,1948 @@
+{
+ "header": {
+  "id": "401908028",
+  "uid": "s:1~l:10~e:401908028",
+  "competitions": [
+   {
+    "id": "401908028",
+    "date": "2026-10-20T00:00Z",
+    "neutralSite": false,
+    "status": {
+     "type": {
+      "id": "3",
+      "name": "STATUS_FINAL",
+      "state": "post",
+      "completed": true,
+      "description": "Final",
+      "detail": "Final",
+      "shortDetail": "Final"
+     }
+    },
+    "competitors": [
+     {
+      "id": "30",
+      "homeAway": "home",
+      "score": "7",
+      "winner": true,
+      "team": {
+       "id": "30",
+       "uid": "s:1~l:10~t:30",
+       "abbreviation": "TB",
+       "location": "Tampa Bay",
+       "name": "Rays",
+       "displayName": "Tampa Bay Rays"
+      }
+     },
+     {
+      "id": "5",
+      "homeAway": "away",
+      "score": "3",
+      "winner": false,
+      "team": {
+       "id": "5",
+       "uid": "s:1~l:10~t:5",
+       "abbreviation": "CLE",
+       "location": "Cleveland",
+       "name": "Guardians",
+       "displayName": "Cleveland Guardians"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "boxscore": {
+  "players": [
+   {
+    "team": {
+     "id": "5",
+     "uid": "s:1~l:10~t:5",
+     "abbreviation": "CLE",
+     "location": "Cleveland",
+     "name": "Guardians",
+     "displayName": "Cleveland Guardians",
+     "shortDisplayName": "Guardians"
+    },
+    "statistics": [
+     {
+      "type": "batting",
+      "keys": [
+       "hits-atBats",
+       "atBats",
+       "runs",
+       "hits",
+       "RBIs",
+       "homeRuns",
+       "walks",
+       "strikeouts",
+       "pitches",
+       "avg",
+       "onBasePct",
+       "slugAvg"
+      ],
+      "labels": [
+       "H-AB",
+       "AB",
+       "R",
+       "H",
+       "RBI",
+       "HR",
+       "BB",
+       "K",
+       "#P",
+       "AVG",
+       "OBP",
+       "SLG"
+      ],
+      "athletes": [
+       {
+        "athlete": {
+         "id": "41996",
+         "uid": "s:1~l:10~a:41996",
+         "displayName": "Steven Kwan",
+         "shortName": "S. Kwan"
+        },
+        "stats": [
+         "1-4",
+         "4",
+         "0",
+         "1",
+         "0",
+         "0",
+         "1",
+         "0",
+         "21",
+         ".244",
+         ".320",
+         ".244"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "32801",
+         "uid": "s:1~l:10~a:32801",
+         "displayName": "Jose Ramirez",
+         "shortName": "J. Ramirez"
+        },
+        "stats": [
+         "0-4",
+         "4",
+         "0",
+         "0",
+         "0",
+         "0",
+         "1",
+         "0",
+         "15",
+         ".293",
+         ".396",
+         ".512"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4619649",
+         "uid": "s:1~l:10~a:4619649",
+         "displayName": "Chase DeLauter",
+         "shortName": "C. DeLauter"
+        },
+        "stats": [
+         "2-5",
+         "5",
+         "2",
+         "2",
+         "0",
+         "0",
+         "0",
+         "1",
+         "17",
+         ".310",
+         ".396",
+         ".452"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "40854",
+         "uid": "s:1~l:10~a:40854",
+         "displayName": "Jo Adell",
+         "shortName": "J. Adell"
+        },
+        "stats": [
+         "1-4",
+         "4",
+         "0",
+         "1",
+         "0",
+         "0",
+         "0",
+         "0",
+         "15",
+         ".195",
+         ".283",
+         ".341"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "40538",
+         "uid": "s:1~l:10~a:40538",
+         "displayName": "Nathaniel Lowe",
+         "shortName": "N. Lowe"
+        },
+        "stats": [
+         "2-3",
+         "3",
+         "1",
+         "2",
+         "1",
+         "0",
+         "1",
+         "1",
+         "18",
+         ".243",
+         ".349",
+         ".297"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "5007707",
+         "uid": "s:1~l:10~a:5007707",
+         "displayName": "Travis Bazzana",
+         "shortName": "T. Bazzana"
+        },
+        "stats": [
+         "0-3",
+         "3",
+         "0",
+         "0",
+         "0",
+         "0",
+         "1",
+         "0",
+         "14",
+         ".162",
+         ".262",
+         ".297"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4345843",
+         "uid": "s:1~l:10~a:4345843",
+         "displayName": "Patrick Bailey",
+         "shortName": "P. Bailey"
+        },
+        "stats": [
+         "0-3",
+         "3",
+         "0",
+         "0",
+         "1",
+         "0",
+         "1",
+         "0",
+         "18",
+         ".273",
+         ".333",
+         ".455"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "5204351",
+         "uid": "s:1~l:10~a:5204351",
+         "displayName": "Angel Genao",
+         "shortName": "A. Genao"
+        },
+        "stats": [
+         "0-0",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0",
+         ".500",
+         ".500",
+         "1.000"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4722962",
+         "uid": "s:1~l:10~a:4722962",
+         "displayName": "Petey Halpin",
+         "shortName": "P. Halpin"
+        },
+        "stats": [
+         "0-2",
+         "2",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0",
+         "1",
+         "5",
+         ".235",
+         ".316",
+         ".529"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "41672",
+         "uid": "s:1~l:10~a:41672",
+         "displayName": "David Fry",
+         "shortName": "D. Fry"
+        },
+        "stats": [
+         "0-1",
+         "1",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0",
+         "2",
+         ".000",
+         ".000",
+         ".000"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "42497",
+         "uid": "s:1~l:10~a:42497",
+         "displayName": "Angel Martinez",
+         "shortName": "A. Martinez"
+        },
+        "stats": [
+         "0-0",
+         "0",
+         "0",
+         "0",
+         "1",
+         "0",
+         "0",
+         "0",
+         "1",
+         ".095",
+         ".174",
+         ".095"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "41217",
+         "uid": "s:1~l:10~a:41217",
+         "displayName": "Brayan Rocchio",
+         "shortName": "B. Rocchio"
+        },
+        "stats": [
+         "1-4",
+         "4",
+         "0",
+         "1",
+         "0",
+         "0",
+         "0",
+         "1",
+         "10",
+         ".143",
+         ".211",
+         ".143"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "32168",
+         "uid": "s:1~l:10~a:32168",
+         "displayName": "Austin Hedges",
+         "shortName": "A. Hedges"
+        },
+        "stats": [
+         "0-0",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0",
+         ".000",
+         ".400",
+         ".000"
+        ]
+       }
+      ]
+     },
+     {
+      "type": "pitching",
+      "keys": [
+       "fullInnings.partInnings",
+       "hits",
+       "runs",
+       "earnedRuns",
+       "walks",
+       "strikeouts",
+       "homeRuns",
+       "pitches-strikes",
+       "ERA",
+       "pitches"
+      ],
+      "labels": [
+       "IP",
+       "H",
+       "R",
+       "ER",
+       "BB",
+       "K",
+       "HR",
+       "PC-ST",
+       "ERA",
+       "PC"
+      ],
+      "athletes": [
+       {
+        "athlete": {
+         "id": "33499",
+         "uid": "s:1~l:10~a:33499",
+         "displayName": "Shawn Armstrong",
+         "shortName": "S. Armstrong"
+        },
+        "stats": [
+         "1.0",
+         "1",
+         "1",
+         "1",
+         "0",
+         "0",
+         "0",
+         "9-6",
+         "1.04",
+         "9"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4228579",
+         "uid": "s:1~l:10~a:4228579",
+         "displayName": "Tim Herrin",
+         "shortName": "T. Herrin"
+        },
+        "stats": [
+         "0.2",
+         "1",
+         "1",
+         "1",
+         "1",
+         "0",
+         "0",
+         "18-10",
+         "5.06",
+         "18"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "39871",
+         "uid": "s:1~l:10~a:39871",
+         "displayName": "Matt Festa",
+         "shortName": "M. Festa"
+        },
+        "stats": [
+         "0.1",
+         "0",
+         "0",
+         "0",
+         "1",
+         "0",
+         "0",
+         "11-6",
+         "10.80",
+         "11"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "42488",
+         "uid": "s:1~l:10~a:42488",
+         "displayName": "Joey Cantillo",
+         "shortName": "J. Cantillo"
+        },
+        "stats": [
+         "1.2",
+         "2",
+         "1",
+         "1",
+         "2",
+         "0",
+         "0",
+         "33-17",
+         "3.60",
+         "33"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "42438",
+         "uid": "s:1~l:10~a:42438",
+         "displayName": "Daniel Espino",
+         "shortName": "D. Espino"
+        },
+        "stats": [
+         "1.1",
+         "0",
+         "0",
+         "0",
+         "0",
+         "1",
+         "0",
+         "12-8",
+         "3.60",
+         "12"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "5194333",
+         "uid": "s:1~l:10~a:5194333",
+         "displayName": "Erik Sabrowski",
+         "shortName": "E. Sabrowski"
+        },
+        "stats": [
+         "1.0",
+         "1",
+         "0",
+         "0",
+         "0",
+         "1",
+         "0",
+         "9-7",
+         "4.32",
+         "9"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4987924",
+         "uid": "s:1~l:10~a:4987924",
+         "displayName": "Cade Smith",
+         "shortName": "C. Smith"
+        },
+        "stats": [
+         "1.0",
+         "1",
+         "2",
+         "2",
+         "1",
+         "0",
+         "1",
+         "17-8",
+         "2.38",
+         "17"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4187661",
+         "uid": "s:1~l:10~a:4187661",
+         "displayName": "Hunter Gaddis",
+         "shortName": "H. Gaddis"
+        },
+        "stats": [
+         "1.0",
+         "1",
+         "2",
+         "2",
+         "1",
+         "1",
+         "1",
+         "15-9",
+         "2.08",
+         "15"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "team": {
+     "id": "30",
+     "uid": "s:1~l:10~t:30",
+     "abbreviation": "TB",
+     "location": "Tampa Bay",
+     "name": "Rays",
+     "displayName": "Tampa Bay Rays",
+     "shortDisplayName": "Rays"
+    },
+    "statistics": [
+     {
+      "type": "batting",
+      "keys": [
+       "hits-atBats",
+       "atBats",
+       "runs",
+       "hits",
+       "RBIs",
+       "homeRuns",
+       "walks",
+       "strikeouts",
+       "pitches",
+       "avg",
+       "onBasePct",
+       "slugAvg"
+      ],
+      "labels": [
+       "H-AB",
+       "AB",
+       "R",
+       "H",
+       "RBI",
+       "HR",
+       "BB",
+       "K",
+       "#P",
+       "AVG",
+       "OBP",
+       "SLG"
+      ],
+      "athletes": [
+       {
+        "athlete": {
+         "id": "33481",
+         "uid": "s:1~l:10~a:33481",
+         "displayName": "Yandy Diaz",
+         "shortName": "Y. Diaz"
+        },
+        "stats": [
+         "1-4",
+         "4",
+         "1",
+         "1",
+         "2",
+         "1",
+         "0",
+         "0",
+         "13",
+         ".308",
+         ".341",
+         ".564"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "40810",
+         "uid": "s:1~l:10~a:40810",
+         "displayName": "Jonathan Aranda",
+         "shortName": "J. Aranda"
+        },
+        "stats": [
+         "0-4",
+         "4",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0",
+         "2",
+         "14",
+         ".257",
+         ".333",
+         ".343"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4725251",
+         "uid": "s:1~l:10~a:4725251",
+         "displayName": "Liam Hicks",
+         "shortName": "L. Hicks"
+        },
+        "stats": [
+         "1-4",
+         "4",
+         "1",
+         "1",
+         "0",
+         "0",
+         "1",
+         "0",
+         "17",
+         ".222",
+         ".300",
+         ".259"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4905921",
+         "uid": "s:1~l:10~a:4905921",
+         "displayName": "Junior Caminero",
+         "shortName": "J. Caminero"
+        },
+        "stats": [
+         "2-3",
+         "3",
+         "2",
+         "2",
+         "2",
+         "1",
+         "1",
+         "0",
+         "12",
+         ".273",
+         ".351",
+         ".455"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4679983",
+         "uid": "s:1~l:10~a:4679983",
+         "displayName": "Chandler Simpson",
+         "shortName": "C. Simpson"
+        },
+        "stats": [
+         "1-4",
+         "4",
+         "1",
+         "1",
+         "0",
+         "0",
+         "0",
+         "0",
+         "13",
+         ".240",
+         ".259",
+         ".360"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4917849",
+         "uid": "s:1~l:10~a:4917849",
+         "displayName": "Victor Mesa Jr.",
+         "shortName": "V. Mesa Jr."
+        },
+        "stats": [
+         "0-3",
+         "3",
+         "1",
+         "0",
+         "0",
+         "0",
+         "1",
+         "1",
+         "14",
+         ".129",
+         ".206",
+         ".226"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "5005912",
+         "uid": "s:1~l:10~a:5005912",
+         "displayName": "Jonny DeLuca",
+         "shortName": "J. DeLuca"
+        },
+        "stats": [
+         "0-3",
+         "3",
+         "0",
+         "0",
+         "1",
+         "0",
+         "0",
+         "0",
+         "8",
+         ".200",
+         ".219",
+         ".233"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "41359",
+         "uid": "s:1~l:10~a:41359",
+         "displayName": "Richie Palacios",
+         "shortName": "R. Palacios"
+        },
+        "stats": [
+         "2-4",
+         "4",
+         "0",
+         "2",
+         "2",
+         "0",
+         "0",
+         "0",
+         "14",
+         ".364",
+         ".364",
+         ".500"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "40576",
+         "uid": "s:1~l:10~a:40576",
+         "displayName": "Taylor Walls",
+         "shortName": "T. Walls"
+        },
+        "stats": [
+         "0-1",
+         "1",
+         "1",
+         "0",
+         "0",
+         "0",
+         "3",
+         "0",
+         "19",
+         ".148",
+         ".233",
+         ".148"
+        ]
+       }
+      ]
+     },
+     {
+      "type": "pitching",
+      "keys": [
+       "fullInnings.partInnings",
+       "hits",
+       "runs",
+       "earnedRuns",
+       "walks",
+       "strikeouts",
+       "homeRuns",
+       "pitches-strikes",
+       "ERA",
+       "pitches"
+      ],
+      "labels": [
+       "IP",
+       "H",
+       "R",
+       "ER",
+       "BB",
+       "K",
+       "HR",
+       "PC-ST",
+       "ERA",
+       "PC"
+      ],
+      "athletes": [
+       {
+        "athlete": {
+         "id": "39825",
+         "uid": "s:1~l:10~a:39825",
+         "displayName": "Freddy Peralta",
+         "shortName": "F. Peralta"
+        },
+        "stats": [
+         "5.1",
+         "5",
+         "1",
+         "1",
+         "3",
+         "3",
+         "0",
+         "84-51",
+         "1.08",
+         "84"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "2560565",
+         "uid": "s:1~l:10~a:2560565",
+         "displayName": "Cam Booser",
+         "shortName": "C. Booser"
+        },
+        "stats": [
+         "1.2",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0",
+         "17-14",
+         "0.00",
+         "17"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4717904",
+         "uid": "s:1~l:10~a:4717904",
+         "displayName": "Tyler Wells",
+         "shortName": "T. Wells"
+        },
+        "stats": [
+         "0.2",
+         "2",
+         "2",
+         "2",
+         "0",
+         "0",
+         "0",
+         "11-9",
+         "10.80",
+         "11"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "4669425",
+         "uid": "s:1~l:10~a:4669425",
+         "displayName": "Ian Seymour",
+         "shortName": "I. Seymour"
+        },
+        "stats": [
+         "0.0",
+         "0",
+         "0",
+         "0",
+         "2",
+         "0",
+         "0",
+         "12-3",
+         "3.68",
+         "12"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "5001153",
+         "uid": "s:1~l:10~a:5001153",
+         "displayName": "Kevin Kelly",
+         "shortName": "K. Kelly"
+        },
+        "stats": [
+         "0.1",
+         "0",
+         "0",
+         "0",
+         "0",
+         "1",
+         "0",
+         "3-3",
+         "3.86",
+         "3"
+        ]
+       },
+       {
+        "athlete": {
+         "id": "40884",
+         "uid": "s:1~l:10~a:40884",
+         "displayName": "Bryan Baker",
+         "shortName": "B. Baker"
+        },
+        "stats": [
+         "1.0",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0",
+         "0",
+         "9-8",
+         "0.00",
+         "9"
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "teams": [
+   {
+    "team": {
+     "id": "5",
+     "uid": "s:1~l:10~t:5",
+     "abbreviation": "CLE",
+     "location": "Cleveland",
+     "name": "Guardians",
+     "displayName": "Cleveland Guardians",
+     "shortDisplayName": "Guardians"
+    },
+    "statistics": [
+     {
+      "name": "batting"
+     },
+     {
+      "name": "pitching"
+     },
+     {
+      "name": "fielding"
+     },
+     {
+      "name": "records"
+     }
+    ]
+   },
+   {
+    "team": {
+     "id": "30",
+     "uid": "s:1~l:10~t:30",
+     "abbreviation": "TB",
+     "location": "Tampa Bay",
+     "name": "Rays",
+     "displayName": "Tampa Bay Rays",
+     "shortDisplayName": "Rays"
+    },
+    "statistics": [
+     {
+      "name": "batting"
+     },
+     {
+      "name": "pitching"
+     },
+     {
+      "name": "fielding"
+     },
+     {
+      "name": "records"
+     }
+    ]
+   }
+  ]
+ },
+ "rosters": [
+  {
+   "homeAway": "home",
+   "team": {
+    "id": "30",
+    "abbreviation": "TB",
+    "displayName": "Tampa Bay Rays"
+   },
+   "roster": [
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "33481",
+      "uid": "s:1~l:10~a:33481",
+      "lastName": "Diaz",
+      "fullName": "Yandy Diaz",
+      "displayName": "Yandy Diaz",
+      "shortName": "Y. Diaz"
+     },
+     "position": {
+      "abbreviation": "DH"
+     },
+     "stats": [
+      {
+       "name": "RBIs",
+       "value": 2
+      },
+      {
+       "name": "hits",
+       "value": 1
+      },
+      {
+       "name": "stolenBases",
+       "value": 0
+      },
+      {
+       "name": "atBats",
+       "value": 4
+      },
+      {
+       "name": "homeRuns",
+       "value": 1
+      },
+      {
+       "name": "avg",
+       "value": 0.25
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "40810",
+      "uid": "s:1~l:10~a:40810",
+      "lastName": "Aranda",
+      "fullName": "Jonathan Aranda",
+      "displayName": "Jonathan Aranda",
+      "shortName": "J. Aranda"
+     },
+     "position": {
+      "abbreviation": "1B"
+     },
+     "stats": [
+      {
+       "name": "RBIs",
+       "value": 0
+      },
+      {
+       "name": "hits",
+       "value": 0
+      },
+      {
+       "name": "stolenBases",
+       "value": 0
+      },
+      {
+       "name": "atBats",
+       "value": 4
+      },
+      {
+       "name": "homeRuns",
+       "value": 0
+      },
+      {
+       "name": "avg",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "4725251",
+      "uid": "s:1~l:10~a:4725251",
+      "lastName": "Hicks",
+      "fullName": "Liam Hicks",
+      "displayName": "Liam Hicks",
+      "shortName": "L. Hicks"
+     },
+     "position": {
+      "abbreviation": "C"
+     },
+     "stats": [
+      {
+       "name": "RBIs",
+       "value": 0
+      },
+      {
+       "name": "hits",
+       "value": 1
+      },
+      {
+       "name": "stolenBases",
+       "value": 0
+      },
+      {
+       "name": "atBats",
+       "value": 4
+      },
+      {
+       "name": "homeRuns",
+       "value": 0
+      },
+      {
+       "name": "avg",
+       "value": 0.25
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "4905921",
+      "uid": "s:1~l:10~a:4905921",
+      "lastName": "Caminero",
+      "fullName": "Junior Caminero",
+      "displayName": "Junior Caminero",
+      "shortName": "J. Caminero"
+     },
+     "position": {
+      "abbreviation": "3B"
+     },
+     "stats": [
+      {
+       "name": "RBIs",
+       "value": 2
+      },
+      {
+       "name": "hits",
+       "value": 2
+      },
+      {
+       "name": "stolenBases",
+       "value": 0
+      },
+      {
+       "name": "atBats",
+       "value": 3
+      },
+      {
+       "name": "homeRuns",
+       "value": 1
+      },
+      {
+       "name": "avg",
+       "value": 0.6666667
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "4679983",
+      "uid": "s:1~l:10~a:4679983",
+      "lastName": "Simpson",
+      "fullName": "Chandler Simpson",
+      "displayName": "Chandler Simpson",
+      "shortName": "C. Simpson"
+     },
+     "position": {
+      "abbreviation": "LF"
+     },
+     "stats": [
+      {
+       "name": "RBIs",
+       "value": 0
+      },
+      {
+       "name": "hits",
+       "value": 1
+      },
+      {
+       "name": "stolenBases",
+       "value": 1
+      },
+      {
+       "name": "atBats",
+       "value": 4
+      },
+      {
+       "name": "homeRuns",
+       "value": 0
+      },
+      {
+       "name": "avg",
+       "value": 0.25
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "4917849",
+      "uid": "s:1~l:10~a:4917849",
+      "lastName": "Mesa Jr.",
+      "fullName": "Victor Mesa Jr.",
+      "displayName": "Victor Mesa Jr.",
+      "shortName": "V. Mesa Jr."
+     },
+     "position": {
+      "abbreviation": "RF"
+     },
+     "stats": [
+      {
+       "name": "RBIs",
+       "value": 0
+      },
+      {
+       "name": "hits",
+       "value": 0
+      },
+      {
+       "name": "stolenBases",
+       "value": 1
+      },
+      {
+       "name": "atBats",
+       "value": 3
+      },
+      {
+       "name": "homeRuns",
+       "value": 0
+      },
+      {
+       "name": "avg",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "5005912",
+      "uid": "s:1~l:10~a:5005912",
+      "lastName": "DeLuca",
+      "fullName": "Jonny DeLuca",
+      "displayName": "Jonny DeLuca",
+      "shortName": "J. DeLuca"
+     },
+     "position": {
+      "abbreviation": "CF"
+     },
+     "stats": [
+      {
+       "name": "RBIs",
+       "value": 1
+      },
+      {
+       "name": "hits",
+       "value": 0
+      },
+      {
+       "name": "stolenBases",
+       "value": 0
+      },
+      {
+       "name": "atBats",
+       "value": 3
+      },
+      {
+       "name": "homeRuns",
+       "value": 0
+      },
+      {
+       "name": "avg",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "41359",
+      "uid": "s:1~l:10~a:41359",
+      "lastName": "Palacios",
+      "fullName": "Richie Palacios",
+      "displayName": "Richie Palacios",
+      "shortName": "R. Palacios"
+     },
+     "position": {
+      "abbreviation": "2B"
+     },
+     "stats": [
+      {
+       "name": "RBIs",
+       "value": 2
+      },
+      {
+       "name": "hits",
+       "value": 2
+      },
+      {
+       "name": "stolenBases",
+       "value": 0
+      },
+      {
+       "name": "atBats",
+       "value": 4
+      },
+      {
+       "name": "homeRuns",
+       "value": 0
+      },
+      {
+       "name": "avg",
+       "value": 0.5
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "40576",
+      "uid": "s:1~l:10~a:40576",
+      "lastName": "Walls",
+      "fullName": "Taylor Walls",
+      "displayName": "Taylor Walls",
+      "shortName": "T. Walls"
+     },
+     "position": {
+      "abbreviation": "SS"
+     },
+     "stats": [
+      {
+       "name": "RBIs",
+       "value": 0
+      },
+      {
+       "name": "hits",
+       "value": 0
+      },
+      {
+       "name": "stolenBases",
+       "value": 0
+      },
+      {
+       "name": "atBats",
+       "value": 1
+      },
+      {
+       "name": "homeRuns",
+       "value": 0
+      },
+      {
+       "name": "avg",
+       "value": 0
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "homeAway": "away",
+   "team": {
+    "id": "5",
+    "abbreviation": "CLE",
+    "displayName": "Cleveland Guardians"
+   },
+   "roster": [
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "41996",
+      "uid": "s:1~l:10~a:41996",
+      "lastName": "Kwan",
+      "fullName": "Steven Kwan",
+      "displayName": "Steven Kwan",
+      "shortName": "S. Kwan"
+     },
+     "position": {
+      "abbreviation": "CF"
+     },
+     "stats": [
+      {
+       "name": "RBIs",
+       "value": 0
+      },
+      {
+       "name": "hits",
+       "value": 1
+      },
+      {
+       "name": "stolenBases",
+       "value": 0
+      },
+      {
+       "name": "atBats",
+       "value": 4
+      },
+      {
+       "name": "homeRuns",
+       "value": 0
+      },
+      {
+       "name": "avg",
+       "value": 0.25
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "32801",
+      "uid": "s:1~l:10~a:32801",
+      "lastName": "Ramirez",
+      "fullName": "Jose Ramirez",
+      "displayName": "Jose Ramirez",
+      "shortName": "J. Ramirez"
+     },
+     "position": {
+      "abbreviation": "3B"
+     },
+     "stats": [
+      {
+       "name": "RBIs",
+       "value": 0
+      },
+      {
+       "name": "hits",
+       "value": 0
+      },
+      {
+       "name": "stolenBases",
+       "value": 0
+      },
+      {
+       "name": "atBats",
+       "value": 4
+      },
+      {
+       "name": "homeRuns",
+       "value": 0
+      },
+      {
+       "name": "avg",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "4619649",
+      "uid": "s:1~l:10~a:4619649",
+      "lastName": "DeLauter",
+      "fullName": "Chase DeLauter",
+      "displayName": "Chase DeLauter",
+      "shortName": "C. DeLauter"
+     },
+     "position": {
+      "abbreviation": "RF"
+     },
+     "stats": [
+      {
+       "name": "RBIs",
+       "value": 0
+      },
+      {
+       "name": "hits",
+       "value": 2
+      },
+      {
+       "name": "stolenBases",
+       "value": 0
+      },
+      {
+       "name": "atBats",
+       "value": 5
+      },
+      {
+       "name": "homeRuns",
+       "value": 0
+      },
+      {
+       "name": "avg",
+       "value": 0.4
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "40854",
+      "uid": "s:1~l:10~a:40854",
+      "lastName": "Adell",
+      "fullName": "Jo Adell",
+      "displayName": "Jo Adell",
+      "shortName": "J. Adell"
+     },
+     "position": {
+      "abbreviation": "DH"
+     },
+     "stats": [
+      {
+       "name": "RBIs",
+       "value": 0
+      },
+      {
+       "name": "hits",
+       "value": 1
+      },
+      {
+       "name": "stolenBases",
+       "value": 0
+      },
+      {
+       "name": "atBats",
+       "value": 4
+      },
+      {
+       "name": "homeRuns",
+       "value": 0
+      },
+      {
+       "name": "avg",
+       "value": 0.25
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "40538",
+      "uid": "s:1~l:10~a:40538",
+      "lastName": "Lowe",
+      "fullName": "Nathaniel Lowe",
+      "displayName": "Nathaniel Lowe",
+      "shortName": "N. Lowe"
+     },
+     "position": {
+      "abbreviation": "1B"
+     },
+     "stats": [
+      {
+       "name": "RBIs",
+       "value": 1
+      },
+      {
+       "name": "hits",
+       "value": 2
+      },
+      {
+       "name": "stolenBases",
+       "value": 0
+      },
+      {
+       "name": "atBats",
+       "value": 3
+      },
+      {
+       "name": "homeRuns",
+       "value": 0
+      },
+      {
+       "name": "avg",
+       "value": 0.6666667
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "5007707",
+      "uid": "s:1~l:10~a:5007707",
+      "lastName": "Bazzana",
+      "fullName": "Travis Bazzana",
+      "displayName": "Travis Bazzana",
+      "shortName": "T. Bazzana"
+     },
+     "position": {
+      "abbreviation": "2B"
+     },
+     "stats": [
+      {
+       "name": "RBIs",
+       "value": 0
+      },
+      {
+       "name": "hits",
+       "value": 0
+      },
+      {
+       "name": "stolenBases",
+       "value": 0
+      },
+      {
+       "name": "atBats",
+       "value": 3
+      },
+      {
+       "name": "homeRuns",
+       "value": 0
+      },
+      {
+       "name": "avg",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "4345843",
+      "uid": "s:1~l:10~a:4345843",
+      "lastName": "Bailey",
+      "fullName": "Patrick Bailey",
+      "displayName": "Patrick Bailey",
+      "shortName": "P. Bailey"
+     },
+     "position": {
+      "abbreviation": "C"
+     },
+     "stats": [
+      {
+       "name": "RBIs",
+       "value": 1
+      },
+      {
+       "name": "hits",
+       "value": 0
+      },
+      {
+       "name": "stolenBases",
+       "value": 0
+      },
+      {
+       "name": "atBats",
+       "value": 3
+      },
+      {
+       "name": "homeRuns",
+       "value": 0
+      },
+      {
+       "name": "avg",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": false,
+     "subbedIn": false,
+     "athlete": {
+      "id": "5204351",
+      "uid": "s:1~l:10~a:5204351",
+      "lastName": "Genao",
+      "fullName": "Angel Genao",
+      "displayName": "Angel Genao",
+      "shortName": "A. Genao"
+     },
+     "position": {
+      "abbreviation": "SS"
+     },
+     "stats": [
+      {
+       "name": "RBIs",
+       "value": 0
+      },
+      {
+       "name": "hits",
+       "value": 0
+      },
+      {
+       "name": "stolenBases",
+       "value": 0
+      },
+      {
+       "name": "atBats",
+       "value": 0
+      },
+      {
+       "name": "homeRuns",
+       "value": 0
+      },
+      {
+       "name": "avg",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "4722962",
+      "uid": "s:1~l:10~a:4722962",
+      "lastName": "Halpin",
+      "fullName": "Petey Halpin",
+      "displayName": "Petey Halpin",
+      "shortName": "P. Halpin"
+     },
+     "position": {
+      "abbreviation": "CF"
+     },
+     "stats": [
+      {
+       "name": "RBIs",
+       "value": 0
+      },
+      {
+       "name": "hits",
+       "value": 0
+      },
+      {
+       "name": "stolenBases",
+       "value": 0
+      },
+      {
+       "name": "atBats",
+       "value": 2
+      },
+      {
+       "name": "homeRuns",
+       "value": 0
+      },
+      {
+       "name": "avg",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": false,
+     "subbedIn": false,
+     "athlete": {
+      "id": "41672",
+      "uid": "s:1~l:10~a:41672",
+      "lastName": "Fry",
+      "fullName": "David Fry",
+      "displayName": "David Fry",
+      "shortName": "D. Fry"
+     },
+     "position": {
+      "abbreviation": "PH"
+     },
+     "stats": [
+      {
+       "name": "RBIs",
+       "value": 0
+      },
+      {
+       "name": "hits",
+       "value": 0
+      },
+      {
+       "name": "stolenBases",
+       "value": 0
+      },
+      {
+       "name": "atBats",
+       "value": 1
+      },
+      {
+       "name": "homeRuns",
+       "value": 0
+      },
+      {
+       "name": "avg",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": false,
+     "subbedIn": false,
+     "athlete": {
+      "id": "42497",
+      "uid": "s:1~l:10~a:42497",
+      "lastName": "Martinez",
+      "fullName": "Angel Martinez",
+      "displayName": "Angel Martinez",
+      "shortName": "A. Martinez"
+     },
+     "position": {
+      "abbreviation": "LF"
+     },
+     "stats": [
+      {
+       "name": "RBIs",
+       "value": 1
+      },
+      {
+       "name": "hits",
+       "value": 0
+      },
+      {
+       "name": "stolenBases",
+       "value": 0
+      },
+      {
+       "name": "atBats",
+       "value": 0
+      },
+      {
+       "name": "homeRuns",
+       "value": 0
+      },
+      {
+       "name": "avg",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "athlete": {
+      "id": "41217",
+      "uid": "s:1~l:10~a:41217",
+      "lastName": "Rocchio",
+      "fullName": "Brayan Rocchio",
+      "displayName": "Brayan Rocchio",
+      "shortName": "B. Rocchio"
+     },
+     "position": {
+      "abbreviation": "SS"
+     },
+     "stats": [
+      {
+       "name": "RBIs",
+       "value": 0
+      },
+      {
+       "name": "hits",
+       "value": 1
+      },
+      {
+       "name": "stolenBases",
+       "value": 0
+      },
+      {
+       "name": "atBats",
+       "value": 4
+      },
+      {
+       "name": "homeRuns",
+       "value": 0
+      },
+      {
+       "name": "avg",
+       "value": 0.25
+      }
+     ]
+    },
+    {
+     "starter": false,
+     "subbedIn": false,
+     "athlete": {
+      "id": "32168",
+      "uid": "s:1~l:10~a:32168",
+      "lastName": "Hedges",
+      "fullName": "Austin Hedges",
+      "displayName": "Austin Hedges",
+      "shortName": "A. Hedges"
+     },
+     "position": {
+      "abbreviation": "C"
+     },
+     "stats": [
+      {
+       "name": "RBIs",
+       "value": 0
+      },
+      {
+       "name": "hits",
+       "value": 0
+      },
+      {
+       "name": "stolenBases",
+       "value": 0
+      },
+      {
+       "name": "atBats",
+       "value": 0
+      },
+      {
+       "name": "homeRuns",
+       "value": 0
+      },
+      {
+       "name": "avg",
+       "value": 0
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

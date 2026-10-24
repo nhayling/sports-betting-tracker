@@ -1,0 +1,329 @@
+{
+ "source": "eu.offering-api.kambicdn.com/offering/v2018/islandluck betoffer/event, 3 ufc_mma/ufc games, 2026-10-23",
+ "markets": [
+  {
+   "criterion": "(8) Iasmin Lucindo to Win & Over 2.5 Rounds",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "(8) Iasmin Lucindo to Win & Under 2.5 Rounds",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "(8) Iasmin Lucindo to win by Decision",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "(8) Iasmin Lucindo to win by Finish",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Alternate winning combination",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Alternate winning group of rounds",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Alternate winning method",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Alternate winning round",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Any Fighter to win by KO, TKO or DQ",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Any Fighter to win by Submission",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Any Fighter to win in Round 1",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Any Fighter to win in Round 2",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Any Fighter to win in Round 3",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Bolaji Oki to Win & Over 1.5 Rounds",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Bolaji Oki to Win & Under 1.5 Rounds",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Bolaji Oki to win by Decision",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Bolaji Oki to win by Finish",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Bout Odds",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Bout Odds - Decision only",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Bout Odds - Finish only",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Daniel Santos to Win & Over 1.5 Rounds",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Daniel Santos to Win & Under 1.5 Rounds",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Daniel Santos to win by Decision",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Daniel Santos to win by Finish",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Fight to start Round 2",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Fight to start Round 3",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Kody Steele to Win & Over 1.5 Rounds",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Kody Steele to Win & Under 1.5 Rounds",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Kody Steele to win by Decision",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Kody Steele to win by Finish",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Nicolle Caliari to Win & Over 2.5 Rounds",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Nicolle Caliari to Win & Under 2.5 Rounds",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Nicolle Caliari to win by Decision",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Nicolle Caliari to win by Finish",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Noah Gugnon to Win & Over 1.5 Rounds",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Noah Gugnon to Win & Under 1.5 Rounds",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Noah Gugnon to win by Decision",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Noah Gugnon to win by Finish",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Round Outcome - Round 1",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "To go the distance",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Total Rounds",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Winning combination",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Winning group of rounds",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Winning method",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Winning round",
+   "sides": [],
+   "line": null
+  }
+ ]
+}

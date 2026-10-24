@@ -12,7 +12,10 @@ import { readFileSync, writeFileSync } from 'node:fs';
 const pick = (o, keys) => (o == null ? o : Object.fromEntries(keys.filter((k) => k in o).map((k) => [k, o[k]])));
 const team = (t) => pick(t, ['id', 'uid', 'abbreviation', 'location', 'name', 'displayName', 'shortDisplayName']);
 const status = (s) => ({ ...pick(s, ['clock', 'displayClock', 'period']), type: pick(s?.type, ['id', 'name', 'state', 'completed', 'description', 'detail', 'shortDetail']) });
-const competitor = (c) => ({ ...pick(c, ['id', 'homeAway', 'score']), team: team(c.team) });
+const competitor = (c) =>
+  c.athlete
+    ? { ...pick(c, ['id', 'order', 'winner']), athlete: athlete(c.athlete) }
+    : { ...pick(c, ['id', 'homeAway', 'score', 'winner']), team: team(c.team) };
 const situation = (s) => ({
   ...pick(s, ['down', 'distance', 'yardLine', 'downDistanceText', 'shortDownDistanceText', 'possessionText', 'isRedZone', 'homeTimeouts', 'awayTimeouts', 'possession']),
   ...(s.lastPlay ? { lastPlay: pick(s.lastPlay, ['id', 'text', 'type']) } : {}),
@@ -30,6 +33,9 @@ function trimScoreboard(d) {
         status: status(c.status),
         competitors: c.competitors.map(competitor),
         ...(c.situation ? { situation: situation(c.situation) } : {}),
+        // Fights: scheduled rounds and the result notes.
+        ...(c.format ? { format: c.format } : {}),
+        ...(c.details ? { details: c.details.map((d) => ({ type: pick(d.type, ['id', 'text']) })) } : {}),
       })),
     })),
   };
@@ -49,25 +55,36 @@ function trimSummary(d) {
       players: (d.boxscore?.players ?? []).map((t) => ({
         team: team(t.team),
         statistics: t.statistics.map((s) => ({
-          ...pick(s, ['name', 'keys', 'labels']),
+          ...pick(s, ['name', 'type', 'keys', 'labels']),
           athletes: s.athletes.map((a) => ({ athlete: athlete(a.athlete), stats: a.stats })),
         })),
       })),
+      // Soccer team stats (corners).
+      ...(d.boxscore?.teams ? { teams: d.boxscore.teams.map((t) => ({ team: team(t.team), statistics: (t.statistics ?? []).map((s) => pick(s, ['name', 'displayValue'])) })) } : {}),
     },
+    // Soccer's player stats live in the rosters.
+    ...(d.rosters
+      ? {
+          rosters: d.rosters.map((r) => ({
+            ...pick(r, ['homeAway']),
+            team: team(r.team),
+            roster: (r.roster ?? []).map((p) => ({ ...pick(p, ['starter', 'subbedIn']), athlete: athlete(p.athlete), position: pick(p.position, ['abbreviation']), stats: (p.stats ?? []).map((st) => pick(st, ['name', 'value'])) })),
+          })),
+        }
+      : {}),
   };
 }
 
 function trimRoster(d) {
+  const player = (a) => ({
+    ...athlete(a),
+    position: pick(a.position, ['abbreviation', 'name']),
+    status: pick(a.status, ['type', 'name']),
+  });
   return {
     team: team(d.team),
-    athletes: d.athletes.map((g) => ({
-      position: g.position,
-      items: g.items.map((a) => ({
-        ...athlete(a),
-        position: pick(a.position, ['abbreviation', 'name']),
-        status: pick(a.status, ['type', 'name']),
-      })),
-    })),
+    // Football groups players by unit ({position, items}); basketball is a flat list.
+    athletes: d.athletes.map((g) => (Array.isArray(g.items) ? { position: g.position, items: g.items.map(player) } : player(g))),
   };
 }
 

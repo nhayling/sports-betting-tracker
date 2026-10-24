@@ -1,0 +1,1417 @@
+{
+ "events": [
+  {
+   "id": "600060773",
+   "uid": "s:3301~l:3321~e:600060773",
+   "date": "2026-10-17T21:00Z",
+   "name": "UFC Fight Night: Buckley vs. Malott",
+   "shortName": "UFC Fight Night",
+   "competitions": [
+    {
+     "id": "401919643",
+     "date": "2026-10-17T21:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 259,
+      "displayClock": "4:19",
+      "period": 3,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "5044361",
+       "order": 2,
+       "winner": true,
+       "athlete": {
+        "fullName": "SuYoung You",
+        "displayName": "SuYoung You",
+        "shortName": "S. You"
+       }
+      },
+      {
+       "id": "5282412",
+       "order": 1,
+       "winner": false,
+       "athlete": {
+        "fullName": "Cody Chovancek",
+        "displayName": "Cody Chovancek",
+        "shortName": "C. Chovancek"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     },
+     "details": [
+      {
+       "type": {
+        "id": "20",
+        "text": "Unofficial Winner Submission"
+       }
+      },
+      {
+       "type": {
+        "id": "23",
+        "text": "Results"
+       }
+      },
+      {
+       "type": {
+        "id": "19",
+        "text": "Fight Over"
+       }
+      },
+      {
+       "type": {
+        "id": "18",
+        "text": "Round End"
+       }
+      },
+      {
+       "type": {
+        "id": "16",
+        "text": "Submission Attempt"
+       }
+      },
+      {
+       "type": {
+        "id": "13",
+        "text": "Takedown"
+       }
+      },
+      {
+       "type": {
+        "id": "12",
+        "text": "Takedown Attempt"
+       }
+      },
+      {
+       "type": {
+        "id": "13",
+        "text": "Takedown"
+       }
+      },
+      {
+       "type": {
+        "id": "12",
+        "text": "Takedown Attempt"
+       }
+      },
+      {
+       "type": {
+        "id": "5",
+        "text": "Round Start"
+       }
+      }
+     ]
+    },
+    {
+     "id": "401908373",
+     "date": "2026-10-17T21:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 292,
+      "displayClock": "4:52",
+      "period": 1,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "4319785",
+       "order": 2,
+       "winner": true,
+       "athlete": {
+        "fullName": "Chelsea Chandler",
+        "displayName": "Chelsea Chandler",
+        "shortName": "C. Chandler"
+       }
+      },
+      {
+       "id": "4947922",
+       "order": 1,
+       "winner": false,
+       "athlete": {
+        "fullName": "Melissa Croden",
+        "displayName": "Melissa Croden",
+        "shortName": "M. Croden"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     },
+     "details": [
+      {
+       "type": {
+        "id": "20",
+        "text": "Unofficial Winner Submission"
+       }
+      },
+      {
+       "type": {
+        "id": "23",
+        "text": "Results"
+       }
+      },
+      {
+       "type": {
+        "id": "19",
+        "text": "Fight Over"
+       }
+      },
+      {
+       "type": {
+        "id": "18",
+        "text": "Round End"
+       }
+      },
+      {
+       "type": {
+        "id": "16",
+        "text": "Submission Attempt"
+       }
+      },
+      {
+       "type": {
+        "id": "12",
+        "text": "Takedown Attempt"
+       }
+      },
+      {
+       "type": {
+        "id": "13",
+        "text": "Takedown"
+       }
+      },
+      {
+       "type": {
+        "id": "12",
+        "text": "Takedown Attempt"
+       }
+      },
+      {
+       "type": {
+        "id": "12",
+        "text": "Takedown Attempt"
+       }
+      },
+      {
+       "type": {
+        "id": "12",
+        "text": "Takedown Attempt"
+       }
+      }
+     ]
+    },
+    {
+     "id": "401914039",
+     "date": "2026-10-17T21:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 271,
+      "displayClock": "4:31",
+      "period": 3,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "4816062",
+       "order": 1,
+       "winner": false,
+       "athlete": {
+        "fullName": "Chad Anheliger",
+        "displayName": "Chad Anheliger",
+        "shortName": "C. Anheliger"
+       }
+      },
+      {
+       "id": "5119740",
+       "order": 2,
+       "winner": true,
+       "athlete": {
+        "fullName": "Steven Koslow",
+        "displayName": "Steven Koslow",
+        "shortName": "S. Koslow"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     },
+     "details": [
+      {
+       "type": {
+        "id": "19",
+        "text": "Fight Over"
+       }
+      },
+      {
+       "type": {
+        "id": "18",
+        "text": "Round End"
+       }
+      },
+      {
+       "type": {
+        "id": "16",
+        "text": "Submission Attempt"
+       }
+      },
+      {
+       "type": {
+        "id": "13",
+        "text": "Takedown"
+       }
+      },
+      {
+       "type": {
+        "id": "12",
+        "text": "Takedown Attempt"
+       }
+      },
+      {
+       "type": {
+        "id": "5",
+        "text": "Round Start"
+       }
+      },
+      {
+       "type": {
+        "id": "18",
+        "text": "Round End"
+       }
+      },
+      {
+       "type": {
+        "id": "16",
+        "text": "Submission Attempt"
+       }
+      },
+      {
+       "type": {
+        "id": "13",
+        "text": "Takedown"
+       }
+      },
+      {
+       "type": {
+        "id": "12",
+        "text": "Takedown Attempt"
+       }
+      }
+     ]
+    },
+    {
+     "id": "401929675",
+     "date": "2026-10-17T21:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 286,
+      "displayClock": "4:46",
+      "period": 1,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "4026490",
+       "order": 1,
+       "winner": true,
+       "athlete": {
+        "fullName": "Katlyn Cerminara",
+        "displayName": "Katlyn Cerminara",
+        "shortName": "K. Cerminara"
+       }
+      },
+      {
+       "id": "5130806",
+       "order": 2,
+       "winner": false,
+       "athlete": {
+        "fullName": "Mackenzie Stiller",
+        "displayName": "Mackenzie Stiller",
+        "shortName": "M. Stiller"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     },
+     "details": [
+      {
+       "type": {
+        "id": "21",
+        "text": "Unofficial Winner Kotko"
+       }
+      },
+      {
+       "type": {
+        "id": "23",
+        "text": "Results"
+       }
+      },
+      {
+       "type": {
+        "id": "19",
+        "text": "Fight Over"
+       }
+      },
+      {
+       "type": {
+        "id": "18",
+        "text": "Round End"
+       }
+      },
+      {
+       "type": {
+        "id": "17",
+        "text": "Knockdown"
+       }
+      },
+      {
+       "type": {
+        "id": "12",
+        "text": "Takedown Attempt"
+       }
+      },
+      {
+       "type": {
+        "id": "5",
+        "text": "Round Start"
+       }
+      },
+      {
+       "type": {
+        "id": "4",
+        "text": "Staredown"
+       }
+      },
+      {
+       "type": {
+        "id": "3",
+        "text": "Tale of the tape"
+       }
+      },
+      {
+       "type": {
+        "id": "2",
+        "text": "Walkout"
+       }
+      }
+     ]
+    },
+    {
+     "id": "401929676",
+     "date": "2026-10-17T21:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 131,
+      "displayClock": "2:11",
+      "period": 2,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "5405986",
+       "order": 1,
+       "winner": false,
+       "athlete": {
+        "fullName": "Javad Mahjoub",
+        "displayName": "Javad Mahjoub",
+        "shortName": "J. Mahjoub"
+       }
+      },
+      {
+       "id": "5454260",
+       "order": 2,
+       "winner": true,
+       "athlete": {
+        "fullName": "Joel Faglier",
+        "displayName": "Joel Faglier",
+        "shortName": "J. Faglier"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     },
+     "details": [
+      {
+       "type": {
+        "id": "21",
+        "text": "Unofficial Winner Kotko"
+       }
+      },
+      {
+       "type": {
+        "id": "23",
+        "text": "Results"
+       }
+      },
+      {
+       "type": {
+        "id": "19",
+        "text": "Fight Over"
+       }
+      },
+      {
+       "type": {
+        "id": "18",
+        "text": "Round End"
+       }
+      },
+      {
+       "type": {
+        "id": "13",
+        "text": "Takedown"
+       }
+      },
+      {
+       "type": {
+        "id": "12",
+        "text": "Takedown Attempt"
+       }
+      },
+      {
+       "type": {
+        "id": "5",
+        "text": "Round Start"
+       }
+      },
+      {
+       "type": {
+        "id": "18",
+        "text": "Round End"
+       }
+      },
+      {
+       "type": {
+        "id": "17",
+        "text": "Knockdown"
+       }
+      },
+      {
+       "type": {
+        "id": "13",
+        "text": "Takedown"
+       }
+      }
+     ]
+    },
+    {
+     "id": "401911807",
+     "date": "2026-10-17T21:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 86,
+      "displayClock": "1:26",
+      "period": 1,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "4807973",
+       "order": 1,
+       "winner": false,
+       "athlete": {
+        "fullName": "Julien LeBlanc",
+        "displayName": "Julien LeBlanc",
+        "shortName": "J. LeBlanc"
+       }
+      },
+      {
+       "id": "5296770",
+       "order": 2,
+       "winner": true,
+       "athlete": {
+        "fullName": "Nick Galanti",
+        "displayName": "Nick Galanti",
+        "shortName": "N. Galanti"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     },
+     "details": [
+      {
+       "type": {
+        "id": "20",
+        "text": "Unofficial Winner Submission"
+       }
+      },
+      {
+       "type": {
+        "id": "23",
+        "text": "Results"
+       }
+      },
+      {
+       "type": {
+        "id": "19",
+        "text": "Fight Over"
+       }
+      },
+      {
+       "type": {
+        "id": "18",
+        "text": "Round End"
+       }
+      },
+      {
+       "type": {
+        "id": "16",
+        "text": "Submission Attempt"
+       }
+      },
+      {
+       "type": {
+        "id": "13",
+        "text": "Takedown"
+       }
+      },
+      {
+       "type": {
+        "id": "12",
+        "text": "Takedown Attempt"
+       }
+      },
+      {
+       "type": {
+        "id": "13",
+        "text": "Takedown"
+       }
+      },
+      {
+       "type": {
+        "id": "12",
+        "text": "Takedown Attempt"
+       }
+      },
+      {
+       "type": {
+        "id": "5",
+        "text": "Round Start"
+       }
+      }
+     ]
+    },
+    {
+     "id": "401908371",
+     "date": "2026-10-17T21:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 266,
+      "displayClock": "4:26",
+      "period": 3,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "4232775",
+       "order": 1,
+       "winner": true,
+       "athlete": {
+        "fullName": "Tanner Boser",
+        "displayName": "Tanner Boser",
+        "shortName": "T. Boser"
+       }
+      },
+      {
+       "id": "5145497",
+       "order": 2,
+       "winner": false,
+       "athlete": {
+        "fullName": "Jhonata Diniz",
+        "displayName": "Jhonata Diniz",
+        "shortName": "J. Diniz"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     },
+     "details": [
+      {
+       "type": {
+        "id": "21",
+        "text": "Unofficial Winner Kotko"
+       }
+      },
+      {
+       "type": {
+        "id": "23",
+        "text": "Results"
+       }
+      },
+      {
+       "type": {
+        "id": "19",
+        "text": "Fight Over"
+       }
+      },
+      {
+       "type": {
+        "id": "18",
+        "text": "Round End"
+       }
+      },
+      {
+       "type": {
+        "id": "13",
+        "text": "Takedown"
+       }
+      },
+      {
+       "type": {
+        "id": "12",
+        "text": "Takedown Attempt"
+       }
+      },
+      {
+       "type": {
+        "id": "5",
+        "text": "Round Start"
+       }
+      },
+      {
+       "type": {
+        "id": "18",
+        "text": "Round End"
+       }
+      },
+      {
+       "type": {
+        "id": "16",
+        "text": "Submission Attempt"
+       }
+      },
+      {
+       "type": {
+        "id": "13",
+        "text": "Takedown"
+       }
+      }
+     ]
+    },
+    {
+     "id": "401905374",
+     "date": "2026-10-18T00:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 47,
+      "displayClock": "0:47",
+      "period": 2,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "3821549",
+       "order": 2,
+       "winner": false,
+       "athlete": {
+        "fullName": "Nate Landwehr",
+        "displayName": "Nate Landwehr",
+        "shortName": "N. Landwehr"
+       }
+      },
+      {
+       "id": "4063786",
+       "order": 1,
+       "winner": true,
+       "athlete": {
+        "fullName": "Mandel Nallo",
+        "displayName": "Mandel Nallo",
+        "shortName": "M. Nallo"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     },
+     "details": [
+      {
+       "type": {
+        "id": "23",
+        "text": "Results"
+       }
+      },
+      {
+       "type": {
+        "id": "19",
+        "text": "Fight Over"
+       }
+      },
+      {
+       "type": {
+        "id": "18",
+        "text": "Round End"
+       }
+      },
+      {
+       "type": {
+        "id": "17",
+        "text": "Knockdown"
+       }
+      },
+      {
+       "type": {
+        "id": "5",
+        "text": "Round Start"
+       }
+      },
+      {
+       "type": {
+        "id": "18",
+        "text": "Round End"
+       }
+      },
+      {
+       "type": {
+        "id": "16",
+        "text": "Submission Attempt"
+       }
+      },
+      {
+       "type": {
+        "id": "13",
+        "text": "Takedown"
+       }
+      },
+      {
+       "type": {
+        "id": "12",
+        "text": "Takedown Attempt"
+       }
+      },
+      {
+       "type": {
+        "id": "5",
+        "text": "Round Start"
+       }
+      }
+     ]
+    },
+    {
+     "id": "401909783",
+     "date": "2026-10-18T00:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 168,
+      "displayClock": "2:48",
+      "period": 2,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "4877916",
+       "order": 1,
+       "winner": false,
+       "athlete": {
+        "fullName": "Louis Jourdain",
+        "displayName": "Louis Jourdain",
+        "shortName": "L. Jourdain"
+       }
+      },
+      {
+       "id": "5123311",
+       "order": 2,
+       "winner": true,
+       "athlete": {
+        "fullName": "Timmy Cuamba",
+        "displayName": "Timmy Cuamba",
+        "shortName": "T. Cuamba"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     },
+     "details": [
+      {
+       "type": {
+        "id": "23",
+        "text": "Results"
+       }
+      },
+      {
+       "type": {
+        "id": "19",
+        "text": "Fight Over"
+       }
+      },
+      {
+       "type": {
+        "id": "18",
+        "text": "Round End"
+       }
+      },
+      {
+       "type": {
+        "id": "16",
+        "text": "Submission Attempt"
+       }
+      },
+      {
+       "type": {
+        "id": "13",
+        "text": "Takedown"
+       }
+      },
+      {
+       "type": {
+        "id": "12",
+        "text": "Takedown Attempt"
+       }
+      },
+      {
+       "type": {
+        "id": "5",
+        "text": "Round Start"
+       }
+      },
+      {
+       "type": {
+        "id": "18",
+        "text": "Round End"
+       }
+      },
+      {
+       "type": {
+        "id": "12",
+        "text": "Takedown Attempt"
+       }
+      },
+      {
+       "type": {
+        "id": "13",
+        "text": "Takedown"
+       }
+      }
+     ]
+    },
+    {
+     "id": "401908372",
+     "date": "2026-10-18T00:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 268,
+      "displayClock": "4:28",
+      "period": 1,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "4329444",
+       "order": 2,
+       "winner": false,
+       "athlete": {
+        "fullName": "Kyle Daukaus",
+        "displayName": "Kyle Daukaus",
+        "shortName": "K. Daukaus"
+       }
+      },
+      {
+       "id": "4415883",
+       "order": 1,
+       "winner": true,
+       "athlete": {
+        "fullName": "Marc-Andre Barriault",
+        "displayName": "Marc-Andre Barriault",
+        "shortName": "M. Barriault"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     },
+     "details": [
+      {
+       "type": {
+        "id": "21",
+        "text": "Unofficial Winner Kotko"
+       }
+      },
+      {
+       "type": {
+        "id": "23",
+        "text": "Results"
+       }
+      },
+      {
+       "type": {
+        "id": "19",
+        "text": "Fight Over"
+       }
+      },
+      {
+       "type": {
+        "id": "18",
+        "text": "Round End"
+       }
+      },
+      {
+       "type": {
+        "id": "17",
+        "text": "Knockdown"
+       }
+      },
+      {
+       "type": {
+        "id": "12",
+        "text": "Takedown Attempt"
+       }
+      },
+      {
+       "type": {
+        "id": "13",
+        "text": "Takedown"
+       }
+      },
+      {
+       "type": {
+        "id": "12",
+        "text": "Takedown Attempt"
+       }
+      },
+      {
+       "type": {
+        "id": "12",
+        "text": "Takedown Attempt"
+       }
+      },
+      {
+       "type": {
+        "id": "5",
+        "text": "Round Start"
+       }
+      }
+     ]
+    },
+    {
+     "id": "401923630",
+     "date": "2026-10-18T00:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 27,
+      "displayClock": "0:27",
+      "period": 1,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "4408436",
+       "order": 1,
+       "winner": false,
+       "athlete": {
+        "fullName": "Kyle Nelson",
+        "displayName": "Kyle Nelson",
+        "shortName": "K. Nelson"
+       }
+      },
+      {
+       "id": "5180489",
+       "order": 2,
+       "winner": true,
+       "athlete": {
+        "fullName": "Cristian Pérez",
+        "displayName": "Cristian Pérez",
+        "shortName": "C. Pérez"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     },
+     "details": [
+      {
+       "type": {
+        "id": "21",
+        "text": "Unofficial Winner Kotko"
+       }
+      },
+      {
+       "type": {
+        "id": "23",
+        "text": "Results"
+       }
+      },
+      {
+       "type": {
+        "id": "19",
+        "text": "Fight Over"
+       }
+      },
+      {
+       "type": {
+        "id": "18",
+        "text": "Round End"
+       }
+      },
+      {
+       "type": {
+        "id": "17",
+        "text": "Knockdown"
+       }
+      },
+      {
+       "type": {
+        "id": "5",
+        "text": "Round Start"
+       }
+      },
+      {
+       "type": {
+        "id": "4",
+        "text": "Staredown"
+       }
+      },
+      {
+       "type": {
+        "id": "3",
+        "text": "Tale of the tape"
+       }
+      },
+      {
+       "type": {
+        "id": "2",
+        "text": "Walkout"
+       }
+      },
+      {
+       "type": {
+        "id": "2",
+        "text": "Walkout"
+       }
+      }
+     ]
+    },
+    {
+     "id": "401897729",
+     "date": "2026-10-18T00:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 300,
+      "displayClock": "5:00",
+      "period": 3,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "4350796",
+       "order": 1,
+       "winner": false,
+       "athlete": {
+        "fullName": "Erin Blanchfield",
+        "displayName": "Erin Blanchfield",
+        "shortName": "E. Blanchfield"
+       }
+      },
+      {
+       "id": "4835135",
+       "order": 2,
+       "winner": true,
+       "athlete": {
+        "fullName": "Jasmine Jasudavicius",
+        "displayName": "Jasmine Jasudavicius",
+        "shortName": "J. Jasudavicius"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     },
+     "details": [
+      {
+       "type": {
+        "id": "22",
+        "text": "Unofficial Winner Decision"
+       }
+      },
+      {
+       "type": {
+        "id": "23",
+        "text": "Results"
+       }
+      },
+      {
+       "type": {
+        "id": "19",
+        "text": "Fight Over"
+       }
+      },
+      {
+       "type": {
+        "id": "18",
+        "text": "Round End"
+       }
+      },
+      {
+       "type": {
+        "id": "13",
+        "text": "Takedown"
+       }
+      },
+      {
+       "type": {
+        "id": "12",
+        "text": "Takedown Attempt"
+       }
+      },
+      {
+       "type": {
+        "id": "12",
+        "text": "Takedown Attempt"
+       }
+      },
+      {
+       "type": {
+        "id": "12",
+        "text": "Takedown Attempt"
+       }
+      },
+      {
+       "type": {
+        "id": "12",
+        "text": "Takedown Attempt"
+       }
+      },
+      {
+       "type": {
+        "id": "13",
+        "text": "Takedown"
+       }
+      }
+     ]
+    },
+    {
+     "id": "401897388",
+     "date": "2026-10-18T00:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 152,
+      "displayClock": "2:32",
+      "period": 2,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "3165120",
+       "order": 2,
+       "winner": true,
+       "athlete": {
+        "fullName": "Mike Malott",
+        "displayName": "Mike Malott",
+        "shortName": "M. Malott"
+       }
+      },
+      {
+       "id": "4024714",
+       "order": 1,
+       "winner": false,
+       "athlete": {
+        "fullName": "Joaquin Buckley",
+        "displayName": "Joaquin Buckley",
+        "shortName": "J. Buckley"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 5
+      }
+     },
+     "details": [
+      {
+       "type": {
+        "id": "21",
+        "text": "Unofficial Winner Kotko"
+       }
+      },
+      {
+       "type": {
+        "id": "23",
+        "text": "Results"
+       }
+      },
+      {
+       "type": {
+        "id": "19",
+        "text": "Fight Over"
+       }
+      },
+      {
+       "type": {
+        "id": "18",
+        "text": "Round End"
+       }
+      },
+      {
+       "type": {
+        "id": "17",
+        "text": "Knockdown"
+       }
+      },
+      {
+       "type": {
+        "id": "5",
+        "text": "Round Start"
+       }
+      },
+      {
+       "type": {
+        "id": "18",
+        "text": "Round End"
+       }
+      },
+      {
+       "type": {
+        "id": "5",
+        "text": "Round Start"
+       }
+      },
+      {
+       "type": {
+        "id": "4",
+        "text": "Staredown"
+       }
+      },
+      {
+       "type": {
+        "id": "3",
+        "text": "Tale of the tape"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -158,3 +158,125 @@ describe('EspnProvider (fixtures captured 2026-09-27, NFL week 3)', () => {
     await expect(bad.getRoster('NFL', '1')).rejects.toMatchObject({ kind: 'UNEXPECTED_SHAPE' });
   });
 });
+
+describe('EspnProvider NBA (fixtures captured 2026-10-22/23)', () => {
+  const { provider, urls } = fakeEspn([
+    [/nba\/scoreboard/, 'nba-scoreboard-live'],
+    [/nba\/summary\?event=401909848/, 'nba-summary-chi-mil-live'],
+    [/nba\/summary\?event=401909093/, 'nba-summary-cle-phi-final'],
+    [/nba\/teams\/5\/roster/, 'nba-roster-cle'],
+  ]);
+
+  it('lists games, with two-word nicknames intact', async () => {
+    const events = await provider.listEvents('NBA', ['2026-10-23']);
+    expect(urls.at(-1)).toBe('https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20261023');
+    expect(events).toHaveLength(12);
+    expect(events.find((e) => e.id === '401909848')).toMatchObject({
+      sport: 'NBA',
+      home: { abbreviation: 'MIL', name: 'Bucks' },
+      away: { abbreviation: 'CHI', name: 'Bulls' },
+      state: { state: 'LIVE', period: 2, homeScore: 54, awayScore: 59, situation: { possessionTeamId: null, redZone: false, lastPlay: 'Tyler Herro offensive rebound' } },
+    });
+    expect(events.find((e) => e.id === '401909852')!.away.name).toBe('Trail Blazers');
+  });
+
+  it('reads points, rebounds, assists, steals, blocks and threes from the box score', async () => {
+    const snap = await provider.getEventSnapshot('NBA', '401909093');
+    expect(snap.state.state).toBe('FINAL');
+    const mitchell = snap.players.find((p) => p.player.displayName === 'Donovan Mitchell')!;
+    expect(mitchell.player.teamId).toBe('5');
+    expect(mitchell.stats).toMatchObject({ POINTS: 32, REBOUNDS: 10, ASSISTS: 3, STEALS: 2, BLOCKS: 1, THREES_MADE: 2 });
+    expect(mitchell.stats).toMatchObject({ POINTS_REBOUNDS: 42, POINTS_ASSISTS: 35, REBOUNDS_ASSISTS: 13, POINTS_REBOUNDS_ASSISTS: 45, STEALS_BLOCKS: 3 });
+  });
+
+  it('counts double-doubles and triple-doubles', async () => {
+    const snap = await provider.getEventSnapshot('NBA', '401909093');
+    const stats = (name: string) => snap.players.find((p) => p.player.displayName === name)!.stats;
+    expect(stats('LeBron James')).toMatchObject({ DOUBLE_DOUBLE: 1, TRIPLE_DOUBLE: 0 });
+    expect(stats('Tyrese Maxey')).toMatchObject({ DOUBLE_DOUBLE: 0, TRIPLE_DOUBLE: 0 });
+  });
+
+  it('leaves out players who have not played, and reads a live game', async () => {
+    const final = await provider.getEventSnapshot('NBA', '401909093');
+    expect(final.players.some((p) => p.player.displayName === 'Riley Minix')).toBe(false);
+    const live = await provider.getEventSnapshot('NBA', '401909848');
+    expect(live.state).toMatchObject({ state: 'LIVE', period: 2 });
+    expect(live.players.find((p) => p.player.displayName === 'Tyler Herro')!.stats).toMatchObject({ POINTS: 12, THREES_MADE: 2 });
+  });
+
+  it('lists a flat basketball roster with box score ids', async () => {
+    const roster = await provider.getRoster('NBA', '5');
+    expect(roster).toHaveLength(14);
+    expect(roster.find((p) => p.displayName === 'Jarrett Allen')).toMatchObject({ id: '4066328', teamId: '5', position: 'C' });
+  });
+});
+
+describe('EspnProvider MLB, NHL, WNBA, soccer and UFC (fixtures captured 2026-10-23)', () => {
+  const { provider, urls } = fakeEspn([
+    [/hockey\/nhl\/scoreboard/, 'nhl-scoreboard-2026-10-22'],
+    [/hockey\/nhl\/summary/, 'nhl-summary-nyr-tor-final'],
+    [/baseball\/mlb\/summary/, 'mlb-summary-cle-tb-final'],
+    [/basketball\/wnba\/summary/, 'wnba-summary-gs-atl-final'],
+    [/soccer\/eng\.1\/scoreboard/, 'epl-scoreboard-2026-10-18'],
+    [/soccer\/eng\.1\/summary/, 'epl-summary-cry-bha-final'],
+    [/soccer\/esp\.1\/summary/, 'laliga-summary-ray-get-final'],
+    [/mma\/ufc\/scoreboard\?dates=20261017/, 'ufc-scoreboard-2026-10-17'],
+    [/mma\/ufc\/scoreboard\?dates=20261024/, 'ufc-scoreboard-2026-10-24'],
+  ]);
+  const stats = async (sport: Parameters<typeof provider.getEventSnapshot>[0], name: string) =>
+    (await provider.getEventSnapshot(sport, '1')).players.find((p) => p.player.displayName === name)!.stats;
+
+  it('uses each league’s ESPN path', async () => {
+    await provider.listEvents('NHL', ['2026-10-22']);
+    await provider.listEvents('EPL', ['2026-10-18']);
+    expect(urls.slice(-2)).toEqual([
+      'https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/scoreboard?dates=20261022',
+      'https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/scoreboard?dates=20261018',
+    ]);
+  });
+
+  it('NHL: goals, assists, points and shots on goal for skaters', async () => {
+    expect(await stats('NHL', 'Adam Fox')).toMatchObject({ GOALS: 0, ASSISTS: 4, POINTS: 4, SHOTS_ON_GOAL: 0 });
+    expect(await stats('NHL', 'Mika Zibanejad')).toMatchObject({ GOALS: 1, ASSISTS: 1, POINTS: 2, SHOTS_ON_GOAL: 3 });
+  });
+
+  it('MLB: batting lines, and pitchers’ strikeouts and outs', async () => {
+    expect(await stats('MLB', 'Junior Caminero')).toMatchObject({ HITS: 2, RUNS: 2, RBIS: 2, HOME_RUNS: 1, HITS_RUNS_RBIS: 6 });
+    // 5.1 innings = 16 outs.
+    expect(await stats('MLB', 'Freddy Peralta')).toMatchObject({ PITCHER_STRIKEOUTS: 3, OUTS_RECORDED: 16 });
+  });
+
+  it('WNBA: read like the NBA', async () => {
+    expect(await stats('WNBA', 'Angel Reese')).toMatchObject({ POINTS: 21, REBOUNDS: 12, DOUBLE_DOUBLE: 1 });
+  });
+
+  it('soccer: goals, shots and cards from the rosters, corners for the game', async () => {
+    const snap = await provider.getEventSnapshot('EPL', '401879261');
+    expect(snap.state).toMatchObject({ state: 'FINAL', homeScore: 5, awayScore: 0 });
+    expect(snap.gameStats).toEqual({ CORNERS: 13 });
+    expect(snap.players.find((p) => p.player.displayName === 'Charalambos Kostoulas')!.stats).toMatchObject({ GOALS: 1, ASSISTS: 1, SHOTS_ON_TARGET: 2, CARDS: 0 });
+    expect(snap.players.find((p) => p.player.displayName === 'Pascal Gross')!.stats).toMatchObject({ CARDS: 1, RED_CARDS: 0 });
+    expect(await stats('LALIGA', 'Martín Satriano')).toMatchObject({ GOALS: 1 });
+  });
+
+  it('UFC: each bout is a game between two fighters, with how it ended', async () => {
+    const bouts = await provider.listEvents('UFC', ['2026-10-17']);
+    expect(bouts).toHaveLength(13);
+    expect(bouts.find((b) => b.id === '401929676')).toMatchObject({
+      sport: 'UFC',
+      neutralSite: true,
+      home: { name: 'Javad Mahjoub' },
+      away: { name: 'Joel Faglier' },
+      state: { state: 'FINAL', homeScore: null, fight: { winner: 'away', method: 'KO_TKO', round: 2, clockSeconds: 131, scheduledRounds: 3 } },
+    });
+    expect(bouts.find((b) => b.id === '401919643')!.state.fight).toMatchObject({ winner: 'away', method: 'SUBMISSION', round: 3 });
+    // A finish with no result note stays unknown rather than guessed.
+    expect(bouts.find((b) => b.id === '401914039')!.state.fight).toMatchObject({ winner: 'away', method: null, round: 3 });
+    const upcoming = await provider.listEvents('UFC', ['2026-10-24']);
+    expect(upcoming.find((b) => b.id === '401930916')).toMatchObject({ home: { name: 'Kody Steele' }, away: { name: 'Noah Gugnon' }, state: { state: 'SCHEDULED', fight: { winner: null, method: null } } });
+  });
+
+  it('UFC has no box score to fetch', async () => {
+    await expect(provider.getEventSnapshot('UFC', '401929676')).rejects.toMatchObject({ kind: 'UNSUPPORTED_SPORT' });
+  });
+});

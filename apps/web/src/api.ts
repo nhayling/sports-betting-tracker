@@ -62,7 +62,7 @@ const person = (username: string) => encodeURIComponent(username);
 
 export const fetchSocialMe = () => get<SocialMe>('/api/social/me');
 export const saveSocialSettings = (changes: Partial<SocialSettings>) => patch<SocialSettings>('/api/social/settings', changes);
-export const fetchPeople = () => get<{ people: Person[] }>('/api/social/people');
+export const fetchPeople = (q = '') => get<{ people: Person[] }>(`/api/social/people${q.trim() ? `?q=${encodeURIComponent(q.trim())}` : ''}`);
 export const fetchLeaderboard = (period: Period) => get<LeaderboardView>(`/api/social/leaderboard?period=${period}`);
 export const fetchProfile = (username: string) => get<ProfileView>(`/api/social/profiles/${person(username)}`);
 export const fetchProfileBets = (username: string, view: 'open' | 'settled') =>

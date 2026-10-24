@@ -1,0 +1,660 @@
+{
+ "source": "eu.offering-api.kambicdn.com/offering/v2018/islandluck betoffer/event, 1 basketball/wnba games, 2026-10-23",
+ "markets": [
+  {
+   "criterion": "10+ Assists By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 10000
+  },
+  {
+   "criterion": "10+ Points & Assists By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 10000
+  },
+  {
+   "criterion": "10+ Points & Rebounds By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 10000
+  },
+  {
+   "criterion": "10+ Points Scored By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 10000
+  },
+  {
+   "criterion": "10+ Rebounds & Assists By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 10000
+  },
+  {
+   "criterion": "10+ Rebounds By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 10000
+  },
+  {
+   "criterion": "12+ Rebounds & Assists By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 12000
+  },
+  {
+   "criterion": "12+ Rebounds By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 12000
+  },
+  {
+   "criterion": "14+ Rebounds & Assists By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 14000
+  },
+  {
+   "criterion": "14+ Rebounds By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 14000
+  },
+  {
+   "criterion": "15+ Points & Assists By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 15000
+  },
+  {
+   "criterion": "15+ Points & Rebounds By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 15000
+  },
+  {
+   "criterion": "15+ Points Scored By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 15000
+  },
+  {
+   "criterion": "15+ Points, Rebounds & Assists By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 15000
+  },
+  {
+   "criterion": "16+ Rebounds & Assists By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 16000
+  },
+  {
+   "criterion": "16+ Rebounds By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 16000
+  },
+  {
+   "criterion": "18+ Rebounds & Assists By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 18000
+  },
+  {
+   "criterion": "1st Half (3-way)",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "1st Quarter - First to 10 Points",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "1st Quarter - First to 15 Points",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "1st Quarter - First to 20 Points",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "1st Quarter - First to 25 Points",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "1st Quarter - First to 30 Points",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "1st Quarter (3-way)",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "2+ Assists By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 2000
+  },
+  {
+   "criterion": "2+ Rebounds By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 2000
+  },
+  {
+   "criterion": "2+ Three-Point Field Goals Made By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 2000
+  },
+  {
+   "criterion": "20+ Points & Assists By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 20000
+  },
+  {
+   "criterion": "20+ Points & Rebounds By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 20000
+  },
+  {
+   "criterion": "20+ Points Scored By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 20000
+  },
+  {
+   "criterion": "20+ Points, Rebounds & Assists By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 20000
+  },
+  {
+   "criterion": "20+ Rebounds & Assists By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 20000
+  },
+  {
+   "criterion": "25+ Points & Assists By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 25000
+  },
+  {
+   "criterion": "25+ Points & Rebounds By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 25000
+  },
+  {
+   "criterion": "25+ Points Scored By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 25000
+  },
+  {
+   "criterion": "25+ Points, Rebounds & Assists By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 25000
+  },
+  {
+   "criterion": "3-point field goals made by the player - Including Overtime",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "3+ Three-Point Field Goals Made By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 3000
+  },
+  {
+   "criterion": "30+ Points & Rebounds By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 30000
+  },
+  {
+   "criterion": "30+ Points, Rebounds & Assists By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 30000
+  },
+  {
+   "criterion": "35+ Points & Rebounds By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 35000
+  },
+  {
+   "criterion": "35+ Points, Rebounds & Assists By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 35000
+  },
+  {
+   "criterion": "4+ Assists By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 4000
+  },
+  {
+   "criterion": "4+ Rebounds & Assists By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 4000
+  },
+  {
+   "criterion": "4+ Rebounds By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 4000
+  },
+  {
+   "criterion": "4+ Three-Point Field Goals Made By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 4000
+  },
+  {
+   "criterion": "5+ Points Scored By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 5000
+  },
+  {
+   "criterion": "5+ Three-Point Field Goals Made By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 5000
+  },
+  {
+   "criterion": "6+ Assists By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 6000
+  },
+  {
+   "criterion": "6+ Rebounds & Assists By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 6000
+  },
+  {
+   "criterion": "6+ Rebounds By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 6000
+  },
+  {
+   "criterion": "8+ Assists By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 8000
+  },
+  {
+   "criterion": "8+ Rebounds & Assists By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 8000
+  },
+  {
+   "criterion": "8+ Rebounds By The Player - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 8000
+  },
+  {
+   "criterion": "Assists by the player - Including Overtime",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 3500
+  },
+  {
+   "criterion": "Atlanta Dream Assists - Including Overtime",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 19500
+  },
+  {
+   "criterion": "Atlanta Dream made Threes - Including Overtime",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 8500
+  },
+  {
+   "criterion": "Atlanta Dream Steals - Including Overtime",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 9500
+  },
+  {
+   "criterion": "First to 100 Points - Including Overtime",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "First to 25 Points - Including Overtime",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "First to 50 Points - Including Overtime",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "First to 75 Points - Including Overtime",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Golden State Valkyries Assists - Including Overtime",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 16500
+  },
+  {
+   "criterion": "Golden State Valkyries made Threes - Including Overtime",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 10500
+  },
+  {
+   "criterion": "Golden State Valkyries Steals - Including Overtime",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 7500
+  },
+  {
+   "criterion": "Half Time/Full Time - End of 4th Quarter",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Moneyline",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Moneyline - 1st Half",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Moneyline - Quarter 1",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Player to Score the First Field Goal of the Game",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Point Spread",
+   "sides": [],
+   "line": -8500
+  },
+  {
+   "criterion": "Points & Assists by the player - Including Overtime",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 19500
+  },
+  {
+   "criterion": "Points & Rebounds by the player - Including Overtime",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 28500
+  },
+  {
+   "criterion": "Points scored by the player - Including Overtime",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 15500
+  },
+  {
+   "criterion": "Points, rebounds & assists by the player - Including Overtime",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 21500
+  },
+  {
+   "criterion": "Rebounds & Assists by the player - Including Overtime",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 14500
+  },
+  {
+   "criterion": "Rebounds by the player - Including Overtime",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 4500
+  },
+  {
+   "criterion": "Result at end of 4th Quarter",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Spread - 1st Half",
+   "sides": [],
+   "line": -2500
+  },
+  {
+   "criterion": "Spread - 1st Quarter",
+   "sides": [],
+   "line": -1500
+  },
+  {
+   "criterion": "To go into Overtime",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "To record a double-double - Including Overtime",
+   "sides": [
+    "YES"
+   ],
+   "line": 2000
+  },
+  {
+   "criterion": "Total Match Assists - Including Overtime",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 36500
+  },
+  {
+   "criterion": "Total Match made Threes - Including Overtime",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 19500
+  },
+  {
+   "criterion": "Total Match Steals - Including Overtime",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 16500
+  },
+  {
+   "criterion": "Total Points - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 71500
+  },
+  {
+   "criterion": "Total Points - 1st Quarter",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 37500
+  },
+  {
+   "criterion": "Total Points - Including Overtime",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 148500
+  },
+  {
+   "criterion": "Total Points by Atlanta Dream",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 80500
+  },
+  {
+   "criterion": "Total Points by Atlanta Dream - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 38500
+  },
+  {
+   "criterion": "Total Points by Atlanta Dream - Quarter 1",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 19500
+  },
+  {
+   "criterion": "Total Points by Golden State Valkyries",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 76500
+  },
+  {
+   "criterion": "Total Points by Golden State Valkyries - 1st Half",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 36500
+  },
+  {
+   "criterion": "Total Points by Golden State Valkyries - Quarter 1",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 18500
+  },
+  {
+   "criterion": "Total Points Odd/Even - Including Overtime",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Winning Margin",
+   "sides": [],
+   "line": null
+  }
+ ]
+}

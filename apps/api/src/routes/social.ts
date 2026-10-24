@@ -28,7 +28,7 @@ const SWITCHES = ['locked', 'shareAmountsFriends', 'shareAmountsFollowers', 'sha
  *
  *   GET    /api/social/me                        your settings and how many requests are waiting
  *   PATCH  /api/social/settings                  { displayName?, locked?, shareAmountsFriends?, … }
- *   GET    /api/social/people                    everyone else, with how you stand with them
+ *   GET    /api/social/people[?q=]               people you have a tie with, or a search, with how you stand with them
  *   POST   /api/social/friends/:username         ask, or accept their request
  *   DELETE /api/social/friends/:username         unfriend, cancel or decline
  *   POST   /api/social/follows/:username         follow (a request if their account is locked)
@@ -97,8 +97,9 @@ export function socialRouter(db: Db): Router {
     res.json(await updateSettings(db, authOf(res).userId, changes));
   });
 
-  router.get('/people', async (_req, res) => {
-    res.json({ people: await loadPeople(db, authOf(res).userId) });
+  router.get('/people', async (req, res) => {
+    const q = typeof req.query.q === 'string' ? req.query.q.slice(0, 50) : undefined;
+    res.json({ people: await loadPeople(db, authOf(res).userId, q) });
   });
 
   router.post('/friends/:username', async (req, res) => {

@@ -1,10 +1,10 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { parseHistoryResponse, type RawHistoryResponse } from '@sports-better/kambi';
-import { parseRoster, parseScoreboardEvent } from '@sports-better/sports-data/src/espn';
-import type { ProviderEvent, ProviderPlayer } from '@sports-better/sports-data';
+import { parseFightCard, parseRoster, parseScoreboardEvent } from '@sports-better/sports-data/src/espn';
+import type { ProviderEvent, ProviderPlayer, Sport } from '@sports-better/sports-data';
 import { describe, expect, it } from 'vitest';
-import { AUTO_LINK_THRESHOLD, matchEvent, matchPlayer, normalizePersonName, sportForLeague, stripRanking } from '../src';
+import { AUTO_LINK_THRESHOLD, matchEvent, matchPlayer, normalizePersonName, sportForLeague, stripRanking, teamMatches } from '../src';
 
 const read = (rel: string) => JSON.parse(readFileSync(fileURLToPath(new URL(rel, import.meta.url)), 'utf8'));
 const espn = (name: string) => read(`../../sports-data/fixtures/espn/${name}.json`);
@@ -75,6 +75,84 @@ describe('matchEvent: Island Luck capture → ESPN scoreboard (Week 3)', () => {
   it('refuses games outside the start window', () => {
     const m = matchEvent({ sport: 'NFL', homeName: 'MIA Dolphins', awayName: 'KC Chiefs', startAt: '2026-09-28T17:00:00Z' }, scoreboard);
     expect(m).toMatchObject({ ok: false, reason: 'NO_CANDIDATE' });
+  });
+});
+
+describe('matchEvent: Island Luck NBA games → ESPN scoreboard (2026-10-23)', () => {
+  const nba: ProviderEvent[] = espn('nba-scoreboard-live').events.map((e: unknown) => parseScoreboardEvent('NBA', e)!);
+  const games: Array<{ event: { name: string; homeName: string; awayName: string; start: string; path: Array<{ name: string }> } }> = read(
+    '../../kambi/fixtures/offering/nba-games-2026-10-23.json',
+  ).events;
+
+  it('reads the NBA league from the event path', () => {
+    expect(games.every((g) => sportForLeague(g.event.path.at(-1)!.name) === 'NBA')).toBe(true);
+  });
+
+  it('matches every game to exactly one ESPN game, two-word nicknames and shared cities included', () => {
+    const results = games.map(({ event: e }) => ({ kambi: e.name, m: matchEvent({ sport: 'NBA', homeName: e.homeName, awayName: e.awayName, startAt: e.start }, nba) }));
+    expect(results.filter((r) => !r.m.ok).map((r) => r.kambi)).toEqual([]);
+    const id = (name: string) => {
+      const m = results.find((r) => r.kambi === name)!.m;
+      return m.ok ? [m.event.id, m.method, m.swapped] : null;
+    };
+    expect(id('POR Trail Blazers @ SAC Kings')).toEqual(['401909852', 'NICKNAME', false]);
+    expect(id('LA Clippers @ LA Lakers')).toEqual(['401909851', 'NICKNAME', false]);
+    expect(id('NO Pelicans @ UTA Jazz')).toEqual(['401909849', 'NICKNAME', false]);
+  });
+});
+
+describe.each([
+  ['NHL', 'nhl', 'NHL', 14],
+  ['MLB', 'mlb', 'MLB', 1],
+  ['WNBA', 'wnba', 'WNBA', 1],
+  ['EPL', 'epl', 'England / Premier League', 9],
+  ['LALIGA', 'laliga', 'Spain / La Liga', 9],
+  ['UFC', 'ufc', 'UFC', 14],
+] as const)('matchEvent: Island Luck %s → ESPN (games from 2026-10-23)', (sport: Sport, file, league, count) => {
+  const board = espn(`${file}-scoreboard-upcoming-2026-10-23`).events;
+  const espnGames: ProviderEvent[] = sport === 'UFC' ? board.flatMap((e: unknown) => parseFightCard(e)).filter(Boolean) : board.map((e: unknown) => parseScoreboardEvent(sport, e)!);
+  const games: Array<{ event: { name: string; homeName: string; awayName: string; start: string; path: Array<{ name: string }> } }> = read(
+    `../../kambi/fixtures/offering/${file}-games-2026-10-23.json`,
+  ).events;
+
+  it('maps the league as the kambi parser names it', () => {
+    expect(sportForLeague(league)).toBe(sport);
+    expect(games).toHaveLength(count);
+  });
+
+  it('matches every game to exactly one ESPN game', () => {
+    const results = games.map(({ event: e }) => ({ kambi: e.name, m: matchEvent({ sport, homeName: e.homeName, awayName: e.awayName, startAt: e.start }, espnGames) }));
+    expect(results.filter((r) => !r.m.ok).map((r) => `${r.kambi}: ${!r.m.ok && r.m.reason}`)).toEqual([]);
+    for (const { m } of results) if (m.ok) expect(m.confidence).toBe(1);
+    expect(new Set(results.map((r) => r.m.ok && r.m.event.id)).size).toBe(count);
+  });
+});
+
+describe('matchEvent: names that need care', () => {
+  const team = (displayName: string, name = displayName, location = displayName) => ({ id: '1', abbreviation: null, displayName, name, location });
+  it.each([
+    ['EPL', 'Brighton', team('Brighton & Hove Albion'), true],
+    ['EPL', 'Newcastle', team('Newcastle United'), true],
+    ['EPL', 'Bournemouth', team('AFC Bournemouth'), true],
+    ['EPL', 'Manchester City', team('Manchester United'), false],
+    ['EPL', 'Hull City', team('Coventry City'), false],
+    ['LALIGA', 'FC Barcelona', team('Barcelona'), true],
+    ['LALIGA', 'Athletic Bilbao', team('Athletic Club'), true],
+    ['LALIGA', 'Alaves', team('Alavés'), true],
+    ['LALIGA', 'Real Madrid', team('Real Sociedad'), false],
+    ['NHL', 'TOR Maple Leafs', team('Toronto Maple Leafs', 'Maple Leafs', 'Toronto'), true],
+    ['MLB', 'CHI White Sox', team('Chicago Cubs', 'Cubs', 'Chicago'), false],
+    ['UFC', '(8) Iasmin Lucindo', team('Iasmin Lucindo'), true],
+    ['UFC', '(C) Alex Volkanovski', team('Alexander Volkanovski'), true],
+    ['UFC', '(4) Alexander Volkov', team('Alexander Volkanovski'), false],
+  ] as const)('%s: %s vs %s → %s', (sport, kambi, espnTeam, ok) => {
+    expect(teamMatches(sport, kambi, espnTeam)).toBe(ok);
+  });
+
+  it('only maps Premier League with its country', () => {
+    expect(sportForLeague('England / Premier League')).toBe('EPL');
+    expect(sportForLeague('Egypt / Premier League')).toBeNull();
+    expect(sportForLeague('Premier League')).toBeNull();
   });
 });
 

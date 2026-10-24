@@ -1,0 +1,504 @@
+{
+ "team": {
+  "id": "30",
+  "abbreviation": "TB",
+  "location": "Tampa Bay",
+  "name": "Rays",
+  "displayName": "Tampa Bay Rays"
+ },
+ "athletes": [
+  {
+   "position": "Pitchers",
+   "items": [
+    {
+     "id": "40884",
+     "uid": "s:1~l:10~a:40884",
+     "firstName": "Bryan",
+     "lastName": "Baker",
+     "fullName": "Bryan Baker",
+     "displayName": "Bryan Baker",
+     "shortName": "B. Baker",
+     "jersey": "47",
+     "position": {
+      "abbreviation": "RP",
+      "name": "Relief Pitcher"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "2560565",
+     "uid": "s:1~l:10~a:2560565",
+     "firstName": "Cam",
+     "lastName": "Booser",
+     "fullName": "Cam Booser",
+     "displayName": "Cam Booser",
+     "shortName": "C. Booser",
+     "jersey": "62",
+     "position": {
+      "abbreviation": "RP",
+      "name": "Relief Pitcher"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "36429",
+     "uid": "s:1~l:10~a:36429",
+     "firstName": "Garrett",
+     "lastName": "Cleavinger",
+     "fullName": "Garrett Cleavinger",
+     "displayName": "Garrett Cleavinger",
+     "shortName": "G. Cleavinger",
+     "jersey": "60",
+     "position": {
+      "abbreviation": "RP",
+      "name": "Relief Pitcher"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "42604",
+     "uid": "s:1~l:10~a:42604",
+     "firstName": "Griffin",
+     "lastName": "Jax",
+     "fullName": "Griffin Jax",
+     "displayName": "Griffin Jax",
+     "shortName": "G. Jax",
+     "jersey": "22",
+     "position": {
+      "abbreviation": "SP",
+      "name": "Starting Pitcher"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "5001153",
+     "uid": "s:1~l:10~a:5001153",
+     "firstName": "Kevin",
+     "lastName": "Kelly",
+     "fullName": "Kevin Kelly",
+     "displayName": "Kevin Kelly",
+     "shortName": "K. Kelly",
+     "jersey": "49",
+     "position": {
+      "abbreviation": "RP",
+      "name": "Relief Pitcher"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "33372",
+     "uid": "s:1~l:10~a:33372",
+     "firstName": "Nick",
+     "lastName": "Martinez",
+     "fullName": "Nick Martinez",
+     "displayName": "Nick Martinez",
+     "shortName": "N. Martinez",
+     "jersey": "28",
+     "position": {
+      "abbreviation": "SP",
+      "name": "Starting Pitcher"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "33106",
+     "uid": "s:1~l:10~a:33106",
+     "firstName": "Steven",
+     "lastName": "Matz",
+     "fullName": "Steven Matz",
+     "displayName": "Steven Matz",
+     "shortName": "S. Matz",
+     "jersey": "32",
+     "position": {
+      "abbreviation": "RP",
+      "name": "Relief Pitcher"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "39825",
+     "uid": "s:1~l:10~a:39825",
+     "firstName": "Freddy",
+     "lastName": "Peralta",
+     "fullName": "Freddy Peralta",
+     "displayName": "Freddy Peralta",
+     "shortName": "F. Peralta",
+     "jersey": "51",
+     "position": {
+      "abbreviation": "SP",
+      "name": "Starting Pitcher"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "42584",
+     "uid": "s:1~l:10~a:42584",
+     "firstName": "Drew",
+     "lastName": "Rasmussen",
+     "fullName": "Drew Rasmussen",
+     "displayName": "Drew Rasmussen",
+     "shortName": "D. Rasmussen",
+     "jersey": "57",
+     "position": {
+      "abbreviation": "SP",
+      "name": "Starting Pitcher"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4669425",
+     "uid": "s:1~l:10~a:4669425",
+     "firstName": "Ian",
+     "lastName": "Seymour",
+     "fullName": "Ian Seymour",
+     "displayName": "Ian Seymour",
+     "shortName": "I. Seymour",
+     "jersey": "61",
+     "position": {
+      "abbreviation": "SP",
+      "name": "Starting Pitcher"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "37825",
+     "uid": "s:1~l:10~a:37825",
+     "firstName": "Cole",
+     "lastName": "Sulser",
+     "fullName": "Cole Sulser",
+     "displayName": "Cole Sulser",
+     "shortName": "C. Sulser",
+     "jersey": "71",
+     "position": {
+      "abbreviation": "RP",
+      "name": "Relief Pitcher"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4717904",
+     "uid": "s:1~l:10~a:4717904",
+     "firstName": "Tyler",
+     "lastName": "Wells",
+     "fullName": "Tyler Wells",
+     "displayName": "Tyler Wells",
+     "shortName": "T. Wells",
+     "jersey": "68",
+     "position": {
+      "abbreviation": "RP",
+      "name": "Relief Pitcher"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    }
+   ]
+  },
+  {
+   "position": "Catchers",
+   "items": [
+    {
+     "id": "41674",
+     "uid": "s:1~l:10~a:41674",
+     "firstName": "Nick",
+     "lastName": "Fortes",
+     "fullName": "Nick Fortes",
+     "displayName": "Nick Fortes",
+     "shortName": "N. Fortes",
+     "jersey": "40",
+     "position": {
+      "abbreviation": "C",
+      "name": "Catcher"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4725251",
+     "uid": "s:1~l:10~a:4725251",
+     "firstName": "Liam",
+     "lastName": "Hicks",
+     "fullName": "Liam Hicks",
+     "displayName": "Liam Hicks",
+     "shortName": "L. Hicks",
+     "jersey": "34",
+     "position": {
+      "abbreviation": "C",
+      "name": "Catcher"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    }
+   ]
+  },
+  {
+   "position": "Infielders",
+   "items": [
+    {
+     "id": "40810",
+     "uid": "s:1~l:10~a:40810",
+     "firstName": "Jonathan",
+     "lastName": "Aranda",
+     "fullName": "Jonathan Aranda",
+     "displayName": "Jonathan Aranda",
+     "shortName": "J. Aranda",
+     "jersey": "8",
+     "position": {
+      "abbreviation": "1B",
+      "name": "First Base"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4905921",
+     "uid": "s:1~l:10~a:4905921",
+     "firstName": "Junior",
+     "lastName": "Caminero",
+     "fullName": "Junior Caminero",
+     "displayName": "Junior Caminero",
+     "shortName": "J. Caminero",
+     "jersey": "13",
+     "position": {
+      "abbreviation": "3B",
+      "name": "Third Base"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "33832",
+     "uid": "s:1~l:10~a:33832",
+     "firstName": "Jorge",
+     "lastName": "Mateo",
+     "fullName": "Jorge Mateo",
+     "displayName": "Jorge Mateo",
+     "shortName": "J. Mateo",
+     "jersey": "9",
+     "position": {
+      "abbreviation": "SS",
+      "name": "Shortstop"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "41359",
+     "uid": "s:1~l:10~a:41359",
+     "firstName": "Richie",
+     "lastName": "Palacios",
+     "fullName": "Richie Palacios",
+     "displayName": "Richie Palacios",
+     "shortName": "R. Palacios",
+     "jersey": "1",
+     "position": {
+      "abbreviation": "2B",
+      "name": "Second Base"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "40576",
+     "uid": "s:1~l:10~a:40576",
+     "firstName": "Taylor",
+     "lastName": "Walls",
+     "fullName": "Taylor Walls",
+     "displayName": "Taylor Walls",
+     "shortName": "T. Walls",
+     "jersey": "6",
+     "position": {
+      "abbreviation": "SS",
+      "name": "Shortstop"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4626239",
+     "uid": "s:1~l:10~a:4626239",
+     "firstName": "Ben",
+     "lastName": "Williamson",
+     "fullName": "Ben Williamson",
+     "displayName": "Ben Williamson",
+     "shortName": "B. Williamson",
+     "jersey": "15",
+     "position": {
+      "abbreviation": "2B",
+      "name": "Second Base"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    }
+   ]
+  },
+  {
+   "position": "Outfielders",
+   "items": [
+    {
+     "id": "5005912",
+     "uid": "s:1~l:10~a:5005912",
+     "firstName": "Jonny",
+     "lastName": "DeLuca",
+     "fullName": "Jonny DeLuca",
+     "displayName": "Jonny DeLuca",
+     "shortName": "J. DeLuca",
+     "jersey": "21",
+     "position": {
+      "abbreviation": "RF",
+      "name": "Right Field"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4917849",
+     "uid": "s:1~l:10~a:4917849",
+     "firstName": "Victor",
+     "lastName": "Mesa Jr.",
+     "fullName": "Victor Mesa Jr.",
+     "displayName": "Victor Mesa Jr.",
+     "shortName": "V. Mesa Jr.",
+     "jersey": "25",
+     "position": {
+      "abbreviation": "RF",
+      "name": "Right Field"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "35578",
+     "uid": "s:1~l:10~a:35578",
+     "firstName": "Cedric",
+     "lastName": "Mullins",
+     "fullName": "Cedric Mullins",
+     "displayName": "Cedric Mullins",
+     "shortName": "C. Mullins",
+     "jersey": "31",
+     "position": {
+      "abbreviation": "CF",
+      "name": "Center Field"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "4679983",
+     "uid": "s:1~l:10~a:4679983",
+     "firstName": "Chandler",
+     "lastName": "Simpson",
+     "fullName": "Chandler Simpson",
+     "displayName": "Chandler Simpson",
+     "shortName": "C. Simpson",
+     "jersey": "14",
+     "position": {
+      "abbreviation": "LF",
+      "name": "Left Field"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    },
+    {
+     "id": "40960",
+     "uid": "s:1~l:10~a:40960",
+     "firstName": "Ryan",
+     "lastName": "Vilade",
+     "fullName": "Ryan Vilade",
+     "displayName": "Ryan Vilade",
+     "shortName": "R. Vilade",
+     "jersey": "26",
+     "position": {
+      "abbreviation": "RF",
+      "name": "Right Field"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    }
+   ]
+  },
+  {
+   "position": "Designated Hitter",
+   "items": [
+    {
+     "id": "33481",
+     "uid": "s:1~l:10~a:33481",
+     "firstName": "Yandy",
+     "lastName": "Diaz",
+     "fullName": "Yandy Diaz",
+     "displayName": "Yandy Diaz",
+     "shortName": "Y. Diaz",
+     "jersey": "2",
+     "position": {
+      "abbreviation": "DH",
+      "name": "Designated Hitter"
+     },
+     "status": {
+      "type": "active",
+      "name": "Active"
+     }
+    }
+   ]
+  }
+ ]
+}

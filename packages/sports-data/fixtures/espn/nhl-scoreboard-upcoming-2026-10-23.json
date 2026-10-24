@@ -1,0 +1,886 @@
+{
+ "events": [
+  {
+   "id": "401892564",
+   "uid": "s:70~l:90~e:401892564",
+   "date": "2026-10-24T00:00Z",
+   "name": "Montreal Canadiens at Chicago Blackhawks",
+   "shortName": "MTL @ CHI",
+   "competitions": [
+    {
+     "id": "401892564",
+     "date": "2026-10-24T00:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Fri, October 23rd at 8:00 PM EDT",
+       "shortDetail": "10/23 - 8:00 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "4",
+       "homeAway": "home",
+       "score": "0",
+       "team": {
+        "id": "4",
+        "uid": "s:70~l:90~t:4",
+        "abbreviation": "CHI",
+        "location": "Chicago",
+        "name": "Blackhawks",
+        "displayName": "Chicago Blackhawks",
+        "shortDisplayName": "Blackhawks"
+       }
+      },
+      {
+       "id": "10",
+       "homeAway": "away",
+       "score": "0",
+       "team": {
+        "id": "10",
+        "uid": "s:70~l:90~t:10",
+        "abbreviation": "MTL",
+        "location": "Montreal",
+        "name": "Canadiens",
+        "displayName": "Montreal Canadiens",
+        "shortDisplayName": "Canadiens"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "401892565",
+   "uid": "s:70~l:90~e:401892565",
+   "date": "2026-10-24T01:00Z",
+   "name": "Tampa Bay Lightning at Colorado Avalanche",
+   "shortName": "TB @ COL",
+   "competitions": [
+    {
+     "id": "401892565",
+     "date": "2026-10-24T01:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Fri, October 23rd at 9:00 PM EDT",
+       "shortDetail": "10/23 - 9:00 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "17",
+       "homeAway": "home",
+       "score": "0",
+       "team": {
+        "id": "17",
+        "uid": "s:70~l:90~t:17",
+        "abbreviation": "COL",
+        "location": "Colorado",
+        "name": "Avalanche",
+        "displayName": "Colorado Avalanche",
+        "shortDisplayName": "Avalanche"
+       }
+      },
+      {
+       "id": "20",
+       "homeAway": "away",
+       "score": "0",
+       "team": {
+        "id": "20",
+        "uid": "s:70~l:90~t:20",
+        "abbreviation": "TB",
+        "location": "Tampa Bay",
+        "name": "Lightning",
+        "displayName": "Tampa Bay Lightning",
+        "shortDisplayName": "Lightning"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "401892566",
+   "uid": "s:70~l:90~e:401892566",
+   "date": "2026-10-24T17:00Z",
+   "name": "Anaheim Ducks at Philadelphia Flyers",
+   "shortName": "ANA @ PHI",
+   "competitions": [
+    {
+     "id": "401892566",
+     "date": "2026-10-24T17:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 1:00 PM EDT",
+       "shortDetail": "10/24 - 1:00 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "15",
+       "homeAway": "home",
+       "score": "0",
+       "team": {
+        "id": "15",
+        "uid": "s:70~l:90~t:15",
+        "abbreviation": "PHI",
+        "location": "Philadelphia",
+        "name": "Flyers",
+        "displayName": "Philadelphia Flyers",
+        "shortDisplayName": "Flyers"
+       }
+      },
+      {
+       "id": "25",
+       "homeAway": "away",
+       "score": "0",
+       "team": {
+        "id": "25",
+        "uid": "s:70~l:90~t:25",
+        "abbreviation": "ANA",
+        "location": "Anaheim",
+        "name": "Ducks",
+        "displayName": "Anaheim Ducks",
+        "shortDisplayName": "Ducks"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "401892567",
+   "uid": "s:70~l:90~e:401892567",
+   "date": "2026-10-24T19:30Z",
+   "name": "Los Angeles Kings at New Jersey Devils",
+   "shortName": "LA @ NJ",
+   "competitions": [
+    {
+     "id": "401892567",
+     "date": "2026-10-24T19:30Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 3:30 PM EDT",
+       "shortDetail": "10/24 - 3:30 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "11",
+       "homeAway": "home",
+       "score": "0",
+       "team": {
+        "id": "11",
+        "uid": "s:70~l:90~t:11",
+        "abbreviation": "NJ",
+        "location": "New Jersey",
+        "name": "Devils",
+        "displayName": "New Jersey Devils",
+        "shortDisplayName": "Devils"
+       }
+      },
+      {
+       "id": "8",
+       "homeAway": "away",
+       "score": "0",
+       "team": {
+        "id": "8",
+        "uid": "s:70~l:90~t:8",
+        "abbreviation": "LA",
+        "location": "Los Angeles",
+        "name": "Kings",
+        "displayName": "Los Angeles Kings",
+        "shortDisplayName": "Kings"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "401892568",
+   "uid": "s:70~l:90~e:401892568",
+   "date": "2026-10-24T23:00Z",
+   "name": "San Jose Sharks at Boston Bruins",
+   "shortName": "SJ @ BOS",
+   "competitions": [
+    {
+     "id": "401892568",
+     "date": "2026-10-24T23:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 7:00 PM EDT",
+       "shortDetail": "10/24 - 7:00 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "1",
+       "homeAway": "home",
+       "score": "0",
+       "team": {
+        "id": "1",
+        "uid": "s:70~l:90~t:1",
+        "abbreviation": "BOS",
+        "location": "Boston",
+        "name": "Bruins",
+        "displayName": "Boston Bruins",
+        "shortDisplayName": "Bruins"
+       }
+      },
+      {
+       "id": "18",
+       "homeAway": "away",
+       "score": "0",
+       "team": {
+        "id": "18",
+        "uid": "s:70~l:90~t:18",
+        "abbreviation": "SJ",
+        "location": "San Jose",
+        "name": "Sharks",
+        "displayName": "San Jose Sharks",
+        "shortDisplayName": "Sharks"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "401892569",
+   "uid": "s:70~l:90~e:401892569",
+   "date": "2026-10-24T23:00Z",
+   "name": "New York Rangers at Ottawa Senators",
+   "shortName": "NYR @ OTT",
+   "competitions": [
+    {
+     "id": "401892569",
+     "date": "2026-10-24T23:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 7:00 PM EDT",
+       "shortDetail": "10/24 - 7:00 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "14",
+       "homeAway": "home",
+       "score": "0",
+       "team": {
+        "id": "14",
+        "uid": "s:70~l:90~t:14",
+        "abbreviation": "OTT",
+        "location": "Ottawa",
+        "name": "Senators",
+        "displayName": "Ottawa Senators",
+        "shortDisplayName": "Senators"
+       }
+      },
+      {
+       "id": "13",
+       "homeAway": "away",
+       "score": "0",
+       "team": {
+        "id": "13",
+        "uid": "s:70~l:90~t:13",
+        "abbreviation": "NYR",
+        "location": "New York",
+        "name": "Rangers",
+        "displayName": "New York Rangers",
+        "shortDisplayName": "Rangers"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "401892570",
+   "uid": "s:70~l:90~e:401892570",
+   "date": "2026-10-24T23:00Z",
+   "name": "Nashville Predators at Pittsburgh Penguins",
+   "shortName": "NSH @ PIT",
+   "competitions": [
+    {
+     "id": "401892570",
+     "date": "2026-10-24T23:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 7:00 PM EDT",
+       "shortDetail": "10/24 - 7:00 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "16",
+       "homeAway": "home",
+       "score": "0",
+       "team": {
+        "id": "16",
+        "uid": "s:70~l:90~t:16",
+        "abbreviation": "PIT",
+        "location": "Pittsburgh",
+        "name": "Penguins",
+        "displayName": "Pittsburgh Penguins",
+        "shortDisplayName": "Penguins"
+       }
+      },
+      {
+       "id": "27",
+       "homeAway": "away",
+       "score": "0",
+       "team": {
+        "id": "27",
+        "uid": "s:70~l:90~t:27",
+        "abbreviation": "NSH",
+        "location": "Nashville",
+        "name": "Predators",
+        "displayName": "Nashville Predators",
+        "shortDisplayName": "Predators"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "401892571",
+   "uid": "s:70~l:90~e:401892571",
+   "date": "2026-10-24T23:00Z",
+   "name": "Buffalo Sabres at Washington Capitals",
+   "shortName": "BUF @ WSH",
+   "competitions": [
+    {
+     "id": "401892571",
+     "date": "2026-10-24T23:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 7:00 PM EDT",
+       "shortDetail": "10/24 - 7:00 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "23",
+       "homeAway": "home",
+       "score": "0",
+       "team": {
+        "id": "23",
+        "uid": "s:70~l:90~t:23",
+        "abbreviation": "WSH",
+        "location": "Washington",
+        "name": "Capitals",
+        "displayName": "Washington Capitals",
+        "shortDisplayName": "Capitals"
+       }
+      },
+      {
+       "id": "2",
+       "homeAway": "away",
+       "score": "0",
+       "team": {
+        "id": "2",
+        "uid": "s:70~l:90~t:2",
+        "abbreviation": "BUF",
+        "location": "Buffalo",
+        "name": "Sabres",
+        "displayName": "Buffalo Sabres",
+        "shortDisplayName": "Sabres"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "401892572",
+   "uid": "s:70~l:90~e:401892572",
+   "date": "2026-10-24T23:00Z",
+   "name": "Vegas Golden Knights at Columbus Blue Jackets",
+   "shortName": "VGK @ CBJ",
+   "competitions": [
+    {
+     "id": "401892572",
+     "date": "2026-10-24T23:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 7:00 PM EDT",
+       "shortDetail": "10/24 - 7:00 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "29",
+       "homeAway": "home",
+       "score": "0",
+       "team": {
+        "id": "29",
+        "uid": "s:70~l:90~t:29",
+        "abbreviation": "CBJ",
+        "location": "Columbus",
+        "name": "Blue Jackets",
+        "displayName": "Columbus Blue Jackets",
+        "shortDisplayName": "Blue Jackets"
+       }
+      },
+      {
+       "id": "37",
+       "homeAway": "away",
+       "score": "0",
+       "team": {
+        "id": "37",
+        "uid": "s:70~l:90~t:37",
+        "abbreviation": "VGK",
+        "location": "Vegas",
+        "name": "Golden Knights",
+        "displayName": "Vegas Golden Knights",
+        "shortDisplayName": "Golden Knights"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "401892573",
+   "uid": "s:70~l:90~e:401892573",
+   "date": "2026-10-24T23:00Z",
+   "name": "Carolina Hurricanes at St. Louis Blues",
+   "shortName": "CAR @ STL",
+   "competitions": [
+    {
+     "id": "401892573",
+     "date": "2026-10-24T23:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 7:00 PM EDT",
+       "shortDetail": "10/24 - 7:00 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "19",
+       "homeAway": "home",
+       "score": "0",
+       "team": {
+        "id": "19",
+        "uid": "s:70~l:90~t:19",
+        "abbreviation": "STL",
+        "location": "St. Louis",
+        "name": "Blues",
+        "displayName": "St. Louis Blues",
+        "shortDisplayName": "Blues"
+       }
+      },
+      {
+       "id": "7",
+       "homeAway": "away",
+       "score": "0",
+       "team": {
+        "id": "7",
+        "uid": "s:70~l:90~t:7",
+        "abbreviation": "CAR",
+        "location": "Carolina",
+        "name": "Hurricanes",
+        "displayName": "Carolina Hurricanes",
+        "shortDisplayName": "Hurricanes"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "401892574",
+   "uid": "s:70~l:90~e:401892574",
+   "date": "2026-10-24T23:00Z",
+   "name": "Toronto Maple Leafs at Edmonton Oilers",
+   "shortName": "TOR @ EDM",
+   "competitions": [
+    {
+     "id": "401892574",
+     "date": "2026-10-24T23:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 7:00 PM EDT",
+       "shortDetail": "10/24 - 7:00 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "6",
+       "homeAway": "home",
+       "score": "0",
+       "team": {
+        "id": "6",
+        "uid": "s:70~l:90~t:6",
+        "abbreviation": "EDM",
+        "location": "Edmonton",
+        "name": "Oilers",
+        "displayName": "Edmonton Oilers",
+        "shortDisplayName": "Oilers"
+       }
+      },
+      {
+       "id": "21",
+       "homeAway": "away",
+       "score": "0",
+       "team": {
+        "id": "21",
+        "uid": "s:70~l:90~t:21",
+        "abbreviation": "TOR",
+        "location": "Toronto",
+        "name": "Maple Leafs",
+        "displayName": "Toronto Maple Leafs",
+        "shortDisplayName": "Maple Leafs"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "401892575",
+   "uid": "s:70~l:90~e:401892575",
+   "date": "2026-10-25T01:00Z",
+   "name": "Tampa Bay Lightning at Utah Mammoth",
+   "shortName": "TB @ UTA",
+   "competitions": [
+    {
+     "id": "401892575",
+     "date": "2026-10-25T01:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 9:00 PM EDT",
+       "shortDetail": "10/24 - 9:00 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "129764",
+       "homeAway": "home",
+       "score": "0",
+       "team": {
+        "id": "129764",
+        "uid": "s:70~l:90~t:129764",
+        "abbreviation": "UTA",
+        "location": "Utah",
+        "name": "Mammoth",
+        "displayName": "Utah Mammoth",
+        "shortDisplayName": "Mammoth"
+       }
+      },
+      {
+       "id": "20",
+       "homeAway": "away",
+       "score": "0",
+       "team": {
+        "id": "20",
+        "uid": "s:70~l:90~t:20",
+        "abbreviation": "TB",
+        "location": "Tampa Bay",
+        "name": "Lightning",
+        "displayName": "Tampa Bay Lightning",
+        "shortDisplayName": "Lightning"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "401892576",
+   "uid": "s:70~l:90~e:401892576",
+   "date": "2026-10-25T02:00Z",
+   "name": "Detroit Red Wings at Calgary Flames",
+   "shortName": "DET @ CGY",
+   "competitions": [
+    {
+     "id": "401892576",
+     "date": "2026-10-25T02:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 10:00 PM EDT",
+       "shortDetail": "10/24 - 10:00 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "3",
+       "homeAway": "home",
+       "score": "0",
+       "team": {
+        "id": "3",
+        "uid": "s:70~l:90~t:3",
+        "abbreviation": "CGY",
+        "location": "Calgary",
+        "name": "Flames",
+        "displayName": "Calgary Flames",
+        "shortDisplayName": "Flames"
+       }
+      },
+      {
+       "id": "5",
+       "homeAway": "away",
+       "score": "0",
+       "team": {
+        "id": "5",
+        "uid": "s:70~l:90~t:5",
+        "abbreviation": "DET",
+        "location": "Detroit",
+        "name": "Red Wings",
+        "displayName": "Detroit Red Wings",
+        "shortDisplayName": "Red Wings"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "401892577",
+   "uid": "s:70~l:90~e:401892577",
+   "date": "2026-10-25T02:00Z",
+   "name": "Minnesota Wild at Seattle Kraken",
+   "shortName": "MIN @ SEA",
+   "competitions": [
+    {
+     "id": "401892577",
+     "date": "2026-10-25T02:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sat, October 24th at 10:00 PM EDT",
+       "shortDetail": "10/24 - 10:00 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "124292",
+       "homeAway": "home",
+       "score": "0",
+       "team": {
+        "id": "124292",
+        "uid": "s:70~l:90~t:124292",
+        "abbreviation": "SEA",
+        "location": "Seattle",
+        "name": "Kraken",
+        "displayName": "Seattle Kraken",
+        "shortDisplayName": "Kraken"
+       }
+      },
+      {
+       "id": "30",
+       "homeAway": "away",
+       "score": "0",
+       "team": {
+        "id": "30",
+        "uid": "s:70~l:90~t:30",
+        "abbreviation": "MIN",
+        "location": "Minnesota",
+        "name": "Wild",
+        "displayName": "Minnesota Wild",
+        "shortDisplayName": "Wild"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    }
+   ]
+  }
+ ]
+}

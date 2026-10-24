@@ -1,8 +1,9 @@
 import { PrismaClient } from '@prisma/client';
-import type { RawCoupon, RawHistoryResponse } from '@sports-better/kambi';
+import { parseCoupon, type RawCoupon, type RawHistoryResponse } from '@sports-better/kambi';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import captured from '../../../packages/kambi/fixtures/captured/history-2026-09-27.json';
 import { syncCoupons } from '../src/sync/syncCoupons';
+import { untrackedIn } from '../src/sync/untrackedMarkets';
 import { loadBetsView } from '../src/views/betsView';
 import { createTestUser, hasTestDb, setupTestDb } from './testDb';
 
@@ -54,6 +55,30 @@ describe.skipIf(!hasTestDb)('syncCoupons against Postgres', () => {
     expect(r).toMatchObject({ created: 0, updated: 0, unchanged: 15, failed: 0 });
     expect(await db.coupon.count()).toBe(15);
     expect(await db.legSelection.count()).toBe(all.reduce((n, c) => n + (c.outcomes?.length ?? 0), 0));
+  });
+
+  it("flags markets it can't track once, on the sync that first sees them", async () => {
+    const flagged = await db.untrackedMarket.findMany({ orderBy: { marketName: 'asc' } });
+    const expected = [...new Map(all.flatMap((c) => untrackedIn(parseCoupon(c))).map((m) => [`${m.sport}|${m.marketName}`, m])).values()];
+    expect(flagged.map((m) => [m.sport, m.marketName])).toEqual(expected.map((m) => [m.sport, m.marketName]).sort((a, b) => a[1]!.localeCompare(b[1]!)));
+
+    // A market Kambi adds later: an already-synced coupon renamed to it. Copied, so the fixture stays as captured.
+    const renamed = structuredClone(all.find((c) => c.couponRef === 13164001585)!);
+    renamed.betOffers![0]!.criterion = 'First Touchdown Scorer';
+    const r = await syncCoupons(db, { userId, accountLabel: 'Island Luck', capturedAt: later, coupons: [renamed] });
+    expect(r.untrackedMarkets).toEqual(['First Touchdown Scorer']);
+    const row = await db.untrackedMarket.findFirstOrThrow({ where: { marketName: 'First Touchdown Scorer' } });
+    expect(row).toMatchObject({ sport: 'AMERICAN_FOOTBALL', reason: 'UNSUPPORTED_MARKET', firstSeenAt: row.lastSeenAt });
+
+    // Already flagged: a later sync reports nothing new and keeps the first-seen time.
+    const again = await syncCoupons(db, { userId, accountLabel: 'Island Luck', capturedAt: later, coupons: [renamed] });
+    expect(again.untrackedMarkets).toEqual([]);
+    const after = await db.untrackedMarket.findFirstOrThrow({ where: { id: row.id } });
+    expect(after.firstSeenAt).toEqual(row.firstSeenAt);
+    expect(after.lastSeenAt.getTime()).toBeGreaterThan(row.lastSeenAt.getTime());
+
+    // Put the coupon back as captured for the tests below.
+    await syncCoupons(db, { userId, accountLabel: 'Island Luck', capturedAt: later, coupons: [all.find((c) => c.couponRef === 13164001585)!] });
   });
 
   it('updates a coupon in place when Kambi settles it', async () => {

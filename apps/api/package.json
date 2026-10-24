@@ -12,7 +12,10 @@
     "progress": "tsx --env-file=../../.env src/scripts/progress.ts",
     "user": "tsx --env-file=../../.env src/scripts/user.ts",
     "invite": "tsx --env-file=../../.env src/scripts/invite.ts",
-    "reparse": "tsx --env-file=../../.env src/scripts/reparse.ts"
+    "reparse": "tsx --env-file=../../.env src/scripts/reparse.ts",
+    "markets": "tsx --env-file=../../.env src/scripts/markets.ts",
+    "backfill": "tsx --env-file=../../.env src/scripts/backfill.ts",
+    "catalog": "tsx src/scripts/catalog.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",

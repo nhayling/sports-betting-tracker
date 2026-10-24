@@ -1,0 +1,270 @@
+{
+ "events": [
+  {
+   "event": {
+    "id": 1029499657,
+    "name": "(8) Iasmin Lucindo - Nicolle Caliari",
+    "homeName": "(8) Iasmin Lucindo",
+    "awayName": "Nicolle Caliari",
+    "start": "2026-10-24T14:15:00Z",
+    "sport": "MARTIAL_ARTS",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "UFC/MMA"
+     },
+     {
+      "name": "UFC"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1029499658,
+    "name": "Noah Gugnon - Kody Steele",
+    "homeName": "Noah Gugnon",
+    "awayName": "Kody Steele",
+    "start": "2026-10-24T14:45:00Z",
+    "sport": "MARTIAL_ARTS",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "UFC/MMA"
+     },
+     {
+      "name": "UFC"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1029499654,
+    "name": "Daniel Santos - Bolaji Oki",
+    "homeName": "Daniel Santos",
+    "awayName": "Bolaji Oki",
+    "start": "2026-10-24T15:15:00Z",
+    "sport": "MARTIAL_ARTS",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "UFC/MMA"
+     },
+     {
+      "name": "UFC"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1029499655,
+    "name": "Jacob Malkoun - Abubakar Vagaev",
+    "homeName": "Jacob Malkoun",
+    "awayName": "Abubakar Vagaev",
+    "start": "2026-10-24T15:45:00Z",
+    "sport": "MARTIAL_ARTS",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "UFC/MMA"
+     },
+     {
+      "name": "UFC"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1029499656,
+    "name": "Colby Thicknesse - Asaf Chopurov",
+    "homeName": "Colby Thicknesse",
+    "awayName": "Asaf Chopurov",
+    "start": "2026-10-24T16:15:00Z",
+    "sport": "MARTIAL_ARTS",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "UFC/MMA"
+     },
+     {
+      "name": "UFC"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1029418727,
+    "name": "Grant Dawson - Nurullo Aliev",
+    "homeName": "Grant Dawson",
+    "awayName": "Nurullo Aliev",
+    "start": "2026-10-24T16:45:00Z",
+    "sport": "MARTIAL_ARTS",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "UFC/MMA"
+     },
+     {
+      "name": "UFC"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1029418728,
+    "name": "Abus Magomedov - Cam Rowston",
+    "homeName": "Abus Magomedov",
+    "awayName": "Cam Rowston",
+    "start": "2026-10-24T17:15:00Z",
+    "sport": "MARTIAL_ARTS",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "UFC/MMA"
+     },
+     {
+      "name": "UFC"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1029418726,
+    "name": "(12) Nikita Krylov - Abdul Rakhman Yakhyaev",
+    "homeName": "(12) Nikita Krylov",
+    "awayName": "Abdul Rakhman Yakhyaev",
+    "start": "2026-10-24T17:30:00Z",
+    "sport": "MARTIAL_ARTS",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "UFC/MMA"
+     },
+     {
+      "name": "UFC"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1029418724,
+    "name": "(8) Azamat Murzakanov - (7) Dominick Reyes",
+    "homeName": "(8) Azamat Murzakanov",
+    "awayName": "(7) Dominick Reyes",
+    "start": "2026-10-24T17:45:00Z",
+    "sport": "MARTIAL_ARTS",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "UFC/MMA"
+     },
+     {
+      "name": "UFC"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1029418725,
+    "name": "(14) Aaron Pico - Losene Keita",
+    "homeName": "(14) Aaron Pico",
+    "awayName": "Losene Keita",
+    "start": "2026-10-24T18:15:00Z",
+    "sport": "MARTIAL_ARTS",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "UFC/MMA"
+     },
+     {
+      "name": "UFC"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1028782603,
+    "name": "(4) Alexander Volkov - (7) Rizvan Kuniev",
+    "homeName": "(4) Alexander Volkov",
+    "awayName": "(7) Rizvan Kuniev",
+    "start": "2026-10-24T18:45:00Z",
+    "sport": "MARTIAL_ARTS",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "UFC/MMA"
+     },
+     {
+      "name": "UFC"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1028782597,
+    "name": "Lone'er Kavanagh - (13) Ramazan Temirov",
+    "homeName": "Lone'er Kavanagh",
+    "awayName": "(13) Ramazan Temirov",
+    "start": "2026-10-24T19:15:00Z",
+    "sport": "MARTIAL_ARTS",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "UFC/MMA"
+     },
+     {
+      "name": "UFC"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1028782598,
+    "name": "(C) Petr Yan - (1) Merab Dvalishvili",
+    "homeName": "(C) Petr Yan",
+    "awayName": "(1) Merab Dvalishvili",
+    "start": "2026-10-24T19:45:00Z",
+    "sport": "MARTIAL_ARTS",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "UFC/MMA"
+     },
+     {
+      "name": "UFC"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1028782599,
+    "name": "(C) Alex Volkanovski - (1) Movsar Evloev",
+    "homeName": "(C) Alex Volkanovski",
+    "awayName": "(1) Movsar Evloev",
+    "start": "2026-10-24T20:30:00Z",
+    "sport": "MARTIAL_ARTS",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "UFC/MMA"
+     },
+     {
+      "name": "UFC"
+     }
+    ]
+   }
+  }
+ ]
+}

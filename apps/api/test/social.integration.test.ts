@@ -133,8 +133,15 @@ describe.skipIf(!hasTestDb)('social against Postgres', () => {
 
     expect((await json<SocialMe>('noah', 'GET', '/me')).pendingRequests).toBe(1);
     const { people } = await json<{ people: Person[] }>('noah', 'GET', '/people');
-    expect(people.map((p) => p.username)).toEqual(['buddy', 'carol', 'dave']);
+    // Only people you have a tie with; everyone else is found by searching.
+    expect(people.map((p) => p.username)).toEqual(['buddy']);
     expect(people[0]).toEqual({ username: 'buddy', displayName: null, locked: false, relation: { friend: 'RECEIVED', following: 'NONE', followsYou: 'NONE' } });
+    const search = async (q: string) => (await json<{ people: Person[] }>('noah', 'GET', `/people?q=${encodeURIComponent(q)}`)).people;
+    expect((await search('CAR')).map((p) => p.username)).toEqual(['carol']);
+    expect((await search('@dav'))[0]).toMatchObject({ username: 'dave', relation: { friend: 'NONE', following: 'NONE', followsYou: 'NONE' } });
+    expect((await search('bud'))[0]!.relation.friend).toBe('RECEIVED');
+    // You never find yourself.
+    expect(await search('noah')).toEqual([]);
 
     // Accepting is asking back.
     expect(await relation('noah', 'POST', '/friends/buddy')).toMatchObject({ friend: 'FRIENDS' });

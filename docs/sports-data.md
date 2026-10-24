@@ -82,3 +82,25 @@ only if ESPN becomes unreliable.
 - **Players**: Kambi `participantName` vs ESPN roster `displayName` for the
   two teams in that event. Normalize accents, punctuation and case; keep
   suffixes as a tiebreaker only. Persist Kambi `participantId` → ESPN athlete id.
+
+## Other sports (checked 2026-10-23)
+
+Same API, same three endpoints, under these paths. `npm run catalog -w @sports-better/api`
+lists every Island Luck market for upcoming games and whether it's tracked.
+
+| League | ESPN path | Kambi league (event groups) | Stats ESPN has | Not in ESPN, so not tracked |
+| --- | --- | --- | --- | --- |
+| NBA, WNBA | `basketball/nba`, `basketball/wnba` | NBA, WNBA | One unnamed box score category: points, rebounds, assists, steals, blocks, threes (`3-7`) | — |
+| MLB | `baseball/mlb` | MLB | Unnamed categories with `type` `batting` (hits, runs, RBIs, home runs) and `pitching` (strikeouts, innings `5.1` = 16 outs) | Doubles, total bases, stolen bases |
+| NHL | `hockey/nhl` | NHL | `forwards`/`defenses`: goals, assists, `shotsTotal` (shots on goal) | Power-play points; regular-time-only lines (ESPN has no per-period score stored) |
+| Premier League, La Liga | `soccer/eng.1`, `soccer/esp.1` | England / Premier League, Spain / La Liga (Kambi has a Premier League in a dozen countries, so the country is kept) | Summary `rosters[].roster[].stats` by name (`totalGoals`, `goalAssists`, `shotsOnTarget`, `yellowCards`, `redCards`); corners are a team stat (`boxscore.teams[].statistics` `wonCorners`) | Card totals (Kambi weights reds), Asian handicaps |
+| UFC | `mma/ufc` | UFC | Scoreboard only: a card is an event, each bout a competition with `winner`, final `period` and `clock`, scheduled rounds, and a result note ("Unofficial Winner Kotko" = KO/TKO, "… Submission", "… Decision") | Method when ESPN leaves the note out (the pick stays ungraded) |
+
+Matching: NBA, WNBA, MLB and NHL use the nickname like the NFL ("POR Trail
+Blazers", "TOR Maple Leafs"). Soccer clubs match when one name's words
+contain the other's ("Brighton" / "Brighton & Hove Albion", "Athletic Bilbao"
+/ "Athletic Club"). Bouts match on the fighters' names, with "(C)" and
+rankings stripped and a shortened first name allowed ("Alex" / "Alexander
+Volkanovski"); ESPN dates every bout at the card's start, so the time window is
+12 h. Picks on three-way and fight markets are labelled "1", "X", "2" on the
+coupon and are named after the side.

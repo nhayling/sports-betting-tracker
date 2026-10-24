@@ -1,0 +1,418 @@
+{
+ "events": [
+  {
+   "id": "401879263",
+   "uid": "s:600~l:700~e:401879263",
+   "date": "2026-10-18T13:00Z",
+   "name": "Sunderland at AFC Bournemouth",
+   "shortName": "SUN @ BOU",
+   "competitions": [
+    {
+     "id": "401879263",
+     "date": "2026-10-18T13:00Z",
+     "status": {
+      "clock": 5400,
+      "displayClock": "90'+7'",
+      "period": 2,
+      "type": {
+       "id": "28",
+       "name": "STATUS_FULL_TIME",
+       "state": "post",
+       "completed": true,
+       "description": "Full Time",
+       "detail": "FT",
+       "shortDetail": "FT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "349",
+       "homeAway": "home",
+       "score": "2",
+       "winner": true,
+       "team": {
+        "id": "349",
+        "uid": "s:600~t:349",
+        "abbreviation": "BOU",
+        "location": "AFC Bournemouth",
+        "name": "AFC Bournemouth",
+        "displayName": "AFC Bournemouth",
+        "shortDisplayName": "Bournemouth"
+       }
+      },
+      {
+       "id": "366",
+       "homeAway": "away",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "366",
+        "uid": "s:600~t:366",
+        "abbreviation": "SUN",
+        "location": "Sunderland",
+        "name": "Sunderland",
+        "displayName": "Sunderland",
+        "shortDisplayName": "Sunderland"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 2
+      }
+     },
+     "details": [
+      {
+       "type": {
+        "id": "137",
+        "text": "Goal - Header"
+       }
+      },
+      {
+       "type": {
+        "id": "93",
+        "text": "Red Card"
+       }
+      },
+      {
+       "type": {
+        "id": "94",
+        "text": "Yellow Card"
+       }
+      },
+      {
+       "type": {
+        "id": "94",
+        "text": "Yellow Card"
+       }
+      },
+      {
+       "type": {
+        "id": "94",
+        "text": "Yellow Card"
+       }
+      },
+      {
+       "type": {
+        "id": "70",
+        "text": "Goal"
+       }
+      },
+      {
+       "type": {
+        "id": "94",
+        "text": "Yellow Card"
+       }
+      },
+      {
+       "type": {
+        "id": "94",
+        "text": "Yellow Card"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401879261",
+   "uid": "s:600~l:700~e:401879261",
+   "date": "2026-10-18T13:00Z",
+   "name": "Crystal Palace at Brighton & Hove Albion",
+   "shortName": "CRY @ BHA",
+   "competitions": [
+    {
+     "id": "401879261",
+     "date": "2026-10-18T13:00Z",
+     "status": {
+      "clock": 5400,
+      "displayClock": "90'+5'",
+      "period": 2,
+      "type": {
+       "id": "28",
+       "name": "STATUS_FULL_TIME",
+       "state": "post",
+       "completed": true,
+       "description": "Full Time",
+       "detail": "FT",
+       "shortDetail": "FT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "331",
+       "homeAway": "home",
+       "score": "5",
+       "winner": true,
+       "team": {
+        "id": "331",
+        "uid": "s:600~t:331",
+        "abbreviation": "BHA",
+        "location": "Brighton & Hove Albion",
+        "name": "Brighton & Hove Albion",
+        "displayName": "Brighton & Hove Albion",
+        "shortDisplayName": "Brighton"
+       }
+      },
+      {
+       "id": "384",
+       "homeAway": "away",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "384",
+        "uid": "s:600~t:384",
+        "abbreviation": "CRY",
+        "location": "Crystal Palace",
+        "name": "Crystal Palace",
+        "displayName": "Crystal Palace",
+        "shortDisplayName": "C Palace"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 2
+      }
+     },
+     "details": [
+      {
+       "type": {
+        "id": "97",
+        "text": "Own Goal"
+       }
+      },
+      {
+       "type": {
+        "id": "70",
+        "text": "Goal"
+       }
+      },
+      {
+       "type": {
+        "id": "70",
+        "text": "Goal"
+       }
+      },
+      {
+       "type": {
+        "id": "94",
+        "text": "Yellow Card"
+       }
+      },
+      {
+       "type": {
+        "id": "70",
+        "text": "Goal"
+       }
+      },
+      {
+       "type": {
+        "id": "94",
+        "text": "Yellow Card"
+       }
+      },
+      {
+       "type": {
+        "id": "94",
+        "text": "Yellow Card"
+       }
+      },
+      {
+       "type": {
+        "id": "173",
+        "text": "Goal - Volley"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401879260",
+   "uid": "s:600~l:700~e:401879260",
+   "date": "2026-10-18T13:00Z",
+   "name": "Manchester United at Leeds United",
+   "shortName": "MAN @ LEE",
+   "competitions": [
+    {
+     "id": "401879260",
+     "date": "2026-10-18T13:00Z",
+     "status": {
+      "clock": 5400,
+      "displayClock": "90'+5'",
+      "period": 2,
+      "type": {
+       "id": "28",
+       "name": "STATUS_FULL_TIME",
+       "state": "post",
+       "completed": true,
+       "description": "Full Time",
+       "detail": "FT",
+       "shortDetail": "FT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "357",
+       "homeAway": "home",
+       "score": "1",
+       "winner": false,
+       "team": {
+        "id": "357",
+        "uid": "s:600~t:357",
+        "abbreviation": "LEE",
+        "location": "Leeds United",
+        "name": "Leeds United",
+        "displayName": "Leeds United",
+        "shortDisplayName": "Leeds"
+       }
+      },
+      {
+       "id": "360",
+       "homeAway": "away",
+       "score": "1",
+       "winner": false,
+       "team": {
+        "id": "360",
+        "uid": "s:600~t:360",
+        "abbreviation": "MAN",
+        "location": "Manchester United",
+        "name": "Manchester United",
+        "displayName": "Manchester United",
+        "shortDisplayName": "Man United"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 2
+      }
+     },
+     "details": [
+      {
+       "type": {
+        "id": "94",
+        "text": "Yellow Card"
+       }
+      },
+      {
+       "type": {
+        "id": "94",
+        "text": "Yellow Card"
+       }
+      },
+      {
+       "type": {
+        "id": "70",
+        "text": "Goal"
+       }
+      },
+      {
+       "type": {
+        "id": "173",
+        "text": "Goal - Volley"
+       }
+      },
+      {
+       "type": {
+        "id": "94",
+        "text": "Yellow Card"
+       }
+      },
+      {
+       "type": {
+        "id": "94",
+        "text": "Yellow Card"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401878769",
+   "uid": "s:600~l:700~e:401878769",
+   "date": "2026-10-18T15:30Z",
+   "name": "Arsenal at Nottingham Forest",
+   "shortName": "ARS @ NFO",
+   "competitions": [
+    {
+     "id": "401878769",
+     "date": "2026-10-18T15:30Z",
+     "status": {
+      "clock": 5400,
+      "displayClock": "90'+4'",
+      "period": 2,
+      "type": {
+       "id": "28",
+       "name": "STATUS_FULL_TIME",
+       "state": "post",
+       "completed": true,
+       "description": "Full Time",
+       "detail": "FT",
+       "shortDetail": "FT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "393",
+       "homeAway": "home",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "393",
+        "uid": "s:600~t:393",
+        "abbreviation": "NFO",
+        "location": "Nottingham Forest",
+        "name": "Nottingham Forest",
+        "displayName": "Nottingham Forest",
+        "shortDisplayName": "Nottm Forest"
+       }
+      },
+      {
+       "id": "359",
+       "homeAway": "away",
+       "score": "1",
+       "winner": true,
+       "team": {
+        "id": "359",
+        "uid": "s:600~t:359",
+        "abbreviation": "ARS",
+        "location": "Arsenal",
+        "name": "Arsenal",
+        "displayName": "Arsenal",
+        "shortDisplayName": "Arsenal"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 2
+      }
+     },
+     "details": [
+      {
+       "type": {
+        "id": "94",
+        "text": "Yellow Card"
+       }
+      },
+      {
+       "type": {
+        "id": "94",
+        "text": "Yellow Card"
+       }
+      },
+      {
+       "type": {
+        "id": "70",
+        "text": "Goal"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

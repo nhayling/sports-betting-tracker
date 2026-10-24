@@ -1,0 +1,232 @@
+{
+ "events": [
+  {
+   "event": {
+    "id": 1028754210,
+    "name": "CHI Bulls @ MIL Bucks",
+    "homeName": "MIL Bucks",
+    "awayName": "CHI Bulls",
+    "start": "2026-10-23T20:15:00Z",
+    "sport": "BASKETBALL",
+    "state": "STARTED",
+    "path": [
+     {
+      "name": "Basketball"
+     },
+     {
+      "name": "NBA"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1028736320,
+    "name": "NY Knicks @ BOS Celtics",
+    "homeName": "BOS Celtics",
+    "awayName": "NY Knicks",
+    "start": "2026-10-23T23:00:00Z",
+    "sport": "BASKETBALL",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "Basketball"
+     },
+     {
+      "name": "NBA"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1028754194,
+    "name": "MIN Timberwolves @ ORL Magic",
+    "homeName": "ORL Magic",
+    "awayName": "MIN Timberwolves",
+    "start": "2026-10-23T23:00:00Z",
+    "sport": "BASKETBALL",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "Basketball"
+     },
+     {
+      "name": "NBA"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1028754197,
+    "name": "DAL Mavericks @ IND Pacers",
+    "homeName": "IND Pacers",
+    "awayName": "DAL Mavericks",
+    "start": "2026-10-23T23:00:00Z",
+    "sport": "BASKETBALL",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "Basketball"
+     },
+     {
+      "name": "NBA"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1028754199,
+    "name": "ATL Hawks @ CHA Hornets",
+    "homeName": "CHA Hornets",
+    "awayName": "ATL Hawks",
+    "start": "2026-10-23T23:00:00Z",
+    "sport": "BASKETBALL",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "Basketball"
+     },
+     {
+      "name": "NBA"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1028754205,
+    "name": "TOR Raptors @ WAS Wizards",
+    "homeName": "WAS Wizards",
+    "awayName": "TOR Raptors",
+    "start": "2026-10-23T23:00:00Z",
+    "sport": "BASKETBALL",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "Basketball"
+     },
+     {
+      "name": "NBA"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1028754202,
+    "name": "DET Pistons @ MIA Heat",
+    "homeName": "MIA Heat",
+    "awayName": "DET Pistons",
+    "start": "2026-10-24T00:00:00Z",
+    "sport": "BASKETBALL",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "Basketball"
+     },
+     {
+      "name": "NBA"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1028736323,
+    "name": "HOU Rockets @ SA Spurs",
+    "homeName": "SA Spurs",
+    "awayName": "HOU Rockets",
+    "start": "2026-10-24T01:30:00Z",
+    "sport": "BASKETBALL",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "Basketball"
+     },
+     {
+      "name": "NBA"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1028754208,
+    "name": "NO Pelicans @ UTA Jazz",
+    "homeName": "UTA Jazz",
+    "awayName": "NO Pelicans",
+    "start": "2026-10-24T01:30:00Z",
+    "sport": "BASKETBALL",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "Basketball"
+     },
+     {
+      "name": "NBA"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1028754200,
+    "name": "POR Trail Blazers @ SAC Kings",
+    "homeName": "SAC Kings",
+    "awayName": "POR Trail Blazers",
+    "start": "2026-10-24T02:00:00Z",
+    "sport": "BASKETBALL",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "Basketball"
+     },
+     {
+      "name": "NBA"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1028754213,
+    "name": "LA Clippers @ LA Lakers",
+    "homeName": "LA Lakers",
+    "awayName": "LA Clippers",
+    "start": "2026-10-24T02:00:00Z",
+    "sport": "BASKETBALL",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "Basketball"
+     },
+     {
+      "name": "NBA"
+     }
+    ]
+   }
+  },
+  {
+   "event": {
+    "id": 1028754215,
+    "name": "MEM Grizzlies @ GS Warriors",
+    "homeName": "GS Warriors",
+    "awayName": "MEM Grizzlies",
+    "start": "2026-10-24T02:00:00Z",
+    "sport": "BASKETBALL",
+    "state": "NOT_STARTED",
+    "path": [
+     {
+      "name": "Basketball"
+     },
+     {
+      "name": "NBA"
+     }
+    ]
+   }
+  }
+ ]
+}

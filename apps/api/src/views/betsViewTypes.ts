@@ -1,4 +1,4 @@
-import type { GameSituation } from '@sports-better/sports-data';
+import type { FightResult, GameSituation } from '@sports-better/sports-data';
 
 /**
  * Response shape of GET /api/bets, shared with the web app (type-only).
@@ -68,9 +68,12 @@ export interface GameStateView {
   detail: string | null;
   homeScore: number | null;
   awayScore: number | null;
-  home: { id: string; abbreviation: string | null };
-  away: { id: string; abbreviation: string | null };
+  /** A fighter, for UFC. */
+  home: { id: string; abbreviation: string | null; displayName?: string | null };
+  away: { id: string; abbreviation: string | null; displayName?: string | null };
   situation: GameSituation | null;
+  /** UFC: how the bout went. Null for every other sport. */
+  fight: FightResult | null;
   updatedAt: string;
 }
 
@@ -85,10 +88,12 @@ export interface PickView {
   status: string;
   /** Picks in the same same-game bet builder share a group. */
   betBuilderGroup: number | null;
-  type: 'STAT' | 'MONEYLINE' | 'SPREAD' | 'TOTAL' | 'OTHER';
+  type: 'STAT' | 'MONEYLINE' | 'SPREAD' | 'TOTAL' | 'RESULT' | 'BTTS' | 'FIGHT' | 'OTHER';
   display: 'PROGRESS' | 'BINARY' | null;
-  /** Moneyline or spread: which side of the game the pick is on (spreads add `line`, the picked side's). */
-  moneylineSide: 'home' | 'away' | null;
+  /** Moneyline, spread or three-way result: which side of the game the pick is on (spreads add `line`, the picked side's). */
+  moneylineSide: 'home' | 'away' | 'draw' | null;
+  /** UFC: the pick graded from the result (1 won, -1 lost, 0 void), once the fight is over and ESPN says enough. */
+  fightGrade: 1 | -1 | 0 | null;
   progress: ProgressView | null;
 }
 

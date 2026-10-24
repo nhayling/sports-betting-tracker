@@ -1,0 +1,317 @@
+{
+ "team": {
+  "id": "4",
+  "abbreviation": "CHI",
+  "location": "Chicago",
+  "name": "Bulls",
+  "displayName": "Chicago Bulls"
+ },
+ "athletes": [
+  {
+   "id": "5105555",
+   "uid": "s:40~l:46~a:5105555",
+   "firstName": "Tobe",
+   "lastName": "Awaka",
+   "fullName": "Tobe Awaka",
+   "displayName": "Tobe Awaka",
+   "shortName": "T. Awaka",
+   "jersey": "19",
+   "position": {
+    "abbreviation": "F",
+    "name": "Forward"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "4711294",
+   "uid": "s:40~l:46~a:4711294",
+   "firstName": "Matas",
+   "lastName": "Buzelis",
+   "fullName": "Matas Buzelis",
+   "displayName": "Matas Buzelis",
+   "shortName": "M. Buzelis",
+   "jersey": "14",
+   "position": {
+    "abbreviation": "F",
+    "name": "Forward"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "4278067",
+   "uid": "s:40~l:46~a:4278067",
+   "firstName": "Nic",
+   "lastName": "Claxton",
+   "fullName": "Nic Claxton",
+   "displayName": "Nic Claxton",
+   "shortName": "N. Claxton",
+   "jersey": "9",
+   "position": {
+    "abbreviation": "C",
+    "name": "Center"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "4066650",
+   "uid": "s:40~l:46~a:4066650",
+   "firstName": "Zach",
+   "lastName": "Collins",
+   "fullName": "Zach Collins",
+   "displayName": "Zach Collins",
+   "shortName": "Z. Collins",
+   "jersey": "12",
+   "position": {
+    "abbreviation": "F",
+    "name": "Forward"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "5242496",
+   "uid": "s:40~l:46~a:5242496",
+   "firstName": "Noa",
+   "lastName": "Essengue",
+   "fullName": "Noa Essengue",
+   "displayName": "Noa Essengue",
+   "shortName": "N. Essengue",
+   "jersey": "2",
+   "position": {
+    "abbreviation": "F",
+    "name": "Forward"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "4871145",
+   "uid": "s:40~l:46~a:4871145",
+   "firstName": "Josh",
+   "lastName": "Giddey",
+   "fullName": "Josh Giddey",
+   "displayName": "Josh Giddey",
+   "shortName": "J. Giddey",
+   "jersey": "3",
+   "position": {
+    "abbreviation": "G",
+    "name": "Guard"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "4683750",
+   "uid": "s:40~l:46~a:4683750",
+   "firstName": "Jordan",
+   "lastName": "Hawkins",
+   "fullName": "Jordan Hawkins",
+   "displayName": "Jordan Hawkins",
+   "shortName": "J. Hawkins",
+   "jersey": "15",
+   "position": {
+    "abbreviation": "G",
+    "name": "Guard"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "2990984",
+   "uid": "s:40~l:46~a:2990984",
+   "firstName": "Buddy",
+   "lastName": "Hield",
+   "fullName": "Buddy Hield",
+   "displayName": "Buddy Hield",
+   "shortName": "B. Hield",
+   "jersey": "7",
+   "position": {
+    "abbreviation": "G",
+    "name": "Guard"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "4395626",
+   "uid": "s:40~l:46~a:4395626",
+   "firstName": "Tre",
+   "lastName": "Jones",
+   "fullName": "Tre Jones",
+   "displayName": "Tre Jones",
+   "shortName": "T. Jones",
+   "jersey": "30",
+   "position": {
+    "abbreviation": "G",
+    "name": "Guard"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "5044385",
+   "uid": "s:40~l:46~a:5044385",
+   "firstName": "Leonard",
+   "lastName": "Miller",
+   "fullName": "Leonard Miller",
+   "displayName": "Leonard Miller",
+   "shortName": "L. Miller",
+   "jersey": "11",
+   "position": {
+    "abbreviation": "F",
+    "name": "Forward"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "4432822",
+   "uid": "s:40~l:46~a:4432822",
+   "firstName": "Isaac",
+   "lastName": "Okoro",
+   "fullName": "Isaac Okoro",
+   "displayName": "Isaac Okoro",
+   "shortName": "I. Okoro",
+   "jersey": "35",
+   "position": {
+    "abbreviation": "F",
+    "name": "Forward"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "2595516",
+   "uid": "s:40~l:46~a:2595516",
+   "firstName": "Norman",
+   "lastName": "Powell",
+   "fullName": "Norman Powell",
+   "displayName": "Norman Powell",
+   "shortName": "N. Powell",
+   "jersey": "24",
+   "position": {
+    "abbreviation": "G",
+    "name": "Guard"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "4898010",
+   "uid": "s:40~l:46~a:4898010",
+   "firstName": "Jaylin",
+   "lastName": "Sellers",
+   "fullName": "Jaylin Sellers",
+   "displayName": "Jaylin Sellers",
+   "shortName": "J. Sellers",
+   "jersey": "22",
+   "position": {
+    "abbreviation": "G",
+    "name": "Guard"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "4397189",
+   "uid": "s:40~l:46~a:4397189",
+   "firstName": "Jalen",
+   "lastName": "Smith",
+   "fullName": "Jalen Smith",
+   "displayName": "Jalen Smith",
+   "shortName": "J. Smith",
+   "jersey": "25",
+   "position": {
+    "abbreviation": "F",
+    "name": "Forward"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "4848625",
+   "uid": "s:40~l:46~a:4848625",
+   "firstName": "Dailyn",
+   "lastName": "Swain",
+   "fullName": "Dailyn Swain",
+   "displayName": "Dailyn Swain",
+   "shortName": "D. Swain",
+   "jersey": "5",
+   "position": {
+    "abbreviation": "G",
+    "name": "Guard"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "4431687",
+   "uid": "s:40~l:46~a:4431687",
+   "firstName": "Patrick",
+   "lastName": "Williams",
+   "fullName": "Patrick Williams",
+   "displayName": "Patrick Williams",
+   "shortName": "P. Williams",
+   "jersey": "44",
+   "position": {
+    "abbreviation": "F",
+    "name": "Forward"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "5095151",
+   "uid": "s:40~l:46~a:5095151",
+   "firstName": "Caleb",
+   "lastName": "Wilson",
+   "fullName": "Caleb Wilson",
+   "displayName": "Caleb Wilson",
+   "shortName": "C. Wilson",
+   "jersey": "8",
+   "position": {
+    "abbreviation": "F",
+    "name": "Forward"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  }
+ ]
+}

@@ -1,0 +1,784 @@
+{
+ "events": [
+  {
+   "id": "401892552",
+   "uid": "s:70~l:90~e:401892552",
+   "date": "2026-10-22T23:00Z",
+   "name": "Nashville Predators at Boston Bruins",
+   "shortName": "NSH @ BOS",
+   "competitions": [
+    {
+     "id": "401892552",
+     "date": "2026-10-22T23:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 3,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "1",
+       "homeAway": "home",
+       "score": "6",
+       "winner": true,
+       "team": {
+        "id": "1",
+        "uid": "s:70~l:90~t:1",
+        "abbreviation": "BOS",
+        "location": "Boston",
+        "name": "Bruins",
+        "displayName": "Boston Bruins",
+        "shortDisplayName": "Bruins"
+       }
+      },
+      {
+       "id": "27",
+       "homeAway": "away",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "27",
+        "uid": "s:70~l:90~t:27",
+        "abbreviation": "NSH",
+        "location": "Nashville",
+        "name": "Predators",
+        "displayName": "Nashville Predators",
+        "shortDisplayName": "Predators"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "401892553",
+   "uid": "s:70~l:90~e:401892553",
+   "date": "2026-10-22T23:00Z",
+   "name": "New York Rangers at Toronto Maple Leafs",
+   "shortName": "NYR @ TOR",
+   "competitions": [
+    {
+     "id": "401892553",
+     "date": "2026-10-22T23:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 3,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "21",
+       "homeAway": "home",
+       "score": "5",
+       "winner": true,
+       "team": {
+        "id": "21",
+        "uid": "s:70~l:90~t:21",
+        "abbreviation": "TOR",
+        "location": "Toronto",
+        "name": "Maple Leafs",
+        "displayName": "Toronto Maple Leafs",
+        "shortDisplayName": "Maple Leafs"
+       }
+      },
+      {
+       "id": "13",
+       "homeAway": "away",
+       "score": "4",
+       "winner": false,
+       "team": {
+        "id": "13",
+        "uid": "s:70~l:90~t:13",
+        "abbreviation": "NYR",
+        "location": "New York",
+        "name": "Rangers",
+        "displayName": "New York Rangers",
+        "shortDisplayName": "Rangers"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "401892554",
+   "uid": "s:70~l:90~e:401892554",
+   "date": "2026-10-22T23:00Z",
+   "name": "San Jose Sharks at Ottawa Senators",
+   "shortName": "SJ @ OTT",
+   "competitions": [
+    {
+     "id": "401892554",
+     "date": "2026-10-22T23:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 3,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "14",
+       "homeAway": "home",
+       "score": "2",
+       "winner": false,
+       "team": {
+        "id": "14",
+        "uid": "s:70~l:90~t:14",
+        "abbreviation": "OTT",
+        "location": "Ottawa",
+        "name": "Senators",
+        "displayName": "Ottawa Senators",
+        "shortDisplayName": "Senators"
+       }
+      },
+      {
+       "id": "18",
+       "homeAway": "away",
+       "score": "6",
+       "winner": true,
+       "team": {
+        "id": "18",
+        "uid": "s:70~l:90~t:18",
+        "abbreviation": "SJ",
+        "location": "San Jose",
+        "name": "Sharks",
+        "displayName": "San Jose Sharks",
+        "shortDisplayName": "Sharks"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "401892555",
+   "uid": "s:70~l:90~e:401892555",
+   "date": "2026-10-22T23:00Z",
+   "name": "Anaheim Ducks at New Jersey Devils",
+   "shortName": "ANA @ NJ",
+   "competitions": [
+    {
+     "id": "401892555",
+     "date": "2026-10-22T23:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 3,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "11",
+       "homeAway": "home",
+       "score": "4",
+       "winner": true,
+       "team": {
+        "id": "11",
+        "uid": "s:70~l:90~t:11",
+        "abbreviation": "NJ",
+        "location": "New Jersey",
+        "name": "Devils",
+        "displayName": "New Jersey Devils",
+        "shortDisplayName": "Devils"
+       }
+      },
+      {
+       "id": "25",
+       "homeAway": "away",
+       "score": "1",
+       "winner": false,
+       "team": {
+        "id": "25",
+        "uid": "s:70~l:90~t:25",
+        "abbreviation": "ANA",
+        "location": "Anaheim",
+        "name": "Ducks",
+        "displayName": "Anaheim Ducks",
+        "shortDisplayName": "Ducks"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "401892556",
+   "uid": "s:70~l:90~e:401892556",
+   "date": "2026-10-22T23:00Z",
+   "name": "Florida Panthers at Pittsburgh Penguins",
+   "shortName": "FLA @ PIT",
+   "competitions": [
+    {
+     "id": "401892556",
+     "date": "2026-10-22T23:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 3,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "16",
+       "homeAway": "home",
+       "score": "4",
+       "winner": true,
+       "team": {
+        "id": "16",
+        "uid": "s:70~l:90~t:16",
+        "abbreviation": "PIT",
+        "location": "Pittsburgh",
+        "name": "Penguins",
+        "displayName": "Pittsburgh Penguins",
+        "shortDisplayName": "Penguins"
+       }
+      },
+      {
+       "id": "26",
+       "homeAway": "away",
+       "score": "0",
+       "winner": false,
+       "team": {
+        "id": "26",
+        "uid": "s:70~l:90~t:26",
+        "abbreviation": "FLA",
+        "location": "Florida",
+        "name": "Panthers",
+        "displayName": "Florida Panthers",
+        "shortDisplayName": "Panthers"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "401892557",
+   "uid": "s:70~l:90~e:401892557",
+   "date": "2026-10-22T23:30Z",
+   "name": "Los Angeles Kings at New York Islanders",
+   "shortName": "LA @ NYI",
+   "competitions": [
+    {
+     "id": "401892557",
+     "date": "2026-10-22T23:30Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 4,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final/OT",
+       "shortDetail": "Final/OT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "12",
+       "homeAway": "home",
+       "score": "2",
+       "winner": false,
+       "team": {
+        "id": "12",
+        "uid": "s:70~l:90~t:12",
+        "abbreviation": "NYI",
+        "location": "New York",
+        "name": "Islanders",
+        "displayName": "New York Islanders",
+        "shortDisplayName": "Islanders"
+       }
+      },
+      {
+       "id": "8",
+       "homeAway": "away",
+       "score": "3",
+       "winner": true,
+       "team": {
+        "id": "8",
+        "uid": "s:70~l:90~t:8",
+        "abbreviation": "LA",
+        "location": "Los Angeles",
+        "name": "Kings",
+        "displayName": "Los Angeles Kings",
+        "shortDisplayName": "Kings"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "401892558",
+   "uid": "s:70~l:90~e:401892558",
+   "date": "2026-10-23T00:00Z",
+   "name": "Vegas Golden Knights at St. Louis Blues",
+   "shortName": "VGK @ STL",
+   "competitions": [
+    {
+     "id": "401892558",
+     "date": "2026-10-23T00:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 3,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "19",
+       "homeAway": "home",
+       "score": "6",
+       "winner": true,
+       "team": {
+        "id": "19",
+        "uid": "s:70~l:90~t:19",
+        "abbreviation": "STL",
+        "location": "St. Louis",
+        "name": "Blues",
+        "displayName": "St. Louis Blues",
+        "shortDisplayName": "Blues"
+       }
+      },
+      {
+       "id": "37",
+       "homeAway": "away",
+       "score": "2",
+       "winner": false,
+       "team": {
+        "id": "37",
+        "uid": "s:70~l:90~t:37",
+        "abbreviation": "VGK",
+        "location": "Vegas",
+        "name": "Golden Knights",
+        "displayName": "Vegas Golden Knights",
+        "shortDisplayName": "Golden Knights"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "401892559",
+   "uid": "s:70~l:90~e:401892559",
+   "date": "2026-10-23T00:00Z",
+   "name": "Winnipeg Jets at Dallas Stars",
+   "shortName": "WPG @ DAL",
+   "competitions": [
+    {
+     "id": "401892559",
+     "date": "2026-10-23T00:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 4,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final/OT",
+       "shortDetail": "Final/OT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "9",
+       "homeAway": "home",
+       "score": "3",
+       "winner": true,
+       "team": {
+        "id": "9",
+        "uid": "s:70~l:90~t:9",
+        "abbreviation": "DAL",
+        "location": "Dallas",
+        "name": "Stars",
+        "displayName": "Dallas Stars",
+        "shortDisplayName": "Stars"
+       }
+      },
+      {
+       "id": "28",
+       "homeAway": "away",
+       "score": "2",
+       "winner": false,
+       "team": {
+        "id": "28",
+        "uid": "s:70~l:90~t:28",
+        "abbreviation": "WPG",
+        "location": "Winnipeg",
+        "name": "Jets",
+        "displayName": "Winnipeg Jets",
+        "shortDisplayName": "Jets"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "401892560",
+   "uid": "s:70~l:90~e:401892560",
+   "date": "2026-10-23T01:00Z",
+   "name": "Minnesota Wild at Calgary Flames",
+   "shortName": "MIN @ CGY",
+   "competitions": [
+    {
+     "id": "401892560",
+     "date": "2026-10-23T01:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 3,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "3",
+       "homeAway": "home",
+       "score": "2",
+       "winner": true,
+       "team": {
+        "id": "3",
+        "uid": "s:70~l:90~t:3",
+        "abbreviation": "CGY",
+        "location": "Calgary",
+        "name": "Flames",
+        "displayName": "Calgary Flames",
+        "shortDisplayName": "Flames"
+       }
+      },
+      {
+       "id": "30",
+       "homeAway": "away",
+       "score": "1",
+       "winner": false,
+       "team": {
+        "id": "30",
+        "uid": "s:70~l:90~t:30",
+        "abbreviation": "MIN",
+        "location": "Minnesota",
+        "name": "Wild",
+        "displayName": "Minnesota Wild",
+        "shortDisplayName": "Wild"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "401892561",
+   "uid": "s:70~l:90~e:401892561",
+   "date": "2026-10-23T01:00Z",
+   "name": "Carolina Hurricanes at Edmonton Oilers",
+   "shortName": "CAR @ EDM",
+   "competitions": [
+    {
+     "id": "401892561",
+     "date": "2026-10-23T01:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 5,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final/SO",
+       "shortDetail": "Final/SO"
+      }
+     },
+     "competitors": [
+      {
+       "id": "6",
+       "homeAway": "home",
+       "score": "6",
+       "winner": true,
+       "team": {
+        "id": "6",
+        "uid": "s:70~l:90~t:6",
+        "abbreviation": "EDM",
+        "location": "Edmonton",
+        "name": "Oilers",
+        "displayName": "Edmonton Oilers",
+        "shortDisplayName": "Oilers"
+       }
+      },
+      {
+       "id": "7",
+       "homeAway": "away",
+       "score": "5",
+       "winner": false,
+       "team": {
+        "id": "7",
+        "uid": "s:70~l:90~t:7",
+        "abbreviation": "CAR",
+        "location": "Carolina",
+        "name": "Hurricanes",
+        "displayName": "Carolina Hurricanes",
+        "shortDisplayName": "Hurricanes"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "401892562",
+   "uid": "s:70~l:90~e:401892562",
+   "date": "2026-10-23T02:00Z",
+   "name": "Utah Mammoth at Seattle Kraken",
+   "shortName": "UTA @ SEA",
+   "competitions": [
+    {
+     "id": "401892562",
+     "date": "2026-10-23T02:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 3,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "124292",
+       "homeAway": "home",
+       "score": "5",
+       "winner": true,
+       "team": {
+        "id": "124292",
+        "uid": "s:70~l:90~t:124292",
+        "abbreviation": "SEA",
+        "location": "Seattle",
+        "name": "Kraken",
+        "displayName": "Seattle Kraken",
+        "shortDisplayName": "Kraken"
+       }
+      },
+      {
+       "id": "129764",
+       "homeAway": "away",
+       "score": "3",
+       "winner": false,
+       "team": {
+        "id": "129764",
+        "uid": "s:70~l:90~t:129764",
+        "abbreviation": "UTA",
+        "location": "Utah",
+        "name": "Mammoth",
+        "displayName": "Utah Mammoth",
+        "shortDisplayName": "Mammoth"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "401892563",
+   "uid": "s:70~l:90~e:401892563",
+   "date": "2026-10-23T02:00Z",
+   "name": "Detroit Red Wings at Vancouver Canucks",
+   "shortName": "DET @ VAN",
+   "competitions": [
+    {
+     "id": "401892563",
+     "date": "2026-10-23T02:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 3,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "competitors": [
+      {
+       "id": "22",
+       "homeAway": "home",
+       "score": "2",
+       "winner": false,
+       "team": {
+        "id": "22",
+        "uid": "s:70~l:90~t:22",
+        "abbreviation": "VAN",
+        "location": "Vancouver",
+        "name": "Canucks",
+        "displayName": "Vancouver Canucks",
+        "shortDisplayName": "Canucks"
+       }
+      },
+      {
+       "id": "5",
+       "homeAway": "away",
+       "score": "5",
+       "winner": true,
+       "team": {
+        "id": "5",
+        "uid": "s:70~l:90~t:5",
+        "abbreviation": "DET",
+        "location": "Detroit",
+        "name": "Red Wings",
+        "displayName": "Detroit Red Wings",
+        "shortDisplayName": "Red Wings"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     }
+    }
+   ]
+  }
+ ]
+}

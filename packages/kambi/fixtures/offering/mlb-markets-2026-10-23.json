@@ -1,0 +1,445 @@
+{
+ "source": "eu.offering-api.kambicdn.com/offering/v2018/islandluck betoffer/event, 1 baseball/mlb games, 2026-10-23",
+ "markets": [
+  {
+   "criterion": "1+ Doubles by the Player - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "YES"
+   ],
+   "line": 1000
+  },
+  {
+   "criterion": "1+ Hits by the Player - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "YES"
+   ],
+   "line": 1000
+  },
+  {
+   "criterion": "1+ Hits, Runs & RBIs Recorded by the Player - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "YES"
+   ],
+   "line": 1000
+  },
+  {
+   "criterion": "1+ RBIs by the Player - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "YES"
+   ],
+   "line": 1000
+  },
+  {
+   "criterion": "1+ Runs Scored by the Player - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "YES"
+   ],
+   "line": 1000
+  },
+  {
+   "criterion": "10+ Strikeouts thrown by the Player - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "YES"
+   ],
+   "line": 10000
+  },
+  {
+   "criterion": "2+ Bases Recorded by the Player - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "YES"
+   ],
+   "line": 2000
+  },
+  {
+   "criterion": "2+ Hits by the Player - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "YES"
+   ],
+   "line": 2000
+  },
+  {
+   "criterion": "2+ Hits, Runs & RBIs Recorded by the Player - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "YES"
+   ],
+   "line": 2000
+  },
+  {
+   "criterion": "2+ RBIs by the Player - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "YES"
+   ],
+   "line": 2000
+  },
+  {
+   "criterion": "2+ Runs Scored by the Player - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "YES"
+   ],
+   "line": 2000
+  },
+  {
+   "criterion": "2+ Strikeouts thrown by the Player - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "YES"
+   ],
+   "line": 2000
+  },
+  {
+   "criterion": "3+ Bases Recorded by the Player - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "YES"
+   ],
+   "line": 3000
+  },
+  {
+   "criterion": "3+ Hits by the Player - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "YES"
+   ],
+   "line": 3000
+  },
+  {
+   "criterion": "3+ Hits, Runs & RBIs Recorded by the Player - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "YES"
+   ],
+   "line": 3000
+  },
+  {
+   "criterion": "3+ RBIs by the Player - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "YES"
+   ],
+   "line": 3000
+  },
+  {
+   "criterion": "3+ Strikeouts thrown by the Player - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "YES"
+   ],
+   "line": 3000
+  },
+  {
+   "criterion": "4+ Bases Recorded by the Player - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "YES"
+   ],
+   "line": 4000
+  },
+  {
+   "criterion": "4+ Hits, Runs & RBIs Recorded by the Player - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "YES"
+   ],
+   "line": 4000
+  },
+  {
+   "criterion": "4+ Strikeouts thrown by the Player - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "YES"
+   ],
+   "line": 4000
+  },
+  {
+   "criterion": "5+ Hits, Runs & RBIs Recorded by the Player - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "YES"
+   ],
+   "line": 5000
+  },
+  {
+   "criterion": "5+ Strikeouts thrown by the Player - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "YES"
+   ],
+   "line": 5000
+  },
+  {
+   "criterion": "6+ Strikeouts thrown by the Player - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "YES"
+   ],
+   "line": 6000
+  },
+  {
+   "criterion": "7+ Strikeouts thrown by the Player - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "YES"
+   ],
+   "line": 7000
+  },
+  {
+   "criterion": "8+ Strikeouts thrown by the Player - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "YES"
+   ],
+   "line": 8000
+  },
+  {
+   "criterion": "9+ Strikeouts thrown by the Player - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "YES"
+   ],
+   "line": 9000
+  },
+  {
+   "criterion": "First to 3 Runs (Tie: No team to reach 3)",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "First to 4 Runs (Tie: No team to reach 4)",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "First to 5 Runs (Tie: No team to reach 5)",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Inning 1",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Lead After 3 Innings - 3-way",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Lead After 5 Innings - 3-way",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Lead After 7 Innings - 3-way",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "MIL Brewers to Score 1st",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "MIL Brewers to Score 1st and Win",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "MIL Brewers to Score a Run - Inning 1",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Moneyline",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Moneyline - First 3 Innings",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Moneyline - First 5 Innings",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Moneyline - First 7 Innings",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Most Hits",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Most Hits - Inning 1",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Player to hit 2 or more Home Runs - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": 2000
+  },
+  {
+   "criterion": "Player to Hit a Home Run - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": 1000
+  },
+  {
+   "criterion": "Run Line",
+   "sides": [],
+   "line": -1500
+  },
+  {
+   "criterion": "Spread - First 3 Innings",
+   "sides": [],
+   "line": -500
+  },
+  {
+   "criterion": "Spread - First 5 Innings",
+   "sides": [],
+   "line": -500
+  },
+  {
+   "criterion": "Spread - First 7 Innings",
+   "sides": [],
+   "line": -500
+  },
+  {
+   "criterion": "TB Rays to Score 1st",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "TB Rays to Score 1st and Win",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "TB Rays to Score a Run - Inning 1",
+   "sides": [
+    "NO",
+    "YES"
+   ],
+   "line": null
+  },
+  {
+   "criterion": "Total Hits - Inning 1",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Hits by the Player - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Outs Recorded by the Player - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 15500
+  },
+  {
+   "criterion": "Total RBI by the Player - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Runs",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 5500
+  },
+  {
+   "criterion": "Total Runs - First 3 Innings",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 2500
+  },
+  {
+   "criterion": "Total Runs - First 5 Innings",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 3500
+  },
+  {
+   "criterion": "Total Runs - First 7 Innings",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 5500
+  },
+  {
+   "criterion": "Total Runs - Inning 1",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 1500
+  },
+  {
+   "criterion": "Total Runs by MIL Brewers",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 3500
+  },
+  {
+   "criterion": "Total Runs by TB Rays",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 3500
+  },
+  {
+   "criterion": "Total Runs Odd/Even",
+   "sides": [],
+   "line": null
+  },
+  {
+   "criterion": "Total Stolen Bases by the Player - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 500
+  },
+  {
+   "criterion": "Total Strikeouts by the Player - Including Extra Innings (Listed player must be in starting lineup for bets to stand)",
+   "sides": [
+    "OVER",
+    "UNDER"
+   ],
+   "line": 7500
+  }
+ ]
+}

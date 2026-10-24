@@ -1,0 +1,263 @@
+{
+ "team": {
+  "id": "5",
+  "abbreviation": "CLE",
+  "location": "Cleveland",
+  "name": "Cavaliers",
+  "displayName": "Cleveland Cavaliers"
+ },
+ "athletes": [
+  {
+   "id": "4066328",
+   "uid": "s:40~l:46~a:4066328",
+   "firstName": "Jarrett",
+   "lastName": "Allen",
+   "fullName": "Jarrett Allen",
+   "displayName": "Jarrett Allen",
+   "shortName": "J. Allen",
+   "jersey": "31",
+   "position": {
+    "abbreviation": "C",
+    "name": "Center"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "3934723",
+   "uid": "s:40~l:46~a:3934723",
+   "firstName": "Thomas",
+   "lastName": "Bryant",
+   "fullName": "Thomas Bryant",
+   "displayName": "Thomas Bryant",
+   "shortName": "T. Bryant",
+   "jersey": "3",
+   "position": {
+    "abbreviation": "C",
+    "name": "Center"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "4431734",
+   "uid": "s:40~l:46~a:4431734",
+   "firstName": "Tristan",
+   "lastName": "Enaruna",
+   "fullName": "Tristan Enaruna",
+   "displayName": "Tristan Enaruna",
+   "shortName": "T. Enaruna",
+   "jersey": "21",
+   "position": {
+    "abbreviation": "F",
+    "name": "Forward"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "3992",
+   "uid": "s:40~l:46~a:3992",
+   "firstName": "James",
+   "lastName": "Harden",
+   "fullName": "James Harden",
+   "displayName": "James Harden",
+   "shortName": "J. Harden",
+   "jersey": "1",
+   "position": {
+    "abbreviation": "G",
+    "name": "Guard"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "2995706",
+   "uid": "s:40~l:46~a:2995706",
+   "firstName": "Mario",
+   "lastName": "Hezonja",
+   "fullName": "Mario Hezonja",
+   "displayName": "Mario Hezonja",
+   "shortName": "M. Hezonja",
+   "jersey": "33",
+   "position": {
+    "abbreviation": "F",
+    "name": "Forward"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "4066757",
+   "uid": "s:40~l:46~a:4066757",
+   "firstName": "Sam",
+   "lastName": "Merrill",
+   "fullName": "Sam Merrill",
+   "displayName": "Sam Merrill",
+   "shortName": "S. Merrill",
+   "jersey": "5",
+   "position": {
+    "abbreviation": "G",
+    "name": "Guard"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "5177362",
+   "uid": "s:40~l:46~a:5177362",
+   "firstName": "Riley",
+   "lastName": "Minix",
+   "fullName": "Riley Minix",
+   "displayName": "Riley Minix",
+   "shortName": "R. Minix",
+   "jersey": "12",
+   "position": {
+    "abbreviation": "F",
+    "name": "Forward"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "3908809",
+   "uid": "s:40~l:46~a:3908809",
+   "firstName": "Donovan",
+   "lastName": "Mitchell",
+   "fullName": "Donovan Mitchell",
+   "displayName": "Donovan Mitchell",
+   "shortName": "D. Mitchell",
+   "jersey": "45",
+   "position": {
+    "abbreviation": "G",
+    "name": "Guard"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "4432158",
+   "uid": "s:40~l:46~a:4432158",
+   "firstName": "Evan",
+   "lastName": "Mobley",
+   "fullName": "Evan Mobley",
+   "displayName": "Evan Mobley",
+   "shortName": "E. Mobley",
+   "jersey": "4",
+   "position": {
+    "abbreviation": "C",
+    "name": "Center"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "4701233",
+   "uid": "s:40~l:46~a:4701233",
+   "firstName": "Craig",
+   "lastName": "Porter Jr.",
+   "fullName": "Craig Porter Jr.",
+   "displayName": "Craig Porter Jr.",
+   "shortName": "C. Porter Jr.",
+   "jersey": "9",
+   "position": {
+    "abbreviation": "G",
+    "name": "Guard"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "5023693",
+   "uid": "s:40~l:46~a:5023693",
+   "firstName": "Tyrese",
+   "lastName": "Proctor",
+   "fullName": "Tyrese Proctor",
+   "displayName": "Tyrese Proctor",
+   "shortName": "T. Proctor",
+   "jersey": "24",
+   "position": {
+    "abbreviation": "G",
+    "name": "Guard"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "5041951",
+   "uid": "s:40~l:46~a:5041951",
+   "firstName": "Meleek",
+   "lastName": "Thomas",
+   "fullName": "Meleek Thomas",
+   "displayName": "Meleek Thomas",
+   "shortName": "M. Thomas",
+   "jersey": "15",
+   "position": {
+    "abbreviation": "G",
+    "name": "Guard"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "4683747",
+   "uid": "s:40~l:46~a:4683747",
+   "firstName": "Jaylon",
+   "lastName": "Tyson",
+   "fullName": "Jaylon Tyson",
+   "displayName": "Jaylon Tyson",
+   "shortName": "J. Tyson",
+   "jersey": "20",
+   "position": {
+    "abbreviation": "G",
+    "name": "Guard"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  },
+  {
+   "id": "4576087",
+   "uid": "s:40~l:46~a:4576087",
+   "firstName": "Peyton",
+   "lastName": "Watson",
+   "fullName": "Peyton Watson",
+   "displayName": "Peyton Watson",
+   "shortName": "P. Watson",
+   "jersey": "8",
+   "position": {
+    "abbreviation": "G",
+    "name": "Guard"
+   },
+   "status": {
+    "type": "active",
+    "name": "Active"
+   }
+  }
+ ]
+}

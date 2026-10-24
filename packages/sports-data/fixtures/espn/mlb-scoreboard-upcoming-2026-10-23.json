@@ -1,0 +1,67 @@
+{
+ "events": [
+  {
+   "id": "401908042",
+   "uid": "s:1~l:10~e:401908042",
+   "date": "2026-10-24T00:00Z",
+   "name": "Tampa Bay Rays at Milwaukee Brewers",
+   "shortName": "TB @ MIL",
+   "competitions": [
+    {
+     "id": "401908042",
+     "date": "2026-10-24T00:00Z",
+     "neutralSite": false,
+     "status": {
+      "clock": 0,
+      "displayClock": "0:00",
+      "period": 1,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Scheduled",
+       "shortDetail": "10/23 - 8:00 PM EDT"
+      }
+     },
+     "competitors": [
+      {
+       "id": "8",
+       "homeAway": "home",
+       "score": "0",
+       "team": {
+        "id": "8",
+        "uid": "s:1~l:10~t:8",
+        "abbreviation": "MIL",
+        "location": "Milwaukee",
+        "name": "Brewers",
+        "displayName": "Milwaukee Brewers",
+        "shortDisplayName": "Brewers"
+       }
+      },
+      {
+       "id": "30",
+       "homeAway": "away",
+       "score": "0",
+       "team": {
+        "id": "30",
+        "uid": "s:1~l:10~t:30",
+        "abbreviation": "TB",
+        "location": "Tampa Bay",
+        "name": "Rays",
+        "displayName": "Tampa Bay Rays",
+        "shortDisplayName": "Rays"
+       }
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 9
+      }
+     }
+    }
+   ]
+  }
+ ]
+}

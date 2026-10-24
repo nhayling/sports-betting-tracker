@@ -1,8 +1,9 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { parseHistoryResponse, type RawHistoryResponse } from '@sports-better/kambi';
+import type { FightResult } from '@sports-better/sports-data';
 import { describe, expect, it } from 'vitest';
-import { classifyMarket, evaluateProgress, gameMarket, spreadPick, type PropTarget } from '../src';
+import { classifyMarket, evaluateProgress, fightPick, gameMarket, gradeFight, spreadPick, type PropTarget } from '../src';
 
 const captured = JSON.parse(
   readFileSync(fileURLToPath(new URL('../../kambi/fixtures/captured/history-2026-09-27.json', import.meta.url)), 'utf8'),
@@ -10,6 +11,10 @@ const captured = JSON.parse(
 const selections = parseHistoryResponse(captured).flatMap((c) =>
   c.bets.flatMap((b) => b.legs.flatMap((l) => l.selections.map((s) => ({ ...s, sport: l.sport })))),
 );
+
+const offering = JSON.parse(
+  readFileSync(fileURLToPath(new URL('../../kambi/fixtures/offering/nba-markets-2026-10-23.json', import.meta.url)), 'utf8'),
+) as { markets: Array<{ criterion: string; sides: Array<'YES' | 'NO' | 'OVER' | 'UNDER'>; line: number | null }> };
 
 const fb = (marketName: string, selectionSide: 'YES' | 'NO' | 'OVER' | 'UNDER' | null, line: number | null) =>
   classifyMarket({ sport: 'AMERICAN_FOOTBALL', marketName, selectionSide, line });
@@ -61,10 +66,14 @@ describe('classifyMarket', () => {
     expect(fb(name, side, line)).toEqual({ supported: false, reason });
   });
 
-  it('only handles football', () => {
-    expect(classifyMarket({ sport: 'BASKETBALL', marketName: 'Touchdown Scorer', selectionSide: 'YES', line: 1 })).toEqual({
+  it('only handles the sports it has markets for', () => {
+    expect(classifyMarket({ sport: 'TENNIS', marketName: 'Touchdown Scorer', selectionSide: 'YES', line: 1 })).toEqual({
       supported: false,
       reason: 'UNSUPPORTED_SPORT',
+    });
+    expect(classifyMarket({ sport: 'BASKETBALL', marketName: 'Touchdown Scorer', selectionSide: 'YES', line: 1 })).toEqual({
+      supported: false,
+      reason: 'UNSUPPORTED_MARKET',
     });
   });
 
@@ -170,5 +179,177 @@ describe('spreadPick', () => {
     expect(spreadPick('LV Raiders +5.0', 5.5)).toEqual({ team: 'LV Raiders', line: 5.5 });
     expect(spreadPick('LV Raiders', 5)).toEqual({ team: 'LV Raiders', line: 5 });
     expect(spreadPick('SF 49ers', -7.5)).toEqual({ team: 'SF 49ers', line: -7.5 });
+  });
+});
+
+describe('classifyMarket: NBA, every market on the Island Luck feed (2026-10-23)', () => {
+  const bb = (marketName: string, selectionSide: 'YES' | 'NO' | 'OVER' | 'UNDER' | null, line: number | null) =>
+    classifyMarket({ sport: 'BASKETBALL', marketName, selectionSide, line });
+
+  it.each([
+    ['20+ Points Scored By The Player - Including Overtime', 'YES', 20, { metric: 'POINTS', operator: 'GTE', target: 20, scope: 'PLAYER' }],
+    ['8+ Rebounds By The Player - Including Overtime', 'YES', 8, { metric: 'REBOUNDS', operator: 'GTE', target: 8 }],
+    ['3+ Three-Point Field Goals Made By The Player - Including Overtime', 'YES', 3, { metric: 'THREES_MADE', operator: 'GTE', target: 3 }],
+    ['25+ Points, Rebounds & Assists By The Player - Including Overtime', 'YES', 25, { metric: 'POINTS_REBOUNDS_ASSISTS', operator: 'GTE', target: 25 }],
+    ['2+ Steals & Blocks By The Player - Including Overtime', 'YES', 2, { metric: 'STEALS_BLOCKS', operator: 'GTE', target: 2 }],
+    ['Points scored by the player - Including Overtime', 'OVER', 15.5, { metric: 'POINTS', operator: 'GT', target: 15.5 }],
+    ['3-point field goals made by the player - Including Overtime', 'UNDER', 2.5, { metric: 'THREES_MADE', operator: 'LT', target: 2.5 }],
+    ['Points, rebounds & assists by the player - Including Overtime', 'OVER', 23.5, { metric: 'POINTS_REBOUNDS_ASSISTS', operator: 'GT', target: 23.5 }],
+    ['Points & Rebounds by the player - Including Overtime', 'OVER', 19.5, { metric: 'POINTS_REBOUNDS', operator: 'GT', target: 19.5 }],
+    // Kambi sends line 2 on a double-double; the stat itself is 0 or 1.
+    ['To record a double-double - Including Overtime', 'YES', 2, { metric: 'DOUBLE_DOUBLE', operator: 'GTE', target: 1, display: 'BINARY' }],
+    ['To record a triple-double - Including Overtime', 'YES', 3, { metric: 'TRIPLE_DOUBLE', operator: 'GTE', target: 1, display: 'BINARY' }],
+    ['Total Match Assists - Including Overtime', 'OVER', 49.5, { metric: 'ASSISTS', operator: 'GT', target: 49.5, scope: 'GAME' }],
+    ['Total Match made Threes - Including Overtime', 'UNDER', 28.5, { metric: 'THREES_MADE', operator: 'LT', target: 28.5, scope: 'GAME' }],
+  ] as const)('%s %s %s', (name, side, line, expected) => {
+    expect(bb(name, side, line)).toMatchObject({ supported: true, ...expected });
+  });
+
+  it('does not read a combined prop as one of its parts', () => {
+    expect(bb('Points & Rebounds by the player - Including Overtime', 'OVER', 19.5)).toMatchObject({ metric: 'POINTS_REBOUNDS' });
+    expect(bb('Rebounds & Assists by the player - Including Overtime', 'OVER', 9.5)).toMatchObject({ metric: 'REBOUNDS_ASSISTS' });
+    expect(bb('20+ Points & Assists By The Player - Including Overtime', 'YES', 20)).toMatchObject({ metric: 'POINTS_ASSISTS' });
+  });
+
+  it('tracks the player props and full-game results, and nothing it can not measure', () => {
+    const tracked = offering.markets.filter((m) => {
+      const line = m.line === null ? null : m.line / 1000;
+      return gameMarket(m.criterion) || m.sides.some((side) => bb(m.criterion, side, line).supported);
+    });
+    const names = tracked.map((m) => m.criterion.replace(/^\d+\+ /, 'N+ ')).filter((n, i, a) => a.indexOf(n) === i).sort();
+    expect(names).toEqual([
+      '3-point field goals made by the player - Including Overtime',
+      'Assists by the player - Including Overtime',
+      'Blocks by the player - Including Overtime',
+      'Moneyline',
+      'N+ Assists By The Player - Including Overtime',
+      'N+ Blocks By The Player - Including Overtime',
+      'N+ Points & Assists By The Player - Including Overtime',
+      'N+ Points & Rebounds By The Player - Including Overtime',
+      'N+ Points Scored By The Player - Including Overtime',
+      'N+ Points, Rebounds & Assists By The Player - Including Overtime',
+      'N+ Rebounds & Assists By The Player - Including Overtime',
+      'N+ Rebounds By The Player - Including Overtime',
+      'N+ Steals & Blocks By The Player - Including Overtime',
+      'N+ Steals By The Player - Including Overtime',
+      'N+ Three-Point Field Goals Made By The Player - Including Overtime',
+      'Point Spread',
+      'Points & Assists by the player - Including Overtime',
+      'Points & Rebounds by the player - Including Overtime',
+      'Points scored by the player - Including Overtime',
+      'Points, rebounds & assists by the player - Including Overtime',
+      'Rebounds & Assists by the player - Including Overtime',
+      'Rebounds by the player - Including Overtime',
+      'Steals & Blocks by the player - Including Overtime',
+      'Steals by the player - Including Overtime',
+      'To record a double-double - Including Overtime',
+      'To record a triple-double - Including Overtime',
+      'Total Match Assists - Including Overtime',
+      'Total Match made Threes - Including Overtime',
+      'Total Points - Including Overtime',
+    ]);
+  });
+});
+
+describe.each([
+  ['mlb', 'BASEBALL', 14],
+  ['nhl', 'ICE_HOCKEY', 15],
+  ['wnba', 'BASKETBALL', 23],
+  ['epl', 'FOOTBALL', 12],
+  ['laliga', 'FOOTBALL', 11],
+  ['ufc', 'MARTIAL_ARTS', 34],
+] as const)('classifyMarket: %s, every market on the Island Luck feed (2026-10-23)', (file, sport, count) => {
+  const { markets } = JSON.parse(
+    readFileSync(fileURLToPath(new URL(`../../kambi/fixtures/offering/${file}-markets-2026-10-23.json`, import.meta.url)), 'utf8'),
+  ) as typeof offering;
+  it(`tracks ${count} of them`, () => {
+    const tracked = markets.filter((m) => {
+      const line = m.line === null ? null : m.line / 1000;
+      return gameMarket(m.criterion) || m.sides.some((side) => classifyMarket({ sport, marketName: m.criterion, selectionSide: side, line }).supported);
+    });
+    expect(new Set(tracked.map((m) => m.criterion.replace(/^\d+\+ /, 'N+ '))).size).toBe(count);
+  });
+});
+
+describe('classifyMarket: MLB, NHL and soccer props', () => {
+  const lineup = ' - Including Extra Innings (Listed player must be in starting lineup for bets to stand)';
+  it.each([
+    ['BASEBALL', `2+ Hits by the Player${lineup}`, 'YES', 2, { metric: 'HITS', operator: 'GTE', target: 2 }],
+    ['BASEBALL', `3+ Hits, Runs & RBIs Recorded by the Player${lineup}`, 'YES', 3, { metric: 'HITS_RUNS_RBIS', operator: 'GTE', target: 3 }],
+    ['BASEBALL', `Total Strikeouts by the Player${lineup}`, 'OVER', 7.5, { metric: 'PITCHER_STRIKEOUTS', operator: 'GT', target: 7.5 }],
+    ['BASEBALL', `Total Outs Recorded by the Player${lineup}`, 'UNDER', 15.5, { metric: 'OUTS_RECORDED', operator: 'LT', target: 15.5 }],
+    ['BASEBALL', `Player to Hit a Home Run${lineup}`, 'YES', 1, { metric: 'HOME_RUNS', operator: 'GTE', target: 1, display: 'BINARY' }],
+    ['BASEBALL', `Player to hit 2 or more Home Runs${lineup}`, 'YES', 2, { metric: 'HOME_RUNS', operator: 'GTE', target: 2, display: 'PROGRESS' }],
+    ['ICE_HOCKEY', 'To score - Including Overtime', 'YES', 1, { metric: 'GOALS', operator: 'GTE', target: 1, display: 'BINARY' }],
+    ['ICE_HOCKEY', 'Player to score at least 2 points - Including Overtime', 'YES', 2, { metric: 'POINTS', operator: 'GTE', target: 2 }],
+    ["ICE_HOCKEY", "Player's shots on goal - Including Overtime", 'OVER', 2.5, { metric: 'SHOTS_ON_GOAL', operator: 'GT', target: 2.5 }],
+    ['ICE_HOCKEY', 'Total Shots on Goal - Including Overtime', 'OVER', 52.5, { metric: 'SHOTS_ON_GOAL', scope: 'GAME' }],
+    ['FOOTBALL', 'To Score', 'YES', 1, { metric: 'GOALS', operator: 'GTE', target: 1, display: 'BINARY' }],
+    ['FOOTBALL', 'To score at least 2 goals', 'YES', 2, { metric: 'GOALS', operator: 'GTE', target: 2 }],
+    ['FOOTBALL', 'To Get a Card', 'YES', 1, { metric: 'CARDS', operator: 'GTE', target: 1 }],
+    ['FOOTBALL', 'Total Corners', 'UNDER', 7.5, { metric: 'CORNERS', operator: 'LT', scope: 'GAME' }],
+  ] as const)('%s: %s %s %s', (sport, name, side, line, expected) => {
+    expect(classifyMarket({ sport, marketName: name, selectionSide: side, line })).toMatchObject({ supported: true, ...expected });
+  });
+
+  it('leaves what ESPN can not measure untracked', () => {
+    expect(classifyMarket({ sport: 'BASEBALL', marketName: `2+ Bases Recorded by the Player${lineup}`, selectionSide: 'YES', line: 2 })).toMatchObject({ supported: false });
+    expect(classifyMarket({ sport: 'ICE_HOCKEY', marketName: 'Player To score at least 1 Power Play Points -  Including Overtime', selectionSide: 'YES', line: 1 })).toMatchObject({ supported: false });
+    expect(gameMarket('Total Goals - Regular Time')).toBeNull();
+    expect(gameMarket('Moneyline - First 5 Innings')).toBeNull();
+  });
+});
+
+describe('gameMarket: every sport’s full-game lines', () => {
+  it.each([
+    ['Moneyline - Inc. OT and Shootout', 'MONEYLINE'],
+    ['Run Line', 'SPREAD'],
+    ['Puck Line - Inc. OT and Shootout', 'SPREAD'],
+    ['Spread', 'SPREAD'],
+    ['Total Runs', 'TOTAL'],
+    ['Total Goals', 'TOTAL'],
+    ['Total Goals - Inc. OT and Shootout', 'TOTAL'],
+    ['Full Time', 'RESULT'],
+    ['Both Teams To Score', 'BTTS'],
+    ['Bout Odds', 'FIGHT'],
+    ['Kody Steele to Win & Under 1.5 Rounds', 'FIGHT'],
+  ])('%s → %s', (name, kind) => {
+    expect(gameMarket(name)).toBe(kind);
+  });
+});
+
+describe('gradeFight', () => {
+  const ko: FightResult = { winner: 'away', method: 'KO_TKO', round: 2, clockSeconds: 131, scheduledRounds: 3 };
+  const decision: FightResult = { winner: 'home', method: 'DECISION', round: 3, clockSeconds: 300, scheduledRounds: 3 };
+  const sideOf = (name: string) => (name === 'Javad Mahjoub' ? 'home' : name === 'Joel Faglier' ? 'away' : null);
+  const grade = (market: string, side: string | null, line: number | null, fight: FightResult, pick: string | null = null) =>
+    gradeFight(fightPick(market, pick, side, line)!, fight, sideOf);
+
+  it('grades the winner, the method and the rounds from a KO at 2:11 of round 2', () => {
+    expect(grade('Bout Odds', null, null, ko, 'Joel Faglier')).toBe(1);
+    expect(grade('Bout Odds', null, null, ko, 'Javad Mahjoub')).toBe(-1);
+    expect(grade('Total Rounds', 'OVER', 1.5, ko)).toBe(-1);
+    expect(grade('Total Rounds', 'UNDER', 1.5, ko)).toBe(1);
+    expect(grade('To go the distance', 'NO', null, ko)).toBe(1);
+    expect(grade('Joel Faglier to win by Finish', 'YES', null, ko)).toBe(1);
+    expect(grade('Joel Faglier to win by Decision', 'YES', null, ko)).toBe(-1);
+    expect(grade('Any Fighter to win by KO, TKO or DQ', 'YES', null, ko)).toBe(1);
+    expect(grade('Any Fighter to win by Submission', 'YES', null, ko)).toBe(-1);
+    expect(grade('Joel Faglier to Win & Under 2.5 Rounds', 'YES', null, ko)).toBe(1);
+    expect(grade('Fight to start Round 2', 'YES', null, ko)).toBe(1);
+    expect(grade('Fight to start Round 3', 'YES', null, ko)).toBe(-1);
+    expect(grade('Any Fighter to win in Round 2', 'YES', null, ko)).toBe(1);
+  });
+
+  it('grades a decision as going the distance', () => {
+    expect(grade('To go the distance', 'YES', null, decision)).toBe(1);
+    expect(grade('Total Rounds', 'OVER', 2.5, decision)).toBe(1);
+    expect(grade('Javad Mahjoub to win by Decision', 'YES', null, decision)).toBe(1);
+    expect(grade('Any Fighter to win in Round 3', 'YES', null, decision)).toBe(-1);
+  });
+
+  it('voids the winner on a draw, and leaves an unknown finish ungraded', () => {
+    expect(grade('Bout Odds', null, null, { ...decision, winner: null }, 'Joel Faglier')).toBe(0);
+    expect(grade('Any Fighter to win by Submission', 'YES', null, { ...ko, method: null })).toBeNull();
   });
 });
