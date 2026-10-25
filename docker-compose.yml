@@ -28,7 +28,8 @@ services:
       # Invite links (npm run invite) start with this.
       PUBLIC_URL: https://${DOMAIN}
 
-  # Terminates HTTPS with an automatic Let's Encrypt certificate for DOMAIN.
+  # Terminates HTTPS: an automatic Let's Encrypt certificate, or a Cloudflare
+  # origin certificate behind Cloudflare's proxy (DOMAIN_TLS, see deploy/Caddyfile).
   caddy:
     image: caddy:2
     restart: unless-stopped
@@ -39,9 +40,14 @@ services:
       - '443:443'
     environment:
       DOMAIN: ${DOMAIN:?set DOMAIN in .env}
-      OLD_DOMAINS: ${OLD_DOMAINS:-}
+      DOMAIN_TLS: ${DOMAIN_TLS:-auto}
+      # Caddy needs an address for the old-domains block; localhost gets a local
+      # certificate and never asks Let's Encrypt for anything.
+      OLD_DOMAINS: ${OLD_DOMAINS:-localhost}
     volumes:
       - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      # Outside the project folder, so deploys never copy over or flag it.
+      - ${CERTS_DIR:-../certs}:/certs:ro
       - caddy_data:/data
       - caddy_config:/config
 

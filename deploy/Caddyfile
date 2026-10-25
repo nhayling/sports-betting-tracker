@@ -1,6 +1,44 @@
 # DOMAIN is the tracker's address. OLD_DOMAINS (optional, space-separated) keeps
 # answering on earlier addresses while installed extensions and phone sync move over.
-{$DOMAIN} {$OLD_DOMAINS} {
+#
+# DOMAIN_TLS picks how DOMAIN gets its certificate:
+#   auto        Caddy fetches one from Let's Encrypt (DNS straight to the server).
+#   cloudflare  Behind Cloudflare's proxy (orange cloud), with a Cloudflare Origin
+#               Certificate saved as cert.pem and private.key in CERTS_DIR.
+# OLD_DOMAINS always use auto: an origin certificate only covers the new domain.
+
+{
+	# The localhost stand-in for OLD_DOMAINS makes a local certificate; there's no trust store to add it to.
+	skip_install_trust
+	servers {
+		# Behind Cloudflare every request comes from a Cloudflare address. Trusting only
+		# Cloudflare's ranges (www.cloudflare.com/ips) to name the visitor keeps login
+		# throttling per person, and nobody else can claim to be someone they're not.
+		trusted_proxies static 173.245.48.0/20 103.21.244.0/22 103.22.200.0/22 103.31.4.0/22 141.101.64.0/18 108.162.192.0/18 190.93.240.0/20 188.114.96.0/20 197.234.240.0/22 198.41.128.0/17 162.158.0.0/15 104.16.0.0/13 104.24.0.0/14 172.64.0.0/13 131.0.72.0/22 2400:cb00::/32 2606:4700::/32 2803:f800::/32 2405:b500::/32 2405:8100::/32 2a06:98c0::/29 2c0f:f248::/32
+		client_ip_headers CF-Connecting-IP
+	}
+}
+
+(auto) {
+}
+
+(cloudflare) {
+	tls /certs/cert.pem /certs/private.key
+}
+
+(app) {
 	encode gzip
-	reverse_proxy app:4100
+	reverse_proxy app:4100 {
+		# The visitor's address, as worked out above; the app trusts one proxy.
+		header_up X-Forwarded-For {client_ip}
+	}
+}
+
+{$DOMAIN} {
+	import {$DOMAIN_TLS}
+	import app
+}
+
+{$OLD_DOMAINS} {
+	import app
 }

@@ -54,6 +54,77 @@ web app. To move without breaking them, serve both addresses for a while:
 6. Once everyone has moved (`npm run deploy:logs` shows no more requests to the
    old host), clear `OLD_DOMAINS` and `docker compose up -d` again.
 
+## Behind Cloudflare's proxy
+
+To put the domain behind Cloudflare (orange cloud), Caddy uses a Cloudflare
+Origin Certificate instead of fetching its own:
+
+1. In Cloudflare, SSL/TLS → Origin Server → Create Certificate (the default
+   covers the domain and `*.domain` for 15 years). Save the certificate as
+   `cert.pem` and the private key as `private.key` in a `certs` folder next to
+   the project folder on the server (`~/certs`, beside `~/sports-better`).
+2. Set SSL/TLS encryption mode to **Full (strict)**.
+3. Add the A record for the domain, proxied (orange cloud).
+4. In the server's `.env`, set `DOMAIN_TLS=cloudflare`, then `docker compose up -d`.
+
+Caddy reads each visitor's real address from Cloudflare's `CF-Connecting-IP`
+header, trusting it only from Cloudflare's own address ranges (listed in
+`deploy/Caddyfile`; Cloudflare rarely changes them), so login throttling stays
+per person. Leave Bot Fight Mode off, or skip it for `/api`: it challenges the
+extension's and phone sync's background requests, which can't answer.
+
+### Only accepting traffic from Cloudflare (optional, later)
+
+Behind the proxy, the server still answers anyone who connects to its IP
+directly, skipping Cloudflare's DDoS and firewall protection (not the
+tracker's own logins and limits). Closing that is optional hardening.
+
+**Wait until nothing reaches the server directly:** `OLD_DOMAINS` is empty,
+`npm run deploy:logs` shows no requests to an old address for a while, and
+every domain the server answers is proxied (orange cloud). Before that, this
+cuts off everyone on an old address, and stops Caddy renewing its automatic
+certificates, which needs Let's Encrypt to reach the server.
+
+**Use the hosting provider's firewall, not `ufw` on the server.** Docker
+writes its own iptables rules for published ports, which skip `ufw`: a `ufw`
+rule looks right and blocks nothing. A provider firewall (on DigitalOcean:
+Networking → Firewalls) sits in front of the server, so Docker can't get
+around it.
+
+1. Create a firewall with these inbound rules and nothing else:
+   - **SSH (22):** keep it open (all addresses, or just your own if your IP
+     doesn't change). Without it you lock yourself out, and `npm run deploy`
+     stops working.
+   - **HTTP (80)** and **HTTPS (443):** only Cloudflare's ranges, from
+     <https://www.cloudflare.com/ips-v4/> and <https://www.cloudflare.com/ips-v6/>.
+     These are the same ranges as `trusted_proxies` in `deploy/Caddyfile`.
+
+   Leave outbound open. The poller fetches live stats from ESPN, and Caddy and
+   the app need to reach the internet.
+2. Apply it to the server.
+3. Check that the domain still loads, through Cloudflare:
+
+   ```sh
+   curl -sS -o /dev/null -w '%{http_code}\n' https://<DOMAIN>/
+   ```
+
+   You should get `200`. Then check that going straight to the server no longer
+   connects (it should time out):
+
+   ```sh
+   curl -sS -m 10 -o /dev/null -w '%{http_code}\n' --resolve <DOMAIN>:443:<server-ip> https://<DOMAIN>/
+   ```
+4. Check that syncing still works: open My Bets on Island Luck with the extension
+   on, then look for the sync in `npm run deploy:logs`.
+
+**If something breaks,** detach the firewall from the server in the
+provider's dashboard. That undoes it straight away, with nothing to change
+on the server.
+
+**If Cloudflare changes its address ranges** (rare, and announced ahead of
+time), update the firewall rules and `trusted_proxies` in `deploy/Caddyfile`
+together, then deploy.
+
 ## Accounts
 
 During the beta, anyone can ask to join at `https://<DOMAIN>/#join` (also
