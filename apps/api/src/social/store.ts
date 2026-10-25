@@ -2,6 +2,7 @@ import type { Prisma, User } from '@prisma/client';
 import type { Db } from '../db';
 import { MIN_BETS, type LeaderboardView, type Period, type Person, type ProfileView, type Relation, type SocialSettings } from './types';
 import { inPeriod, netMinor, rank, unitStats, type UnitBet } from './units';
+import { betsOfCoupon } from '../views/betsView';
 
 /**
  * Who can see what. Friends (always accepted) and followers (approved first
@@ -182,30 +183,36 @@ export async function approveFollower(db: Db, meId: string, followerId: string):
 
 /** Settled bets per user, reduced to what scoring needs. */
 async function loadUnitBets(db: Db, userIds: string[]): Promise<Map<string, UnitBet[]>> {
+  // By bet, not coupon: several singles on one ticket are several bets, and some can settle before others.
   const coupons = await db.coupon.findMany({
-    where: { sportsbookAccount: { userId: { in: userIds } }, status: { not: 'OPEN' } },
+    where: { sportsbookAccount: { userId: { in: userIds } }, bets: { some: { status: { not: 'OPEN' } } } },
     select: {
+      id: true,
       status: true,
       rewardType: true,
       placedAt: true,
       totalStakeMinor: true,
+      potentialPayoutMinor: true,
       actualPayoutMinor: true,
-      bets: { select: { oddsRaw: true } },
+      bets: { include: { legs: { select: { betLegId: true } } } },
       sportsbookAccount: { select: { userId: true } },
     },
   });
   const byUser = new Map<string, UnitBet[]>();
   for (const c of coupons) {
     const list = byUser.get(c.sportsbookAccount.userId) ?? [];
-    list.push({
-      status: c.status,
-      // A system coupon holds several bets, so it has no single price; it scores on what it returned.
-      oddsRaw: c.bets.length === 1 ? c.bets[0]!.oddsRaw : null,
-      stakeMinor: c.totalStakeMinor ?? 0,
-      payoutMinor: c.actualPayoutMinor ?? 0,
-      rewardType: c.rewardType,
-      placedAt: c.placedAt,
-    });
+    // A system coupon stays whole and has no single price (oddsRaw null); it scores on what it returned.
+    for (const b of betsOfCoupon({ ...c, legs: [] })) {
+      if (b.status === 'OPEN') continue;
+      list.push({
+        status: b.status,
+        oddsRaw: b.oddsRaw,
+        stakeMinor: b.stakeMinor ?? 0,
+        payoutMinor: b.payoutMinor ?? 0,
+        rewardType: c.rewardType,
+        placedAt: c.placedAt,
+      });
+    }
     byUser.set(c.sportsbookAccount.userId, list);
   }
   return byUser;

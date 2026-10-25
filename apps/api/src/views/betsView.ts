@@ -15,7 +15,7 @@ import type { Db } from '../db';
  */
 
 const include = {
-  bets: { orderBy: { externalBetRef: 'asc' } },
+  bets: { orderBy: { externalBetRef: 'asc' }, include: { legs: { select: { betLegId: true } } } },
   legs: {
     orderBy: { externalRowIndex: 'asc' },
     include: { selections: { omit: { rawOutcome: true, rawBetOffer: true }, include: { progress: true } } },
@@ -26,9 +26,11 @@ type CouponRow = Prisma.CouponGetPayload<{ include: typeof include; omit: { rawP
 
 export async function loadBetsView(db: Db, filter: { userId: string; view: 'open' | 'settled' | 'all'; limit: number }): Promise<BetsView> {
   const mine = { sportsbookAccount: { userId: filter.userId } } satisfies Prisma.CouponWhereInput;
+  // Filtered by bet, not coupon: one checkout can hold a settled single next to an open one.
+  const inView = (status: string) => filter.view === 'all' || (filter.view === 'open') === (status === 'OPEN');
   const where: Prisma.CouponWhereInput = {
     ...mine,
-    ...(filter.view === 'open' ? { status: 'OPEN' } : filter.view === 'settled' ? { status: { not: 'OPEN' } } : {}),
+    ...(filter.view === 'open' ? { bets: { some: { status: 'OPEN' } } } : filter.view === 'settled' ? { bets: { some: { status: { not: 'OPEN' } } } } : {}),
   };
   const coupons = await db.coupon.findMany({
     where,
@@ -49,8 +51,82 @@ export async function loadBetsView(db: Db, filter: { userId: string; view: 'open
   return {
     generatedAt: now.toISOString(),
     lastSyncedAt: lastSyncedAt?.toISOString() ?? null,
-    coupons: coupons.map((c) => couponView(c, stateByKambiEvent, now)),
+    coupons: coupons.flatMap((c) => betsOfCoupon(c).filter((b) => inView(b.status)).map((b) => couponView(c, b, stateByKambiEvent, now))),
   };
+}
+
+/** A bet as the app shows and counts it: one of the bets on a coupon, with its own legs and money. */
+export interface CouponBet<L> {
+  /** The coupon's id when it holds one bet, else the bet's. */
+  id: string;
+  status: string;
+  kind: string | null;
+  oddsRaw: number | null;
+  stakeMinor: number | null;
+  potentialPayoutMinor: number | null;
+  potentialPayoutDerived: boolean;
+  payoutMinor: number | null;
+  legs: L[];
+}
+
+type BetRow = {
+  id: string;
+  kind: string;
+  oddsRaw: number | null;
+  stakeMinor: number | null;
+  potentialPayoutMinor: number | null;
+  potentialPayoutDerived: boolean;
+  payoutMinor: number | null;
+  status: string;
+  legs: { betLegId: string }[];
+};
+
+/**
+ * Island Luck lets you put several bets on one ticket and check out once; Kambi
+ * sends that as one coupon holding several bets, each naming its own rows. A
+ * parlay is one bet over several rows, so each bet is its own card and its own
+ * record. A one-bet coupon keeps the coupon's id, so earlier links and
+ * notifications still find it. A system coupon stays whole: its bets overlap.
+ */
+export function betsOfCoupon<L extends { id: string }>(c: {
+  id: string;
+  status: string;
+  totalStakeMinor: number | null;
+  potentialPayoutMinor: number | null;
+  actualPayoutMinor: number | null;
+  bets: BetRow[];
+  legs: L[];
+}): CouponBet<L>[] {
+  if (c.bets.length <= 1 || c.bets.some((b) => b.kind === 'SYSTEM')) {
+    const only = c.bets.length === 1 ? c.bets[0]! : null;
+    return [
+      {
+        id: c.id,
+        status: c.status,
+        kind: only?.kind ?? c.bets[0]?.kind ?? null,
+        oddsRaw: only?.oddsRaw ?? null,
+        stakeMinor: c.totalStakeMinor,
+        potentialPayoutMinor: c.potentialPayoutMinor,
+        potentialPayoutDerived: c.bets.some((b) => b.potentialPayoutDerived),
+        payoutMinor: c.actualPayoutMinor,
+        legs: c.legs,
+      },
+    ];
+  }
+  return c.bets.map((b) => {
+    const ids = new Set(b.legs.map((l) => l.betLegId));
+    return {
+      id: b.id,
+      status: b.status,
+      kind: b.kind,
+      oddsRaw: b.oddsRaw,
+      stakeMinor: b.stakeMinor,
+      potentialPayoutMinor: b.potentialPayoutMinor,
+      potentialPayoutDerived: b.potentialPayoutDerived,
+      payoutMinor: b.payoutMinor,
+      legs: c.legs.filter((l) => ids.has(l.id)),
+    };
+  });
 }
 
 /** Island Luck's minimum bet, in cents. It's the only sportsbook so far; with a second one this becomes per provider. */
@@ -147,12 +223,11 @@ export function moneylineSideOf(
   return h && !a ? 'home' : a && !h ? 'away' : null;
 }
 
-function couponView(c: CouponRow, states: Map<string, StateRow>, now: Date): CouponView {
-  const bet = c.bets[0];
+function couponView(c: CouponRow, bet: CouponBet<CouponRow['legs'][number]>, states: Map<string, StateRow>, now: Date): CouponView {
   const games: GameView[] = [];
   let picksHit = 0;
 
-  for (const leg of c.legs) {
+  for (const leg of bet.legs) {
     const key = leg.eventId ?? `row-${leg.externalRowIndex}`;
     let game = games.find((g) => (g.eventId ?? `row-${leg.externalRowIndex}`) === key);
     if (!game) {
@@ -222,22 +297,22 @@ function couponView(c: CouponRow, states: Map<string, StateRow>, now: Date): Cou
   }
 
   return {
-    id: c.id,
+    id: bet.id,
     externalCouponRef: c.externalCouponRef,
     placedAt: c.placedAt?.toISOString() ?? null,
-    status: c.status,
+    status: bet.status,
     rewardType: c.rewardType,
     currency: c.currency,
-    kind: bet?.kind ?? null,
-    oddsRaw: bet?.oddsRaw ?? null,
-    stakeMinor: c.totalStakeMinor,
-    potentialPayoutMinor: c.potentialPayoutMinor,
-    potentialPayoutDerived: c.bets.some((b) => b.potentialPayoutDerived),
-    payoutMinor: c.actualPayoutMinor,
-    pickCount: c.legs.reduce((n, l) => n + l.selections.length, 0),
+    kind: bet.kind,
+    oddsRaw: bet.oddsRaw,
+    stakeMinor: bet.stakeMinor,
+    potentialPayoutMinor: bet.potentialPayoutMinor,
+    potentialPayoutDerived: bet.potentialPayoutDerived,
+    payoutMinor: bet.payoutMinor,
+    pickCount: bet.legs.reduce((n, l) => n + l.selections.length, 0),
     picksHit,
     lastSyncedAt: c.lastSyncedAt.toISOString(),
-    probablySettled: c.status === 'OPEN' ? probablySettled(games, now) : null,
+    probablySettled: bet.status === 'OPEN' ? probablySettled(games, now) : null,
     games,
   };
 }

@@ -1,6 +1,6 @@
 import type { ProviderTeam } from '@sports-better/sports-data';
 import type { Db } from '../db';
-import { loadEventStates, moneylineSideOf } from '../views/betsView';
+import { betsOfCoupon, loadEventStates, moneylineSideOf } from '../views/betsView';
 import { computeAnalysis, type AnalysisCoupon } from './compute';
 import type { Analysis } from './types';
 import type { Period } from '../social/types';
@@ -12,23 +12,24 @@ export async function loadAnalysis(db: Db, opts: { userId: string; fundingMaxOdd
     where: { sportsbookAccount: { userId: opts.userId } },
     omit: { rawPayload: true },
     include: {
-      bets: true,
+      bets: { include: { legs: { select: { betLegId: true } } } },
       legs: { orderBy: { externalRowIndex: 'asc' }, include: { selections: { omit: { rawOutcome: true, rawBetOffer: true }, include: { progress: true } } } },
     },
   });
   const inRange = coupons.filter((c) => inPeriod(c.placedAt, period, now));
   const states = await loadEventStates(db, inRange.flatMap((c) => c.legs.map((l) => l.eventId)).filter((e): e is string => !!e));
 
-  const input: AnalysisCoupon[] = inRange.map((c) => ({
-    id: c.id,
-    status: c.status,
+  // Each bet on a coupon is its own bet here, as in the bet list.
+  const input: AnalysisCoupon[] = inRange.flatMap((c) => betsOfCoupon(c).map((b) => ({
+    id: b.id,
+    status: b.status,
     rewardType: c.rewardType,
     placedAt: c.placedAt,
-    stakeMinor: c.totalStakeMinor ?? 0,
-    payoutMinor: c.actualPayoutMinor ?? 0,
-    potentialPayoutMinor: c.potentialPayoutMinor,
-    oddsRaw: c.bets[0]?.oddsRaw ?? null,
-    legs: c.legs.map((l) => {
+    stakeMinor: b.stakeMinor ?? 0,
+    payoutMinor: b.payoutMinor ?? 0,
+    potentialPayoutMinor: b.potentialPayoutMinor,
+    oddsRaw: b.oddsRaw,
+    legs: b.legs.map((l) => {
       const st = l.eventId ? states.get(l.eventId) : undefined;
       return {
         selectionType: l.selectionType,
@@ -51,6 +52,6 @@ export async function loadAnalysis(db: Db, opts: { userId: string; fundingMaxOdd
         })),
       };
     }),
-  }));
+  })));
   return { ...computeAnalysis(input, now, opts.fundingMaxOdds), period };
 }

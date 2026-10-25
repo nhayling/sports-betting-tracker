@@ -1,0 +1,52 @@
+import { PrismaClient } from '@prisma/client';
+import type { RawHistoryResponse } from '@sports-better/kambi';
+import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import captured from '../../../packages/kambi/fixtures/captured/multi-bet-coupons-2026-10-24.json';
+import { loadAnalysis } from '../src/analysis/load';
+import { loadLeaderboard } from '../src/social/store';
+import { syncCoupons } from '../src/sync/syncCoupons';
+import { loadBetsView } from '../src/views/betsView';
+import { createTestUser, hasTestDb, setupTestDb } from './testDb';
+
+/** Several singles placed on one ticket (one checkout): Kambi's one coupon, several bets. */
+const coupons = (captured as unknown as RawHistoryResponse).coupons!;
+
+describe.skipIf(!hasTestDb)('several bets on one coupon', () => {
+  let db: PrismaClient;
+  let userId: string;
+
+  beforeAll(async () => {
+    db = await setupTestDb();
+    userId = (await createTestUser(db, 'friend')).id;
+    await syncCoupons(db, { userId, accountLabel: 'Island Luck', capturedAt: new Date('2026-10-24T20:00:00Z'), coupons });
+  }, 60_000);
+  afterAll(() => db?.$disconnect());
+
+  it('shows each bet as its own single, not one parlay', async () => {
+    const all = await loadBetsView(db, { userId, view: 'all', limit: 50 });
+    expect(all.coupons).toHaveLength(6);
+    expect(all.coupons.every((c) => c.kind === 'SINGLE' && c.pickCount === 1 && c.games.length === 1)).toBe(true);
+    expect(new Set(all.coupons.map((c) => c.id)).size).toBe(6);
+
+    const cook = all.coupons.find((c) => c.games[0]!.picks[0]!.participantName === 'Cam Cook')!;
+    expect(cook).toMatchObject({ status: 'WON', oddsRaw: 1910, stakeMinor: 2000, potentialPayoutMinor: 3820, payoutMinor: 3820 });
+  });
+
+  it('puts the open single under Open and the settled ones under Settled', async () => {
+    const open = await loadBetsView(db, { userId, view: 'open', limit: 50 });
+    expect(open.coupons.map((c) => [c.games[0]!.picks[0]!.participantName, c.status, c.stakeMinor, c.potentialPayoutMinor])).toEqual([
+      ['Chris Barnes', 'OPEN', 2000, 3660],
+    ]);
+    const settled = await loadBetsView(db, { userId, view: 'settled', limit: 50 });
+    expect(settled.coupons.map((c) => c.status).sort()).toEqual(['LOST', 'LOST', 'WON', 'WON', 'WON']);
+  });
+
+  it('counts each bet in analysis and on the leaderboard', async () => {
+    const a = await loadAnalysis(db, { userId });
+    expect(a.money).toMatchObject({ settledBets: 5, openBets: 1, stakedMinor: 3 * 500 + 2 * 2000, returnedMinor: 890 + 945 + 3820 });
+    expect(a.parlaySize.buckets.filter((b) => b.bets > 0).map((b) => [b.minPicks, b.bets, b.won])).toEqual([[1, 5, 3]]);
+
+    const board = await loadLeaderboard(db, userId, 'all');
+    expect(board.rows.find((r) => r.isYou)).toMatchObject({ bets: 5, won: 3, lost: 2 });
+  });
+});
