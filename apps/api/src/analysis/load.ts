@@ -1,7 +1,7 @@
 import { teamTotalTeam } from '@sports-better/markets';
 import type { ProviderTeam } from '@sports-better/sports-data';
 import type { Db } from '../db';
-import { betsOfCoupon, loadEventStates, moneylineSideOf } from '../views/betsView';
+import { betsOfCoupon, loadEventStates, moneylineSideOf, stateForLeg } from '../views/betsView';
 import { computeAnalysis, type AnalysisCoupon } from './compute';
 import type { Analysis } from './types';
 import type { Period } from '../social/types';
@@ -31,7 +31,7 @@ export async function loadAnalysis(db: Db, opts: { userId: string; fundingMaxOdd
     potentialPayoutMinor: b.potentialPayoutMinor,
     oddsRaw: b.oddsRaw,
     legs: b.legs.map((l) => {
-      const st = l.eventId ? states.get(l.eventId) : undefined;
+      const st = stateForLeg(states, l);
       return {
         selectionType: l.selectionType,
         oddsRaw: l.oddsRaw,

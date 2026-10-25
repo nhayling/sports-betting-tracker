@@ -44,10 +44,13 @@ describe.skipIf(!hasTestDb)('several bets on one coupon', () => {
   it('counts live games in open bets only', async () => {
     expect((await loadBetsView(db, { userId, view: 'all', limit: 50 })).liveGames).toBe(0);
     // Colorado @ Oklahoma State (Chris Barnes, open) and West Virginia @ TCU (Cam Cook, settled), both under way.
-    for (const [kambi, espn] of [['1027553193', 'e1'], ['1027553171', 'e2']] as const) {
-      await db.externalEventMapping.create({ data: { sportsbookEventId: kambi, provider: 'espn', sport: 'AMERICAN_FOOTBALL', providerEventId: espn, confidence: 1, method: 'TEST', status: 'CONFIRMED' } });
-      const team = { id: espn, abbreviation: null };
-      await db.providerEventState.create({ data: { provider: 'espn', providerEventId: espn, sport: 'AMERICAN_FOOTBALL', startAt: new Date(), homeTeam: team, awayTeam: team, state: 'LIVE' } });
+    const team = (id: string, location: string, name: string) => ({ id, abbreviation: null, location, name, displayName: `${location} ${name}` });
+    for (const [kambi, espn, home, away] of [
+      ['1027553193', 'e1', team('h1', 'Oklahoma State', 'Cowboys'), team('a1', 'Colorado', 'Buffaloes')],
+      ['1027553171', 'e2', team('h2', 'TCU', 'Horned Frogs'), team('a2', 'West Virginia', 'Mountaineers')],
+    ] as const) {
+      await db.externalEventMapping.create({ data: { sportsbookEventId: kambi, provider: 'espn', sport: 'NCAAF', providerEventId: espn, confidence: 1, method: 'TEST', status: 'CONFIRMED' } });
+      await db.providerEventState.create({ data: { provider: 'espn', providerEventId: espn, sport: 'NCAAF', startAt: new Date(), homeTeam: home, awayTeam: away, state: 'LIVE' } });
     }
     // Asked for either list, it's the same count: one game, in the open single.
     expect((await loadBetsView(db, { userId, view: 'open', limit: 50 })).liveGames).toBe(1);

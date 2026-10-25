@@ -97,6 +97,11 @@ export function teamMatches(sport: Sport, sportsbookName: string, team: Provider
   return candidates.includes(kambi);
 }
 
+/** Whether a sportsbook event's two teams are this provider game's, either way round. */
+export function sameTeams(sport: Sport, homeName: string, awayName: string, home: ProviderTeam, away: ProviderTeam): boolean {
+  return (teamMatches(sport, homeName, home) && teamMatches(sport, awayName, away)) || (teamMatches(sport, homeName, away) && teamMatches(sport, awayName, home));
+}
+
 export function matchEvent(sb: SportsbookEvent, candidates: ProviderEvent[]): EventMatch {
   const start = Date.parse(sb.startAt);
   const window = SPORT_KIND[sb.sport] === 'mma' ? MAX_FIGHT_START_DIFF_MS : MAX_START_DIFF_MS;

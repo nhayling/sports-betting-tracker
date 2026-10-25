@@ -13,7 +13,7 @@ import { sportForLeague } from '@sports-better/matching';
 import { defaultFetchJson, EspnProvider } from '@sports-better/sports-data';
 import { prisma } from '../db';
 import { runPollCycle } from '../live/pollCycle';
-import { loadEventStates } from '../views/betsView';
+import { loadEventStates, stateForLeg } from '../views/betsView';
 
 const apply = process.argv.includes('--apply');
 // Must match pollCycle's window: games newer than this are still the live poller's.
@@ -33,7 +33,7 @@ const FINAL_PROGRESS = new Set(['FINAL_HIT', 'FINAL_MISSED']);
 const stale = legs.filter((leg) => {
   if (!sportForLeague(leg.league)) return false; // no provider covers it
   return leg.selections.some((s) => {
-    if (gameMarket(s.marketName)) return states.get(leg.eventId!)?.state !== 'FINAL';
+    if (gameMarket(s.marketName)) return stateForLeg(states, leg)?.state !== 'FINAL';
     const cls = classifyMarket({ sport: leg.sport, marketName: s.marketName, selectionSide: s.selectionSide, line: s.lineRaw === null ? null : s.lineRaw / 1000 });
     return cls.supported && !FINAL_PROGRESS.has(s.progress?.status ?? '');
   });

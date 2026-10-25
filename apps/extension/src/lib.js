@@ -7,10 +7,11 @@
  * in a captured page and count them for the popup.
  */
 
-export const HISTORY_PATH = /\/player\/api\/v\d+\/[^/]+\/coupon\/history\.json/;
+// Kambi's own servers only, so page script can't pass off a reply from somewhere else as bet history.
+export const HISTORY_URL = /^https:\/\/([a-z0-9-]+\.)*kambicdn\.(com|org)\/player\/api\/v\d+\/[^/]+\/coupon\/history\.json/;
 
 export function isHistoryUrl(url) {
-  return HISTORY_PATH.test(url);
+  return HISTORY_URL.test(url);
 }
 
 /**

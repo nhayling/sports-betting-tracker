@@ -2,7 +2,7 @@ import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import express, { type ErrorRequestHandler } from 'express';
 import type { Db } from './db';
-import { authenticate, requireApiKeyAuth } from './auth';
+import { authenticate, requireApiKeyAuth, requireSessionAuth } from './auth';
 import type { LoginLimiter } from './auth/loginLimiter';
 import { authRouter } from './routes/auth';
 import { analysisRouter } from './routes/analysis';
@@ -47,6 +47,7 @@ export function createApp(db: Db, opts: AppOptions = {}) {
   app.use('/api/integrations/island-luck/sync', islandLuckCors);
   app.use('/api', authenticate(db));
   app.use('/api/integrations/island-luck/sync', requireApiKeyAuth, islandLuckSyncRouter(db));
+  app.use('/api', requireSessionAuth);
   app.use('/api/coupons', couponsRouter(db));
   app.use('/api/bets', betsRouter(db));
   app.use('/api/analysis', analysisRouter(db));

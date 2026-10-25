@@ -122,6 +122,27 @@ describe('phone userscript', () => {
     expect(JSON.parse(p.syncCalls()[1]!.init!.body!).coupons).toHaveLength(15);
   });
 
+  it('keeps its token from page code that replaces built-ins after it starts', async () => {
+    // The script shares the Island Luck page's JavaScript. This page's fetch lives in the test's
+    // realm, so swapping that realm's Function.prototype.call stands in for the page doing it.
+    const p = page(() => ({ status: 200, json: { created: 15 } }));
+    const leaked: string[] = [];
+    const call = Function.prototype.call;
+    Function.prototype.call = function (this: (...a: unknown[]) => unknown, thisArg: unknown, ...args: unknown[]) {
+      const auth = (args[1] as Call['init'] | undefined)?.headers?.Authorization;
+      if (auth) leaked.push(auth);
+      return Reflect.apply(this, thisArg, args);
+    };
+    try {
+      await p.ctx.fetch(HISTORY);
+      await p.runTimers();
+    } finally {
+      Function.prototype.call = call;
+    }
+    expect(p.syncCalls()).toHaveLength(1);
+    expect(leaked).toEqual([]);
+  });
+
   it('says so when the sign-in no longer works', async () => {
     const p = page(() => ({ status: 401 }));
     await p.ctx.fetch(HISTORY);

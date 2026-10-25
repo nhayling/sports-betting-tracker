@@ -31,8 +31,11 @@ export const MIN_PASSWORD_LENGTH = 10;
 /** Usernames are stored lowercase. */
 export const USERNAME_PATTERN = /^[a-z0-9._-]{2,40}$/;
 
-/** Something@something.tld, no spaces: a typo check, not proof the address works (nothing is sent yet). */
-export const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+/**
+ * Something@something.tld, no spaces: a typo check, not proof the address works (nothing is sent yet).
+ * No control or invisible formatting characters either: emails are printed for the operator.
+ */
+export const EMAIL_PATTERN = /^[^\s@\p{Cc}\p{Cf}]+@[^\s@\p{Cc}\p{Cf}]+\.[^\s@\p{Cc}\p{Cf}]+$/u;
 export const MAX_EMAIL_LENGTH = 254;
 
 /** Trimmed and lowercased, or null if it doesn't look like an email. */

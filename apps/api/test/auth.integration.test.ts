@@ -113,15 +113,13 @@ describe.skipIf(!hasTestDb)('login and sessions', () => {
     expect(await (await sync(noah, coupons.slice(0, 3))).json()).toMatchObject({ created: 3 });
     expect(await (await sync(buddy, coupons.slice(3, 5))).json()).toMatchObject({ created: 2 });
 
-    const bets = async (token: string) =>
-      ((await (await fetch(`${base}/api/bets?view=all`, { headers: { Authorization: `Bearer ${token}` } })).json()) as { coupons: { id: string }[] }).coupons;
-    const [mine, theirs] = [await bets(noah), await bets(buddy)];
+    const bets = async (cookie: string) =>
+      ((await (await fetch(`${base}/api/bets?view=all`, { headers: { cookie } })).json()) as { coupons: { id: string }[] }).coupons;
+    const cookie = cookieOf(await login('buddy', 'another-password'));
+    const [mine, theirs] = [await bets(cookieOf(await login('noah', 'a-long-password'))), await bets(cookie)];
     expect([mine.length, theirs.length]).toEqual([3, 2]);
 
-    // The web session sees the same bets as that user's extension, and can't open someone else's by id.
-    const cookie = cookieOf(await login('buddy', 'another-password'));
-    const viaCookie = (await (await fetch(`${base}/api/bets?view=all`, { headers: { cookie } })).json()) as { coupons: { id: string }[] };
-    expect(viaCookie.coupons.map((c) => c.id).sort()).toEqual(theirs.map((c) => c.id).sort());
+    // Nobody can open someone else's bet by id.
     expect((await fetch(`${base}/api/coupons/${theirs[0]!.id}`, { headers: { cookie } })).status).toBe(200);
     expect((await fetch(`${base}/api/coupons/${mine[0]!.id}`, { headers: { cookie } })).status).toBe(404);
     const list = (await (await fetch(`${base}/api/coupons`, { headers: { cookie } })).json()) as { coupons: unknown[] };
@@ -140,6 +138,19 @@ describe.skipIf(!hasTestDb)('login and sessions', () => {
     expect(await read.json()).toEqual({ marked: 0 });
     expect(await db.notification.count({ where: { userId: noah!.id, readAt: null } })).toBe(1);
     expect(buddy).toBeTruthy();
+  });
+
+  it('limits extension and phone keys to syncing', async () => {
+    const { token } = (await extensionToken('noah', 'a-long-password')).body;
+    const headers = { Authorization: `Bearer ${token}` };
+    expect((await sync(token!, [])).status).toBe(200);
+    for (const path of ['/api/bets', '/api/coupons', '/api/analysis', '/api/notifications', '/api/social/me', '/api/live/status']) {
+      expect((await fetch(`${base}${path}`, { headers })).status, path).toBe(403);
+    }
+    // A key can't make more keys: a leaked one stops working once it's revoked.
+    const keys = await db.apiKey.count();
+    expect((await fetch(`${base}/api/phone-sync`, { method: 'POST', headers })).status).toBe(403);
+    expect(await db.apiKey.count()).toBe(keys);
   });
 
   it('disconnecting the extension revokes its token', async () => {
@@ -302,6 +313,14 @@ describe.skipIf(!hasTestDb)('login and sessions', () => {
       now += 16 * 60_000;
       expect((await post('signup', { username: 'spam2', email: 'spam2@example.com', password: 'long-enough-pw' })).status).toBe(201);
     });
+
+    it('keeps terminal escapes and hidden characters out of a request to join', async () => {
+      // `npm run access` prints these for whoever approves requests.
+      expect((await post('signup', { username: 'esc', email: 'a\u001b[2J@example.com', password: 'long-enough-pw' })).status).toBe(400);
+      const res = await post('signup', { username: 'rtl', email: 'rtl@example.com', password: 'long-enough-pw', note: 'hi\u001b[2J\nthere‮evil' });
+      expect(res.status).toBe(201);
+      expect((await db.user.findUniqueOrThrow({ where: { username: 'rtl' } })).accessNote).toBe('hi [2J there evil');
+    });
   });
 
   it('signs out', async () => {
@@ -315,6 +334,24 @@ describe.skipIf(!hasTestDb)('login and sessions', () => {
     const b = await login('nobody', 'wrong-password');
     expect([a.status, b.status]).toEqual([401, 401]);
     expect(await a.json()).toEqual(await b.json());
+  });
+
+  it("doesn't let signing in to one account clear failures against another", async () => {
+    now += 16 * 60_000;
+    // Anyone can make an account like this by asking to join.
+    await db.user.create({ data: { username: 'waiting', passwordHash: await hashPassword('long-enough-pw'), status: 'PENDING' } });
+    for (let round = 0; round < 3; round++) {
+      for (let i = 0; i < 4; i++) await login('noah', `guess-${round}-${i}`);
+      await login('waiting', 'long-enough-pw');
+    }
+    expect((await login('noah', 'one-more-guess')).status).toBe(429);
+  });
+
+  it('counts guesses sent all at once', async () => {
+    now += 16 * 60_000;
+    const statuses = await Promise.all(Array.from({ length: 10 }, (_, i) => login('noah', `burst-${i}`).then((r) => r.status)));
+    expect(statuses.filter((s) => s === 401)).toHaveLength(5);
+    expect(statuses.filter((s) => s === 429)).toHaveLength(5);
   });
 
   it('locks out after 5 failures for 15 minutes', async () => {

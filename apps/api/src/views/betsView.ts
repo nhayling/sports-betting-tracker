@@ -1,8 +1,8 @@
 import type { Prisma } from '@prisma/client';
 import { gameMargin, TOTAL_TYPES } from '@sports-better/display';
 import { classifyMarket, fightPick, gameMarket, gradeFight, spreadPick, teamTotalTeam, type GameMarket } from '@sports-better/markets';
-import { sportForLeague, stripRanking, teamMatches } from '@sports-better/matching';
-import type { FightResult, GameSituation, ProviderTeam } from '@sports-better/sports-data';
+import { sameTeams, sportForLeague, stripRanking, teamMatches } from '@sports-better/matching';
+import type { FightResult, GameSituation, ProviderTeam, Sport } from '@sports-better/sports-data';
 import type { BetsView, CouponView, GameStateView, GameView } from './betsViewTypes';
 
 export type * from './betsViewTypes';
@@ -134,10 +134,10 @@ export function betsOfCoupon<L extends { id: string }>(c: {
 async function countLiveGames(db: Db, userId: string): Promise<number> {
   const legs = await db.betLeg.findMany({
     where: { eventId: { not: null }, coupon: { sportsbookAccount: { userId } }, bets: { some: { bet: { status: 'OPEN' } } } },
-    select: { eventId: true },
+    select: { eventId: true, homeName: true, awayName: true },
   });
   const states = await loadEventStates(db, legs.map((l) => l.eventId!));
-  return [...states.values()].filter((s) => s.state === 'LIVE').length;
+  return new Set(legs.filter((l) => stateForLeg(states, l)?.state === 'LIVE').map((l) => l.eventId)).size;
 }
 
 /** Island Luck's minimum bet, in cents. It's the only sportsbook so far; with a second one this becomes per provider. */
@@ -219,6 +219,19 @@ export async function loadEventStates(db: Db, kambiEventIds: string[]): Promise<
   );
 }
 
+/**
+ * A leg's game state, only when that game has the leg's own teams. The link from a Kambi event
+ * to a game is shared by everyone betting on it, and a synced coupon's teams are whatever its
+ * sender wrote, so one ticket can't put another game's score on someone else's.
+ */
+export function stateForLeg(
+  states: Map<string, StateRow>,
+  leg: { eventId: string | null; homeName: string | null; awayName: string | null },
+): StateRow | undefined {
+  const st = leg.eventId ? states.get(leg.eventId) : undefined;
+  return st && sameTeams(st.sport as Sport, leg.homeName ?? '', leg.awayName ?? '', st.homeTeam as unknown as ProviderTeam, st.awayTeam as unknown as ProviderTeam) ? st : undefined;
+}
+
 /** Which side of the game a moneyline, spread or fight pick ("KC Chiefs", "LV Raiders +5.0", "Kody Steele") is on, or null if unclear. */
 export function moneylineSideOf(
   league: string | null,
@@ -242,7 +255,7 @@ function couponView(c: CouponRow, bet: CouponBet<CouponRow['legs'][number]>, sta
     const key = leg.eventId ?? `row-${leg.externalRowIndex}`;
     let game = games.find((g) => (g.eventId ?? `row-${leg.externalRowIndex}`) === key);
     if (!game) {
-      const st = leg.eventId ? states.get(leg.eventId) : undefined;
+      const st = stateForLeg(states, leg);
       game = {
         eventId: leg.eventId,
         name: leg.eventName,

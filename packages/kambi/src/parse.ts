@@ -29,9 +29,21 @@ export function parseHistoryResponse(res: RawHistoryResponse): ParsedCoupon[] {
   return couponsOf(res).map(parseCoupon);
 }
 
+/**
+ * Far above any real ticket (the captured ones have at most 14 picks and 3 bets; a big system
+ * bet is a few hundred). Coupons arrive as their sender wrote them, and each pick and bet
+ * becomes database rows.
+ */
+const MAX_PICKS = 100;
+const MAX_BETS = 1000;
+
 export function parseCoupon(raw: RawCoupon): ParsedCoupon {
   const warnings: string[] = [];
   const ref = String(raw.couponRef);
+  const betCount = raw.bets?.length ?? 0;
+  if (betCount > MAX_BETS) throw new Error(`coupon has ${betCount} bets; at most ${MAX_BETS} are read`);
+  const picks = (raw.bets ?? []).reduce((most, b) => Math.max(most, b.couponRowIndexes?.length ?? 0), raw.couponRows?.length ?? 0);
+  if (picks > MAX_PICKS) throw new Error(`coupon has ${picks} picks; at most ${MAX_PICKS} are read`);
 
   const lookups: Lookups = {
     outcomes: new Map((raw.outcomes ?? []).map((o) => [o.outcomeId, o])),
@@ -42,7 +54,8 @@ export function parseCoupon(raw: RawCoupon): ParsedCoupon {
   const rows = (raw.couponRows ?? []).map((row) => parseRow(row, lookups, warnings));
   const isSystem = (raw.systemBets ?? []).length > 0;
   const currency = raw.currency ?? 'USD';
-  const bets = (raw.bets ?? []).map((bet) => parseBet(bet, rows, isSystem, currency, warnings));
+  const rowsByIndex = new Map(rows.map((r) => [r.externalRowIndex, r]));
+  const bets = (raw.bets ?? []).map((bet) => parseBet(bet, rowsByIndex, isSystem, currency, warnings));
 
   if (isSystem) warnings.push(`coupon ${ref}: has systemBets, which are kept raw but not normalized yet`);
   if (bets.length === 0) warnings.push(`coupon ${ref}: no bets`);
@@ -202,7 +215,7 @@ export function parseOutcomeLabel(label: string | undefined): {
 
 function parseBet(
   bet: RawBet,
-  rows: ParsedLeg[],
+  rowsByIndex: Map<number, ParsedLeg>,
   isSystem: boolean,
   currency: string,
   warnings: string[],
@@ -210,7 +223,7 @@ function parseBet(
   const ref = String(bet.betRef);
 
   const indexes = bet.couponRowIndexes ?? [];
-  const legs = indexes.map((i) => rows.find((r) => r.externalRowIndex === i)).filter((r) => r !== undefined);
+  const legs = indexes.map((i) => rowsByIndex.get(i)).filter((r) => r !== undefined);
   if (indexes.length === 0) warnings.push(`bet ${ref}: no couponRowIndexes`);
   if (legs.length !== indexes.length) warnings.push(`bet ${ref}: references coupon rows that do not exist`);
 

@@ -38,6 +38,18 @@ export function authenticate(db: Db): RequestHandler {
   };
 }
 
+/**
+ * Everything but sync: a signed-in person, not an extension or phone key. Keys only sync, so one
+ * that leaks (the phone key sits inside the Island Luck page) can't read bets or make more keys.
+ */
+export const requireSessionAuth: RequestHandler = (_req, res, next) => {
+  if ((res.locals.auth as AuthContext | undefined)?.kind !== 'session') {
+    res.status(403).json({ error: 'Sign in to the tracker to do this' });
+    return;
+  }
+  next();
+};
+
 /** Routes only the extension may use (e.g. sync), not a browser session. */
 export const requireApiKeyAuth: RequestHandler = (_req, res, next) => {
   if ((res.locals.auth as AuthContext | undefined)?.kind !== 'apiKey') {

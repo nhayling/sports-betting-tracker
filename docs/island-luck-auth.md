@@ -15,7 +15,9 @@ This means:
 - An expired session shows up as the page failing to load history. The
   extension doesn't need to detect 401/403 itself; it just sees nothing new.
 - Kambi changes to auth can't break the extension. Changes to the URL or
-  response shape can: the hook matches `/player/api/v*/…/coupon/history.json`,
+  response shape can: the hook matches `/player/api/v*/…/coupon/history.json`
+  on Kambi's own servers (any `kambicdn.com` or `kambicdn.org` host, so page
+  script can't pass off another site's reply as bet history),
   and an unrecognized body gets stored so it can be downloaded and inspected.
 
 ## Endpoint (for reference)

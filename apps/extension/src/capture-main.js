@@ -8,7 +8,8 @@
  */
 (() => {
   const TAG = 'sports-better/kambi-history';
-  const HISTORY_PATH = /\/player\/api\/v\d+\/[^/]+\/coupon\/history\.json/;
+  // Kambi's own servers only, so page script can't pass off a reply from somewhere else as bet history.
+  const HISTORY_URL = /^https:\/\/([a-z0-9-]+\.)*kambicdn\.(com|org)\/player\/api\/v\d+\/[^/]+\/coupon\/history\.json/;
 
   if (window[TAG]) return;
   window[TAG] = true;
@@ -28,7 +29,7 @@
     const res = await origFetch.apply(this, args);
     try {
       const url = res.url || (args[0] instanceof Request ? args[0].url : String(args[0]));
-      if (HISTORY_PATH.test(url) && res.ok) {
+      if (HISTORY_URL.test(url) && res.ok) {
         res.clone().text().then((t) => post(url, t), () => {});
       }
     } catch {
@@ -40,7 +41,7 @@
   const origOpen = XMLHttpRequest.prototype.open;
   XMLHttpRequest.prototype.open = function (method, url, ...rest) {
     try {
-      if (HISTORY_PATH.test(String(url))) {
+      if (HISTORY_URL.test(new URL(String(url), location.href).href)) {
         this.addEventListener('load', () => {
           try {
             if (this.status < 200 || this.status >= 300) return;

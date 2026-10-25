@@ -6,6 +6,7 @@ import { hashPassword, MIN_PASSWORD_LENGTH, normalizeEmail, USERNAME_PATTERN, ve
 import { bearerToken } from '../auth';
 import { createApiKey, deleteApiKey } from '../auth/apiKeys';
 import { createSession, deleteSession, findSession, readCookie, SESSION_COOKIE, SESSION_TTL_MS, sessionCookie } from '../auth/sessions';
+import { printable } from '../printable';
 
 // Compared against when the username doesn't exist, so timing doesn't reveal valid usernames.
 const dummyHash = hashPassword('not-a-real-password');
@@ -51,14 +52,15 @@ export function authRouter(db: Db, limiter = new LoginLimiter(), signupLimiter =
       return null;
     }
     const login = username.trim().toLowerCase();
+    // Counted as a failure up front, before the slow password check, and cleared if it turns out right.
+    limiter.fail(client, login);
     const user = await db.user.findUnique({ where: login.includes('@') ? { email: login } : { username: login } });
     const ok = await verifyPassword(password, user?.passwordHash ?? (await dummyHash));
     if (!user || !ok) {
-      limiter.fail(client);
       res.status(401).json({ error: 'Invalid username, email or password' });
       return null;
     }
-    limiter.succeed(client);
+    limiter.succeed(client, login);
     // Only someone who knows the password learns the request is still waiting.
     if (user.status === 'PENDING') {
       res.status(403).json({ error: PENDING, pending: true });
@@ -143,7 +145,8 @@ export function authRouter(db: Db, limiter = new LoginLimiter(), signupLimiter =
       return;
     }
     signupLimiter.fail(client);
-    const note = typeof req.body?.note === 'string' ? req.body.note.trim() : '';
+    // On one line and free of escape codes: `npm run access` prints it for whoever approves requests.
+    const note = typeof req.body?.note === 'string' ? printable(req.body.note).replace(/\s+/g, ' ').trim() : '';
     if (note.length > MAX_ACCESS_NOTE_LENGTH) {
       res.status(400).json({ error: `Keep the note under ${MAX_ACCESS_NOTE_LENGTH} characters` });
       return;

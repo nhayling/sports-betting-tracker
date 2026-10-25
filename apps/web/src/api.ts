@@ -8,8 +8,8 @@ export type * from '../../api/src/social/types';
 
 export interface PollerStatus {
   running: boolean;
-  lastReport: { at: string; liveEvents: number; errors: string[] } | null;
-  provider?: { pausedUntil: number | null; lastError: string | null };
+  lastReport: { at: string; liveEvents: number } | null;
+  provider?: { pausedUntil: number | null };
 }
 
 /** The session is missing or expired; the app shows the sign-in screen. */

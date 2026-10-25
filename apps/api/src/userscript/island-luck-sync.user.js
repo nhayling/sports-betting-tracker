@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Sports Better: Island Luck sync
 // @namespace    sports-better
-// @version      1.4.0
+// @version      1.4.1
 // @description  Keeps your Slip Club tracker up to date with your bets.
 // @match        https://islandluck.com/*
 // @match        https://*.islandluck.com/*
@@ -25,7 +25,8 @@
   const TRACKER_URL = __TRACKER_URL__;
   const TOKEN = __TOKEN__;
   const TAG = 'sports-better/userscript';
-  const HISTORY_PATH = /\/player\/api\/v\d+\/[^/]+\/coupon\/history\.json/;
+  // Kambi's own servers only, so page script can't pass off a reply from somewhere else as bet history.
+  const HISTORY_URL = /^https:\/\/([a-z0-9-]+\.)*kambicdn\.(com|org)\/player\/api\/v\d+\/[^/]+\/coupon\/history\.json/;
   // The page often loads several history pages in a row; wait for them to settle before syncing.
   const SYNC_DELAY_MS = 3000;
   const MAX_PER_REQUEST = 500;
@@ -34,6 +35,9 @@
   window[TAG] = true;
 
   const origFetch = window.fetch;
+  // Bound now, before any page script runs: the page shares this JavaScript, so a later call
+  // through origFetch.call would run whatever the page put on Function.prototype, token in hand.
+  const send = origFetch.bind(window);
 
   /** Captured coupons not yet accepted by the tracker, newest copy per couponRef. */
   const pending = new Map();
@@ -93,7 +97,7 @@
       const totals = { sent: 0, created: 0, updated: 0 };
       do {
         const batch = [...pending.entries()].slice(0, MAX_PER_REQUEST);
-        const res = await origFetch.call(window, TRACKER_URL + '/api/integrations/island-luck/sync', {
+        const res = await send(TRACKER_URL + '/api/integrations/island-luck/sync', {
           method: 'POST',
           // No cookies: the token is the only credential sent to the tracker.
           credentials: 'omit',
@@ -154,7 +158,7 @@
     const res = await origFetch.apply(this, args);
     try {
       const url = res.url || (args[0] instanceof Request ? args[0].url : String(args[0]));
-      if (HISTORY_PATH.test(url) && res.ok) {
+      if (HISTORY_URL.test(url) && res.ok) {
         res.clone().text().then(onHistory, () => {});
       }
     } catch {
@@ -166,7 +170,7 @@
   const origOpen = XMLHttpRequest.prototype.open;
   XMLHttpRequest.prototype.open = function (method, url, ...rest) {
     try {
-      if (HISTORY_PATH.test(String(url))) {
+      if (HISTORY_URL.test(new URL(String(url), location.href).href)) {
         this.addEventListener('load', () => {
           try {
             if (this.status < 200 || this.status >= 300) return;

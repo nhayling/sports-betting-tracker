@@ -1,6 +1,6 @@
 import { Prisma } from '@prisma/client';
 import { classifyMarket, evaluateProgress, gameMarket, type Classification } from '@sports-better/markets';
-import { AUTO_LINK_THRESHOLD, matchEvent, matchPlayer, sportForLeague } from '@sports-better/matching';
+import { AUTO_LINK_THRESHOLD, matchEvent, matchPlayer, sameTeams, sportForLeague } from '@sports-better/matching';
 import { SPORT_KIND, type EventSnapshot, type ProviderEvent, type ProviderPlayer, type Sport, type SportsDataProvider } from '@sports-better/sports-data';
 import type { Db } from '../db';
 
@@ -29,7 +29,12 @@ export interface CycleReport {
   errors: string[];
 }
 
-type Leg = Prisma.BetLegGetPayload<{ include: { selections: { include: { progress: true } } } }>;
+// The owner is there to count bettors, not to scope anything: the poller works on everyone's legs.
+const LEG_INCLUDE = {
+  selections: { include: { progress: true } },
+  coupon: { select: { sportsbookAccount: { select: { userId: true } } } },
+} satisfies Prisma.BetLegInclude;
+type Leg = Prisma.BetLegGetPayload<{ include: typeof LEG_INCLUDE }>;
 type Selection = Leg['selections'][number];
 
 const rosterCache = new Map<string, { at: number; players: ProviderPlayer[] }>();
@@ -62,7 +67,7 @@ export async function runPollCycle(db: Db, provider: SportsDataProvider, now = n
       // lost), and the Analysis tab's cash-out check needs final scores.
       eventStartAt: { gte: new Date(now.getTime() - MAX_GAME_MS), lte: new Date(now.getTime() + PREGAME_MS) },
     },
-    include: { selections: { include: { progress: true } } },
+    include: LEG_INCLUDE,
   });
   report.legsInWindow = legs.length;
   if (legs.length === 0) return report;
@@ -100,26 +105,28 @@ export async function runPollCycle(db: Db, provider: SportsDataProvider, now = n
     const mapping = new Map(saved.filter((m) => m.status === 'AUTO' || m.status === 'CONFIRMED').map((m) => [m.sportsbookEventId, m.providerEventId]));
 
     for (const [kambiEventId, eventLegs] of legsByKambiEvent) {
-      if (mapping.has(kambiEventId) || saved.some((m) => m.sportsbookEventId === kambiEventId)) continue;
-      const l = eventLegs[0]!;
+      const row = saved.find((m) => m.sportsbookEventId === kambiEventId);
+      // Someone's decision (confirmed, rejected, or waiting for review) stands.
+      if (row && row.status !== 'AUTO') continue;
+      const current = mapping.has(kambiEventId) ? eventById.get(mapping.get(kambiEventId)!) : undefined;
+      // A saved game that isn't on today's scoreboard can't be checked; keep it.
+      if (mapping.has(kambiEventId) && !current) continue;
+      const onCurrent = (l: Leg) => !!current && sameTeams(sport, l.homeName ?? '', l.awayName ?? '', current.home, current.away);
+      // This link is shared by everyone betting on the event, and a synced coupon's teams are
+      // whatever its sender wrote, so it follows the teams the most bettors name.
+      const l = mostNamedTeams(eventLegs, onCurrent);
+      if (onCurrent(l)) continue;
       const m = matchEvent({ sport, homeName: l.homeName ?? '', awayName: l.awayName ?? '', startAt: l.eventStartAt!.toISOString() }, events);
       if (!m.ok || m.confidence < AUTO_LINK_THRESHOLD) {
+        if (row) continue; // the legs that disagree with it get no progress below
         // Not persisted: the game may simply not be listed yet. Retried next cycle at no extra request cost.
         report.eventsUnmatched.push(`${l.eventName} (${m.ok ? 'low confidence' : m.reason})`);
         for (const leg of eventLegs) for (const s of leg.selections) if (!gameMarket(s.marketName)) await write.unavailable(s, 'EVENT_NOT_MATCHED');
         continue;
       }
-      await db.externalEventMapping.create({
-        data: {
-          sportsbookEventId: kambiEventId,
-          provider: provider.id,
-          sport,
-          providerEventId: m.event.id,
-          confidence: m.confidence,
-          method: m.method,
-          status: 'AUTO',
-        },
-      });
+      const link = { sport, providerEventId: m.event.id, confidence: m.confidence, method: m.method, status: 'AUTO' as const };
+      if (row) await db.externalEventMapping.update({ where: { id: row.id }, data: link });
+      else await db.externalEventMapping.create({ data: { sportsbookEventId: kambiEventId, provider: provider.id, ...link } });
       mapping.set(kambiEventId, m.event.id);
     }
     report.eventsMapped += mapping.size;
@@ -127,10 +134,15 @@ export async function runPollCycle(db: Db, provider: SportsDataProvider, now = n
     // ── per game ──────────────────────────────────────────────────
     for (const [kambiEventId, providerEventId] of mapping) {
       const event = eventById.get(providerEventId);
-      const eventLegs = legsByKambiEvent.get(kambiEventId) ?? [];
       if (!event) {
         report.errors.push(`event ${providerEventId} missing from ${sport} scoreboard`);
         continue;
+      }
+      // Only the legs whose own teams are this game's.
+      const eventLegs: Leg[] = [];
+      for (const l of legsByKambiEvent.get(kambiEventId) ?? []) {
+        if (sameTeams(sport, l.homeName ?? '', l.awayName ?? '', event.home, event.away)) eventLegs.push(l);
+        else for (const s of l.selections) if (!gameMarket(s.marketName)) await write.unavailable(s, 'EVENT_NOT_MATCHED');
       }
       const stored = await saveEventState(db, provider.id, event);
       if (event.state.state === 'LIVE') report.liveEvents++;
@@ -341,6 +353,18 @@ function groupBy<T>(xs: T[], key: (x: T) => string): Map<string, T[]> {
   const m = new Map<string, T[]>();
   for (const x of xs) m.set(key(x), [...(m.get(key(x)) ?? []), x]);
   return m;
+}
+
+/** A leg naming the teams the most bettors (not tickets) name for one event; on a tie, one that `preferred` accepts. */
+function mostNamedTeams(legs: Leg[], preferred: (l: Leg) => boolean): Leg {
+  const claims = new Map<string, { leg: Leg; bettors: Set<string> }>();
+  for (const l of legs) {
+    const key = `${l.homeName}|${l.awayName}`;
+    const claim = claims.get(key) ?? { leg: l, bettors: new Set<string>() };
+    claim.bettors.add(l.coupon.sportsbookAccount.userId);
+    claims.set(key, claim);
+  }
+  return [...claims.values()].sort((a, b) => b.bettors.size - a.bettors.size || Number(preferred(b.leg)) - Number(preferred(a.leg)))[0]!.leg;
 }
 
 function message(err: unknown): string {

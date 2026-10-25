@@ -22,6 +22,13 @@ describe('isHistoryUrl', () => {
     expect(isHistoryUrl(HISTORY.replace('coupon/history', 'cashout'))).toBe(false);
     expect(isHistoryUrl('https://islandluck.com/sports')).toBe(false);
   });
+
+  it("matches only Kambi's own servers, so page script can't pass off another site's reply", () => {
+    expect(isHistoryUrl(HISTORY.replace('cf-al-auth-api.kambicdn.com', 'al-auth.kambicdn.org'))).toBe(true);
+    expect(isHistoryUrl(HISTORY.replace('cf-al-auth-api.kambicdn.com', 'attacker.example'))).toBe(false);
+    expect(isHistoryUrl(HISTORY.replace('cf-al-auth-api.kambicdn.com', 'kambicdn.com.attacker.example'))).toBe(false);
+    expect(isHistoryUrl(`https://attacker.example/?u=${HISTORY}`)).toBe(false);
+  });
 });
 
 describe('extractCoupons', () => {

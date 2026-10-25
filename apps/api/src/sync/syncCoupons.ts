@@ -3,6 +3,7 @@ import type { Db } from '../db';
 import { hashPayload } from './hash';
 import { betFields, couponFields, legFields, selectionFields } from './records';
 import { flagUntracked, untrackedIn, type UntrackedSeen } from './untrackedMarkets';
+import { changedWager } from './wager';
 
 export interface SyncInput {
   /** The tracker user these bets belong to. */
@@ -97,6 +98,12 @@ async function syncOne(
   if (existing && existing.rawPayloadHash === hash && existing.parserVersion === PARSER_VERSION) {
     await db.coupon.update({ where: { id: existing.id }, data: { capturedAt, lastSyncedAt: new Date() } });
     return 'unchanged';
+  }
+
+  if (existing) {
+    const stored = await db.coupon.findUniqueOrThrow({ where: { id: existing.id }, select: { rawPayload: true } });
+    const changed = changedWager(parseCoupon(stored.rawPayload as unknown as RawCoupon), parsed);
+    if (changed) throw new Error(`this bet was already synced with different picks or odds (${changed}); only its status and payout can change`);
   }
 
   if (existing && existing.status !== 'OPEN' && parsed.status === 'OPEN') {

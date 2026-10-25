@@ -6,6 +6,7 @@
  */
 import { classifyMarket, gameMarket, type MarketInput } from '@sports-better/markets';
 import { prisma } from '../db';
+import { printable } from '../printable';
 
 const TZ = 'America/Nassau';
 
@@ -34,14 +35,15 @@ for (const r of rows) {
 }
 
 const day = (d: Date) => new Intl.DateTimeFormat('en-US', { timeZone: TZ, month: 'short', day: 'numeric' }).format(d);
-const line = (m: { sport: string; name: string; picks: number; open: number }) => `${m.name}  [${m.sport || 'no sport'}]  ${m.picks} picks${m.open ? `, ${m.open} open` : ''}`;
+// Market names and examples come from whatever people synced.
+const line = (m: { sport: string; name: string; picks: number; open: number }) => `${printable(m.name)}  [${printable(m.sport) || 'no sport'}]  ${m.picks} picks${m.open ? `, ${m.open} open` : ''}`;
 const all = [...markets.values()].sort((a, b) => b.picks - a.picks);
 
 const untracked = all.filter((m) => m.untracked);
 console.log(`\nNot tracked (${untracked.length})`);
 for (const m of untracked) {
   const f = flagged.find((x) => x.sport === m.sport && x.marketName === m.name);
-  console.log(`  ✗ ${line(m)}  ${m.untracked}${m.tracked ? ` (some sides tracked as ${m.tracked})` : ''}${f ? `  · flagged ${day(f.firstSeenAt)}${f.example ? `, e.g. ${f.example}` : ''}` : ''}`);
+  console.log(`  ✗ ${line(m)}  ${m.untracked}${m.tracked ? ` (some sides tracked as ${m.tracked})` : ''}${f ? `  · flagged ${day(f.firstSeenAt)}${f.example ? `, e.g. ${printable(f.example)}` : ''}` : ''}`);
 }
 
 const tracked = all.filter((m) => !m.untracked);
@@ -52,7 +54,7 @@ for (const m of tracked) console.log(`  ✓ ${line(m)}  ${m.tracked}`);
 const caughtUp = flagged.filter((f) => !untracked.some((m) => m.sport === f.sport && m.name === f.marketName));
 if (caughtUp.length) {
   console.log(`\nFlagged before, tracked now (${caughtUp.length})`);
-  for (const f of caughtUp) console.log(`  ✓ ${f.marketName}  [${f.sport || 'no sport'}]  flagged ${day(f.firstSeenAt)}`);
+  for (const f of caughtUp) console.log(`  ✓ ${printable(f.marketName)}  [${printable(f.sport) || 'no sport'}]  flagged ${day(f.firstSeenAt)}`);
 }
 
 await prisma.$disconnect();

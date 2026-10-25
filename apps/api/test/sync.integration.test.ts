@@ -98,6 +98,31 @@ describe.skipIf(!hasTestDb)('syncCoupons against Postgres', () => {
     expect(rows[0]!.legs.every((l) => l.status === 'WON')).toBe(true);
   });
 
+  it("won't let a later sync change what was bet, only how it went", async () => {
+    // Anyone can send a coupon, so once a bet is seen its picks and odds are fixed: otherwise a
+    // pick could be swapped for the winning side after the game.
+    const open = all.find((c) => c.couponRef !== 13164001585 && c.bets?.[0]?.betStatus === 'OPEN')!;
+    const stored = async () =>
+      (await db.legSelection.findMany({ where: { betLeg: { coupon: { externalCouponRef: String(open.couponRef) } } }, select: { externalOutcomeId: true } }))
+        .map((s) => s.externalOutcomeId)
+        .sort();
+    const before = await stored();
+
+    const swapped: RawCoupon = structuredClone(open);
+    const original = swapped.outcomes!.find((o) => o.outcomeId === swapped.couponRows![0]!.outcomeId)!;
+    swapped.outcomes!.push({ ...original, outcomeId: 999_000_001, label: 'The other side' });
+    swapped.couponRows![0]!.outcomeId = 999_000_001;
+    const longer: RawCoupon = structuredClone(open);
+    longer.bets![0]!.playedOdds = (longer.bets![0]!.playedOdds ?? 2000) * 10;
+
+    for (const changed of [swapped, longer]) {
+      const r = await syncCoupons(db, { userId, accountLabel: 'Island Luck', capturedAt: later, coupons: [changed] });
+      expect(r).toMatchObject({ updated: 0, failed: 1 });
+      expect(r.errors[0]!.error).toMatch(/picks or odds/);
+    }
+    expect(await stored()).toEqual(before);
+  });
+
   it('ignores an older capture so it cannot undo a settlement', async () => {
     const open = all.find((c) => c.couponRef === 13164001585)!;
     const r = await syncCoupons(db, { userId, accountLabel: 'Island Luck', capturedAt: earlier, coupons: [open] });

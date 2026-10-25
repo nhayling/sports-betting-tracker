@@ -82,7 +82,7 @@ async function reprocessUnrecognized() {
     if (!meta.lastCaptureError) await chrome.storage.local.set({ meta: { ...meta, unrecognized: null, unrecognizedAt: null } });
     return;
   }
-  const url = meta.lastCapture?.url ?? 'https://recovered/player/api/v2019/islandluck/coupon/history.json';
+  const url = meta.lastCapture?.url ?? 'https://cf-al-auth-api.kambicdn.com/player/api/v2019/islandluck/coupon/history.json';
   await onCapture({ url, body: meta.unrecognized, capturedAt });
 }
 serialized(reprocessUnrecognized);

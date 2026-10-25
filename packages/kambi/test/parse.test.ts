@@ -221,3 +221,22 @@ describe('parseCoupon edge cases (synthetic)', () => {
     expect(c.warnings.some((w) => w.includes('systemBets'))).toBe(true);
   });
 });
+
+// Coupons arrive from the sync endpoint as the client sent them, so their size is up to the sender.
+describe('parseCoupon size limits', () => {
+  const rows = (n: number) => Array.from({ length: n }, (_, index) => ({ index, selectionType: 'SIMPLE', outcomeId: index, playedOdds: 2000, status: 'OPEN' }));
+
+  it('refuses a coupon with more picks or bets than Kambi allows', () => {
+    expect(() => parseCoupon({ couponRef: 1, couponRows: rows(101), bets: [] })).toThrow(/101 picks/);
+    const bets = Array.from({ length: 1001 }, (_, betRef) => ({ betRef, couponRowIndexes: [0] }));
+    expect(() => parseCoupon({ couponRef: 1, couponRows: rows(1), bets })).toThrow(/1001 bets/);
+    expect(() => parseCoupon({ couponRef: 1, couponRows: rows(1), bets: [{ betRef: 1, couponRowIndexes: Array(101).fill(0) }] })).toThrow(/101 picks/);
+  });
+
+  it('still reads the largest coupon it allows', () => {
+    const bets = Array.from({ length: 1000 }, (_, betRef) => ({ betRef, couponRowIndexes: Array.from({ length: 100 }, (_, i) => i) }));
+    const c = parseCoupon({ couponRef: 1, couponRows: rows(100), bets });
+    expect(c.bets).toHaveLength(1000);
+    expect(c.bets.every((b) => b.legs.length === 100)).toBe(true);
+  });
+});

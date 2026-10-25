@@ -347,4 +347,50 @@ describe.skipIf(!hasTestDb)('runPollCycle against Postgres', () => {
     expect(after.legsInWindow).toBe(0);
     expect(later.urls).toEqual([]);
   });
+
+  // The link from a Kambi event to an ESPN game is shared by everyone who bets on it, but the
+  // teams on a synced coupon are whatever its sender wrote.
+  describe('one Kambi event, bettors who disagree about the game', () => {
+    const KAMBI_EVENT = 999000111;
+    const coupon = (couponRef: number, home: string, away: string) => ({
+      couponRef,
+      currency: 'USD',
+      placedDate: '2026-09-27T16:00:00Z',
+      bets: [{ betRef: couponRef, stake: 5000, playedOdds: 2000, potentialPayout: 10000, betStatus: 'OPEN', couponRowIndexes: [0] }],
+      couponRows: [{ index: 0, selectionType: 'SIMPLE', outcomeId: 1, playedOdds: 2000, status: 'OPEN' }],
+      outcomes: [{ outcomeId: 1, betOfferId: 2, eventId: KAMBI_EVENT, label: home, participantId: 3, status: 'OPEN' }],
+      betOffers: [{ betOfferId: 2, criterion: 'Moneyline' }],
+      events: [{ eventId: KAMBI_EVENT, eventName: `${away} @ ${home}`, homeName: home, awayName: away, eventStartDate: '2026-09-27T17:00:00Z', eventGroups: [{ name: 'Football' }, { name: 'NFL' }] }],
+    });
+    const syncAs = async (username: string, raw: ReturnType<typeof coupon>) => {
+      const id = (await createTestUser(db, username)).id;
+      await syncCoupons(db, { userId: id, accountLabel: 'Island Luck', capturedAt: new Date('2026-09-27T19:00:00Z'), coupons: [raw as never] });
+      return id;
+    };
+    const shown = async (userId: string) => {
+      const view = await loadBetsView(db, { userId, view: 'all', limit: 10 });
+      const game = view.coupons.flatMap((c) => c.games).find((g) => g.eventId === String(KAMBI_EVENT));
+      return game?.state ? `${game.state.awayScore}-${game.state.homeScore}` : null;
+    };
+    const mapped = async () => (await db.externalEventMapping.findFirst({ where: { sportsbookEventId: String(KAMBI_EVENT) } }))?.providerEventId;
+
+    it('never shows a bettor the score of a game other than the one on their own ticket', async () => {
+      // First in: a coupon claiming the event is Panthers @ Browns (3-10 in the fixture).
+      await syncAs('decoy', coupon(1, 'CLE Browns', 'CAR Panthers'));
+      await runPollCycle(db, fakeEspn().provider, NOW);
+      expect(await mapped()).toBe('401872949');
+
+      // The real game is Titans @ Giants (0-9).
+      const fan = await syncAs('fan', coupon(2, 'NY Giants', 'TEN Titans'));
+      await runPollCycle(db, fakeEspn().provider, NOW);
+      expect(await shown(fan)).not.toBe('3-10');
+    });
+
+    it('follows the game most of its bettors name', async () => {
+      const other = await syncAs('other-fan', coupon(3, 'NY Giants', 'TEN Titans'));
+      await runPollCycle(db, fakeEspn().provider, NOW);
+      expect(await mapped()).toBe('401872956');
+      expect(await shown(other)).toBe('0-9');
+    });
+  });
 });

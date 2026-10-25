@@ -1,6 +1,7 @@
 import type { ParsedCoupon } from '@sports-better/kambi';
 import { classifyMarket, gameMarket } from '@sports-better/markets';
 import type { Db } from '../db';
+import { printable } from '../printable';
 
 export interface UntrackedSeen {
   sport: string;
@@ -42,7 +43,7 @@ export async function flagUntracked(db: Db, seen: UntrackedSeen[], now = new Dat
   if (fresh.length) {
     // Two syncs can discover the same market at once; the unique key keeps one.
     await db.untrackedMarket.createMany({ data: fresh.map((m) => ({ ...m, firstSeenAt: now, lastSeenAt: now })), skipDuplicates: true });
-    for (const m of fresh) console.warn(`[untracked-market] ${m.sport || '(no sport)'} "${m.marketName}" (${m.reason})${m.example ? ` e.g. ${m.example}` : ''}`);
+    for (const m of fresh) console.warn(`[untracked-market] ${printable(m.sport) || '(no sport)'} "${printable(m.marketName)}" (${m.reason})${m.example ? ` e.g. ${printable(m.example)}` : ''}`);
   }
   return fresh;
 }
