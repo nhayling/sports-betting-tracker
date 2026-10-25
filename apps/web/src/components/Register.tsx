@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { checkInvite, register } from '../api';
 import { AgeCheck, FinePrint } from './Terms';
+import { Wordmark } from './Wordmark';
 
 /** Shown when the page is opened from an invite link: the invited person picks their own login. */
 export function Register({ token, onRegistered, onCancel }: { token: string; onRegistered: () => void; onCancel: () => void }) {
@@ -38,7 +39,9 @@ export function Register({ token, onRegistered, onCancel }: { token: string; onR
     return (
       <div className="app auth">
         <div className="sign-in">
-          <h1>Slip Club</h1>
+          <h1>
+            <Wordmark />
+          </h1>
           <p className="banner error">{invalid}</p>
           <button className="link" onClick={onCancel}>
             Already have an account? Sign in

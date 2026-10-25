@@ -1,4 +1,4 @@
-import { americanOdds, betStanding, GAME_TYPES, gameMargin, marketLabel, metricUnit, money, quarter } from '@sports-better/display';
+import { americanOdds, betStanding, GAME_TYPES, gameMargin, marketLabel, metricUnit, money, quarter, TOTAL_TYPES } from '@sports-better/display';
 import type { BetsView, CouponView, GameView, PickView } from '../views/betsViewTypes';
 
 /**
@@ -78,7 +78,7 @@ function gameOutcome(p: PickView, g: GameView): 'PICK_HIT' | 'PICK_MISSED' | nul
   if (margin === null || (margin === 0 && p.type !== 'RESULT')) return null;
   if (st.state === 'FINAL') return margin > 0 ? 'PICK_HIT' : 'PICK_MISSED';
   // Scores only go up, so these decide themselves mid-game.
-  if (st.state === 'LIVE' && (p.type === 'TOTAL' || p.type === 'BTTS')) {
+  if (st.state === 'LIVE' && (TOTAL_TYPES.has(p.type) || p.type === 'BTTS')) {
     const yes = p.selectionSide === 'OVER' || p.selectionSide === 'YES';
     if (yes && margin > 0) return 'PICK_HIT';
     if (!yes && margin < 0) return 'PICK_MISSED';
@@ -105,6 +105,14 @@ function text(kind: 'PICK_HIT' | 'PICK_MISSED', p: PickView, g: GameView, c: Cou
     return {
       title: kind === 'PICK_HIT' ? `✓ ${pick} points hit` : p.selectionSide === 'UNDER' ? `✗ ${pick} points went over` : `✗ ${pick} points fell short`,
       body: `Total points · ${when} ${score} · ${bet}`,
+    };
+  }
+  if (p.type === 'TEAM_TOTAL') {
+    // market: "SF 49ers points".
+    const pick = p.selectionLabel ?? `${p.selectionSide === 'UNDER' ? 'Under' : 'Over'} ${p.line ?? ''}`.trim();
+    return {
+      title: kind === 'PICK_HIT' ? `✓ ${market} ${pick} hit` : p.selectionSide === 'UNDER' ? `✗ ${market} ${pick} went over` : `✗ ${market} ${pick} fell short`,
+      body: `Team total · ${when} ${score} · ${bet}`,
     };
   }
   if (p.type === 'RESULT') {

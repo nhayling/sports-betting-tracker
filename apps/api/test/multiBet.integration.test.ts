@@ -41,6 +41,21 @@ describe.skipIf(!hasTestDb)('several bets on one coupon', () => {
     expect(settled.coupons.map((c) => c.status).sort()).toEqual(['LOST', 'LOST', 'WON', 'WON', 'WON']);
   });
 
+  it('counts live games in open bets only', async () => {
+    expect((await loadBetsView(db, { userId, view: 'all', limit: 50 })).liveGames).toBe(0);
+    // Colorado @ Oklahoma State (Chris Barnes, open) and West Virginia @ TCU (Cam Cook, settled), both under way.
+    for (const [kambi, espn] of [['1027553193', 'e1'], ['1027553171', 'e2']] as const) {
+      await db.externalEventMapping.create({ data: { sportsbookEventId: kambi, provider: 'espn', sport: 'AMERICAN_FOOTBALL', providerEventId: espn, confidence: 1, method: 'TEST', status: 'CONFIRMED' } });
+      const team = { id: espn, abbreviation: null };
+      await db.providerEventState.create({ data: { provider: 'espn', providerEventId: espn, sport: 'AMERICAN_FOOTBALL', startAt: new Date(), homeTeam: team, awayTeam: team, state: 'LIVE' } });
+    }
+    // Asked for either list, it's the same count: one game, in the open single.
+    expect((await loadBetsView(db, { userId, view: 'open', limit: 50 })).liveGames).toBe(1);
+    expect((await loadBetsView(db, { userId, view: 'settled', limit: 50 })).liveGames).toBe(1);
+    await db.providerEventState.deleteMany();
+    await db.externalEventMapping.deleteMany();
+  });
+
   it('counts each bet in analysis and on the leaderboard', async () => {
     const a = await loadAnalysis(db, { userId });
     expect(a.money).toMatchObject({ settledBets: 5, openBets: 1, stakedMinor: 3 * 500 + 2 * 2000, returnedMinor: 890 + 945 + 3820 });

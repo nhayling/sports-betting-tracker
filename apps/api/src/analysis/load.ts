@@ -1,3 +1,4 @@
+import { teamTotalTeam } from '@sports-better/markets';
 import type { ProviderTeam } from '@sports-better/sports-data';
 import type { Db } from '../db';
 import { betsOfCoupon, loadEventStates, moneylineSideOf } from '../views/betsView';
@@ -45,7 +46,8 @@ export async function loadAnalysis(db: Db, opts: { userId: string; fundingMaxOdd
           participantId: s.externalParticipantId,
           selectionSide: s.selectionSide,
           line: s.lineRaw === null ? null : s.lineRaw / 1000,
-          moneylineSide: st ? moneylineSideOf(l.league, s.participantName, st.homeTeam as unknown as ProviderTeam, st.awayTeam as unknown as ProviderTeam) : null,
+          // A team total is on the side of the team in its market name.
+          moneylineSide: st ? moneylineSideOf(l.league, teamTotalTeam(s.marketName) ?? s.participantName, st.homeTeam as unknown as ProviderTeam, st.awayTeam as unknown as ProviderTeam) : null,
           progress: s.progress
             ? { status: s.progress.status, current: s.progress.currentValue, target: s.progress.target, operator: s.progress.operator, metric: s.progress.metric }
             : null,

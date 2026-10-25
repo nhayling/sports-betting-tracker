@@ -7,7 +7,7 @@ export interface StandingPick {
   status: string;
   type: string;
   display: string | null;
-  /** Moneyline, spread or three-way result: which side of the game the pick is on. */
+  /** Moneyline, spread, three-way result or team total: which side of the game the pick is on. */
   moneylineSide: 'home' | 'away' | 'draw' | null;
   /** Spread: the picked side's line (+5 for an underdog getting five). Total: the points line. */
   line?: number | null;
@@ -20,13 +20,24 @@ export interface StandingPick {
 type Scores = { homeScore: number | null; awayScore: number | null };
 
 /** Picks decided by the game rather than a stat. */
-export const GAME_TYPES = new Set(['MONEYLINE', 'SPREAD', 'TOTAL', 'RESULT', 'BTTS', 'FIGHT']);
+export const GAME_TYPES = new Set(['MONEYLINE', 'SPREAD', 'TOTAL', 'TEAM_TOTAL', 'RESULT', 'BTTS', 'FIGHT']);
+
+/** Totals, game-wide or one team's: decided early once the score passes the line, since scores only go up. */
+export const TOTAL_TYPES = new Set(['TOTAL', 'TEAM_TOTAL']);
+
+/** The score a total counts: both teams', or a team total's own side (null until that side is known). */
+export function totalOf(p: Pick<StandingPick, 'type' | 'moneylineSide'>, st: Scores): number | null {
+  if (p.type === 'TOTAL') return (st.homeScore ?? 0) + (st.awayScore ?? 0);
+  if (p.moneylineSide === 'home') return st.homeScore ?? 0;
+  if (p.moneylineSide === 'away') return st.awayScore ?? 0;
+  return null;
+}
 
 /**
  * A game pick's margin from its own side. Moneyline and three-way result: the
  * score difference (a draw pick: 1 while level, else minus the gap). Spread:
- * that plus the line. Total: points over the line for an over, under it for an
- * under. Both teams to score: 1 when the pick is right so far, else -1. UFC:
+ * that plus the line. Total (or team total): points over the line for an over,
+ * under it for an under. Both teams to score: 1 when the pick is right so far, else -1. UFC:
  * the server's grade. Above 0 wins (or covers), 0 is a tie (or push). Null
  * when the side or the line isn't known.
  */
@@ -37,9 +48,9 @@ export function gameMargin(p: Pick<StandingPick, 'type' | 'moneylineSide' | 'lin
     const both = Math.min(st.homeScore ?? 0, st.awayScore ?? 0) > 0;
     return both === (p.selectionSide === 'YES') ? 1 : -1;
   }
-  if (p.type === 'TOTAL') {
-    if (p.line === null || p.line === undefined || (p.selectionSide !== 'OVER' && p.selectionSide !== 'UNDER')) return null;
-    const total = (st.homeScore ?? 0) + (st.awayScore ?? 0);
+  if (TOTAL_TYPES.has(p.type)) {
+    const total = totalOf(p, st);
+    if (total === null || p.line === null || p.line === undefined || (p.selectionSide !== 'OVER' && p.selectionSide !== 'UNDER')) return null;
     return p.selectionSide === 'OVER' ? total - p.line : p.line - total;
   }
   if (!p.moneylineSide) return null;
@@ -81,7 +92,7 @@ export function pickState(p: StandingPick, game: StandingGame): PickState {
     if (st.state !== 'FINAL') {
       // Scores only go up: an over past its line has won, an under past it has lost, mid-game; so has
       // both teams to score once they both have.
-      const early = p.type === 'TOTAL' || p.type === 'BTTS';
+      const early = TOTAL_TYPES.has(p.type) || p.type === 'BTTS';
       const yes = p.selectionSide === 'OVER' || p.selectionSide === 'YES';
       if (early && margin !== null && yes && margin > 0) return 'hit';
       if (early && margin !== null && !yes && margin < 0) return 'missed';

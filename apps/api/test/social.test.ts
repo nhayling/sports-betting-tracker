@@ -176,7 +176,7 @@ describe('asSeenByOthers: amounts restated at the minimum bet', () => {
     games: [],
     ...over,
   });
-  const view = (...coupons: CouponView[]): BetsView => ({ generatedAt: '2026-10-07T18:00:00.000Z', lastSyncedAt: null, coupons });
+  const view = (...coupons: CouponView[]): BetsView => ({ generatedAt: '2026-10-07T18:00:00.000Z', lastSyncedAt: null, liveGames: 0, coupons });
   const money = (c: CouponView) => [c.stakeMinor, c.potentialPayoutMinor, c.payoutMinor];
   const hidden = (c: CouponView) => asSeenByOthers(view(c), false).coupons[0]!;
 

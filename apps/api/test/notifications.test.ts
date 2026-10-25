@@ -46,6 +46,7 @@ const progress = (status: string, current: number, target = 50, operator = 'GTE'
 function view(picks: PickView[], game: Partial<GameView> = {}, coupon: Partial<CouponView> = {}): BetsView {
   return {
     generatedAt: '2026-09-27T19:00:00Z',
+    liveGames: 0,
     lastSyncedAt: null,
     coupons: [
       {

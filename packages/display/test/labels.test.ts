@@ -13,6 +13,10 @@ describe('marketLabel', () => {
     ['Rebounds & Assists by the player - Including Overtime', 'Jalen Brunson - Over 9.5', 'OVER', 'Over 9.5 rebounds & assists'],
     ['To record a double-double - Including Overtime', null, 'YES', 'To record a double-double'],
     ['Total Match made Threes - Including Overtime', 'Over 28.5', 'OVER', 'Total threes (both teams)'],
+    ['Total Points by SF 49ers', 'Over 30.5', 'OVER', 'SF 49ers points'],
+    ['Total Goals by TOR Maple Leafs - Inc. OT and Shootout', 'Under 3.5', 'UNDER', 'TOR Maple Leafs goals'],
+    ['2+ Touchdown To Be Scored By The Player - Including Overtime', 'Javonte Williams - Yes', 'YES', '2+ touchdowns'],
+    ['1+ Interceptions Thrown By The Player - Including Overtime', 'Matthew Stafford - Yes', 'YES', '1+ interceptions thrown'],
   ])('%s → %s', (market, label, side, expected) => {
     expect(marketLabel(market, label, side)).toBe(expected);
   });

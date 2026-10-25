@@ -118,6 +118,8 @@ export function App() {
   const [unreachable, setUnreachable] = useState(false);
   const [retrying, setRetrying] = useState(false);
   const [signedOut, setSignedOut] = useState(false);
+  // Unknown until the first answer: the sign-in cookie can't be read here, so nothing is drawn before then.
+  const [authKnown, setAuthKnown] = useState(false);
   // Opened from an invite link (/#invite=<token>): register instead of signing in.
   const [invite, setInvite] = useState(() => location.hash.match(/^#invite=([\w-]+)$/)?.[1] ?? null);
   // Asking to join (/#join), from the sign-in screen or a shared link.
@@ -157,6 +159,8 @@ export function App() {
     } catch (err) {
       if (err instanceof SignedOutError) setSignedOut(true);
       else setUnreachable(true);
+    } finally {
+      setAuthKnown(true);
     }
   }, [view]);
 
@@ -208,6 +212,9 @@ export function App() {
       />
     );
   }
+
+  // The sign-in screen's background, so neither the app nor the sign-in form flashes up before the answer.
+  if (!authKnown) return <div className="app auth" aria-busy="true" />;
 
   /** Open bets by standing, but held in place between refreshes; new bets join at the top. */
   function heldOrder(list: CouponView[]): CouponView[] {
@@ -275,7 +282,7 @@ export function App() {
             </h1>
             <div className="top-right">
               {/* While the tracker can't be reached the banner says so; a live count would be a guess. */}
-              {!unreachable && <LiveIndicator poller={poller} />}
+              {!unreachable && <LiveIndicator poller={poller} live={data?.liveGames} />}
               {notes && <Notifications feed={notes} onRead={() => setNotes((prev) => prev && { ...prev, unread: 0, items: prev.items.map((n) => ({ ...n, readAt: n.readAt ?? new Date().toISOString() })) })} onOpenBet={openBet} canOpen={canOpen} />}
               <button className="bell" aria-label="Account" aria-pressed={account} onClick={() => setAccount(!account)}>
                 <Icon name="user" />
@@ -499,12 +506,12 @@ function Stat({ label, value }: { label: string; value: string }) {
   );
 }
 
-function LiveIndicator({ poller }: { poller: PollerStatus | null | undefined }) {
-  if (poller === undefined) return null;
+/** `live`: games under way in your own open bets (not every game the tracker follows). */
+function LiveIndicator({ poller, live }: { poller: PollerStatus | null | undefined; live: number | undefined }) {
+  if (poller === undefined || live === undefined) return null;
   // No answer is not the same as off: say what is known.
   if (poller === null) return <span className="live-indicator">Live unknown</span>;
   if (!poller.running) return <span className="live-indicator off">Live stats off</span>;
-  const live = poller.lastReport?.liveEvents ?? 0;
   if (poller.provider?.pausedUntil) return <span className="live-indicator off">Live stats paused</span>;
   if (!live) return <span className="live-indicator">No live games</span>;
   return (

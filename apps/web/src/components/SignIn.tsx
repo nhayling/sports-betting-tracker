@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { PendingApprovalError, signIn } from '../api';
 import { FinePrint } from './Terms';
+import { Wordmark } from './Wordmark';
 
 export function SignIn({ onSignedIn, onJoin }: { onSignedIn: () => void; onJoin: () => void }) {
   const [username, setUsername] = useState('');
@@ -30,7 +31,9 @@ export function SignIn({ onSignedIn, onJoin }: { onSignedIn: () => void; onJoin:
   return (
     <div className="app auth">
       <form className="sign-in" onSubmit={submit}>
-        <h1>Slip Club</h1>
+        <h1>
+          <Wordmark />
+        </h1>
         <label>
           Username or email
           <input autoComplete="username" autoCapitalize="none" autoCorrect="off" value={username} onChange={(e) => setUsername(e.target.value)} required />

@@ -57,6 +57,7 @@ const METRIC_UNITS: Record<string, string> = {
   RECEPTIONS: 'rec',
   PASSING_TDS: 'pass TD',
   TOUCHDOWNS: 'TD',
+  INTERCEPTIONS_THROWN: 'INT',
   POINTS: 'pts',
   REBOUNDS: 'reb',
   ASSISTS: 'ast',
@@ -100,6 +101,9 @@ export function marketLabel(marketName: string | null, selectionLabel: string | 
   if (/^Total Points(?: - Including Overtime)?$/i.test(marketName)) return 'Total points';
   if (/^Total Runs$/i.test(marketName)) return 'Total runs';
   if (/^Total Goals(?: - Inc\. OT and Shootout)?$/i.test(marketName)) return 'Total goals';
+  const team = /^Total (Points|Runs|Goals) by ((?:(?! - ).)+?)(?: - (?:Including Overtime|Inc\. OT and Shootout))?$/i.exec(marketName);
+  if (team) return `${team[2]} ${team[1]!.toLowerCase()}`;
+  if (/^\d+\+ Touchdowns? To Be Scored By The Player/i.test(marketName)) return `${no ? 'Under ' : ''}${/^\d+/.exec(marketName)![0]}+ touchdowns`;
   if (/^Full Time$/i.test(marketName)) return 'Match result';
   if (/^Both Teams To Score/i.test(marketName)) return no ? 'No' : 'Yes';
   const fight = fightLabel(marketName, selectionLabel, no);

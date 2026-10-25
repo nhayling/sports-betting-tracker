@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 import { parseHistoryResponse, type RawHistoryResponse } from '@sports-better/kambi';
 import type { FightResult } from '@sports-better/sports-data';
 import { describe, expect, it } from 'vitest';
-import { classifyMarket, evaluateProgress, fightPick, gameMarket, gradeFight, spreadPick, type PropTarget } from '../src';
+import { classifyMarket, evaluateProgress, fightPick, gameMarket, gradeFight, spreadPick, teamTotalTeam, type PropTarget } from '../src';
 
 const captured = JSON.parse(
   readFileSync(fileURLToPath(new URL('../../kambi/fixtures/captured/history-2026-09-27.json', import.meta.url)), 'utf8'),
@@ -30,6 +30,10 @@ describe('classifyMarket', () => {
     ['Total Receiving Yards by the Player - Including Overtime', 'OVER', 38.5, { metric: 'RECEIVING_YARDS', operator: 'GT', target: 38.5 }],
     ['Total Receptions by the Player - Including Overtime', 'UNDER', 5.5, { metric: 'RECEPTIONS', operator: 'LT', target: 5.5 }],
     ['Touchdown Scorer', 'YES', 1, { metric: 'TOUCHDOWNS', operator: 'GTE', target: 1, display: 'BINARY' }],
+    // Seen on Island Luck 2026-10 (Javonte Williams - Yes; Matthew Stafford - Yes).
+    ['2+ Touchdown To Be Scored By The Player - Including Overtime', 'YES', 2, { metric: 'TOUCHDOWNS', operator: 'GTE', target: 2, display: 'PROGRESS' }],
+    ['1+ Interceptions Thrown By The Player - Including Overtime', 'YES', 1, { metric: 'INTERCEPTIONS_THROWN', operator: 'GTE', target: 1 }],
+    ['1+ Interceptions Thrown By The Player - Including Overtime', 'NO', 1, { metric: 'INTERCEPTIONS_THROWN', operator: 'LT', target: 1 }],
     // Seen on Island Luck 2026-09-28 (D'Andre Swift - Yes).
     ['75+ Rushing & Receiving Yards By The Player - Including Overtime', 'YES', 75, { metric: 'RUSHING_RECEIVING_YARDS', operator: 'GTE', target: 75 }],
     ['Total Rushing & Receiving Yards by the Player - Including Overtime', 'OVER', 88.5, { metric: 'RUSHING_RECEIVING_YARDS', operator: 'GT', target: 88.5 }],
@@ -97,9 +101,20 @@ describe('gameMarket', () => {
     expect(gameMarket('Total Points')).toBe('TOTAL');
     expect(gameMarket('Total Points - Including Overtime')).toBe('TOTAL');
     expect(gameMarket('Total Points - 1st Half')).toBeNull();
-    expect(gameMarket('Total Points by DAL Cowboys')).toBeNull();
     expect(gameMarket('Touchdown Scorer')).toBeNull();
     expect(gameMarket(null)).toBeNull();
+  });
+
+  it('recognizes full-game team totals and names their team', () => {
+    expect(gameMarket('Total Points by DAL Cowboys')).toBe('TEAM_TOTAL');
+    expect(teamTotalTeam('Total Points by DAL Cowboys')).toBe('DAL Cowboys');
+    expect(teamTotalTeam('Total Runs by NY Yankees')).toBe('NY Yankees');
+    expect(teamTotalTeam('Total Goals by TOR Maple Leafs - Inc. OT and Shootout')).toBe('TOR Maple Leafs');
+    expect(teamTotalTeam('Total Goals by Paris Saint-Germain')).toBe('Paris Saint-Germain');
+    // Halves, quarters and periods, and other team stats, aren't tracked.
+    for (const name of ['Total Points by BOS Celtics - 1st Half', 'Total Points by BOS Celtics - Quarter 1', 'Total Goals by TOR Maple Leafs - Regular Time', 'Total Corners by Arsenal', 'Total Touchdowns by SEA Seahawks']) {
+      expect(gameMarket(name)).toBeNull();
+    }
   });
 
   it('covers every non-player market in the real capture', () => {
@@ -211,7 +226,7 @@ describe('classifyMarket: NBA, every market on the Island Luck feed (2026-10-23)
     expect(bb('20+ Points & Assists By The Player - Including Overtime', 'YES', 20)).toMatchObject({ metric: 'POINTS_ASSISTS' });
   });
 
-  it('tracks the player props and full-game results, and nothing it can not measure', () => {
+  it('tracks the player props and full-game results (team totals too), and nothing it can not measure', () => {
     const tracked = offering.markets.filter((m) => {
       const line = m.line === null ? null : m.line / 1000;
       return gameMarket(m.criterion) || m.sides.some((side) => bb(m.criterion, side, line).supported);
@@ -247,16 +262,24 @@ describe('classifyMarket: NBA, every market on the Island Luck feed (2026-10-23)
       'Total Match Assists - Including Overtime',
       'Total Match made Threes - Including Overtime',
       'Total Points - Including Overtime',
+      'Total Points by BOS Celtics',
+      'Total Points by CHI Bulls',
+      'Total Points by LA Clippers',
+      'Total Points by LA Lakers',
+      'Total Points by MIL Bucks',
+      'Total Points by NY Knicks',
+      'Total Points by POR Trail Blazers',
+      'Total Points by SAC Kings',
     ]);
   });
 });
 
 describe.each([
-  ['mlb', 'BASEBALL', 14],
-  ['nhl', 'ICE_HOCKEY', 15],
-  ['wnba', 'BASKETBALL', 23],
-  ['epl', 'FOOTBALL', 12],
-  ['laliga', 'FOOTBALL', 11],
+  ['mlb', 'BASEBALL', 16],
+  ['nhl', 'ICE_HOCKEY', 21],
+  ['wnba', 'BASKETBALL', 25],
+  ['epl', 'FOOTBALL', 18],
+  ['laliga', 'FOOTBALL', 17],
   ['ufc', 'MARTIAL_ARTS', 34],
 ] as const)('classifyMarket: %s, every market on the Island Luck feed (2026-10-23)', (file, sport, count) => {
   const { markets } = JSON.parse(

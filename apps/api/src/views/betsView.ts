@@ -1,6 +1,6 @@
 import type { Prisma } from '@prisma/client';
-import { gameMargin } from '@sports-better/display';
-import { classifyMarket, fightPick, gameMarket, gradeFight, spreadPick, type GameMarket } from '@sports-better/markets';
+import { gameMargin, TOTAL_TYPES } from '@sports-better/display';
+import { classifyMarket, fightPick, gameMarket, gradeFight, spreadPick, teamTotalTeam, type GameMarket } from '@sports-better/markets';
 import { sportForLeague, stripRanking, teamMatches } from '@sports-better/matching';
 import type { FightResult, GameSituation, ProviderTeam } from '@sports-better/sports-data';
 import type { BetsView, CouponView, GameStateView, GameView } from './betsViewTypes';
@@ -51,6 +51,7 @@ export async function loadBetsView(db: Db, filter: { userId: string; view: 'open
   return {
     generatedAt: now.toISOString(),
     lastSyncedAt: lastSyncedAt?.toISOString() ?? null,
+    liveGames: await countLiveGames(db, filter.userId),
     coupons: coupons.flatMap((c) => betsOfCoupon(c).filter((b) => inView(b.status)).map((b) => couponView(c, b, stateByKambiEvent, now))),
   };
 }
@@ -129,6 +130,16 @@ export function betsOfCoupon<L extends { id: string }>(c: {
   });
 }
 
+/** Games under way in a person's open bets. By bet, so a settled single on a ticket with an open one doesn't count. */
+async function countLiveGames(db: Db, userId: string): Promise<number> {
+  const legs = await db.betLeg.findMany({
+    where: { eventId: { not: null }, coupon: { sportsbookAccount: { userId } }, bets: { some: { bet: { status: 'OPEN' } } } },
+    select: { eventId: true },
+  });
+  const states = await loadEventStates(db, legs.map((l) => l.eventId!));
+  return [...states.values()].filter((s) => s.state === 'LIVE').length;
+}
+
 /** Island Luck's minimum bet, in cents. It's the only sportsbook so far; with a second one this becomes per provider. */
 export const MIN_BET_MINOR = 500;
 
@@ -172,7 +183,7 @@ function pickHit(status: string, progress: { status: string } | null, game: Game
   if (progress?.status === 'TARGET_REACHED' || progress?.status === 'FINAL_HIT') return true;
   if (game && state && (game.type === 'FIGHT' || (state.homeScore !== null && state.awayScore !== null))) {
     // Final for every game market; an over past its line, or both teams having scored, has also hit mid-game.
-    const early = state.state === 'LIVE' && ((game.type === 'TOTAL' && game.selectionSide === 'OVER') || (game.type === 'BTTS' && game.selectionSide === 'YES'));
+    const early = state.state === 'LIVE' && ((TOTAL_TYPES.has(game.type) && game.selectionSide === 'OVER') || (game.type === 'BTTS' && game.selectionSide === 'YES'));
     if (state.state === 'FINAL' || early) return (gameMargin(game, state) ?? 0) > 0;
   }
   return false;
@@ -256,7 +267,9 @@ function couponView(c: CouponRow, bet: CouponBet<CouponRow['legs'][number]>, sta
       // Game picks are named after their side; a team or fighter stands in for Kambi's "1"/"2".
       const name = ml ? sideName(s.participantName ?? s.selectionLabel, leg) : s.participantName;
       const sideOf = (n: string | null) => (st ? moneylineSideOf(leg.league, n, st.home as ProviderTeam, st.away as ProviderTeam) : null);
-      const pickSide = ml === 'RESULT' && name === 'Draw' ? 'draw' : ml && ml !== 'TOTAL' && ml !== 'BTTS' ? sideOf(name) : null;
+      // A team total's side is the team in its market name; its pick is just "Over 30.5".
+      const pickSide =
+        ml === 'RESULT' && name === 'Draw' ? 'draw' : ml === 'TEAM_TOTAL' ? sideOf(teamTotalTeam(s.marketName)) : ml && ml !== 'TOTAL' && ml !== 'BTTS' ? sideOf(name) : null;
       const moneylineSide = pickSide ?? null;
       const outcomeLine = s.lineRaw === null ? null : s.lineRaw / 1000;
       const line = ml === 'SPREAD' ? spreadPick(s.participantName ?? s.selectionLabel, outcomeLine).line : outcomeLine;

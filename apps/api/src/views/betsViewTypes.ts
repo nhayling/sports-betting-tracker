@@ -16,6 +16,8 @@ export interface BetsView {
    * minimum bet), not what they staked or stand to win.
    */
   minBetMinor?: number;
+  /** Games under way in this person's open bets, whichever list was asked for. */
+  liveGames: number;
   coupons: CouponView[];
 }
 
@@ -88,9 +90,9 @@ export interface PickView {
   status: string;
   /** Picks in the same same-game bet builder share a group. */
   betBuilderGroup: number | null;
-  type: 'STAT' | 'MONEYLINE' | 'SPREAD' | 'TOTAL' | 'RESULT' | 'BTTS' | 'FIGHT' | 'OTHER';
+  type: 'STAT' | 'MONEYLINE' | 'SPREAD' | 'TOTAL' | 'TEAM_TOTAL' | 'RESULT' | 'BTTS' | 'FIGHT' | 'OTHER';
   display: 'PROGRESS' | 'BINARY' | null;
-  /** Moneyline, spread or three-way result: which side of the game the pick is on (spreads add `line`, the picked side's). */
+  /** Moneyline, spread, three-way result or team total: which side of the game the pick is on (spreads add `line`, the picked side's). */
   moneylineSide: 'home' | 'away' | 'draw' | null;
   /** UFC: the pick graded from the result (1 won, -1 lost, 0 void), once the fight is over and ESPN says enough. */
   fightGrade: 1 | -1 | 0 | null;

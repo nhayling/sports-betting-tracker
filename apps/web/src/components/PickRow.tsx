@@ -1,7 +1,7 @@
 import type { CSSProperties, ReactNode } from 'react';
 import type { GameView, PickView } from '../api';
 import type { PickState } from '../betState';
-import { binaryWords, dateTime, gameMargin, marketLabel, metricUnit, quarter, UNAVAILABLE_REASONS } from '../format';
+import { binaryWords, dateTime, gameMargin, marketLabel, metricUnit, quarter, totalOf, TOTAL_TYPES, UNAVAILABLE_REASONS } from '../format';
 import { Icon } from './Icon';
 
 type Tone = 'hit' | 'hold' | 'run' | 'miss' | 'risk' | 'hollow' | '';
@@ -147,12 +147,12 @@ function finalStat(p: PickView, game: GameView): { text: string; detail: string;
     if (p.moneylineSide === 'draw') return { text: margin > 0 ? 'Draw' : 'No draw', detail: '', hit: margin > 0 };
     return { text: signed(margin), detail: '', hit: margin > 0 };
   }
-  if (p.type === 'MONEYLINE' || p.type === 'SPREAD' || p.type === 'TOTAL') {
+  if (p.type === 'MONEYLINE' || p.type === 'SPREAD' || TOTAL_TYPES.has(p.type)) {
     if (!st || st.state === 'SCHEDULED' || st.homeScore === null || st.awayScore === null) return null;
     const margin = gameMargin(p, st);
     if (margin === null || (p.type !== 'MONEYLINE' && p.line === null)) return null;
-    if (p.type === 'TOTAL') {
-      const total = st.homeScore + st.awayScore;
+    if (TOTAL_TYPES.has(p.type)) {
+      const total = totalOf(p, st)!;
       if (p.selectionSide === 'UNDER') return { text: String(total), detail: parts('pts', `under ${p.line}`), hit: margin > 0 };
       return { text: `${total} / ${Math.floor(p.line!) + 1}`, detail: 'pts', hit: margin > 0 };
     }
@@ -180,7 +180,7 @@ function Progress({ pick: p, game, state }: { pick: PickView; game: GameView; st
   if (p.type === 'BTTS') return <BttsScore pick={p} game={game} />;
   if (p.type === 'FIGHT') return <FightScore pick={p} game={game} />;
   if (p.type === 'SPREAD') return <SpreadScore pick={p} game={game} />;
-  if (p.type === 'TOTAL') return <TotalScore pick={p} game={game} />;
+  if (TOTAL_TYPES.has(p.type)) return <TotalScore pick={p} game={game} />;
 
   const pr = p.progress;
   if (p.type === 'OTHER') {
@@ -363,8 +363,9 @@ const spare = (total: number, line: number) => Math.max(0, Number.isInteger(line
 function TotalScore({ pick: p, game }: { pick: PickView; game: GameView }) {
   const st = game.state;
   if (!st || st.state === 'SCHEDULED') return p.status === 'OPEN' ? notStarted : null;
-  if (p.line === null || (p.selectionSide !== 'OVER' && p.selectionSide !== 'UNDER')) return null;
-  const total = (st.homeScore ?? 0) + (st.awayScore ?? 0);
+  // A team total whose team couldn't be matched to either side has nothing to count.
+  const total = totalOf(p, st);
+  if (total === null || p.line === null || (p.selectionSide !== 'OVER' && p.selectionSide !== 'UNDER')) return null;
   const final = st.state === 'FINAL';
   const push = final && total === p.line;
   if (push) {

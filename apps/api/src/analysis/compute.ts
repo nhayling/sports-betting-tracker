@@ -44,6 +44,7 @@ export interface AnalysisSelection {
 
 const MARKET_NAMES: Partial<Record<StatKey, string>> = {
   TOUCHDOWNS: 'Anytime TD',
+  INTERCEPTIONS_THROWN: 'Interceptions',
   RUSHING_YARDS: 'Rushing yards',
   RECEIVING_YARDS: 'Receiving yards',
   RUSHING_RECEIVING_YARDS: 'Rush + rec yards',
@@ -129,6 +130,7 @@ const GAME_MARKET_NAMES: Record<GameMarket, string> = {
   MONEYLINE: 'Moneyline',
   SPREAD: 'Point spread',
   TOTAL: 'Total points',
+  TEAM_TOTAL: 'Team total',
   RESULT: 'Match result',
   BTTS: 'Both teams to score',
   FIGHT: 'UFC',
@@ -382,7 +384,7 @@ function resultAfterCashOut(s: AnalysisSelection, l: AnalysisLeg): 'WON' | 'LOST
   if (gm) {
     const g = l.game;
     if (!g || g.state !== 'FINAL' || g.homeScore === null || g.awayScore === null) return null;
-    const line = gm === 'SPREAD' ? spreadPick(s.participantName, s.line).line : gm === 'TOTAL' ? s.line : null;
+    const line = gm === 'SPREAD' ? spreadPick(s.participantName, s.line).line : gm === 'TOTAL' || gm === 'TEAM_TOTAL' ? s.line : null;
     const margin = gameMargin({ type: gm, moneylineSide: s.moneylineSide, line, selectionSide: s.selectionSide }, g);
     // A draw beats both teams on a three-way result; anywhere else a tie or push decides nothing.
     if (margin === null || (margin === 0 && gm !== 'RESULT')) return null;

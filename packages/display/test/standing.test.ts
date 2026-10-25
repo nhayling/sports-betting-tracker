@@ -55,6 +55,17 @@ describe('totals', () => {
     expect(pickState(total('UNDER'), game('LIVE', 28, 20))).toBe('missed');
   });
 
+  it('counts only its own side’s score for a team total, and waits until that side is known', () => {
+    const team = (side: 'home' | 'away' | null, ou: 'OVER' | 'UNDER', line = 23.5): StandingPick => ({ ...total(ou, line), type: 'TEAM_TOTAL', moneylineSide: side });
+    expect(gameMargin(team('home', 'OVER'), { homeScore: 28, awayScore: 20 })).toBe(4.5);
+    expect(gameMargin(team('away', 'OVER'), { homeScore: 28, awayScore: 20 })).toBe(-3.5);
+    expect(gameMargin(team(null, 'OVER'), { homeScore: 28, awayScore: 20 })).toBeNull();
+    expect(pickState(team('home', 'OVER'), game('LIVE', 28, 20))).toBe('hit');
+    expect(pickState(team('away', 'UNDER'), game('LIVE', 28, 20))).toBe('running');
+    expect(pickState(team('away', 'UNDER'), game('LIVE', 20, 28))).toBe('missed');
+    expect(pickState(team(null, 'OVER'), game('LIVE', 28, 20))).toBe('waiting');
+  });
+
   it('settles at the final, a push on a whole line voiding the pick', () => {
     expect(pickState(total('UNDER'), game('FINAL', 24, 20))).toBe('hit');
     expect(pickState(total('OVER'), game('FINAL', 24, 20))).toBe('missed');

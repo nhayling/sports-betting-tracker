@@ -76,6 +76,9 @@ const FOOTBALL: SportMarkets = {
     [new RegExp(`^(\\d+)\\+ Touchdown Passes By The Player${FULL_GAME}$`, 'i'), 'PASSING_TDS'],
     [new RegExp(`^(\\d+)\\+ Pass Completions By The Player${FULL_GAME}$`, 'i'), 'PASS_COMPLETIONS'],
     [new RegExp(`^(\\d+)\\+ ${PASS_ATTEMPTS}${FULL_GAME}$`, 'i'), 'PASS_ATTEMPTS'],
+    // "2+ Touchdown To Be Scored By The Player": rushing, receiving and return TDs, as "Touchdown Scorer" counts them.
+    [new RegExp(`^(\\d+)\\+ Touchdowns? To Be Scored By The Player${FULL_GAME}$`, 'i'), 'TOUCHDOWNS'],
+    [new RegExp(`^(\\d+)\\+ Interceptions Thrown By The Player${FULL_GAME}$`, 'i'), 'INTERCEPTIONS_THROWN'],
   ],
   overUnder: [
     [new RegExp(`^Total ${RUSH_REC} by the Player${FULL_GAME}$`, 'i'), 'RUSHING_RECEIVING_YARDS'],
@@ -263,14 +266,15 @@ export function classifyMarket(m: MarketInput): Classification {
 /**
  * Markets decided by the game result rather than a stat. They have no
  * progress bar; the UI shows the live game (score, clock) instead. Full-game
- * lines only: halves, quarters, periods, innings and team totals aren't tracked.
+ * lines only: halves, quarters, periods and innings aren't tracked.
  *
  * MONEYLINE, SPREAD, TOTAL: two-way, every sport (NHL's count overtime and the
- * shootout, as Island Luck's "Inc. OT and Shootout" ones do). RESULT: soccer's
+ * shootout, as Island Luck's "Inc. OT and Shootout" ones do). TEAM_TOTAL: one
+ * team's points, runs or goals ("Total Points by SF 49ers"). RESULT: soccer's
  * three-way "Full Time" (home, draw, away). BTTS: both teams to score. FIGHT:
  * UFC, graded from how the bout ended (see fight.ts).
  */
-export type GameMarket = 'MONEYLINE' | 'SPREAD' | 'TOTAL' | 'RESULT' | 'BTTS' | 'FIGHT';
+export type GameMarket = 'MONEYLINE' | 'SPREAD' | 'TOTAL' | 'TEAM_TOTAL' | 'RESULT' | 'BTTS' | 'FIGHT';
 
 const WHOLE_GAME = '(?: - (?:Including Overtime|Inc\\. OT and Shootout))?';
 
@@ -280,10 +284,18 @@ export function gameMarket(marketName: string | null): GameMarket | null {
   // NFL/NBA "Point Spread", MLB "Run Line", NHL "Puck Line", soccer "Spread".
   if (new RegExp(`^(?:Point Spread|Run Line|Puck Line|Spread)${WHOLE_GAME}$`, 'i').test(name)) return 'SPREAD';
   if (new RegExp(`^(?:Total Points|Total Runs|Total Goals)${WHOLE_GAME}$`, 'i').test(name)) return 'TOTAL';
+  if (teamTotalTeam(name)) return 'TEAM_TOTAL';
   if (/^Full Time$/i.test(name)) return 'RESULT';
   if (new RegExp(`^Both Teams To Score${WHOLE_GAME}$`, 'i').test(name)) return 'BTTS';
   if (isFightMarket(name)) return 'FIGHT';
   return null;
+}
+
+/** The team in a full-game team total: "Total Points by SF 49ers" → "SF 49ers". Null for halves, periods and the rest. */
+export function teamTotalTeam(marketName: string | null): string | null {
+  // The team can't contain " - ", which starts a period suffix ("- 1st Half"); a hyphen alone is fine (Saint-Germain).
+  const m = new RegExp(`^Total (?:Points|Runs|Goals) by ((?:(?! - ).)+?)${WHOLE_GAME}$`, 'i').exec(marketName?.trim() ?? '');
+  return m ? m[1]!.trim() : null;
 }
 
 /**
