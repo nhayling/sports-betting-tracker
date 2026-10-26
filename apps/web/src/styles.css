@@ -357,7 +357,7 @@ button.link:hover { color: var(--text); }
 /* ── Controls ─────────────────────────────────────────── */
 /* A checkbox is a square cell: off, a hollow ring; on, the chosen-segment fill with a check, wiping in like a plate. */
 input[type='checkbox'] { appearance: none; flex: none; width: 18px; height: 18px; margin: 0; padding: 0; border: 0; border-radius: 0; background: none; box-shadow: inset 0 0 0 2px var(--muted); cursor: pointer; }
-input[type='checkbox']:hover:not(:disabled) { box-shadow: inset 0 0 0 2px var(--text); }
+input[type='checkbox']:not(:checked):hover:not(:disabled) { box-shadow: inset 0 0 0 2px var(--text); }
 input[type='checkbox']:checked { background: var(--check) center / 14px no-repeat, var(--on-bg); box-shadow: none; animation: wipe 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
 input[type='checkbox']:disabled { opacity: 0.55; cursor: default; }
 .btn, button.primary { font-family: var(--cond); font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; border-radius: 0; }
@@ -365,14 +365,16 @@ input[type='checkbox']:disabled { opacity: 0.55; cursor: default; }
 .btn:hover:not(:disabled) { background: var(--cell); }
 .btn.primary, button.primary { background: var(--on-bg); border: 1px solid var(--on-bg); color: var(--on-fg); }
 button.primary:not(.btn) { padding: 11px; font-size: var(--fs-lg); }
-.btn.primary:hover:not(:disabled), button.primary:hover:not(:disabled) { filter: brightness(1.15); }
+/* Keeps its fill: the plain .btn hover (the cell colour) outranks .btn.primary and would leave white text on a pale ground. */
+.btn.primary:hover:not(:disabled), button.primary:hover:not(:disabled) { background: var(--on-bg); filter: brightness(1.15); }
 .btn:disabled, button.primary:disabled { opacity: 0.55; cursor: default; }
 .actions { display: flex; gap: 6px; flex-wrap: wrap; }
 
 /* A choice between views or values: the chosen segment is a filled plate. */
 .segmented { display: inline-flex; background: var(--cell); }
 .segmented button { background: none; border: 0; padding: 5px 12px; font-family: var(--cond); font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); cursor: pointer; white-space: nowrap; }
-.segmented button:hover:not(:disabled) { color: var(--text); }
+/* Only the unchosen ones: the chosen segment keeps its own text colour on its fill. */
+.segmented button:not(.on):hover:not(:disabled) { color: var(--text); }
 .segmented button.on { background: var(--on-bg); color: var(--on-fg); }
 .segmented button:disabled { cursor: default; }
 .segmented button:focus-visible { outline-offset: -3px; }
