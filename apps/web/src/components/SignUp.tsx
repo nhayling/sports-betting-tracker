@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import { askToJoin } from '../api';
+import { ClubInviteNote } from './ClubInviteNote';
 import { AgeCheck, FinePrint } from './Terms';
 
 /**
@@ -44,6 +45,7 @@ export function SignUp({ onSignIn }: { onSignIn: () => void }) {
             <strong>{email.trim().toLowerCase()}</strong> and the password you just chose.
           </p>
           <p className="muted small">There’s no email to wait for yet. If you know who runs the tracker, a nudge speeds it up.</p>
+          <ClubInviteNote>Your club invite is saved on this device. Once you’re approved, sign in here and you’ll go straight to the club.</ClubInviteNote>
           <button className="primary" onClick={onSignIn}>
             Go to sign in
           </button>
@@ -56,6 +58,7 @@ export function SignUp({ onSignIn }: { onSignIn: () => void }) {
     <div className="app auth">
       <form className="sign-in" onSubmit={submit}>
         <h1>Ask to join</h1>
+        <ClubInviteNote>You’ve been invited to a club. Ask to join first; once you’re approved and signed in on this device, you’ll go straight to it.</ClubInviteNote>
         <p className="muted small">Slip Club copies your Island Luck bets and tracks every pick against live stats. It’s a small beta: requests are approved by hand.</p>
         <label>
           Username

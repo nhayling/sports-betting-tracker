@@ -23,7 +23,7 @@ export async function setupTestDb(): Promise<PrismaClient> {
   });
   const db = new PrismaClient({ datasourceUrl: testUrl });
   await db.$executeRawUnsafe(
-    'TRUNCATE "SportsbookAccount", "Coupon", "Bet", "BetLeg", "BetLegLink", "LegSelection", "BetLegProgress", "ExternalEventMapping", "ExternalParticipantMapping", "ProviderEventState", "User", "Session", "ApiKey", "Invite", "Notification", "Friendship", "Follow", "UntrackedMarket" CASCADE',
+    'TRUNCATE "SportsbookAccount", "Coupon", "Bet", "BetLeg", "BetLegLink", "LegSelection", "BetLegProgress", "ExternalEventMapping", "ExternalParticipantMapping", "ProviderEventState", "User", "Session", "ApiKey", "Invite", "Notification", "Friendship", "Follow", "UntrackedMarket", "Club", "ClubMember" CASCADE',
   );
   return db;
 }

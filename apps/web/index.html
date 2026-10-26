@@ -9,11 +9,33 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="Slip Club" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <!-- No apple-mobile-web-app-status-bar-style: from iOS 26 the Home Screen app blurs the header under a
+         black-translucent or black bar. Left out, the page starts below an opaque bar. -->
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <title>Slip Club</title>
+    <meta name="description" content="Your bets, tracked live: every pick's progress against the game, plus a leaderboard and clubs with your friends." />
+    <!-- Link previews (iMessage, WhatsApp, Slack, X). Absolute URLs: crawlers don't resolve relative ones. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Slip Club" />
+    <meta property="og:title" content="Slip Club" />
+    <meta property="og:description" content="Your bets, tracked live: every pick's progress against the game, plus a leaderboard and clubs with your friends." />
+    <meta property="og:url" content="https://slipclub.app/" />
+    <meta property="og:image" content="https://slipclub.app/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Slip Club: live sync, progress tracker, leaderboard. Closed beta." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <!-- The theme before first paint, so a light choice never flashes navy. Kept in step with src/theme.ts. -->
+    <script>
+      (function () {
+        var choice = 'system';
+        try { choice = localStorage.getItem('sports-better:theme') || 'system'; } catch (e) {}
+        var light = choice === 'light' || (choice === 'system' && matchMedia('(prefers-color-scheme: light)').matches);
+        document.documentElement.dataset.theme = light ? 'light' : 'dark';
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

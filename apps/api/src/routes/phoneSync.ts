@@ -1,4 +1,5 @@
 import { readFileSync } from 'node:fs';
+import { PHONE_LABEL } from './devices';
 import { Router, type Request, type RequestHandler } from 'express';
 import { authOf } from '../auth';
 import { createApiKey, findApiKey } from '../auth/apiKeys';
@@ -27,7 +28,7 @@ const trackerUrlOf = (req: Request, publicUrl: string | undefined) => (publicUrl
 export function phoneSyncRouter(db: Db, publicUrl?: string): Router {
   const router = Router();
   router.post('/', async (req, res) => {
-    const token = await createApiKey(db, authOf(res).userId, 'Phone userscript');
+    const token = await createApiKey(db, authOf(res).userId, PHONE_LABEL);
     res.json({ url: scriptUrl(trackerUrlOf(req, publicUrl), token) });
   });
   return router;

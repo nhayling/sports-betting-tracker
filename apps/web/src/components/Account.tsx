@@ -1,22 +1,37 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { saveEmail, type Me } from '../api';
+import { readTheme, setTheme, type ThemeChoice } from '../theme';
+import { Devices } from './Devices';
 import { PhoneSync } from './PhoneSync';
 import { About } from './Terms';
 
-/** The account screen behind the header's person button: your email, phone sync setup, signing out, and what Slip Club is. */
+const THEMES: Array<[ThemeChoice, string]> = [
+  ['light', 'Light'],
+  ['dark', 'Dark'],
+  ['system', 'System'],
+];
+
+/**
+ * The account screen behind the header's person button: your email, signing
+ * out, the theme, phone sync setup, connected devices, and what Slip Club is.
+ */
 export function Account({
   username,
   me,
   onEmailSaved,
   onClose,
   onSignOut,
+  onSignedOut,
 }: {
   username: string | null;
   me: Me | null;
   onEmailSaved: (email: string) => void;
   onClose: () => void;
   onSignOut: () => void;
+  onSignedOut: () => void;
 }) {
+  // Bumped when phone setup makes a new device, so the list below shows it.
+  const [devicesVersion, setDevicesVersion] = useState(0);
   return (
     <div className="account">
       <section className="panel">
@@ -36,9 +51,35 @@ export function Account({
           Sign out
         </button>
       </section>
-      <PhoneSync />
+      <Appearance />
+      <PhoneSync onCreated={() => setDevicesVersion((v) => v + 1)} />
+      <Devices version={devicesVersion} onSignedOut={onSignedOut} />
       <About />
     </div>
+  );
+}
+
+/** Light, dark, or the device's setting. Kept on this device only. */
+function Appearance() {
+  const [theme, setChoice] = useState(readTheme);
+  const choose = (t: ThemeChoice) => {
+    setTheme(t);
+    setChoice(t);
+  };
+  return (
+    <section className="panel">
+      <div className="panel-head">
+        <h2>Appearance</h2>
+        <div className="segmented" role="group" aria-label="Theme">
+          {THEMES.map(([t, label]) => (
+            <button key={t} className={theme === t ? 'on' : ''} aria-pressed={theme === t} onClick={() => choose(t)}>
+              {label}
+            </button>
+          ))}
+        </div>
+      </div>
+      <p className="muted small">{theme === 'system' ? 'Follows your device: light by day, dark at night if it switches.' : 'Just on this device. The header stays navy either way.'}</p>
+    </section>
   );
 }
 

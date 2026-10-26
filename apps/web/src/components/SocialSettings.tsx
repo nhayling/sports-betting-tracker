@@ -1,10 +1,11 @@
 import { useState, type FormEvent } from 'react';
 import { saveSocialSettings, SignedOutError, type SocialMe, type SocialSettings } from '../api';
+import { Icon } from './Icon';
 
 type Switches = Exclude<keyof SocialSettings, 'displayName'>;
 
 /** Profile name, open or locked account, and privacy switches. Each choice saves as soon as it's made. */
-export function SocialSettingsPanel({ me, onChanged, onSignedOut }: { me: SocialMe; onChanged: () => void; onSignedOut: () => void }) {
+export function SocialSettingsPanel({ me, onBack, onChanged, onSignedOut }: { me: SocialMe; onBack: () => void; onChanged: () => void; onSignedOut: () => void }) {
   const [settings, setSettings] = useState(me.settings);
   const [name, setName] = useState(me.settings.displayName ?? '');
   const [saving, setSaving] = useState(false);
@@ -44,6 +45,10 @@ export function SocialSettingsPanel({ me, onChanged, onSignedOut }: { me: Social
 
   return (
     <div className="analysis">
+      <button className="link back" onClick={onBack}>
+        <Icon name="back" />
+        Hub
+      </button>
       {error && <p className="banner error">{error}</p>}
 
       <section className="panel">
@@ -103,6 +108,16 @@ export function SocialSettingsPanel({ me, onChanged, onSignedOut }: { me: Social
           settings.locked ? 'Only followers you’ve approved.' : 'Your account is open, so this includes anyone on the tracker who follows you.',
         )}
         {flip('shareAmountsLeaderboard', 'Show my net winnings on the leaderboard', 'Adds a dollar figure next to your units. The ranking never uses dollars, but the two together let people work out roughly what you stake.')}
+      </section>
+
+      <section className="panel">
+        <h2>Clubs</h2>
+        {flip(
+          'sharePicksClubs',
+          'Share my picks with my clubs',
+          'Members of your clubs see your picks, odds and results in the club’s feed and on your profile. Your record in units stays on each club’s board either way.',
+        )}
+        <p className="muted small">Real amounts are off in every club until you switch them on for that club, under Your sharing here on the club’s Members tab.</p>
       </section>
 
       <section className="panel">

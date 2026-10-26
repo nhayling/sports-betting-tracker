@@ -27,6 +27,7 @@ import { SignIn } from './components/SignIn';
 import { SignUp } from './components/SignUp';
 import { Wordmark } from './components/Wordmark';
 import { Social } from './components/Social';
+import { inviteCodeIn, pendingClubInvite, rememberClubInvite } from './clubInvite';
 import { clockTime, money, relativeTime } from './format';
 
 type Tab = 'open' | 'settled' | 'analysis' | 'social';
@@ -36,6 +37,14 @@ const TABS: Array<[Tab, string]> = [
   ['settled', 'Settled'],
   ['analysis', 'Analysis'],
   ['social', 'Social'],
+];
+/** Settled bets by how they ended. Voids and mixed results show under All only. */
+type Result = 'all' | 'WON' | 'LOST' | 'CASHED_OUT';
+const RESULTS: Array<[Result, string]> = [
+  ['all', 'All'],
+  ['WON', 'Won'],
+  ['LOST', 'Lost'],
+  ['CASHED_OUT', 'Cashed out'],
 ];
 /** The tally under the totals: each standing's name and the look of its count. */
 const TALLY: Record<BetState, { label: string; tone: string }> = {
@@ -86,6 +95,10 @@ function writeSeen(at: number) {
 /** Three missed refreshes: what's on screen can no longer be called live. */
 const STALE_MS = 3 * REFRESH_MS;
 
+// A club invite opened while signed out survives the sign-in, ask-to-join and register screens.
+const openedWithInvite = inviteCodeIn(location.hash);
+if (openedWithInvite) rememberClubInvite(openedWithInvite);
+
 /** The Social tab keeps its own place after the slash (#social/people). */
 function tabFromHash(): Tab {
   const name = location.hash.slice(1).split('/')[0];
@@ -105,6 +118,7 @@ export function App() {
   const column = useRef(new Map<string, number>());
   // A notification tapped: the bet to bring into view once its list is on screen.
   const [jump, setJump] = useState<string | null>(null);
+  const [result, setResult] = useState<Result>('all');
   const setTab = (t: Tab) => {
     resortNext.current = true;
     setTabState(t);
@@ -138,6 +152,12 @@ export function App() {
   const betsTab = tab === 'open' || tab === 'settled';
   const view: BetsTab = tab === 'settled' ? 'settled' : 'open';
   const [account, setAccount] = useState(false);
+  // A link into the app while it is open (#social/join/…) switches to its tab.
+  useEffect(() => {
+    const onHash = () => setTabState(tabFromHash());
+    addEventListener('hashchange', onHash);
+    return () => removeEventListener('hashchange', onHash);
+  }, []);
   const onSignedOut = useCallback(() => setSignedOut(true), []);
   const clearJump = useCallback(() => setJump(null), []);
   useJump(jump, views[tab === 'settled' ? 'settled' : 'open']?.coupons, clearJump);
@@ -189,6 +209,13 @@ export function App() {
     };
   }, [load, signedOut, invite, joining]);
 
+  // Signed in with a club invite still waiting (they signed in, registered, or were approved since): take them to it.
+  useEffect(() => {
+    if (!authKnown || signedOut || invite || joining) return;
+    const code = pendingClubInvite();
+    if (code && inviteCodeIn(location.hash) !== code) location.hash = `#social/join/${code}`;
+  }, [authKnown, signedOut, invite, joining]);
+
   if (invite) return <Register token={invite} onRegistered={() => closeInvite(false)} onCancel={() => closeInvite(true)} />;
   if (joining) {
     return (
@@ -239,7 +266,10 @@ export function App() {
     return order.current.map((id) => byId.get(id)!);
   }
   const data = views[view] ?? null;
-  const all = data?.coupons ?? [];
+  const loaded = data?.coupons ?? [];
+  const count = (r: Result) => (r === 'all' ? loaded.length : loaded.filter((c) => c.status === r).length);
+  // Totals follow the filter, so Won shows what the winners staked and returned.
+  const all = tab === 'settled' && result !== 'all' ? loaded.filter((c) => c.status === result) : loaded;
   // Open bets: closest to paying first, bets that can no longer win last. Settled bets keep the server's order.
   const coupons = tab === 'open' ? heldOrder(all) : all;
   const staked = all.reduce((n, c) => n + (c.stakeMinor ?? 0), 0);
@@ -265,6 +295,8 @@ export function App() {
     setAccount(false);
     // Not on Open means it settled; the Settled list loads if it hasn't yet, and the jump waits for it.
     setTab(views.open?.coupons.some((c) => c.id === couponId) ? 'open' : 'settled');
+    // A filter could hide the bet the notification is about.
+    setResult('all');
     setJump(couponId);
   }
   const doSignOut = async () => {
@@ -381,7 +413,7 @@ export function App() {
         )}
 
         {account ? (
-          <Account username={social?.username ?? null} me={me} onEmailSaved={(email) => setMe((m) => (m ? { ...m, email, emailVerified: false } : m))} onClose={() => setAccount(false)} onSignOut={doSignOut} />
+          <Account username={social?.username ?? null} me={me} onEmailSaved={(email) => setMe((m) => (m ? { ...m, email, emailVerified: false } : m))} onClose={() => setAccount(false)} onSignOut={doSignOut} onSignedOut={onSignedOut} />
         ) : (
           <>
             {tab === 'analysis' && <Analysis onSignedOut={onSignedOut} />}
@@ -393,7 +425,18 @@ export function App() {
               </p>
             )}
             {firstRun && <FirstRun />}
-            {betsTab && data && all.length === 0 && !firstRun && (
+            {tab === 'settled' && loaded.length > 0 && (
+              <div className="segmented subnav results" role="group" aria-label="Show settled bets">
+                {/* Cashed out only once there is one to show. */}
+                {RESULTS.filter(([r]) => r !== 'CASHED_OUT' || count(r) > 0).map(([r, label]) => (
+                  <button key={r} className={result === r ? 'on' : ''} aria-pressed={result === r} onClick={() => setResult(r)}>
+                    {label} <span className="results-count">{count(r)}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+            {tab === 'settled' && loaded.length > 0 && all.length === 0 && <p className="muted center">No {RESULTS.find(([r]) => r === result)![1].toLowerCase()} bets.</p>}
+            {betsTab && data && loaded.length === 0 && !firstRun && (
               <p className="muted center">
                 {tab === 'open' ? (
                   <>

@@ -13,6 +13,8 @@ import { liveRouter } from './routes/live';
 import { notificationsRouter } from './routes/notifications';
 import { islandLuckCors, phoneSyncRouter, userscriptRouter } from './routes/phoneSync';
 import { socialRouter } from './routes/social';
+import { clubsRouter } from './routes/clubs';
+import { devicesRouter } from './routes/devices';
 import type { PollerStatus } from './live/poller';
 
 // No CORS headers on purpose: web pages can't read responses, and the
@@ -54,6 +56,9 @@ export function createApp(db: Db, opts: AppOptions = {}) {
   app.use('/api/notifications', notificationsRouter(db));
   app.use('/api/phone-sync', phoneSyncRouter(db, opts.publicUrl));
   app.use('/api/social', socialRouter(db));
+  app.use('/api/clubs', clubsRouter(db));
+  // Session-only (mounted after requireSessionAuth): a key must never list or remove keys.
+  app.use('/api/devices', devicesRouter(db));
   app.use('/api/live', liveRouter(opts.pollerStatus ?? (() => null)));
 
   app.use('/api', (_req, res) => {

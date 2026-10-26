@@ -9,7 +9,7 @@ import { findSession, readCookie, SESSION_COOKIE } from './auth/sessions';
  *  - the `sb_session` cookie from logging in: the web app, e.g. on your phone.
  * Sets res.locals.auth. Every query below is scoped to its userId.
  */
-export type AuthContext = { kind: 'apiKey' | 'session'; userId: string; username: string };
+export type AuthContext = { kind: 'apiKey' | 'session'; userId: string; username: string; /** The web sign-in in use, on a session. */ sessionId?: string };
 
 export const authOf = (res: Response) => res.locals.auth as AuthContext;
 
@@ -33,7 +33,7 @@ export function authenticate(db: Db): RequestHandler {
       res.status(401).json({ error: 'Not signed in' });
       return;
     }
-    res.locals.auth = { kind: 'session', userId: session.user.id, username: session.user.username } satisfies AuthContext;
+    res.locals.auth = { kind: 'session', userId: session.user.id, username: session.user.username, sessionId: session.id } satisfies AuthContext;
     next();
   };
 }

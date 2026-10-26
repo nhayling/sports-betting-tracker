@@ -9,6 +9,19 @@ type Act = (action: 'add' | 'remove', tie: Tie, username: string) => void;
 /** Friend first, then people you follow, then your followers, then everyone else. */
 const closeness = (r: Relation) => (r.friend === 'FRIENDS' ? 0 : r.following !== 'NONE' ? 1 : r.followsYou === 'FOLLOWING' ? 2 : 3);
 
+/** How you stand with someone as plates: filled for a tie both of you hold, outlined for one-way or waiting. */
+function relationPlates(r: Relation): Array<[string, boolean]> {
+  return [
+    r.friend === 'FRIENDS' && (['Friend', true] as [string, boolean]),
+    r.friend === 'SENT' && (['Request sent', false] as [string, boolean]),
+    r.friend === 'RECEIVED' && (['Wants to be friends', false] as [string, boolean]),
+    r.following === 'FOLLOWING' && (['You follow', false] as [string, boolean]),
+    r.following === 'REQUESTED' && (['Follow requested', false] as [string, boolean]),
+    r.followsYou === 'FOLLOWING' && (['Follows you', false] as [string, boolean]),
+    r.followsYou === 'REQUESTED' && (['Wants to follow', false] as [string, boolean]),
+  ].filter((x): x is [string, boolean] => !!x);
+}
+
 /** How you stand with someone, in one plain phrase: "Friend · you follow each other". */
 export function relationPhrase(r: Relation): string {
   const both = r.following === 'FOLLOWING' && r.followsYou === 'FOLLOWING';
@@ -166,9 +179,23 @@ export function People({ onOpen, onChanged, onSignedOut }: { onOpen: (username: 
   );
 }
 
+type Filter = 'friends' | 'following' | 'followers' | 'everyone';
+const FILTERS: Array<[Filter, string, (r: Relation) => boolean]> = [
+  // A request you sent still sits with your friends, saying so.
+  ['friends', 'Friends', (r) => r.friend === 'FRIENDS' || r.friend === 'SENT'],
+  ['following', 'Following', (r) => r.following !== 'NONE'],
+  ['followers', 'Followers', (r) => r.followsYou === 'FOLLOWING'],
+  ['everyone', 'Everyone', () => true],
+];
+const EMPTY: Record<Exclude<Filter, 'everyone'>, string> = {
+  friends: 'No friends yet. Find someone under Everyone and add them; friends both agree.',
+  following: 'You don’t follow anyone yet. Open someone’s profile to follow them.',
+  followers: 'Nobody follows you yet.',
+};
+
 /**
- * Requests waiting on you, then a search box over everyone on the tracker.
- * With nothing typed, the list is the people you already have a tie with.
+ * Requests waiting on you, then a directory: your friends, who you follow,
+ * your followers, or a search over everyone on the tracker.
  */
 export function PeopleList({
   people,
@@ -191,9 +218,12 @@ export function PeopleList({
   const friendRequests = people.filter((p) => p.relation.friend === 'RECEIVED');
   // Only a locked account gets these; on an open one people just follow.
   const followRequests = people.filter((p) => p.relation.followsYou === 'REQUESTED');
-  const searching = query.trim() !== '';
-  const shown = searching ? results : people;
+  // Someone with nobody yet starts where they can find people.
+  const [filter, setFilter] = useState<Filter>(() => (people.some((p) => p.relation.friend === 'FRIENDS') ? 'friends' : 'everyone'));
+  const searching = filter === 'everyone' && query.trim() !== '';
+  const shown = filter === 'everyone' ? (searching ? results : null) : people.filter((p) => FILTERS.find(([f]) => f === filter)![2](p.relation));
   const sorted = shown && [...shown].sort((a, b) => closeness(a.relation) - closeness(b.relation) || a.username.localeCompare(b.username));
+  const countOf = (f: Filter) => (f === 'everyone' ? null : people.filter((p) => FILTERS.find(([x]) => x === f)![2](p.relation)).length);
   const name = (p: Person) => (
     <button className="name-link" onClick={() => onOpen(p.username)}>
       {nameOf(p)}
@@ -238,35 +268,48 @@ export function PeopleList({
 
       <section className="panel">
         <h2>People</h2>
-        <label className="people-search">
-          <Icon name="search" />
-          <span className="sr-only">Find people</span>
-          <input
-            type="search"
-            value={query}
-            placeholder="Find people by name or @username"
-            autoComplete="off"
-            autoCapitalize="none"
-            autoCorrect="off"
-            spellCheck={false}
-            maxLength={50}
-            onChange={(e) => onQuery(e.target.value)}
-          />
-        </label>
-        {!sorted ? (
+        <div className="segmented directory-filter" role="group" aria-label="Show">
+          {FILTERS.map(([f, label]) => (
+            <button key={f} className={filter === f ? 'on' : ''} aria-pressed={filter === f} onClick={() => setFilter(f)}>
+              {label}
+              {countOf(f) !== null && <span className="filter-count"> {countOf(f)}</span>}
+            </button>
+          ))}
+        </div>
+        {filter === 'everyone' && (
+          <label className="people-search">
+            <Icon name="search" />
+            <span className="sr-only">Find people</span>
+            <input
+              type="search"
+              value={query}
+              placeholder="Find people by name or @username"
+              autoComplete="off"
+              autoCapitalize="none"
+              autoCorrect="off"
+              spellCheck={false}
+              maxLength={50}
+              onChange={(e) => onQuery(e.target.value)}
+            />
+          </label>
+        )}
+        {filter === 'everyone' && !searching ? (
+          <p className="muted small">Type a name or @username to find anyone on Slip Club. New people join with an invite link.</p>
+        ) : !sorted ? (
           <p className="muted small" role="status">
             Searching…
           </p>
         ) : sorted.length === 0 ? (
           <p className="muted small" role="status">
-            {searching
-              ? `Nobody matches “${query.trim()}”. Check the spelling, or ask them for their username.`
-              : 'Find someone you know above to add them as a friend or follow them. New people join with an invite link from whoever runs the tracker.'}
+            {searching ? `Nobody matches “${query.trim()}”. Check the spelling, or ask them for their username.` : EMPTY[filter as Exclude<Filter, 'everyone'>]}
           </p>
         ) : (
           <ul className="people">
             {sorted.map((p) => (
-              <li key={p.username} className="person">
+              <li key={p.username} className="person dir-row">
+                <span className="dir-initial" aria-hidden="true">
+                  {nameOf(p).charAt(0)}
+                </span>
                 <span className="person-name">
                   {name(p)}
                   {p.displayName && <span className="muted small"> @{p.username}</span>}
@@ -275,7 +318,15 @@ export function PeopleList({
                       <Icon name="lock" /> Locked
                     </span>
                   )}
-                  {relationPhrase(p.relation) && <span className="relation">{relationPhrase(p.relation)}</span>}
+                  {relationPlates(p.relation).length > 0 && (
+                    <span className="dir-ties">
+                      {relationPlates(p.relation).map(([label, both]) => (
+                        <span key={label} className={both ? 'who on' : 'who'}>
+                          {label}
+                        </span>
+                      ))}
+                    </span>
+                  )}
                 </span>
                 {/* One step per row; following and everything else is on their profile. */}
                 {p.relation.friend === 'NONE' && (

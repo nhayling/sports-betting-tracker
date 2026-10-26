@@ -60,20 +60,31 @@ export interface Access {
   amounts: boolean;
 }
 
+/** What sharing a club opens: `member` when you're in one together, `amounts` when they share real amounts with one of those clubs. */
+export interface ClubTie {
+  member: boolean;
+  amounts: boolean;
+}
+export const NO_CLUB: ClubTie = { member: false, amounts: false };
+
 export function accessTo(
-  target: Pick<User, 'id' | 'shareAmountsFriends' | 'shareAmountsFollowers' | 'showOnLeaderboard'>,
+  target: Pick<User, 'id' | 'shareAmountsFriends' | 'shareAmountsFollowers' | 'showOnLeaderboard' | 'sharePicksClubs'>,
   viewerId: string,
   rel: Relation,
+  clubTie: ClubTie = NO_CLUB,
 ): Access {
+  const clubmate = clubTie.member;
   if (target.id === viewerId) return { stats: true, bets: true, amounts: true };
   const friend = rel.friend === 'FRIENDS';
   // A follow request a locked account hasn't approved opens nothing.
   const follower = rel.following === 'FOLLOWING';
+  // Picks reach clubs through one switch; amounts only through each club's own, which starts off.
+  const club = clubmate && target.sharePicksClubs;
   return {
-    bets: friend || follower,
-    // The record in units is what the leaderboard already shows.
-    stats: friend || follower || target.showOnLeaderboard,
-    amounts: (friend && target.shareAmountsFriends) || (follower && target.shareAmountsFollowers),
+    bets: friend || follower || club,
+    // The record in units is what the leaderboard already shows, and a club's board shows it to its members.
+    stats: friend || follower || clubmate || target.showOnLeaderboard,
+    amounts: (friend && target.shareAmountsFriends) || (follower && target.shareAmountsFollowers) || (club && clubTie.amounts),
   };
 }
 
@@ -84,6 +95,7 @@ export const settingsOf = (u: User): SocialSettings => ({
   shareAmountsFollowers: u.shareAmountsFollowers,
   shareAmountsLeaderboard: u.shareAmountsLeaderboard,
   showOnLeaderboard: u.showOnLeaderboard,
+  sharePicksClubs: u.sharePicksClubs,
 });
 
 export async function updateSettings(db: Db, userId: string, changes: Partial<SocialSettings>): Promise<SocialSettings> {
@@ -179,10 +191,16 @@ export async function approveFollower(db: Db, meId: string, followerId: string):
   return count > 0;
 }
 
+/** How `viewerId` and `targetId` are tied through clubs: in one together, and whether the target shares amounts with any of those. */
+export async function clubTieWith(db: Db, viewerId: string, targetId: string): Promise<ClubTie> {
+  const theirs = await db.clubMember.findMany({ where: { userId: targetId, club: { members: { some: { userId: viewerId } } } }, select: { shareAmounts: true } });
+  return { member: theirs.length > 0, amounts: theirs.some((m) => m.shareAmounts) };
+}
+
 // ── records ──────────────────────────────────────────────────────────
 
 /** Settled bets per user, reduced to what scoring needs. */
-async function loadUnitBets(db: Db, userIds: string[]): Promise<Map<string, UnitBet[]>> {
+export async function loadUnitBets(db: Db, userIds: string[]): Promise<Map<string, UnitBet[]>> {
   // By bet, not coupon: several singles on one ticket are several bets, and some can settle before others.
   const coupons = await db.coupon.findMany({
     where: { sportsbookAccount: { userId: { in: userIds } }, bets: { some: { status: { not: 'OPEN' } } } },
@@ -245,7 +263,7 @@ export async function loadLeaderboard(db: Db, viewerId: string, period: Period, 
 export async function loadProfile(db: Db, viewerId: string, target: User, now = new Date()): Promise<ProfileView> {
   const isYou = target.id === viewerId;
   const relation: Relation = isYou ? { ...STRANGER } : await relationWith(db, viewerId, target.id);
-  const access = accessTo(target, viewerId, relation);
+  const access = accessTo(target, viewerId, relation, isYou ? NO_CLUB : await clubTieWith(db, viewerId, target.id));
   const [friends, followers, following, bets] = await Promise.all([
     db.friendship.count({ where: { status: 'ACCEPTED', OR: [{ requesterId: target.id }, { addresseeId: target.id }] } }),
     db.follow.count({ where: { followeeId: target.id, status: 'ACCEPTED' } }),

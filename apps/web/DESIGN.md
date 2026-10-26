@@ -30,6 +30,8 @@ colors:
   yellow-edge-light: "#6b5200"
   ticket: "#ffcd16"
   warn-text-light: "#6b5200"
+  you-tint-dark: "rgb(255 210 0 / 0.1)"
+  you-tint-light: "rgb(255 210 0 / 0.22)"
 typography:
   display:
     fontFamily: "'Barlow Condensed', 'Arial Narrow', ui-sans-serif, system-ui, sans-serif"
@@ -216,6 +218,32 @@ components:
     textColor: "{colors.navy}"
     typography: "{typography.label}"
     padding: "5px 12px"
+  segment-quiet-on:
+    backgroundColor: "transparent"
+    textColor: "{colors.white}"
+    typography: "{typography.label}"
+    padding: "5px 12px"
+  who-plate:
+    backgroundColor: "transparent"
+    textColor: "{colors.plate-muted-dark}"
+    rounded: "{rounded.none}"
+    padding: "2px 7px"
+  who-plate-on:
+    backgroundColor: "{colors.white}"
+    textColor: "{colors.navy-2}"
+  who-plate-on-light:
+    backgroundColor: "{colors.navy}"
+    textColor: "{colors.white}"
+  player-initial:
+    backgroundColor: "{colors.yellow}"
+    textColor: "{colors.navy}"
+    typography: "{typography.display}"
+    rounded: "{rounded.none}"
+    size: "44px"
+  standing-you:
+    backgroundColor: "{colors.you-tint-dark}"
+  standing-you-light:
+    backgroundColor: "{colors.you-tint-light}"
   input:
     backgroundColor: "{colors.navy-2}"
     textColor: "{colors.white}"
@@ -242,10 +270,10 @@ components:
 
 Slip Club dresses a bettor's own bets in the on-screen graphics of the game they are watching. The header is a broadcast-navy band, each bet is a slip that opens with a standing plate and a strip of one cell per pick, and every pick row ends in a plate: a flat, square, condensed-caps slab whose fill colour says hit, running or missed before the text is read. The bet slip is the unit. A bet can span several games and sports, so a game is one small line on each pick, never a strip or a section of its own. The system is shared by the web app (`apps/web`) and the extension popup (`apps/extension`), which carries the same tokens at a smaller base size.
 
-Density is high and deliberate: the screen is checked for a few seconds mid-game, mostly on a phone. Rank comes from two things only, filled plates and 2px rules. There are no rounded cards, no soft elevation between surfaces and no progress bar beside a pick; a pick's progress is a fill inside its plate, repeated once in the bet's cell strip. Fill also carries certainty: a filled green or red plate is a result that cannot change, an outlined one is a state that can still move. Light and dark follow the device. The shell (header, tabs, totals, sign-in backdrop) is navy in both themes; the page ground and the bet plates follow the theme, navy-2 with white text in dark and white with navy text in light.
+Density is high and deliberate: the screen is checked for a few seconds mid-game, mostly on a phone. Rank comes from two things only, filled plates and 2px rules. There are no rounded cards, no soft elevation between surfaces and no progress bar beside a pick; a pick's progress is a fill inside its plate, repeated once in the bet's cell strip. Fill also carries certainty: a filled green or red plate is a result that cannot change, an outlined one is a state that can still move. The theme is Light, Dark or System, chosen on the Account screen and remembered per device; System, the default, follows the device and switches when it does. The shell (header, tabs, totals, sign-in backdrop) is navy in both themes; the page ground and the bet plates follow the theme, navy-2 with white text in dark and white with navy text in light.
 
 **Key Characteristics:**
-- Navy shell in both themes; ground and plates follow the device theme.
+- Navy shell in both themes; ground and plates follow the chosen theme (Light, Dark or System).
 - Every open bet opens with a standing plate and a cell per pick, so a folded bet still shows where it stands.
 - Every pick ends in a fixed-minimum-width state plate (96px), right aligned, so states stack into a readable column.
 - Filled means final; outlined means it can still move.
@@ -263,8 +291,9 @@ Broadcast navy carries the structure, signal yellow marks what is current, and g
 - **Booth Navy** (`navy-2`, #12305a): The totals strip, the bet and panel plates in dark, and the focus ring in light.
 
 ### Secondary
-- **Signal Yellow** (`yellow`, #ffd200): Current and live. The active tab, a running plate, the "Needs one" standing plate, a pick cell in play, the filled part of a progress plate or cell, the strip on a bet whose games are all over, the warning parts of the freshness line, the waiting dot on the setup screen, cashed out, the focus ring in dark, and the primary button and chosen segment in dark.
+- **Signal Yellow** (`yellow`, #ffd200): Current and live. The active tab, a running plate, the "Needs one" standing plate, a pick cell in play, the filled part of a progress plate or cell, the strip on a bet whose games are all over, the warning parts of the freshness line, the waiting dot on the setup screen, cashed out, the focus ring in dark, and the primary button and chosen segment in dark. Also you: the initial on your player card and your placed rank plate on a club.
 - **Unfilled Yellow** (`yellow-pale`, #fff1a8): Only the not-yet-reached part of a progress plate or cell.
+- **You Tint** (`you-tint-dark` at 10%, `you-tint-light` at 22%): A wash of Signal Yellow behind your own row in a club's standings, on the hub's club plates and the club board. Your rank cell on that row takes a 2px inset ring in the yellow edge (Signal Yellow in dark, its dark-gold edge in light).
 
 ### Tertiary
 - **Hit Green** (`green`, #1fb86a): The fill of a plate or cell that has hit for good, or a bet that won, always with navy text. As a 2px outline with no fill, a yardage line reached that can still drop.
@@ -283,7 +312,7 @@ Broadcast navy carries the structure, signal yellow marks what is current, and g
 ### Named Rules
 **The Navy Shell Rule.** The header, tabs (in the header or in the phone's bottom bar), totals strip and sign-in backdrop are navy in light and dark alike. Only the ground and the plates change with the theme.
 
-**The Yellow Is Now Rule.** Yellow means current, live or waiting on the bettor. It is never decoration, and never information that is merely neutral: the minimum-bet note is muted text for that reason.
+**The Yellow Is Now Rule.** Yellow means current, live, waiting on the bettor, or you are here (your initial, your placed rank, your standings row). It is never decoration, and never information that is merely neutral: the minimum-bet note is muted text for that reason.
 
 **The Measured Yellow Rule.** A pick's plate turns yellow only for measured progress toward a line. A moneyline lead sits on a plain navy plate until the game is final.
 
@@ -326,18 +355,21 @@ The shell sits flush to the top, honouring the safe-area inset. It stacks the na
 
 Below the shell, plates stack with a 14px gap. Inside a bet the inset is 12px and rows are divided by hairlines, not gaps: head (10px 12px), cell strip (8px 12px), group label, pick rows (8px 12px), hit fold (10px 12px, at least 44px tall), foot (9px 12px). The head is a three-column grid: standing plate, title and meta, odds. A pick row is a two-column grid, the name, market and game on the left and the state on the right in a column at least 96px wide.
 
-Stat groups are grids of equal cells separated by a 1px gap that shows the rule colour through, three across, or four that fold to two under 520px.
+Stat groups are grids of equal cells separated by a 1px gap that shows the rule colour through, three across, or four that fold to two under 520px. The player card's record strip is the exception: its four short numbers stay one row on phones, with 8px cell padding.
+
+Social opens with a sub-nav of three equal segments (Hub, Leaderboard, People) stretched across the column. The People directory's four filters are equal columns too, and drop their counts under 520px. Under 520px a who-sees row stacks its label over its plates.
 
 At 760px and under, wherever the bottom tab bar shows, every control reaches a 44px minimum target (a small standalone link such as Settings grows its target with negative margins so its row keeps its height). Under 520px a notice banner wraps its buttons under its text, the leaderboard drops its wide-only columns, two-column panels become one, and the notification panel hangs full width from the header row instead of from the bell.
 
 ## Elevation & Depth
 
-Flat. Depth is tonal: navy, navy-2 and (in light) white and pale blue-grey layers, separated by 1px hairlines and 2px strong rules. Outlines are drawn as inset rings so they add no size: 1px for the quiet ones (hollow plates, chips, the idle live indicator, a waiting cell), 2px green for a held line and 3px red for a line at risk (hold and risk plates and cells).
+Flat. Depth is tonal: navy, navy-2 and (in light) white and pale blue-grey layers, separated by 1px hairlines and 2px strong rules. Outlines are drawn as inset rings so they add no size: 1px for the quiet ones (hollow plates, chips, the idle live indicator, a waiting cell, an outlined who-sees or relationship plate), 2px in the yellow edge on your rank in a club's standings, 2px green for a held line and 3px red for a line at risk (hold and risk plates and cells).
 
 ### Shadow Vocabulary
 - **Overlay drop** (`box-shadow: 0 12px 32px rgb(4 12 26 / 0.45)`): The notification panel only, the one surface that opens over other content.
 - **Inset ring** (`box-shadow: inset 0 0 0 1px currentColor`): The outline of a hollow plate, a chip, the idle live indicator, a waiting cell. A line, not a shadow.
 - **State ring** (`box-shadow: inset 0 0 0 2px` in Hit Green for hold, `3px` in Risk Red for risk): The outline of a hold or risk plate or cell. A line, not a shadow.
+- **Rule under** (`box-shadow: inset 0 -1px 0` in the hairline colour under a quiet segmented row, `inset 0 -3px 0` in the strong colour under its chosen segment): The selected state of a lower tier of choice. A line, not a shadow.
 
 ### Named Rules
 **The Two Rules Rule.** A 2px rule in the plate's strong colour (white in dark, navy in light) closes a head, opens a foot and underlines a panel or table heading. Everything else is a 1px hairline. A collapsed bet drops its 2px rules to a hairline.
@@ -394,7 +426,8 @@ A strip under the head with one equal-width cell per pick, shown when a bet has 
 ### Tabs and segments
 - **Tabs:** four equal columns, 18px condensed 700 caps, muted until hovered. The current tab is a solid yellow cell with navy text; no tab is current while the account screen is open. Focus outline is inset 4px, navy on the active tab.
 - **Phone bar:** at 760px and under the tabs are fixed to the bottom edge on navy with a hairline above, each at least 52px tall.
-- **Segmented control:** an inline row on the cell colour; the chosen segment is a filled plate in the primary button's colours.
+- **Segmented control:** an inline row on the cell colour; the chosen segment is a filled plate in the primary button's colours. Social's sub-nav, the People filters, the period picker on Analysis and the leaderboard, and the theme choice use it.
+- **Quiet segmented control:** a lower tier of choice inside a page that already has a filled sub-nav (a club's Board / Bets / Members tabs, the club's period picker, Open / Settled in its feed). No fill: a hairline runs under the row, and the chosen segment takes the full text colour over a 3px rule in the strong colour (white in dark, navy in light). It never competes with the filled segment above it.
 - **Count badge:** a red square, 18px tall, white condensed 13px, on tabs and the bell.
 
 ### Chips
@@ -403,7 +436,7 @@ A strip under the head with one equal-width cell per pick, shown when a bet has 
 ### Inputs / Fields
 - **Style:** square, 1px border in the muted colour, the plate colour as background, 16px text, 10px 12px padding (7px 10px inline). Label above in Barlow 500 13px muted. In the popup, placeholder text is the muted colour at full opacity.
 - **Focus:** 2px outline in the focus colour, offset 1px. The caret takes the focus colour through `caret-color`.
-- **Checkbox:** drawn, not native, in the web app and the popup alike. An 18px square cell: off is a 2px inset ring in muted (text colour on hover); on is the chosen segment's fill (yellow in dark, navy in light) with a 14px tick in its text colour (the `--check` token, navy or white), wiping in like a plate. Disabled at 55% opacity. Its row (the age check, a privacy switch, the popup's auto-sync) is the tap target and at least 44px tall.
+- **Checkbox:** drawn, not native, in the web app and the popup alike. An 18px square cell: off is a 2px inset ring in muted (text colour on hover); on is the chosen segment's fill (yellow in dark, navy in light) with a 14px tick in its text colour (the `--check` token, navy or white), wiping in like a plate. Disabled at 55% opacity. Its row (the age check, a privacy switch such as "Share my picks with my clubs", the popup's auto-sync) is the tap target and at least 44px tall.
 
 ### Standings tally
 A row under the totals on Open: one count per standing that has bets, in the standing order, so the screen answers "how many are alive, how many are in trouble" before any scrolling.
@@ -422,10 +455,31 @@ A row under the totals on Open: one count per standing that has bets, in the sta
 Answers four questions in order, each a section with a page-ground heading (Condensed 800, 24px, caps, 2px rule): Am I up or down, Which bets work, Funding vs fun, How close you get. Above them sit the period picker (Week, Month, All time, the same periods the leaderboard uses; remembered per device) and a row of jump links to each section, and a "How you're doing" panel: one sentence ("You're up $16.20 this week on 9 settled bets.") over three stat cells (Net, Won–lost, Return on your money) and a meta line. On wide screens a section's panels sit two to a row; a lone panel takes the row. If a refresh fails, the last figures stay with a retry banner.
 
 ### Relationship actions
-On a profile, one primary step leads (the first that adds something: accept a request, add friend, follow) and every other step waits behind a More button. Steps that end a tie (Unfollow, Unfriend, Remove follower) ask once more: the first tap turns the button into "Tap again to …" in bad-text. In the People list each row offers at most one step (Add friend); requests are accepted with "Accept" for friends and followers alike. The footnote explains the difference once: friends both agree; following is one-way. How you stand with someone is one muted phrase ("Friend · you follow each other"), not a row of chips; only Locked keeps its chip. An armed "Tap again" stands down after four seconds and is announced to screen readers; the More button and its items share one width.
+On a profile, one primary step leads (the first that adds something: accept a request, add friend, follow) and every other step waits behind a More button. Steps that end a tie (Unfollow, Unfriend, Remove follower) ask once more: the first tap turns the button into "Tap again to …" in bad-text. In the People list each row offers at most one step (Add friend); requests are accepted with "Accept" for friends and followers alike. The footnote explains the difference once: friends both agree; following is one-way. On a profile, how you stand with someone is one muted phrase ("Friend · you follow each other"), not a row of chips; only Locked keeps its chip. The People directory instead marks each row with relationship plates (see People directory). An armed "Tap again" stands down after four seconds and is announced to screen readers; the More button and its items share one width.
 
 ### Leaderboard
 Leads with where you stand ("You're 2nd of 3 this week · +3.15u", or "2 more settled bets to rank this week") above the table; an unranked row says the same ("1 more settled bet to rank"). A failed load says so with Retry. Rows centre on the name's tap target.
+
+### Social hub
+The first page of Social, at 760px: you, who sees you, then your clubs.
+- **Player card:** a panel with no padding of its own. Its head is a three-column grid (12px 14px, closed by a 2px rule): a 44px square yellow cell holding your initial in navy Condensed 800 28px caps, your name in Headline caps over a wrapping Meta line (@username and counts), and a Settings text link on the right. The same card heads another person's profile, where the body carries the relationship phrase and actions.
+- **Who sees:** rows of a 7.5em Label small heading (Account, Your picks, Real amounts) and a wrapping line of small plates, one per audience, 13px Condensed 700 caps, 2px 7px. A plate is filled with the strong neutral (white with navy-2 text in dark, navy with white text in light) when that audience sees it, and outlined in a 1px muted ring when it does not; a filled plate wipes in like a state plate. The Account row's one plate is always filled and followed by a muted note ("anyone can follow" or "you approve followers"). A legend row under a hairline shows one filled and one outlined plate and a link to Settings.
+- **Record strip:** a Label small heading with a period picker, then four stat cells (units, won–lost, ROI, best hit) that stay four across on phones.
+- **Your clubs:** a heading set on the ground (Condensed 800, 24px caps, with a muted "this week" in Barlow) over a 2px rule in the text colour, with a "New club" secondary button on the right. With no clubs, one panel explains clubs and offers "Start a club" as the primary button.
+- **Club plate:** a panel whose whole head is a button (at least 48px, 9px 14px, closed by a 2px rule; hover lifts as a bet head does): the club name in Condensed 800 18px caps with a muted member count, your rank as a small plate (yellow run plate with the ordinal once you are placed, hollow "Unranked" before), and a chevron turned to point onward. Beneath it the standings: the top three and your row, each a three-column row (rank cell, name, units in Condensed 800 18px), divided by hairlines, with a muted 12px gap line when your row sits further down. Rank cells are a 26px-minimum box in the plate cell colour, Condensed 800 16px. Your row wears the You Tint, your name in 600 and a 2px yellow-edge ring on your rank cell. The rank plate is re-keyed by rank, so a change wipes in.
+- **Requests:** when requests wait on you, a quiet notice banner (cell colour) sits under the clubs with a secondary button to People, where the requests themselves come first.
+
+### Club page
+- **Head:** a panel with the club name at 28px (Condensed 800, line-height 1) and an Invite primary button in its head that opens the share sheet where there is one and copies the link otherwise ("Link copied", announced); one Meta line under it. While you are the only member, an "Invite your people" panel follows straight away.
+- **Tabs:** Board, Bets and Members as a quiet segmented control in three equal columns.
+- **Board:** a "You're 2nd of 5 this week · +3.15u" line beside a quiet period picker, then the standings table; your row takes the You Tint and the ringed rank box, and an unranked row says how many more settled bets it needs.
+- **Bets:** a quiet Open / Settled picker, a muted min-bet note, then members' bets as ordinary bet plates, each with its owner's name above it in Condensed 700 16px caps (a link to their profile, or "You"). Other members' bets show what they pay at the $5 minimum unless they share real amounts with this club (or already with you as a friend or follower).
+- **Your sharing here:** at the top of the Members tab, one switch row, "Share my real amounts with <club>", off by default and set club by club, so sharing money with a group is always a choice made for that group. Members who share show "shares real amounts here" in the list; the hub's who-sees amounts row gains a Clubs plate ("1 of 2 clubs" when partial).
+- **Members:** the invite link panel (a read-only 13px field in the plate cell colour beside the Invite button, then "Make a new link"), the member list with join dates, and a closing panel: Club settings for the owner (rename, Delete club), Leave for everyone else. Remove, Make a new link, Leave club and Delete club all take the tap-again confirmation, with the consequence in the armed label ("Tap again: the old link stops working").
+- **Join screen:** an invite link opens a "Join {club}?" panel with a short list of what joining means (capped at 70ch), then "Join club" as the primary button beside a secondary cancel.
+
+### People directory
+A panel that lists requests waiting on you first, then a directory filtered by a segmented control of four equal columns: Friends, Following, Followers, Everyone (counts beside each above 520px). Everyone shows a search field with a leading search icon. Each row is a three-column grid: a 32px square cell in the plate cell colour holding the person's initial (Condensed 800 18px caps), the name in Barlow 600 with a muted @username and any Locked chip, and at most one action (Add friend) on the right. Under the name, relationship plates in the who-sees style at 12px: filled for a tie you both hold (Friend), outlined for one-way or waiting ("You follow", "Follows you", "Request sent", "Follow requested", "Wants to be friends", "Wants to follow"). No stats in the rows.
 
 ### Needs sync
 One state, one name, one set of bets. A bet needs sync when every game is over, Island Luck still shows it open, and live stats have not decided it (no final miss, not every pick hit). The app says "needs sync" everywhere for exactly those bets, and the header count always equals the tally count: the standing plate and tally ("Needs sync", outlined in yellow), the strip under the bet head ("Needs sync: all games are final. Open My Bets on Island Luck to update this bet."), the freshness line ("1 bet needs sync", a link to Island Luck), the notification ("Needs sync: $5.00 +1187 bet") and the notifications empty state. The bet's remaining picks sit under "Waiting on Island Luck" in place of "Still needs". A bet already dead or all hit whose games are over keeps its own standing; its strip reads "All games are final. Open My Bets on Island Luck to settle this bet." and its notification "All games over: $5.00 +1187 bet".
@@ -442,18 +496,20 @@ One state, one name, one set of bets. A bet needs sync when every game is over, 
 ### Setup screen
 Shown on Open until the first sync, in place of the totals and the list.
 - **Intro:** a Headline heading in caps and a lede, set straight on the ground.
-- **Steps:** two panels, sync from your phone and sync from a computer, each a numbered list capped at 70ch. On desktop the computer panel leads.
+- **Steps:** two panels. Sync from your phone is a numbered list capped at 70ch. "On a computer?" says the extension isn't available to download yet and sends people to their phone (this page's address in bold), with the extension steps folded behind a muted underlined "Someone gave you the extension?" disclosure. On desktop the computer panel leads, so a desktop visitor reads why to pick up their phone first.
 - **Waiting:** a 13px muted line with a 7px yellow dot saying the page is checking.
 
 ### Account screen
-Opened from the header's account button in place of the current section. One panel with a "Close" secondary button in its head, who is signed in and a "Sign out" secondary button, followed by the phone sync panel.
+Opened from the header's account button in place of the current section. One panel with a "Close" secondary button in its head, who is signed in, the email field and a "Sign out" secondary button, then the Appearance panel, the phone sync panel, the Connected devices panel and an About panel.
+- **Appearance:** a segmented control in the panel head (Light, Dark, System) over one muted line: System says it follows the device, a fixed choice says it is just on this device and the header stays navy either way. The choice is stored in `localStorage` under `sports-better:theme` (System clears it), and an inline script in `index.html` sets `data-theme` on the root before first paint so a light choice never flashes navy. Light tokens live under `:root[data-theme='light']`; each theme declares its own `color-scheme`, and the shell always declares dark.
+- **Connected devices:** two lists under small headings, devices that sync bets and sign-ins on the web, each a row with the name in Barlow 600 over a muted meta line, divided by hairlines, with secondary buttons on the right. A phone key offers Replace and Remove; a web sign-in offers Sign out, the current one marked with a "This browser" chip, and a closing "Sign out everywhere else". Every one of these asks once more: the first tap turns the button into "Tap again to …", announced to screen readers, as in Relationship actions. After a Replace, a cell-coloured note holds the new install link.
 
 ### Charts
 - **Rate bar:** a 16px track in the rule colour with a square fill in the strong colour and a 3px red marker for what the odds implied.
 - **Columns:** square bars in the strong colour on a 2px baseline, value above in condensed 700.
 
 ### Extension popup
-A 300px surface at a 13px base: navy header band with the icon and name at 22px, one plate with a 2px-ruled "Last sync" row and a three-cell stat grid, a full-width primary button, then settings behind a native disclosure. Buttons are full width; tokens and themes match the web app.
+A 300px surface at a 13px base: navy header band with the icon and name at 22px, one plate with a 2px-ruled "Last sync" row and a three-cell stat grid, a full-width primary button, then settings behind a native disclosure. Buttons are full width; tokens match the web app. The popup has no theme choice of its own: it follows the device's light or dark setting.
 
 ## Do's and Don'ts
 
@@ -464,13 +520,15 @@ A 300px surface at a 13px base: navy header band with the icon and name at 22px,
 - **Do** show a pick's game as one Meta line on the pick, with a red dot while it is live.
 - **Do** show progress as a fill inside the plate, Signal Yellow to Unfilled Yellow at a hard stop, with the count as the plate's text.
 - **Do** fold the picks that already hit to one line that expands on tap.
-- **Do** keep the shell navy in both themes and let the ground and plates follow the device.
+- **Do** keep the shell navy in both themes and let the ground and plates follow the chosen theme; set the theme on the root before first paint.
 - **Do** put the section tabs in a fixed bottom bar at 760px and under, with at least 52px of height each.
 - **Do** put navy text on yellow and green fills and white text on red and navy fills.
 - **Do** use the good, bad and warn text tokens for coloured text on a surface, per theme.
 - **Do** separate with rules: 2px in the strong colour to close a head or open a foot, 1px hairlines for everything else.
 - **Do** set labels, numbers and states in Barlow Condensed caps, and names and sentences in Barlow.
 - **Do** keep controls at a 44px minimum target under 520px.
+- **Do** mark you in a club's standings with the You Tint and a 2px yellow-edge ring on your rank, and nothing else.
+- **Do** give a lower tier of choice the quiet rule-under segmented control when a filled segmented control already sits above it.
 - **Do** say "picks", show American odds and Nassau time.
 
 ### Don't:
@@ -479,7 +537,7 @@ A 300px surface at a 13px base: navy header band with the icon and name at 22px,
 - **Don't** fill a plate red, or call a bet dead, on a stat that can still move. Only a final miss is dead.
 - **Don't** give a game its own strip, header or section inside a bet.
 - **Don't** put a shadow on anything in the page flow; only the notification panel has one.
-- **Don't** use yellow for decoration or for neutral information.
+- **Don't** use yellow for decoration or for neutral information. A who-sees or relationship plate that is on fills with the strong neutral, never yellow or green.
 - **Don't** turn a pick's plate yellow for a lead that is not measured progress toward a line.
 - **Don't** use a fill colour as text on a surface, or coloured text on a fill.
 - **Don't** animate anything other than a plate's horizontal wipe and the chevron's turn, and nothing under reduced motion.

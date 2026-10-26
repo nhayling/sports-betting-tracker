@@ -23,9 +23,10 @@ export const roiPct = (r: number | null) => (r === null ? '—' : `${r > 0 ? '+'
 export const unitsClass = (u: number) => (u > 0 ? 'good' : u < 0 ? 'bad' : '');
 const signedMoney = (minor: number) => `${minor > 0 ? '+' : minor < 0 ? '−' : ''}${money(Math.abs(minor))}`;
 
-export function PeriodPicker({ value, onChange }: { value: Period; onChange: (p: Period) => void }) {
+/** `quiet`: a lower tier under another choice, marked by a rule instead of a fill. */
+export function PeriodPicker({ value, onChange, quiet }: { value: Period; onChange: (p: Period) => void; quiet?: boolean }) {
   return (
-    <div className="segmented" role="group" aria-label="Period">
+    <div className={quiet ? 'segmented quiet' : 'segmented'} role="group" aria-label="Period">
       {PERIODS.map(([p, label]) => (
         <button key={p} className={value === p ? 'on' : ''} aria-pressed={value === p} onClick={() => onChange(p)}>
           {label}

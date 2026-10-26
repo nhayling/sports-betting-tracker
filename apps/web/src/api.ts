@@ -1,6 +1,6 @@
 import type { BetsView } from '../../api/src/views/betsViewTypes';
 import type { Analysis } from '../../api/src/analysis/types';
-import type { LeaderboardView, Period, Person, ProfileView, Relation, SocialMe, SocialSettings } from '../../api/src/social/types';
+import type { ClubFeedItem, ClubInvite, ClubSummary, ClubView, LeaderboardView, Period, Person, ProfileView, Relation, SocialMe, SocialSettings } from '../../api/src/social/types';
 
 export type * from '../../api/src/views/betsViewTypes';
 export type * from '../../api/src/analysis/types';
@@ -52,6 +52,29 @@ export const register = (token: string, username: string, password: string, emai
 /** A personal install link for the phone userscript. It contains a sign-in token. */
 export const createPhoneSyncLink = () => post<{ url: string }>('/api/phone-sync');
 
+/** An extension or phone that can sync to your account. */
+export interface Device {
+  id: string;
+  kind: 'phone' | 'extension';
+  /** The extension's browser User-Agent, or "Phone userscript". Never shown raw. */
+  label: string | null;
+  createdAt: string;
+  /** Refreshed about once an hour. */
+  lastUsedAt: string | null;
+}
+/** A web sign-in. */
+export interface WebSession {
+  id: string;
+  userAgent: string | null;
+  createdAt: string;
+  lastSeenAt: string;
+  current: boolean;
+}
+export const fetchDevices = () => get<{ devices: Device[]; sessions: WebSession[] }>('/api/devices');
+export const removeDevice = (id: string) => del<{ removed: true }>(`/api/devices/${encodeURIComponent(id)}`);
+export const signOutSession = (id: string) => del<{ signedOut: number }>(`/api/devices/sessions/${encodeURIComponent(id)}`);
+export const signOutOthers = () => post<{ signedOut: number }>('/api/devices/sessions/revoke-others');
+
 export const fetchBets = (view: 'open' | 'settled') => get<BetsView>(`/api/bets?view=${view}`);
 export const fetchPollerStatus = () => get<PollerStatus>('/api/live/status');
 
@@ -92,3 +115,22 @@ export const fetchProfileBets = (username: string, view: 'open' | 'settled') =>
 export type Tie = 'friends' | 'follows' | 'followers';
 export const addTie = (tie: Tie, username: string) => post<{ relation: Relation }>(`/api/social/${tie}/${person(username)}`);
 export const removeTie = (tie: Tie, username: string) => del<{ relation: Relation }>(`/api/social/${tie}/${person(username)}`);
+
+// ── Clubs ────────────────────────────────────────────────────────────
+
+const club = (id: string) => `/api/clubs/${encodeURIComponent(id)}`;
+
+export const fetchClubs = (period: Period) => get<{ clubs: ClubSummary[] }>(`/api/clubs?period=${period}`);
+export const createClub = (name: string) => post<{ id: string }>('/api/clubs', { name });
+export const fetchClub = (id: string, period: Period) => get<ClubView>(`${club(id)}?period=${period}`);
+export const fetchClubFeed = (id: string, view: 'open' | 'settled') => get<{ items: ClubFeedItem[]; hidden: number }>(`${club(id)}/bets?view=${view}`);
+export const renameClub = (id: string, name: string) => patch<{ name: string }>(club(id), { name });
+export const resetClubInvite = (id: string) => post<{ inviteCode: string }>(`${club(id)}/invite`);
+export const setClubSharing = (id: string, shareAmounts: boolean) => patch<{ shareAmounts: boolean }>(`${club(id)}/membership`, { shareAmounts });
+export const leaveClub = (id: string) => del<{ left: true }>(`${club(id)}/membership`);
+export const removeClubMember = (id: string, username: string) => del<{ removed: true }>(`${club(id)}/members/${person(username)}`);
+export const deleteClub = (id: string) => del<{ deleted: true }>(club(id));
+export const fetchClubInvite = (code: string) => get<ClubInvite>(`/api/clubs/invites/${encodeURIComponent(code)}`);
+export const joinClub = (code: string) => post<{ id: string }>(`/api/clubs/invites/${encodeURIComponent(code)}`);
+/** The link members share: it opens the club's join screen in the app. */
+export const clubInviteUrl = (code: string) => `${location.origin}/#social/join/${code}`;

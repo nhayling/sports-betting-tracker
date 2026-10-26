@@ -320,7 +320,10 @@ model User {
   /// Adds this person's net winnings next to their units on the leaderboard.
   shareAmountsLeaderboard Boolean @default(false)
   showOnLeaderboard       Boolean @default(true)
+  /// Members of your clubs see your picks, odds and results (always at the minimum stake).
+  sharePicksClubs         Boolean @default(true)
 
+  clubMemberships        ClubMember[]
   friendRequestsSent     Friendship[] @relation("FriendRequester")
   friendRequestsReceived Friendship[] @relation("FriendAddressee")
   following              Follow[]     @relation("Follower")
@@ -361,6 +364,36 @@ model Follow {
 
   @@unique([followerId, followeeId])
   @@index([followeeId])
+}
+
+// ── Clubs. Invite-only groups (a league, a friend group) with their own board and a feed of members' bets. ──
+
+enum ClubRole {
+  OWNER
+  MEMBER
+}
+
+model Club {
+  id         String       @id @default(uuid())
+  name       String
+  /// The join link's code. Any member can share it; the owner can replace it, which kills the old link.
+  inviteCode String       @unique
+  createdAt  DateTime     @default(now())
+  members    ClubMember[]
+}
+
+model ClubMember {
+  clubId   String
+  club     Club     @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  userId   String
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role     ClubRole @default(MEMBER)
+  /// This member's real amounts reach this club's other members. Off until they switch it on, club by club.
+  shareAmounts Boolean @default(false)
+  joinedAt DateTime @default(now())
+
+  @@id([clubId, userId])
+  @@index([userId])
 }
 
 /// A token the extension gets by signing in, sent as "Authorization: Bearer <token>".

@@ -12,6 +12,7 @@ import {
   pendingRequests,
   relationWith,
   removeFollow,
+  clubTieWith,
   removeFriend,
   requestFriend,
   settingsOf,
@@ -21,7 +22,7 @@ import { PERIODS, type Period, type SocialMe, type SocialSettings } from '../soc
 import { asSeenByOthers, loadBetsView } from '../views/betsView';
 
 const MAX_DISPLAY_NAME = 40;
-const SWITCHES = ['locked', 'shareAmountsFriends', 'shareAmountsFollowers', 'shareAmountsLeaderboard', 'showOnLeaderboard'] as const;
+const SWITCHES = ['locked', 'shareAmountsFriends', 'shareAmountsFollowers', 'shareAmountsLeaderboard', 'showOnLeaderboard', 'sharePicksClubs'] as const;
 
 /**
  * Profiles, friends, followers, the leaderboard and privacy settings.
@@ -181,7 +182,7 @@ export function socialRouter(db: Db): Router {
       res.json(bets);
       return;
     }
-    const access = accessTo(user, me, await relationWith(db, me, user.id));
+    const access = accessTo(user, me, await relationWith(db, me, user.id), await clubTieWith(db, me, user.id));
     if (!access.bets) {
       res.status(403).json({ error: user.locked ? 'This account is locked: only friends and approved followers can see its bets' : 'Follow them or become friends to see their bets' });
       return;

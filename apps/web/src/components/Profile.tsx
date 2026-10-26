@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
-import { addTie, fetchProfile, fetchProfileBets, removeTie, SignedOutError, type BetsView, type Period, type ProfileView, type Tie, type UnitStats } from '../api';
+import { useCallback, useEffect, useState, type ReactNode } from 'react';
+import { addTie, fetchProfile, fetchProfileBets, removeTie, SignedOutError, type BetsView, type Period, type ProfileView, type SocialSettings, type Tie, type UnitStats } from '../api';
 import { americanOdds, money, units } from '../format';
 import { CouponCard } from './CouponCard';
 import { Icon } from './Icon';
@@ -9,29 +9,28 @@ import { RelationActions, relationPhrase } from './People';
 /** A friend's open bets move with the games, so keep them fresh while you watch. */
 const REFRESH_MS = 30_000;
 /** "2 followers", kept together when the line wraps. */
-const count = (n: number, one: string, many = `${one}s`) => `${n}\u00a0${n === 1 ? one : many}`;
+const count = (n: number, one: string, many = `${one}s`) => `${n} ${n === 1 ? one : many}`;
 
-/** Someone's profile: who they are to you, their record in units, and their bets if they've let you in. */
+/** Someone else's profile: who they are to you, their record in units, and their bets if they've let you in. */
 export function Profile({
   username,
   youLocked,
   onBack,
-  onSettings,
+  backLabel = 'Back',
   onChanged,
   onSignedOut,
 }: {
   username: string;
   /** Your own account is locked, so you can remove followers. */
   youLocked: boolean;
-  onBack?: () => void;
-  onSettings: () => void;
+  onBack: () => void;
+  backLabel?: string;
   onChanged: () => void;
   onSignedOut: () => void;
 }) {
   const [profile, setProfile] = useState<ProfileView | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
-  const [period, setPeriod] = useState<Period>('all');
   const [betsTab, setBetsTab] = useState<'open' | 'settled'>('open');
   const [bets, setBets] = useState<BetsView | null>(null);
 
@@ -49,7 +48,6 @@ export function Profile({
     void load();
   }, [load]);
 
-  // Your own bets live in the Open and Settled tabs.
   const showBets = !!profile && profile.canSeeBets && !profile.isYou;
   useEffect(() => {
     setBets(null);
@@ -77,22 +75,26 @@ export function Profile({
     }
   };
 
+  const phrase = profile && relationPhrase(profile.relation);
   return (
     <div className="analysis">
-      {onBack && (
-        <button className="link back" onClick={onBack}>
-          <Icon name="back" />
-          Back
-        </button>
-      )}
+      <button className="link back" onClick={onBack}>
+        <Icon name="back" />
+        {backLabel}
+      </button>
       {error && <p className="banner error">{error}</p>}
       {!profile && !error && <p className="muted center">Loading…</p>}
-      {profile && <ProfileCard profile={profile} youLocked={youLocked} period={period} onPeriod={setPeriod} busy={busy} onAct={act} onSettings={onSettings} />}
+      {profile && (
+        <PlayerCard profile={profile}>
+          {phrase && <p className="relation">{phrase}</p>}
+          <RelationActions relation={profile.relation} theirLocked={profile.locked} youLocked={youLocked} busy={busy} onAct={act} />
+        </PlayerCard>
+      )}
       {profile && !profile.isYou && !profile.canSeeBets && (
         <p className="muted center">
           {profile.locked
-            ? `This account is locked. Only ${nameOf(profile)}’s friends and approved followers can see their bets.`
-            : `Follow ${nameOf(profile)} or become friends to see their bets.`}
+            ? `This account is locked. Only ${nameOf(profile)}’s friends, approved followers and clubs can see their bets.`
+            : `Follow ${nameOf(profile)}, become friends or share a club to see their bets.`}
         </p>
       )}
       {showBets && (
@@ -122,88 +124,67 @@ export function Profile({
   );
 }
 
-export function ProfileCard({
-  profile: p,
-  youLocked,
-  period,
-  onPeriod,
-  busy,
-  onAct,
-  onSettings,
-}: {
-  profile: ProfileView;
-  youLocked: boolean;
-  period: Period;
-  onPeriod: (p: Period) => void;
-  busy: boolean;
-  onAct: (action: 'add' | 'remove', tie: Tie) => void;
-  onSettings: () => void;
-}) {
+/**
+ * A person as a lower-third: initial, name and counts, then their record in
+ * units. `children` sits under the name (how you stand with them and what you
+ * can do, or on your own card, who sees what); `aside` sits at the head's right.
+ */
+export function PlayerCard({ profile: p, aside, children }: { profile: ProfileView; aside?: ReactNode; children?: ReactNode }) {
+  const [period, setPeriod] = useState<Period>('all');
   const joined = new Date(p.joinedAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'America/Nassau' });
-  const phrase = relationPhrase(p.relation);
   return (
-    <section className="panel profile">
-      <div className="panel-head">
-        <h2 className="profile-name">
-          {nameOf(p)}
-          {p.locked && (
-            <span className="chip">
-              <Icon name="lock" /> Locked
-            </span>
-          )}
-        </h2>
-        {p.isYou && (
-          <button className="link" onClick={onSettings}>
-            Settings
-          </button>
-        )}
+    <section className="panel player">
+      <div className="player-head">
+        <span className="player-initial" aria-hidden="true">
+          {nameOf(p).charAt(0)}
+        </span>
+        <div className="player-who">
+          <h2 className="profile-name">
+            {nameOf(p)}
+            {p.locked && (
+              <span className="chip">
+                <Icon name="lock" /> Locked
+              </span>
+            )}
+          </h2>
+          <p className="muted small player-meta">
+            {[`@${p.username}`, `joined ${joined}`, count(p.counts.friends, 'friend'), count(p.counts.followers, 'follower'), count(p.counts.following, 'following', 'following')].map((part) => (
+              <span key={part}>{part}</span>
+            ))}
+          </p>
+        </div>
+        {aside}
       </div>
-      <p className="muted small">
-        @{p.username} · Joined {joined} · {count(p.counts.friends, 'friend')} · {count(p.counts.followers, 'follower')} · {count(p.counts.following, 'following', 'following')}
-      </p>
-
-      {p.isYou ? (
-        <p className="muted small">
-          {p.locked
-            ? 'This is your profile. Your account is locked: only friends and followers you approve can see your picks, odds and results.'
-            : 'This is your profile. Your account is open: your friends, and anyone who follows you, can see your picks, odds and results.'}{' '}
-          They see your real amounts only where you’ve switched them on.
-        </p>
-      ) : (
-        <>
-          {phrase && <p className="relation">{phrase}</p>}
-          <RelationActions relation={p.relation} theirLocked={p.locked} youLocked={youLocked} busy={busy} onAct={onAct} />
-        </>
-      )}
-
+      {children && <div className="player-body">{children}</div>}
       {p.stats ? (
-        <>
-          <div className="panel-head record-head">
+        <div className="player-record">
+          <div className="record-head">
             <h3>Record</h3>
-            <PeriodPicker value={period} onChange={onPeriod} />
+            <PeriodPicker value={period} onChange={setPeriod} />
           </div>
           <Record stats={p.stats[period]} />
-        </>
+        </div>
       ) : (
-        <p className="muted small">{nameOf(p)} keeps their record private.</p>
+        <p className="muted small player-body">{nameOf(p)} keeps their record private.</p>
       )}
     </section>
   );
 }
 
 function Record({ stats: s }: { stats: UnitStats }) {
-  if (s.bets === 0) return <p className="muted small">No settled bets in this period.</p>;
+  if (s.bets === 0) return <p className="muted small record-empty">No settled bets in this period.</p>;
   return (
-    <div className="summary four">
+    <div className="summary four record">
       <div className="stat">
         <span className={`stat-value ${unitsClass(s.units)}`}>{units(s.units)}</span>
-        <span className="stat-label">Units · 1 bet = 1 unit</span>
+        <span className="stat-label">Units</span>
       </div>
       <div className="stat">
         <span className="stat-value">
           {s.won}–{s.lost}
+          {s.other > 0 && <span className="stat-extra" title={`${s.other} cashed out`}> +{s.other}</span>}
         </span>
-        <span className="stat-label">Won–lost{s.other > 0 && ` · ${s.other} cashed out`}</span>
+        <span className="stat-label">Won–lost</span>
       </div>
       <div className="stat">
         <span className="stat-value">{roiPct(s.roi)}</span>
@@ -213,6 +194,68 @@ function Record({ stats: s }: { stats: UnitStats }) {
         <span className="stat-value">{s.bestHitOddsRaw ? americanOdds(s.bestHitOddsRaw) : '—'}</span>
         <span className="stat-label">Best hit</span>
       </div>
+    </div>
+  );
+}
+
+/**
+ * Who sees your picks and who sees your real amounts, as two rows of plates:
+ * filled for an audience that sees it, hollow for one that doesn't. Replaces
+ * the paragraph that used to say the same thing.
+ */
+export function WhoSees({ settings: s, clubAmounts, onSettings }: { settings: SocialSettings; /** Clubs you share real amounts with, of how many. */ clubAmounts?: { on: number; of: number }; onSettings: () => void }) {
+  const followers = s.locked ? 'Approved followers' : 'Followers';
+  const picks: Array<[string, boolean]> = [
+    ['Friends', true],
+    [followers, true],
+    ['Clubs', s.sharePicksClubs],
+  ];
+  const amounts: Array<[string, boolean]> = [
+    ['Friends', s.shareAmountsFriends],
+    [followers, s.shareAmountsFollowers],
+    ...(clubAmounts && clubAmounts.of > 0
+      ? [[clubAmounts.on > 0 && clubAmounts.on < clubAmounts.of ? `${clubAmounts.on} of ${clubAmounts.of} clubs` : 'Clubs', s.sharePicksClubs && clubAmounts.on > 0] as [string, boolean]]
+      : []),
+    ['Leaderboard', s.shareAmountsLeaderboard],
+  ];
+  const row = (label: string, list: Array<[string, boolean]>) => (
+    <div className="who-row">
+      <span className="who-label">{label}</span>
+      <ul className="who-plates">
+        {list.map(([who, sees]) => (
+          <li key={who} className={sees ? 'who on' : 'who'}>
+            {who}
+            <span className="sr-only">{sees ? ': yes' : ': no'}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+  return (
+    <div className="who-sees">
+      <div className="who-row">
+        <span className="who-label">Account</span>
+        <ul className="who-plates">
+          <li className="who on">
+            {s.locked && <Icon name="lock" />} {s.locked ? 'Locked' : 'Open'}
+          </li>
+          <li className="who-note">{s.locked ? 'you approve followers' : 'anyone can follow'}</li>
+        </ul>
+      </div>
+      {row('Your picks', picks)}
+      {row('Real amounts', amounts)}
+      <p className="who-legend">
+        <span className="who on" aria-hidden="true">
+          Sees it
+        </span>
+        <span className="who" aria-hidden="true">
+          $5 min
+        </span>
+        <span className="sr-only">Filled: they see it. Outlined: they don’t; amounts show at the $5 minimum.</span>
+        <button className="link" onClick={onSettings}>
+          Change
+        </button>
+      </p>
     </div>
   );
 }

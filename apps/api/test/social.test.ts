@@ -125,7 +125,7 @@ describe('rank', () => {
 });
 
 describe('accessTo', () => {
-  const target = { id: 'noah', shareAmountsFriends: false, shareAmountsFollowers: false, showOnLeaderboard: true };
+  const target = { id: 'noah', shareAmountsFriends: false, shareAmountsFollowers: false, showOnLeaderboard: true, sharePicksClubs: true };
   const rel = (r: Partial<Relation>): Relation => ({ friend: 'NONE', following: 'NONE', followsYou: 'NONE', ...r });
 
   it('shows a stranger the leaderboard record and nothing else', () => {
@@ -148,6 +148,15 @@ describe('accessTo', () => {
     // Someone who is both gets the more generous of the two.
     expect(accessTo({ ...target, shareAmountsFriends: true }, 'x', rel({ friend: 'FRIENDS', following: 'FOLLOWING' })).amounts).toBe(true);
     expect(accessTo({ ...target, shareAmountsFollowers: true }, 'x', rel({ friend: 'FRIENDS' })).amounts).toBe(false);
+  });
+
+  it('shows clubmates the picks and record, amounts only where they switched them on for a shared club', () => {
+    const hidden = { ...target, showOnLeaderboard: false, shareAmountsFriends: true, shareAmountsFollowers: true };
+    const club = { member: true, amounts: false };
+    expect(accessTo(hidden, 'x', rel({}), club)).toEqual({ stats: true, bets: true, amounts: false });
+    expect(accessTo(hidden, 'x', rel({}), { member: true, amounts: true })).toEqual({ stats: true, bets: true, amounts: true });
+    // With picks kept out of clubs, a club's amounts switch opens nothing either.
+    expect(accessTo({ ...hidden, sharePicksClubs: false }, 'x', rel({}), { member: true, amounts: true })).toEqual({ stats: true, bets: false, amounts: false });
   });
 
   it('shows you everything of your own', () => {

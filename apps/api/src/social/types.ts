@@ -12,6 +12,8 @@
  *  - The leaderboard ranks on units, which can't be turned back into dollars.
  */
 
+import type { CouponView } from '../views/betsViewTypes';
+
 export type Period = 'week' | 'month' | 'all';
 export const PERIODS: readonly Period[] = ['week', 'month', 'all'];
 
@@ -60,6 +62,8 @@ export interface SocialSettings {
   shareAmountsFollowers: boolean;
   shareAmountsLeaderboard: boolean;
   showOnLeaderboard: boolean;
+  /** Members of your clubs see your picks, odds and results, at the minimum stake. */
+  sharePicksClubs: boolean;
 }
 
 export interface SocialMe {
@@ -67,6 +71,15 @@ export interface SocialMe {
   settings: SocialSettings;
   /** Friend requests, and follow requests if your account is locked, waiting on you. */
   pendingRequests: number;
+}
+
+/** A standings row: one person's record in units for a period. */
+export interface StandingRow extends UnitStats {
+  username: string;
+  displayName: string | null;
+  isYou: boolean;
+  /** null until they have MIN_BETS settled bets in the period. */
+  rank: number | null;
 }
 
 export interface LeaderboardRow extends UnitStats {
@@ -100,4 +113,67 @@ export interface ProfileView {
   canSeeBets: boolean;
   /** False = their bets come to you at the minimum stake, not what they staked. */
   canSeeAmounts: boolean;
+}
+
+// ── Clubs ────────────────────────────────────────────────────────────
+
+export type ClubRole = 'OWNER' | 'MEMBER';
+
+/** A club as it appears on your hub: its leaders and you, for one period. */
+export interface ClubSummary {
+  id: string;
+  name: string;
+  role: ClubRole;
+  /** You share real amounts with this club. */
+  youShareAmounts: boolean;
+  memberCount: number;
+  /** The top three, then your row if you're not among them. */
+  rows: StandingRow[];
+  /** Your row, also in `rows`. */
+  you: StandingRow;
+}
+
+export interface ClubMemberView {
+  username: string;
+  displayName: string | null;
+  role: ClubRole;
+  joinedAt: string;
+  isYou: boolean;
+  /** Their picks reach the club feed. */
+  sharesPicks: boolean;
+  /** Their real amounts reach this club's members. */
+  sharesAmounts: boolean;
+}
+
+export interface ClubView {
+  id: string;
+  name: string;
+  role: ClubRole;
+  /** Your real amounts reach this club's members. Off until you switch it on. */
+  youShareAmounts: boolean;
+  createdAt: string;
+  inviteCode: string;
+  period: Period;
+  minBets: number;
+  /** Every member, ranked like the leaderboard. Joining a club puts your units on its board. */
+  board: StandingRow[];
+  members: ClubMemberView[];
+}
+
+/** What an invite link shows before you join. */
+export interface ClubInvite {
+  id: string;
+  name: string;
+  memberCount: number;
+  isMember: boolean;
+}
+
+/** One bet in a club's feed, with whose it is. */
+export interface ClubFeedItem {
+  username: string;
+  displayName: string | null;
+  isYou: boolean;
+  coupon: CouponView;
+  /** Set when this bet is shown at the minimum stake instead of what was staked. */
+  minBetMinor?: number;
 }

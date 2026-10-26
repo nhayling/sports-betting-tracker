@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { checkInvite, register } from '../api';
 import { AgeCheck, FinePrint } from './Terms';
+import { ClubInviteNote } from './ClubInviteNote';
 import { Wordmark } from './Wordmark';
 
 /** Shown when the page is opened from an invite link: the invited person picks their own login. */
@@ -55,6 +56,7 @@ export function Register({ token, onRegistered, onCancel }: { token: string; onR
     <div className="app auth">
       <form className="sign-in" onSubmit={submit}>
         <h1>Create your account</h1>
+        <ClubInviteNote>You’ve been invited to a club too. Once your account is made, you’ll go straight to it.</ClubInviteNote>
         <p className="muted small">Slip Club copies your Island Luck bets and tracks every pick against live stats.</p>
         <label>
           Username

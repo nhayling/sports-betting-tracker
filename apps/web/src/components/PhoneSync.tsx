@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { createPhoneSyncLink } from '../api';
 
 /** Setup steps for syncing from a phone browser, with a personal install link for the userscript. */
-export function PhoneSync() {
+export function PhoneSync({ onCreated }: { onCreated?: () => void }) {
   const [url, setUrl] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -12,6 +12,7 @@ export function PhoneSync() {
     setError(null);
     try {
       setUrl((await createPhoneSyncLink()).url);
+      onCreated?.();
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
     } finally {

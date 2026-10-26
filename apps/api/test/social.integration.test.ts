@@ -322,6 +322,7 @@ describe.skipIf(!hasTestDb)('social against Postgres', () => {
       shareAmountsFollowers: false,
       shareAmountsLeaderboard: false,
       showOnLeaderboard: true,
+      sharePicksClubs: true,
     });
   });
 
