@@ -42,6 +42,29 @@ function fraction(p: PickView): number {
 const nb = (s: string) => s.replace(/ /g, '\u00a0');
 
 type Row = { pick: PickView; game: GameView; state: PickState };
+/** A pick, or a same-game bet builder: Kambi prices and settles a builder's picks as one. */
+type Unit = { key: string; rows: Row[]; group: number | null; state: PickState };
+
+/** Picks in the order the open list asks for them, so a builder's own picks read the same way. */
+const ROW_ORDER: PickState[] = ['missed', 'risk', 'running', 'reached', 'waiting', 'hit', 'void'];
+/** A builder's state: any miss sinks it, it runs while any pick does, and it's done only when every pick is. */
+const GROUP_ORDER: PickState[] = ['missed', 'risk', 'running', 'waiting', 'reached', 'hit', 'void'];
+
+function units(rows: Row[]): Unit[] {
+  const out: Unit[] = [];
+  for (const r of rows) {
+    const g = r.pick.betBuilderGroup;
+    const u = g === null ? undefined : out.find((u) => u.group === g);
+    if (u) u.rows.push(r);
+    else out.push({ key: r.pick.id, rows: [r], group: g, state: r.state });
+  }
+  for (const u of out) {
+    if (u.rows.length === 1) u.group = null;
+    u.state = GROUP_ORDER.find((s) => u.rows.some((r) => r.state === s)) ?? u.state;
+    u.rows.sort((a, b) => ROW_ORDER.indexOf(a.state) - ROW_ORDER.indexOf(b.state));
+  }
+  return out;
+}
 
 /**
  * `minBetMinor`: someone else's bet whose owner doesn't share amounts. Its money
@@ -67,10 +90,28 @@ export function CouponCard({ coupon: c, minBetMinor, latest, fresh = false }: { 
   const picksId = `picks-${c.id}`;
 
   const rows: Row[] = c.games.flatMap((game) => game.picks.map((pick) => ({ pick, game, state: pickState(pick, game) })));
+  const all = units(rows);
   // In the order asked for, so the reason a bet is at risk is its first row.
-  const of = (...states: PickState[]) => states.flatMap((s) => rows.filter((r) => r.state === s));
+  const of = (...states: PickState[]) => states.flatMap((s) => all.filter((u) => u.state === s));
   const hit = of('hit');
-  const list = (rs: Row[]) => rs.map((r) => <PickRow key={r.pick.id} pick={r.pick} game={r.game} live={open} state={r.state} />);
+  // Each price on the card is one thing the bet needs; a bet with one has it in the head already.
+  const priced = all.length > 1;
+  const row = (r: Row, odds: number | null) => <PickRow key={r.pick.id} pick={r.pick} game={r.game} live={open} state={r.state} odds={odds} />;
+  const list = (us: Unit[]) =>
+    us.map((u) =>
+      u.group === null ? (
+        row(u.rows[0]!, priced ? u.rows[0]!.pick.oddsRaw : null)
+      ) : (
+        <section key={u.key} className="sgp" aria-label={`Same game parlay, ${u.rows.length} picks`}>
+          <div className="sgp-head">
+            <span>Same game parlay</span>
+            {priced && u.rows[0]!.pick.oddsRaw && <span className="pick-odds">{americanOdds(u.rows[0]!.pick.oddsRaw)}</span>}
+          </div>
+          {u.rows.map((r) => row(r, null))}
+        </section>
+      ),
+    );
+  const pickName = (r: Row) => r.pick.participantName ?? r.pick.selectionLabel;
   // Soccer leagues come with their country ("England / Premier League"); the header shows the league.
   const leagues = [...new Set(c.games.map((g) => g.league?.split(' / ').at(-1)).filter(Boolean))].join(' + ');
   const plate = open ? STANDING[standing.state] : null;
@@ -105,7 +146,7 @@ export function CouponCard({ coupon: c, minBetMinor, latest, fresh = false }: { 
       {/* One cell per pick, so a folded bet still shows where it stands. */}
       {rows.length > 1 && (
         <div className="cells" aria-hidden>
-          {of(...CELL_ORDER).map((r) => (
+          {CELL_ORDER.flatMap((s) => rows.filter((r) => r.state === s)).map((r) => (
             <i key={r.pick.id} className={CELL[r.state]} style={r.state === 'running' ? ({ '--at': `${fraction(r.pick) * 100}%` } as CSSProperties) : undefined} />
           ))}
         </div>
@@ -140,7 +181,7 @@ export function CouponCard({ coupon: c, minBetMinor, latest, fresh = false }: { 
                     <Icon name="chevron" />
                   </span>
                   <span>
-                    <strong>{hit.length} hit:</strong> {hit.map((r) => r.pick.participantName ?? r.pick.selectionLabel).join(' · ')}
+                    <strong>{hit.flatMap((u) => u.rows).length} hit:</strong> {hit.map((u) => u.rows.map(pickName).join(' + ')).join(' · ')}
                   </span>
                 </button>
                 {showHit && list(hit)}
@@ -149,7 +190,7 @@ export function CouponCard({ coupon: c, minBetMinor, latest, fresh = false }: { 
             {list(of('void'))}
           </>
         ) : (
-          list(rows)
+          list(all)
         )}
       </div>
 

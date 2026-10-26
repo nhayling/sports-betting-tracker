@@ -303,6 +303,7 @@ function couponView(c: CouponRow, bet: CouponBet<CouponRow['legs'][number]>, sta
         line,
         status: s.status,
         betBuilderGroup: leg.selectionType === 'BET_BUILDER' ? leg.externalRowIndex : null,
+        oddsRaw: leg.oddsRaw,
         type,
         display: cls?.supported ? cls.display : null,
         moneylineSide,

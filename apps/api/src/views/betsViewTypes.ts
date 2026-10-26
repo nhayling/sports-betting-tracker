@@ -90,6 +90,8 @@ export interface PickView {
   status: string;
   /** Picks in the same same-game bet builder share a group. */
   betBuilderGroup: number | null;
+  /** Odds at placement of this pick's row; a bet builder's picks share the group's one price. */
+  oddsRaw: number | null;
   type: 'STAT' | 'MONEYLINE' | 'SPREAD' | 'TOTAL' | 'TEAM_TOTAL' | 'RESULT' | 'BTTS' | 'FIGHT' | 'OTHER';
   display: 'PROGRESS' | 'BINARY' | null;
   /** Moneyline, spread, three-way result or team total: which side of the game the pick is on (spreads add `line`, the picked side's). */

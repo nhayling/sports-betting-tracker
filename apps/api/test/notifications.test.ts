@@ -25,6 +25,7 @@ const pick = (over: Partial<PickView>): PickView => ({
   line: 50,
   status: 'OPEN',
   betBuilderGroup: null,
+  oddsRaw: null,
   type: 'STAT',
   display: 'PROGRESS',
   moneylineSide: null,

@@ -1,7 +1,7 @@
 import type { CSSProperties, ReactNode } from 'react';
 import type { GameView, PickView } from '../api';
 import type { PickState } from '../betState';
-import { binaryWords, dateTime, gameMargin, marketLabel, metricUnit, quarter, totalOf, TOTAL_TYPES, UNAVAILABLE_REASONS } from '../format';
+import { americanOdds, binaryWords, dateTime, gameMargin, marketLabel, metricUnit, quarter, totalOf, TOTAL_TYPES, UNAVAILABLE_REASONS } from '../format';
 import { Icon } from './Icon';
 
 type Tone = 'hit' | 'hold' | 'run' | 'miss' | 'risk' | 'hollow' | '';
@@ -85,14 +85,22 @@ function gameLine(game: GameView): string {
   return `${score} · ${when}`;
 }
 
-/** `live` is false for settled bets: only Island Luck's result is shown then. */
-export function PickRow({ pick: p, game, live, state }: { pick: PickView; game: GameView; live: boolean; state: PickState }) {
+/** `live` is false for settled bets: only Island Luck's result is shown then. `odds`: the pick's own price, when the card shows one. */
+export function PickRow({ pick: p, game, live, state, odds }: { pick: PickView; game: GameView; live: boolean; state: PickState; odds?: number | null }) {
   const official = KAMBI_PICK[p.status];
   return (
     <div className={`pick pick-${state}`}>
       <div className="pick-what">
         <span className="pick-name">{p.participantName ?? (p.type === 'FIGHT' ? game.name : p.selectionLabel)}</span>
-        <span className="pick-market">{marketLabel(p.marketName, p.selectionLabel, p.selectionSide)}</span>
+        <span className="pick-market">
+          {marketLabel(p.marketName, p.selectionLabel, p.selectionSide)}
+          {odds ? (
+            <>
+              {' · '}
+              <span className="pick-odds">{americanOdds(odds)}</span>
+            </>
+          ) : null}
+        </span>
         <span className="pick-game">
           {game.state?.state === 'LIVE' && <span className="live-dot" aria-hidden />}
           {gameLine(game)}

@@ -158,6 +158,7 @@ describe.skipIf(!hasTestDb)('runPollCycle against Postgres', () => {
         display: 'PROGRESS',
         status: 'OPEN',
         betBuilderGroup: 0,
+        oddsRaw: expect.any(Number),
         progress: { status: 'IN_PROGRESS', current: 52, target: 100 },
       });
       // Kambi already settled the TD pick; live stats agree but are reported separately.
