@@ -28,7 +28,7 @@ import { SignUp } from './components/SignUp';
 import { Wordmark } from './components/Wordmark';
 import { Social } from './components/Social';
 import { inviteCodeIn, pendingClubInvite, rememberClubInvite } from './clubInvite';
-import { clockTime, money, relativeTime } from './format';
+import { addDays, clockTime, money, nassauDay, nassauWeekStart, relativeTime, sportName } from './format';
 
 type Tab = 'open' | 'settled' | 'analysis' | 'social';
 type BetsTab = 'open' | 'settled';
@@ -46,6 +46,23 @@ const RESULTS: Array<[Result, string]> = [
   ['LOST', 'Lost'],
   ['CASHED_OUT', 'Cashed out'],
 ];
+/** Settled bets by when they were placed, in Nassau days; the presets match Analysis. */
+type When = 'week' | 'month' | 'all' | 'custom';
+const WHENS: Array<[When, string]> = [
+  ['week', 'This week'],
+  ['month', 'This month'],
+  ['all', 'All time'],
+  ['custom', 'Custom'],
+];
+function rangeOf(when: When, custom: { from: string; to: string }): { from?: string; to?: string } {
+  const now = new Date();
+  if (when === 'week') return { from: nassauWeekStart(now) };
+  if (when === 'month') return { from: `${nassauDay(now).slice(0, 8)}01` };
+  if (when === 'custom') return { from: custom.from || undefined, to: custom.to || undefined };
+  return {};
+}
+/** The sports a bet's games are in. */
+const sportsOf = (c: CouponView) => new Set(c.games.flatMap((g) => (g.sport ? [g.sport] : [])));
 /** The tally under the totals: each standing's name and the look of its count. */
 const TALLY: Record<BetState, { label: string; tone: string }> = {
   'needs-one': { label: 'Needs one', tone: 'run' },
@@ -119,6 +136,17 @@ export function App() {
   // A notification tapped: the bet to bring into view once its list is on screen.
   const [jump, setJump] = useState<string | null>(null);
   const [result, setResult] = useState<Result>('all');
+  // The Settled filters past Won and Lost. The dates go to the server; the sport is picked from what came back.
+  const [when, setWhen] = useState<When>('all');
+  const [custom, setCustom] = useState({ from: '', to: '' });
+  const [sport, setSport] = useState<string | null>(null);
+  const [sportOnly, setSportOnly] = useState(false);
+  const { from, to } = rangeOf(when, custom);
+  const rangeKey = `${from ?? ''}..${to ?? ''}`;
+  // The range the Settled list on screen was loaded for: a different one dims it until the new list lands.
+  const [settledRange, setSettledRange] = useState(rangeKey);
+  const wantedRange = useRef(rangeKey);
+  wantedRange.current = rangeKey;
   const setTab = (t: Tab) => {
     resortNext.current = true;
     setTabState(t);
@@ -166,12 +194,17 @@ export function App() {
   const load = useCallback(async () => {
     try {
       const [bets, status, feed, me] = await Promise.all([
-        fetchBets(view),
+        fetchBets(view, view === 'settled' ? { from, to } : {}),
         fetchPollerStatus().catch(() => null),
         fetchNotifications().catch(() => null),
         fetchSocialMe().catch(() => null),
       ]);
-      setViews((v) => ({ ...v, [view]: bets }));
+      // A list for a range since changed is dropped; the newer one is on its way.
+      const key = `${from ?? ''}..${to ?? ''}`;
+      if (view !== 'settled' || wantedRange.current === key) {
+        setViews((v) => ({ ...v, [view]: bets }));
+        if (view === 'settled') setSettledRange(key);
+      }
       setPoller(status);
       if (feed) setNotes(feed);
       if (me) setSocial(me);
@@ -182,7 +215,7 @@ export function App() {
     } finally {
       setAuthKnown(true);
     }
-  }, [view]);
+  }, [view, from, to]);
 
   useEffect(() => {
     if (signedOut || invite || joining) return;
@@ -267,9 +300,45 @@ export function App() {
   }
   const data = views[view] ?? null;
   const loaded = data?.coupons ?? [];
-  const count = (r: Result) => (r === 'all' ? loaded.length : loaded.filter((c) => c.status === r).length);
-  // Totals follow the filter, so Won shows what the winners staked and returned.
-  const all = tab === 'settled' && result !== 'all' ? loaded.filter((c) => c.status === result) : loaded;
+  const settledTab = tab === 'settled';
+  // Each filter's counts follow the others, so Won 3 under Basketball means three basketball bets won.
+  const ofResult = (c: CouponView, r: Result = result) => r === 'all' || c.status === r;
+  const ofSport = (c: CouponView, s = sport, only = sportOnly) => {
+    if (!s) return true;
+    const in_ = sportsOf(c);
+    return in_.has(s) && (!only || in_.size === 1);
+  };
+  const count = (r: Result) => loaded.filter((c) => ofSport(c) && ofResult(c, r)).length;
+  const sportCount = (s: string | null, only = false) => loaded.filter((c) => ofResult(c) && ofSport(c, s, only)).length;
+  // Every sport in the dates chosen, most bets first; a chosen sport stays even when the dates leave none.
+  const sportTally = new Map<string, number>();
+  for (const c of loaded) for (const s of sportsOf(c)) sportTally.set(s, (sportTally.get(s) ?? 0) + 1);
+  if (sport && !sportTally.has(sport)) sportTally.set(sport, 0);
+  const sports = [...sportTally].sort((a, b) => b[1] - a[1] || sportName(a[0]).localeCompare(sportName(b[0]))).map(([s]) => s);
+  const filtered = sport !== null || when !== 'all';
+  // Totals follow the filters, so Won shows what the winners staked and returned.
+  const all = settledTab ? loaded.filter((c) => ofSport(c) && ofResult(c)) : loaded;
+  const hasSports = sports.length > 1 || sport !== null;
+  const sportLabel = sport && `${sportName(sport)}${sportOnly ? ' only' : ''}`;
+  const whenLabel = when === 'all' ? null : when === 'custom' ? `${shortDay(custom.from)} – ${shortDay(custom.to)}` : WHENS.find(([w]) => w === when)![1];
+  const filterCount = (sport ? 1 : 0) + (when !== 'all' ? 1 : 0);
+  /** "" for every sport, "BASKETBALL" for any bet with it, "BASKETBALL|only" for nothing else. */
+  const pickSport = (value: string) => {
+    const [s, only] = value.split('|');
+    setSport(s || null);
+    setSportOnly(only === 'only');
+  };
+  const pickWhen = (w: When) => {
+    // Custom opens on the last 30 days, ready to adjust.
+    if (w === 'custom' && !custom.from && !custom.to) setCustom({ from: addDays(nassauDay(new Date()), -29), to: nassauDay(new Date()) });
+    setWhen(w);
+  };
+  const clearFilters = () => {
+    setResult('all');
+    setSport(null);
+    setSportOnly(false);
+    setWhen('all');
+  };
   // Open bets: closest to paying first, bets that can no longer win last. Settled bets keep the server's order.
   const coupons = tab === 'open' ? heldOrder(all) : all;
   const staked = all.reduce((n, c) => n + (c.stakeMinor ?? 0), 0);
@@ -296,7 +365,7 @@ export function App() {
     // Not on Open means it settled; the Settled list loads if it hasn't yet, and the jump waits for it.
     setTab(views.open?.coupons.some((c) => c.id === couponId) ? 'open' : 'settled');
     // A filter could hide the bet the notification is about.
-    setResult('all');
+    clearFilters();
     setJump(couponId);
   }
   const doSignOut = async () => {
@@ -425,18 +494,127 @@ export function App() {
               </p>
             )}
             {firstRun && <FirstRun />}
-            {tab === 'settled' && loaded.length > 0 && (
-              <div className="segmented subnav results" role="group" aria-label="Show settled bets">
-                {/* Cashed out only once there is one to show. */}
-                {RESULTS.filter(([r]) => r !== 'CASHED_OUT' || count(r) > 0).map(([r, label]) => (
-                  <button key={r} className={result === r ? 'on' : ''} aria-pressed={result === r} onClick={() => setResult(r)}>
-                    {label} <span className="results-count">{count(r)}</span>
+            {settledTab && data && (loaded.length > 0 || filtered) && (
+              <div className="filters">
+                {/* One line: what happened, then which sport and when. On a phone the sport and dates fold behind one Filter button. */}
+                <div className="filter-line">
+                  <div className="segmented subnav results" role="group" aria-label="Show settled bets">
+                    {/* Cashed out only once there is one to show. */}
+                    {RESULTS.filter(([r]) => r !== 'CASHED_OUT' || count(r) > 0 || result === r).map(([r, label]) => (
+                      <button key={r} className={result === r ? 'on' : ''} aria-pressed={result === r} onClick={() => setResult(r)}>
+                        {label} <span className="results-count">{count(r)}</span>
+                      </button>
+                    ))}
+                  </div>
+                  <span className="filter-spacer" />
+                  {/* One sport is nothing to choose between. A bet can span sports, so each one is offered with others or alone. */}
+                  {hasSports && (
+                    <span className={sport ? 'filter-pick set' : 'filter-pick'}>
+                      {sportLabel ?? 'All sports'}
+                      <Icon name="chevron" />
+                      <select aria-label="Sport" value={sport ? `${sport}${sportOnly ? '|only' : ''}` : ''} onChange={(e) => pickSport(e.target.value)}>
+                        <option value="">All sports</option>
+                        {sports.map((s) => (
+                          <optgroup key={s} label={sportName(s)}>
+                            <option value={s}>
+                              Any with {inSentence(sportName(s))} ({sportCount(s)})
+                            </option>
+                            <option value={`${s}|only`}>
+                              {sportName(s)} only ({sportCount(s, true)})
+                            </option>
+                          </optgroup>
+                        ))}
+                      </select>
+                    </span>
+                  )}
+                  <span className={when !== 'all' ? 'filter-pick set' : 'filter-pick'}>
+                    {when === 'custom' ? 'Custom' : WHENS.find(([w]) => w === when)![1]}
+                    <Icon name="chevron" />
+                    <select aria-label="Date placed" value={when} onChange={(e) => pickWhen(e.target.value as When)}>
+                      {WHENS.map(([w, label]) => (
+                        <option key={w} value={w}>
+                          {w === 'custom' ? 'Pick dates…' : label}
+                        </option>
+                      ))}
+                    </select>
+                  </span>
+                  <button className="filter-button" popoverTarget="filter-sheet">
+                    <Icon name="filter" />
+                    Filter
+                    {filterCount > 0 && <b>{filterCount}</b>}
                   </button>
-                ))}
+                </div>
+                {/* Phones: what is set, under the line; tapping one takes it off. */}
+                {filterCount > 0 && (
+                  <div className="filter-chips">
+                    {sportLabel && (
+                      <button className="filter-chip" aria-label={`Remove ${sportLabel}`} onClick={() => pickSport('')}>
+                        {sportLabel} <Icon name="cross" />
+                      </button>
+                    )}
+                    {whenLabel && (
+                      <button className="filter-chip" aria-label={`Remove ${whenLabel}`} onClick={() => setWhen('all')}>
+                        {whenLabel} <Icon name="cross" />
+                      </button>
+                    )}
+                  </div>
+                )}
+                {when === 'custom' && <DateFields custom={custom} onChange={setCustom} />}
+                <div className="filter-sheet" id="filter-sheet" popover="auto">
+                  <div className="filter-sheet-head">
+                    <h3>Filters</h3>
+                    <button className="btn primary" popoverTarget="filter-sheet" popoverTargetAction="hide">
+                      Done
+                    </button>
+                  </div>
+                  {hasSports && (
+                    <div className="filter-group">
+                      <span>Sport</span>
+                      {/* A row per sport: any bet with it, or nothing but it, in one tap. */}
+                      <div className="filter-sports" role="group" aria-label="Sport">
+                        <div className="filter-sport">
+                          <span>All sports</span>
+                          <button className={sport === null ? 'wide on' : 'wide'} aria-pressed={sport === null} onClick={() => pickSport('')}>
+                            All <i>{sportCount(null)}</i>
+                          </button>
+                        </div>
+                        {sports.map((s) => (
+                          <div key={s} className="filter-sport">
+                            <span>{sportName(s)}</span>
+                            <button className={sport === s && !sportOnly ? 'on' : ''} aria-pressed={sport === s && !sportOnly} aria-label={`Any bet with ${inSentence(sportName(s))}, ${sportCount(s)}`} onClick={() => pickSport(s)}>
+                              Any <i>{sportCount(s)}</i>
+                            </button>
+                            <button className={sport === s && sportOnly ? 'on' : ''} aria-pressed={sport === s && sportOnly} aria-label={`${sportName(s)} only, ${sportCount(s, true)}`} onClick={() => pickSport(`${s}|only`)}>
+                              Only <i>{sportCount(s, true)}</i>
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  <div className="filter-group">
+                    <span>Date placed</span>
+                    <div className="segmented" role="group" aria-label="Date placed">
+                      {WHENS.map(([w, label]) => (
+                        <button key={w} className={when === w ? 'on' : ''} aria-pressed={when === w} onClick={() => pickWhen(w)}>
+                          {label}
+                        </button>
+                      ))}
+                    </div>
+                    {when === 'custom' && <DateFields custom={custom} onChange={setCustom} />}
+                  </div>
+                </div>
               </div>
             )}
-            {tab === 'settled' && loaded.length > 0 && all.length === 0 && <p className="muted center">No {RESULTS.find(([r]) => r === result)![1].toLowerCase()} bets.</p>}
-            {betsTab && data && loaded.length === 0 && !firstRun && (
+            {settledTab && data && (loaded.length > 0 || filtered) && all.length === 0 && settledRange === rangeKey && (
+              <div className="filter-empty">
+                <p className="muted">{noneMatch(result, sport, sportOnly, when)}</p>
+                <button className="btn" onClick={clearFilters}>
+                  Show all settled bets
+                </button>
+              </div>
+            )}
+            {betsTab && data && loaded.length === 0 && !firstRun && !(settledTab && filtered) && (
               <p className="muted center">
                 {tab === 'open' ? (
                   <>
@@ -455,7 +633,7 @@ export function App() {
             {betsTab && coupons.length > 0 && (
               <>
                 <h2 className="sr-only">{tab === 'open' ? 'Open bets' : 'Settled bets'}</h2>
-                <div className={coupons.length > 1 ? 'list stacks' : 'list single'}>
+                <div className={coupons.length > 1 ? 'list stacks' : 'list single'} aria-busy={settledTab && settledRange !== rangeKey}>
                   {/* Two stacks on a wide screen, dealt alternately so the order still reads top to bottom; one list on a phone. */}
                   {[0, 1].map((col) => (
                     <div key={col} className="list-col">
@@ -476,6 +654,40 @@ export function App() {
       </main>
     </div>
   );
+}
+
+/** "2026-10-05" → "10/5"; open-ended when not set. */
+const shortDay = (day: string) => (day ? `${Number(day.slice(5, 7))}/${Number(day.slice(8))}` : '…');
+
+/** The From and To fields of a custom date range. */
+function DateFields({ custom, onChange }: { custom: { from: string; to: string }; onChange: (c: { from: string; to: string }) => void }) {
+  const today = nassauDay(new Date());
+  return (
+    <div className="filter-dates">
+      <label>
+        From
+        <input type="date" value={custom.from} max={custom.to || today} onChange={(e) => onChange({ ...custom, from: e.target.value })} />
+      </label>
+      <label>
+        To
+        <input type="date" value={custom.to} min={custom.from || undefined} max={today} onChange={(e) => onChange({ ...custom, to: e.target.value })} />
+      </label>
+    </div>
+  );
+}
+
+/** A sport's name mid-sentence: "basketball", but "MMA". */
+const inSentence = (name: string) => (name === name.toUpperCase() ? name : name.toLowerCase());
+
+/** "No won basketball-only bets this week." */
+function noneMatch(result: Result, sport: string | null, only: boolean, when: When): string {
+  const words = [
+    result !== 'all' && RESULTS.find(([r]) => r === result)![1].toLowerCase(),
+    sport && `${inSentence(sportName(sport))}${only ? '-only' : ''}`,
+    'bets',
+    when === 'week' ? 'this week' : when === 'month' ? 'this month' : when === 'custom' ? 'in these dates' : '',
+  ];
+  return `No ${words.filter(Boolean).join(' ')}.`;
 }
 
 /** Brings a bet into view, moves focus to it, and replays its standing plate's wipe so the eye finds where it landed. */

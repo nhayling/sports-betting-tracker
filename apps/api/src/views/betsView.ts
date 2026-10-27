@@ -1,5 +1,5 @@
 import type { Prisma } from '@prisma/client';
-import { gameMargin, TOTAL_TYPES } from '@sports-better/display';
+import { addDays, gameMargin, nassauMidnight, TOTAL_TYPES } from '@sports-better/display';
 import { classifyMarket, fightPick, gameMarket, gradeFight, spreadPick, teamTotalTeam, type GameMarket } from '@sports-better/markets';
 import { sameTeams, sportForLeague, stripRanking, teamMatches } from '@sports-better/matching';
 import type { FightResult, GameSituation, ProviderTeam, Sport } from '@sports-better/sports-data';
@@ -24,13 +24,17 @@ const include = {
 
 type CouponRow = Prisma.CouponGetPayload<{ include: typeof include; omit: { rawPayload: true } }>;
 
-export async function loadBetsView(db: Db, filter: { userId: string; view: 'open' | 'settled' | 'all'; limit: number }): Promise<BetsView> {
+/** `from` and `to` are Nassau days (YYYY-MM-DD), both included, matched against when the bet was placed. */
+export async function loadBetsView(db: Db, filter: { userId: string; view: 'open' | 'settled' | 'all'; limit: number; from?: string; to?: string }): Promise<BetsView> {
   const mine = { sportsbookAccount: { userId: filter.userId } } satisfies Prisma.CouponWhereInput;
   // Filtered by bet, not coupon: one checkout can hold a settled single next to an open one.
   const inView = (status: string) => filter.view === 'all' || (filter.view === 'open') === (status === 'OPEN');
   const where: Prisma.CouponWhereInput = {
     ...mine,
     ...(filter.view === 'open' ? { bets: { some: { status: 'OPEN' } } } : filter.view === 'settled' ? { bets: { some: { status: { not: 'OPEN' } } } } : {}),
+    ...(filter.from || filter.to
+      ? { placedAt: { ...(filter.from ? { gte: nassauMidnight(filter.from) } : {}), ...(filter.to ? { lt: nassauMidnight(addDays(filter.to, 1)) } : {}) } }
+      : {}),
   };
   const coupons = await db.coupon.findMany({
     where,
@@ -259,6 +263,7 @@ function couponView(c: CouponRow, bet: CouponBet<CouponRow['legs'][number]>, sta
       game = {
         eventId: leg.eventId,
         name: leg.eventName,
+        sport: leg.sport,
         league: leg.league,
         startAt: leg.eventStartAt?.toISOString() ?? null,
         homeName: leg.homeName,

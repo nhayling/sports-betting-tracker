@@ -55,6 +55,8 @@ export interface CouponView {
 export interface GameView {
   eventId: string | null;
   name: string | null;
+  /** Kambi's sport id ("AMERICAN_FOOTBALL", "FOOTBALL" for soccer). */
+  sport: string | null;
   league: string | null;
   startAt: string | null;
   homeName: string | null;

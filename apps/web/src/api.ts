@@ -81,7 +81,9 @@ export const removeDevice = (id: string) => del<{ removed: true }>(`/api/devices
 export const signOutSession = (id: string) => del<{ signedOut: number }>(`/api/devices/sessions/${encodeURIComponent(id)}`);
 export const signOutOthers = () => post<{ signedOut: number }>('/api/devices/sessions/revoke-others');
 
-export const fetchBets = (view: 'open' | 'settled') => get<BetsView>(`/api/bets?view=${view}`);
+/** `from` and `to`: Nassau days (YYYY-MM-DD), both included, by when the bet was placed. */
+export const fetchBets = (view: 'open' | 'settled', range: { from?: string; to?: string } = {}) =>
+  get<BetsView>(`/api/bets?view=${view}${range.from ? `&from=${range.from}` : ''}${range.to ? `&to=${range.to}` : ''}`);
 export const fetchPollerStatus = () => get<PollerStatus>('/api/live/status');
 
 export interface NotificationItem {

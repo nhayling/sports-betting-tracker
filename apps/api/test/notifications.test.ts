@@ -68,7 +68,7 @@ function view(picks: PickView[], game: Partial<GameView> = {}, coupon: Partial<C
         lastSyncedAt: '2026-09-27T19:00:00Z',
         probablySettled: null,
         games: [
-          { eventId: 'e1', name: 'CIN Bengals @ PIT Steelers', league: 'NFL', startAt: null, homeName: 'PIT Steelers', awayName: 'CIN Bengals', state: state('LIVE', 17, 20) as never, picks, ...game },
+          { eventId: 'e1', name: 'CIN Bengals @ PIT Steelers', sport: 'AMERICAN_FOOTBALL', league: 'NFL', startAt: null, homeName: 'PIT Steelers', awayName: 'CIN Bengals', state: state('LIVE', 17, 20) as never, picks, ...game },
         ],
         ...coupon,
       },

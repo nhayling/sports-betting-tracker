@@ -219,4 +219,42 @@ export function binaryWords(metric: string | null): { hit: string; pending: stri
   return { hit: 'Scored', pending: 'Not yet', missed: 'Did not score' };
 }
 
+/** Kambi's sport ids as a bettor says them; Kambi's FOOTBALL is soccer. */
+const SPORT_NAMES: Record<string, string> = {
+  AMERICAN_FOOTBALL: 'Football',
+  FOOTBALL: 'Soccer',
+  ICE_HOCKEY: 'Hockey',
+  MARTIAL_ARTS: 'MMA',
+};
+export function sportName(sport: string): string {
+  return SPORT_NAMES[sport] ?? sport.charAt(0) + sport.slice(1).toLowerCase().replace(/_/g, ' ');
+}
+
+/** The Nassau calendar day of `d`, as YYYY-MM-DD. */
+export function nassauDay(d: Date): string {
+  return new Intl.DateTimeFormat('en-CA', { timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit' }).format(d);
+}
+
+/** The Monday (Nassau time) of the week holding `d`, as YYYY-MM-DD. */
+export function nassauWeekStart(d: Date): string {
+  const day = nassauDay(d);
+  const weekday = (new Date(`${day}T12:00:00Z`).getUTCDay() + 6) % 7; // Mon = 0
+  return addDays(day, -weekday);
+}
+
+/** A YYYY-MM-DD day moved by `n` days. */
+export function addDays(day: string, n: number): string {
+  const d = new Date(`${day}T12:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + n);
+  return d.toISOString().slice(0, 10);
+}
+
+/** The instant a Nassau calendar day (YYYY-MM-DD) begins. */
+export function nassauMidnight(day: string): Date {
+  // Nassau is UTC−5, or UTC−4 in summer, when 05:00 UTC is already 1 am.
+  const est = new Date(`${day}T05:00:00Z`);
+  const hour = new Intl.DateTimeFormat('en-US', { timeZone: TZ, hour: 'numeric', hourCycle: 'h23' }).format(est);
+  return Number(hour) === 1 ? new Date(est.getTime() - 3600_000) : est;
+}
+
 export * from './standing';
