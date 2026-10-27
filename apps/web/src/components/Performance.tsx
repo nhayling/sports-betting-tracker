@@ -118,7 +118,7 @@ export function Performance({ onSignedOut }: { onSignedOut: () => void }) {
         <PeriodPicker value={period} onChange={setPeriod} />
         {/* One sport is nothing to choose between. A bet can span sports, so each one is offered with others or alone. */}
         {(sports.length > 1 || a.sport) && (
-          <span className={a.sport ? 'filter-pick set' : 'filter-pick'}>
+          <span className="filter-pick">
             {a.sport ? `${sportName(a.sport)}${a.sportOnly ? ' only' : ''}` : 'All sports'}
             <Icon name="chevron" />
             <select aria-label="Sport" value={sportKey} onChange={(e) => pickSport(e.target.value)}>

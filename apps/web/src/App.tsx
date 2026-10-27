@@ -511,7 +511,7 @@ export function App() {
                   <span className="filter-spacer" />
                   {/* One sport is nothing to choose between. A bet can span sports, so each one is offered with others or alone. */}
                   {hasSports && (
-                    <span className={sport ? 'filter-pick set' : 'filter-pick'}>
+                    <span className="filter-pick">
                       {sportLabel ?? 'All sports'}
                       <Icon name="chevron" />
                       <select aria-label="Sport" value={sport ? `${sport}${sportOnly ? '|only' : ''}` : ''} onChange={(e) => pickSport(e.target.value)}>
@@ -529,7 +529,7 @@ export function App() {
                       </select>
                     </span>
                   )}
-                  <span className={when !== 'all' ? 'filter-pick set' : 'filter-pick'}>
+                  <span className="filter-pick">
                     {when === 'custom' ? 'Custom' : WHENS.find(([w]) => w === when)![1]}
                     <Icon name="chevron" />
                     <select aria-label="Date placed" value={when} onChange={(e) => pickWhen(e.target.value as When)}>

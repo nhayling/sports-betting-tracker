@@ -391,7 +391,6 @@ button.primary:not(.btn) { padding: 11px; font-size: var(--fs-lg); }
 .filter-pick { position: relative; flex: none; display: flex; align-items: center; gap: 6px; padding: 0 10px; box-shadow: inset 0 0 0 1px var(--rule); font-family: var(--cond); font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap; cursor: pointer; }
 .filter-pick svg { color: var(--muted); font-size: 0.85em; }
 .filter-pick:hover { box-shadow: inset 0 0 0 1px var(--muted); }
-.filter-pick.set { box-shadow: inset 0 0 0 1px var(--rule), inset 0 -3px 0 var(--on-bg); }
 .filter-pick select { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; font-size: 16px; cursor: pointer; }
 .filter-pick:focus-within { outline: 2px solid var(--focus); outline-offset: 1px; }
 .filter-dates { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px 12px; }
@@ -400,7 +399,7 @@ button.primary:not(.btn) { padding: 11px; font-size: var(--fs-lg); }
 .filter-button { flex: none; align-items: center; gap: 6px; padding: 0 12px; border: 0; border-radius: 0; background: none; box-shadow: inset 0 0 0 1px var(--rule); color: var(--text); font-family: var(--cond); font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; }
 .filter-button b { display: inline-grid; place-items: center; min-width: 18px; height: 18px; padding: 0 4px; background: var(--on-bg); color: var(--on-fg); font-size: var(--fs-sm); }
 .filter-chips { flex-wrap: wrap; gap: 6px; }
-.filter-chip { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 10px; border: 0; border-radius: 0; background: none; box-shadow: inset 0 0 0 1px var(--rule), inset 0 -3px 0 var(--on-bg); color: var(--text); font-family: var(--cond); font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; }
+.filter-chip { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 10px; border: 0; border-radius: 0; background: none; box-shadow: inset 0 0 0 1px var(--rule); color: var(--text); font-family: var(--cond); font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; }
 .filter-chip svg { color: var(--muted); }
 .filter-sheet { position: fixed; inset: auto 0 0 0; width: auto; max-height: 85dvh; margin: 0; padding: 0 16px calc(16px + env(safe-area-inset-bottom)); overflow-y: auto; border: 0; border-top: 2px solid var(--ink); background: var(--plate-bg); color: var(--text); }
 .filter-sheet::backdrop { background: rgb(4 12 26 / 0.6); }
@@ -432,8 +431,9 @@ button.primary:not(.btn) { padding: 11px; font-size: var(--fs-lg); }
 .panels, .social { display: flex; flex-direction: column; gap: 14px; }
 /* Performance: the period, then jumps to each question. */
 .performance-controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; }
-.performance-filters { display: flex; flex-wrap: wrap; align-items: stretch; gap: 8px; }
-.performance-filters .filter-pick { min-height: 44px; }
+/* The period on the left and the sport on the right, as on Settled; the jumps take the next line. */
+.performance-filters { flex: 1 1 100%; display: flex; flex-wrap: wrap; align-items: stretch; gap: 8px; }
+.performance-filters .filter-pick { margin-left: auto; min-height: 44px; }
 .jumps { display: flex; flex-wrap: wrap; gap: 0 14px; }
 .jump { min-height: 44px; padding: 0; background: none; border: 0; cursor: pointer; font-family: var(--cond); font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--rule); }
 .jump:hover { color: var(--text); text-decoration-color: currentColor; }
