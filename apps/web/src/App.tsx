@@ -35,7 +35,7 @@ type BetsTab = 'open' | 'settled';
 const TABS: Array<[Tab, string]> = [
   ['open', 'Open'],
   ['settled', 'Settled'],
-  ['performance', 'Performance'],
+  ['performance', 'Stats'],
   ['social', 'Social'],
 ];
 /** Settled bets by how they ended. Voids and mixed results show under All only. */

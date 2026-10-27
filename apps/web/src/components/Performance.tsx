@@ -138,7 +138,7 @@ export function Performance({ onSignedOut }: { onSignedOut: () => void }) {
         )}
       </div>
       {m.settledBets > 0 && (
-        <nav className="jumps" aria-label="Performance sections">
+        <nav className="jumps" aria-label="Stats sections">
           {SECTIONS.map(([id, label]) => (
             <button key={id} className="jump" onClick={() => jumpToSection(id)}>
               {label}
