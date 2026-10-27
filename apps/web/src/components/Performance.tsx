@@ -509,9 +509,9 @@ function StylesPanel({
     <section className="panel">
       <div className="panel-head">
         <h3 className="panel-title">Split by payout</h3>
-        <div className="segmented" role="radiogroup" aria-label="Funding cutoff">
+        <div className="segmented" role="group" aria-label="Funding cutoff">
           {CUTOFFS.map((c) => (
-            <button key={c} role="radio" aria-checked={cutoff === c} className={cutoff === c ? 'on' : ''} onClick={() => onCutoff(c)}>
+            <button key={c} className={cutoff === c ? 'on' : ''} aria-pressed={cutoff === c} onClick={() => onCutoff(c)}>
               +{c}
             </button>
           ))}

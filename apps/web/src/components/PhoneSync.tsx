@@ -30,7 +30,7 @@ export function PhoneSync({ onCreated }: { onCreated?: () => void }) {
           islandluck.com. <strong>Android:</strong> Firefox with the Violentmonkey add-on.
         </li>
         <li>Open this page in that browser, create your install link below and tap it. The manager offers to install the script.</li>
-        <li>Open My Bets on Island Luck. A green message confirms each sync; scroll to load older bets.</li>
+        <li>Open My Bets on Island Luck. A navy Slip Club message at the bottom of the page confirms each sync; scroll to load older bets.</li>
       </ol>
       {error && (
         <p className="banner error" role="alert">

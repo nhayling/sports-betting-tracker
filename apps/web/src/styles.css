@@ -380,26 +380,28 @@ button.primary:not(.btn) { padding: 11px; font-size: var(--fs-lg); }
 .segmented button:focus-visible { outline-offset: -3px; }
 .subnav { align-self: flex-start; max-width: 100%; }
 .results { display: flex; width: fit-content; margin-bottom: 14px; }
-.results-count { font-variant-numeric: tabular-nums; opacity: 0.7; }
+.results-count { font-variant-numeric: tabular-nums; }
 /* Settled filters: Won/Lost on the left, sport and dates on the right of the same line. */
 .filters { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
 .filter-line { display: flex; align-items: stretch; gap: 8px; max-width: 100%; overflow-x: auto; scrollbar-width: none; }
 .filter-line::-webkit-scrollbar { display: none; }
 .filters .results { flex: none; margin: 0; }
 .filter-spacer { flex: 1 0 8px; }
-/* A choice that opens the device's own list: the select sits invisibly over its label. Set, it takes the yellow rule. */
-.filter-pick { position: relative; flex: none; display: flex; align-items: center; gap: 6px; padding: 0 10px; box-shadow: inset 0 0 0 1px var(--rule); font-family: var(--cond); font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap; cursor: pointer; }
+/* A choice that opens the device's own list: the select sits invisibly over its label. */
+.filter-pick { position: relative; flex: none; display: flex; align-items: center; gap: 6px; padding: 0 10px; box-shadow: inset 0 0 0 1px var(--muted); font-family: var(--cond); font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap; cursor: pointer; }
 .filter-pick svg { color: var(--muted); font-size: 0.85em; }
-.filter-pick:hover { box-shadow: inset 0 0 0 1px var(--muted); }
+.filter-pick:hover { box-shadow: inset 0 0 0 1px var(--text); }
 .filter-pick select { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; font-size: 16px; cursor: pointer; }
 .filter-pick:focus-within { outline: 2px solid var(--focus); outline-offset: 1px; }
 .filter-dates { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px 12px; }
 /* Phones only: one Filter button, the set filters as chips under the line, and a sheet from the bottom edge. */
 .filter-button, .filter-chips { display: none; }
-.filter-button { flex: none; align-items: center; gap: 6px; padding: 0 12px; border: 0; border-radius: 0; background: none; box-shadow: inset 0 0 0 1px var(--rule); color: var(--text); font-family: var(--cond); font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; }
+.filter-button { flex: none; align-items: center; gap: 6px; padding: 0 12px; border: 0; border-radius: 0; background: none; box-shadow: inset 0 0 0 1px var(--muted); color: var(--text); font-family: var(--cond); font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; }
+.filter-button:hover { box-shadow: inset 0 0 0 1px var(--text); }
 .filter-button b { display: inline-grid; place-items: center; min-width: 18px; height: 18px; padding: 0 4px; background: var(--on-bg); color: var(--on-fg); font-size: var(--fs-sm); }
 .filter-chips { flex-wrap: wrap; gap: 6px; }
-.filter-chip { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 10px; border: 0; border-radius: 0; background: none; box-shadow: inset 0 0 0 1px var(--rule); color: var(--text); font-family: var(--cond); font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; }
+.filter-chip { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 10px; border: 0; border-radius: 0; background: none; box-shadow: inset 0 0 0 1px var(--muted); color: var(--text); font-family: var(--cond); font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; }
+.filter-chip:hover { box-shadow: inset 0 0 0 1px var(--text); }
 .filter-chip svg { color: var(--muted); }
 .filter-sheet { position: fixed; inset: auto 0 0 0; width: auto; max-height: 85dvh; margin: 0; padding: 0 16px calc(16px + env(safe-area-inset-bottom)); overflow-y: auto; border: 0; border-top: 2px solid var(--ink); background: var(--plate-bg); color: var(--text); }
 .filter-sheet::backdrop { background: rgb(4 12 26 / 0.6); }
@@ -415,7 +417,7 @@ button.primary:not(.btn) { padding: 11px; font-size: var(--fs-lg); }
 .filter-sport > span { font-family: var(--cond); font-size: var(--fs-md); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
 .filter-sport button { min-height: 44px; padding: 0 8px; border: 0; border-radius: 0; background: var(--plate-cell); color: var(--muted); font-family: var(--cond); font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; }
 .filter-sport button.wide { grid-column: span 2; }
-.filter-sport button i { font-style: normal; opacity: 0.7; }
+.filter-sport button i { font-style: normal; }
 .filter-sport button:hover:not(.on) { color: var(--text); }
 .filter-sport button.on { background: var(--on-bg); color: var(--on-fg); }
 .filter-sport button:focus-visible { outline-offset: -3px; }
@@ -643,7 +645,6 @@ button.link.danger-link { color: var(--bad-text); }
 
 /* People: which list. */
 .directory-filter { display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 10px; }
-.filter-count { opacity: 0.7; }
 
 /* Connected devices. */
 .device-list { list-style: none; margin: 0 0 8px; padding: 0; }
@@ -712,6 +713,16 @@ button.link.danger-link { color: var(--bad-text); }
   .shell { padding-bottom: 10px; }
   .totals { margin-top: 10px; margin-bottom: -10px; }
   .page { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
+}
+
+/* The narrowest phones (iPhone SE, Display Zoom): nothing below changes any wider screen. */
+@media (max-width: 359px) {
+  /* Settled: the Filter button takes the next line rather than scrolling out of sight. */
+  .filter-line { flex-wrap: wrap; }
+  .filter-line .filter-button { margin-left: auto; }
+  /* Tables: headers wrap and cells close up, so five columns fit without the page scrolling sideways. */
+  .table th { white-space: normal; vertical-align: bottom; }
+  .table th, .table td { padding-inline: 3px; }
 }
 
 @media (max-width: 380px) {
