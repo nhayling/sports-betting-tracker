@@ -255,6 +255,15 @@ button.link:hover { color: var(--text); }
 .list { display: flex; flex-direction: column; gap: 14px; }
 /* On a phone the two stacks dissolve and each bet takes its own place in the one list. */
 .list-col { display: contents; }
+/* Settled: a day's bets under its date, the rule closing off the day before. */
+.days { display: flex; flex-direction: column; gap: 28px; }
+.days[aria-busy='true'] { opacity: 0.55; }
+.day { display: flex; flex-direction: column; gap: 10px; }
+.day-head { display: flex; flex-direction: column; gap: 2px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); font-family: var(--cond); font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); }
+.day-head h3 { margin: 0; font: inherit; color: var(--text); }
+/* Record, net and biggest win on a line under the date, split by short rules. */
+.day-summary { display: flex; margin: 0; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.day-summary span + span { margin-left: 10px; padding-left: 10px; border-left: 1px solid var(--rule); }
 .bet-head { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; padding: 10px 12px; border-bottom: 2px solid var(--ink); cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; }
 /* A lift, not a darkening: the default navy plate in the head has to stay visible on hover. */
 .bet-head:hover { background: var(--hover); }
@@ -427,7 +436,6 @@ button.primary:not(.btn) { padding: 11px; font-size: var(--fs-lg); }
 .filter-empty { display: flex; flex-direction: column; align-items: center; gap: 10px; margin: 24px 0; }
 .filter-empty p { margin: 0; }
 /* A new range is loading: the old list stays, dimmed, until it lands. */
-.list[aria-busy='true'] { opacity: 0.55; }
 
 /* ── Panels: performance, social, phone sync ─────────────── */
 .panels, .social { display: flex; flex-direction: column; gap: 14px; }
@@ -741,6 +749,8 @@ button.link.danger-link { color: var(--bad-text); }
   .list.stacks { flex-direction: row; align-items: flex-start; }
   /* One bet doesn't make two stacks: it sits centred at a readable width instead of hugging the left half. */
   .list.single { max-width: 760px; margin-inline: auto; }
+  /* Except under a Settled day, where a lone bet keeps the left column so the days line up. */
+  .day .list.single { max-width: calc(50% - 7px); margin-inline: 0; }
   .list-col { display: flex; flex: 1; min-width: 0; flex-direction: column; gap: 14px; }
   /* Performance: a question's panels sit side by side; a lone panel takes the row. */
   .group-panels { display: grid; grid-template-columns: 1fr 1fr; align-items: start; }

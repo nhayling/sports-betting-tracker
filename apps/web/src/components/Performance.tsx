@@ -1,13 +1,12 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { fetchPerformance, SignedOutError, type Performance as PerformanceData, type MarketStats, type Period, type StyleStats } from '../api';
-import { americanOdds, dateTime, inSentence, money, REWARD_LABELS, sportName } from '../format';
+import { americanOdds, dateTime, inSentence, money, REWARD_LABELS, signed, sportName } from '../format';
 import { Icon } from './Icon';
 import { PeriodPicker } from './Leaderboard';
 import { LoadError } from './LoadError';
 
 const MIN_SAMPLE = 30;
 const pct = (r: number | null) => (r === null ? '—' : `${Math.round(r * 100)}%`);
-const signed = (minor: number) => `${minor > 0 ? '+' : minor < 0 ? '−' : ''}${money(Math.abs(minor))}`;
 /** 0.0033 → "1 in 300". */
 function oneIn(p: number | null): string {
   if (p === null || p <= 0) return '—';

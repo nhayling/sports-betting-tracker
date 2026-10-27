@@ -28,7 +28,7 @@ import { SignUp } from './components/SignUp';
 import { Wordmark } from './components/Wordmark';
 import { Social } from './components/Social';
 import { inviteCodeIn, pendingClubInvite, rememberClubInvite } from './clubInvite';
-import { addDays, clockTime, inSentence, money, nassauDay, nassauWeekStart, relativeTime, sportName } from './format';
+import { addDays, americanOdds, clockTime, inSentence, money, nassauDay, nassauWeekStart, relativeTime, signed, sportName } from './format';
 
 type Tab = 'open' | 'settled' | 'performance' | 'social';
 type BetsTab = 'open' | 'settled';
@@ -299,6 +299,24 @@ export function App() {
     }
     const byId = new Map(list.map((c) => [c.id, c]));
     return order.current.map((id) => byId.get(id)!);
+  }
+  /** Two stacks on a wide screen, dealt by `colOf` so the order still reads top to bottom; one list on a phone. */
+  function renderList(list: CouponView[], colOf: (c: CouponView, i: number) => number | undefined) {
+    return (
+      <div className={list.length > 1 ? 'list stacks' : 'list single'}>
+        {[0, 1].map((col) => (
+          <div key={col} className="list-col">
+            {list.map((c, i) =>
+              colOf(c, i) === col ? (
+                <div key={c.id} style={{ order: i }}>
+                  <CouponCard coupon={c} latest={latest.get(c.id)} fresh={isFresh(latest.get(c.id))} />
+                </div>
+              ) : null,
+            )}
+          </div>
+        ))}
+      </div>
+    );
   }
   const data = views[view] ?? null;
   const loaded = data?.coupons ?? [];
@@ -635,26 +653,68 @@ export function App() {
             {betsTab && coupons.length > 0 && (
               <>
                 <h2 className="sr-only">{tab === 'open' ? 'Open bets' : 'Settled bets'}</h2>
-                <div className={coupons.length > 1 ? 'list stacks' : 'list single'} aria-busy={settledTab && settledRange !== rangeKey}>
-                  {/* Two stacks on a wide screen, dealt alternately so the order still reads top to bottom; one list on a phone. */}
-                  {[0, 1].map((col) => (
-                    <div key={col} className="list-col">
-                      {coupons.map((c, i) =>
-                        (tab === 'open' ? column.current.get(c.id) : i % 2) === col ? (
-                          <div key={c.id} style={{ order: i }}>
-                            <CouponCard coupon={c} latest={latest.get(c.id)} fresh={isFresh(latest.get(c.id))} />
-                          </div>
-                        ) : null,
-                      )}
-                    </div>
-                  ))}
-                </div>
+                {settledTab ? (
+                  // Settled bets under the Nassau day they were placed, newest day first.
+                  <div className="days" aria-busy={settledRange !== rangeKey}>
+                    {byDay(coupons).map(([day, bets]) => (
+                      <section key={day} className="day" aria-labelledby={`day-${day || 'unknown'}`}>
+                        <div className="day-head">
+                          <h3 id={`day-${day || 'unknown'}`}>{dayHeading(day)}</h3>
+                          <DaySummary bets={bets} result={result} />
+                        </div>
+                        {renderList(bets, (_, i) => i % 2)}
+                      </section>
+                    ))}
+                  </div>
+                ) : (
+                  renderList(coupons, (c) => column.current.get(c.id))
+                )}
               </>
             )}
           </>
         )}
       </main>
     </div>
+  );
+}
+
+/** Bets in runs by the Nassau day they were placed, keeping their order. */
+function byDay(list: CouponView[]): [string, CouponView[]][] {
+  const days = new Map<string, CouponView[]>();
+  for (const c of list) {
+    const day = c.placedAt ? nassauDay(new Date(c.placedAt)) : '';
+    days.set(day, [...(days.get(day) ?? []), c]);
+  }
+  return [...days];
+}
+
+/** "2026-10-25" → "Sunday, October 25", with the year when it isn't this one. */
+function dayHeading(day: string): string {
+  if (!day) return 'Date unknown';
+  const thisYear = day.slice(0, 4) === nassauDay(new Date()).slice(0, 4);
+  return new Intl.DateTimeFormat('en-US', { timeZone: 'UTC', weekday: 'long', month: 'long', day: 'numeric', year: thisYear ? undefined : 'numeric' }).format(new Date(`${day}T12:00:00Z`));
+}
+
+/** A day's record, what it made or lost, and the longest odds that came in. Under Won or Lost the record would only read 2-0, so it's a count. */
+function DaySummary({ bets, result }: { bets: CouponView[]; result: Result }) {
+  const won = bets.filter((c) => c.status === 'WON');
+  const lost = bets.filter((c) => c.status === 'LOST').length;
+  const net = bets.reduce((n, c) => n + (c.payoutMinor ?? 0) - (c.stakeMinor ?? 0), 0);
+  const best = Math.max(...won.map((c) => c.oddsRaw ?? 0));
+  return (
+    <p className="day-summary">
+      {result === 'all' ? (
+        <span aria-label={`${won.length} won, ${lost} lost`}>
+          {won.length}-{lost}
+        </span>
+      ) : (
+        <span>
+          {bets.length} {RESULTS.find(([r]) => r === result)![1].toLowerCase()}
+        </span>
+      )}
+      <span className={net > 0 ? 'good' : net < 0 ? 'bad' : undefined}>{signed(net)}</span>
+      {best > 0 && <span>Biggest win {americanOdds(best)}</span>}
+    </p>
   );
 }
 
