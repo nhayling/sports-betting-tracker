@@ -43,7 +43,7 @@ export function Register({ token, onRegistered, onCancel }: { token: string; onR
           <h1>
             <Wordmark />
           </h1>
-          <p className="banner error">{invalid}</p>
+          <p className="banner error" role="alert">{invalid}</p>
           <button className="link" onClick={onCancel}>
             Already have an account? Sign in
           </button>
@@ -75,7 +75,7 @@ export function Register({ token, onRegistered, onCancel }: { token: string; onR
           <input type="password" autoComplete="new-password" value={repeat} onChange={(e) => setRepeat(e.target.value)} required />
         </label>
         <AgeCheck />
-        {error && <p className="banner error">{error}</p>}
+        {error && <p className="banner error" role="alert">{error}</p>}
         <button className="primary" disabled={busy}>
           {busy ? 'Creating…' : 'Create account'}
         </button>

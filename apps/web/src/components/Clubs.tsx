@@ -178,7 +178,7 @@ export function ClubPage({
               {club.members.length === 1 ? 'Just you so far' : `${club.members.length} members`} · invite only · since{' '}
               {new Date(club.createdAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'America/Nassau' })}
             </p>
-            {error && <p className="banner error">{error}</p>}
+            {error && <p className="banner error" role="alert">{error}</p>}
           </section>
           {alone ? (
             <InvitePanel club={club} onReset={(inviteCode) => setClub({ ...club, inviteCode })} onSignedOut={onSignedOut} lede />
@@ -265,7 +265,7 @@ function InvitePanel({ club, onReset, onSignedOut, lede }: { club: ClubView; onR
         <input readOnly value={clubInviteUrl(club.inviteCode)} aria-label="Invite link" onFocus={(e) => e.currentTarget.select()} />
         <InviteButton code={club.inviteCode} name={club.name} />
       </div>
-      {error && <p className="banner error">{error}</p>}
+      {error && <p className="banner error" role="alert">{error}</p>}
       <p className="muted small">
         Anyone with this link can join.{' '}
         {club.role === 'OWNER' && (
@@ -474,7 +474,7 @@ function ClubMembers({
       {showInvite && <InvitePanel club={club} onReset={onReset} onSignedOut={onSignedOut} />}
       <section className="panel">
         <h2>Members</h2>
-        {error && <p className="banner error">{error}</p>}
+        {error && <p className="banner error" role="alert">{error}</p>}
         <ul className="people">
           {club.members.map((m) => (
             <li key={m.username} className="person">
@@ -567,7 +567,7 @@ function YourSharing({ club, onChanged, onSignedOut }: { club: ClubView; onChang
   return (
     <section className="panel">
       <h2>Your sharing here</h2>
-      {error && <p className="banner error">{error}</p>}
+      {error && <p className="banner error" role="alert">{error}</p>}
       <label className="switch-row">
         <input type="checkbox" checked={on} disabled={saving || picksOff} onChange={(e) => void flip(e.target.checked)} />
         <span>

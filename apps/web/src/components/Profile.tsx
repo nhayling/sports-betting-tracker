@@ -82,7 +82,7 @@ export function Profile({
         <Icon name="back" />
         {backLabel}
       </button>
-      {error && <p className="banner error">{error}</p>}
+      {error && <p className="banner error" role="alert">{error}</p>}
       {!profile && !error && <p className="muted center">Loading…</p>}
       {profile && (
         <PlayerCard profile={profile}>

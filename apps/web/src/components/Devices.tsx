@@ -87,7 +87,7 @@ export function Devices({ version, onSignedOut }: { version: number; onSignedOut
     <section className="panel devices">
       <h2>Connected devices</h2>
       {error && !data && <LoadError onRetry={() => void load()}>Can’t load your devices right now.</LoadError>}
-      {error && data && <p className="banner error">{error}</p>}
+      {error && data && <p className="banner error" role="alert">{error}</p>}
       {!data && !error && <p className="muted small">Loading…</p>}
       {data && (
         <>

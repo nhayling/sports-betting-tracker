@@ -180,7 +180,7 @@ function AdminSignIn({ onSignedIn }: { onSignedIn: () => void }) {
           Password
           <input type="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         </label>
-        {error && <p className="banner error">{error}</p>}
+        {error && <p className="banner error" role="alert">{error}</p>}
         <button className="primary" disabled={busy}>
           {busy ? 'Signing in…' : 'Sign in'}
         </button>

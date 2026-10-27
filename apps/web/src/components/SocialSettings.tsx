@@ -49,7 +49,7 @@ export function SocialSettingsPanel({ me, onBack, onChanged, onSignedOut }: { me
         <Icon name="back" />
         Hub
       </button>
-      {error && <p className="banner error">{error}</p>}
+      {error && <p className="banner error" role="alert">{error}</p>}
 
       <section className="panel">
         <h2>Your name</h2>

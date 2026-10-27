@@ -67,7 +67,7 @@ export function Requests({
           </span>
         </p>
       )}
-      {actionError && <p className="banner error">{actionError}</p>}
+      {actionError && <p className="banner error" role="alert">{actionError}</p>}
       {error && !requests && <LoadError onRetry={() => void onReload()}>Can’t load requests right now.</LoadError>}
       {!requests && !error && <p className="muted">Loading…</p>}
       {requests?.length === 0 && <p className="admin-empty muted">No one is waiting. New requests from the sign-up page show up here.</p>}

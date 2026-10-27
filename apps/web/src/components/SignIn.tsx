@@ -44,7 +44,7 @@ export function SignIn({ onSignedIn, onJoin }: { onSignedIn: () => void; onJoin:
           Password
           <input type="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         </label>
-        {error && <p className="banner error">{error}</p>}
+        {error && <p className="banner error" role="alert">{error}</p>}
         {waiting && <p className="banner note">{waiting}</p>}
         <button className="primary" disabled={busy}>
           {busy ? 'Signing in…' : 'Sign in'}

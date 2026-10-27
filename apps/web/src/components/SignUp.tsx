@@ -81,7 +81,7 @@ export function SignUp({ onSignIn }: { onSignIn: () => void }) {
           <textarea rows={2} maxLength={280} placeholder="How you know us, or who sent you" value={note} onChange={(e) => setNote(e.target.value)} />
         </label>
         <AgeCheck />
-        {error && <p className="banner error">{error}</p>}
+        {error && <p className="banner error" role="alert">{error}</p>}
         <button className="primary" disabled={busy}>
           {busy ? 'Sending…' : 'Ask to join'}
         </button>
