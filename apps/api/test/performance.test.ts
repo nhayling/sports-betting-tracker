@@ -1,10 +1,10 @@
 import { parseHistoryResponse, type ParsedCoupon, type RawHistoryResponse } from '@sports-better/kambi';
 import { describe, expect, it } from 'vitest';
 import captured from '../../../packages/kambi/fixtures/captured/history-2026-09-27.json';
-import { computeAnalysis, weekOf, type AnalysisCoupon, type AnalysisLeg } from '../src/analysis/compute';
+import { computePerformance, inSport, sportCounts, weekOf, type PerformanceCoupon, type PerformanceLeg } from '../src/performance/compute';
 
-/** Parsed Kambi coupons → analysis input (no live data). */
-function fromParsed(c: ParsedCoupon, extra: Partial<AnalysisCoupon> = {}): AnalysisCoupon {
+/** Parsed Kambi coupons → performance input (no live data). */
+function fromParsed(c: ParsedCoupon, extra: Partial<PerformanceCoupon> = {}): PerformanceCoupon {
   const bet = c.bets[0]!;
   return {
     id: c.externalCouponRef,
@@ -16,7 +16,7 @@ function fromParsed(c: ParsedCoupon, extra: Partial<AnalysisCoupon> = {}): Analy
     potentialPayoutMinor: c.potentialPayoutMinor,
     oddsRaw: bet.oddsRaw,
     legs: bet.legs.map(
-      (l): AnalysisLeg => ({
+      (l): PerformanceLeg => ({
         selectionType: l.selectionType,
         oddsRaw: l.oddsRaw,
         sport: l.sport,
@@ -40,9 +40,9 @@ function fromParsed(c: ParsedCoupon, extra: Partial<AnalysisCoupon> = {}): Analy
 }
 
 const real = parseHistoryResponse(captured as unknown as RawHistoryResponse).map((c) => fromParsed(c));
-const a = computeAnalysis(real, new Date('2026-09-27T20:00:00Z'));
+const a = computePerformance(real, new Date('2026-09-27T20:00:00Z'));
 
-describe('analysis of the real capture (numbers checked independently against the raw JSON)', () => {
+describe('performance of the real capture (numbers checked independently against the raw JSON)', () => {
   it('counts money honestly: free-bet stakes are not your money', () => {
     expect(a.money).toMatchObject({
       settledBets: 9,
@@ -56,19 +56,28 @@ describe('analysis of the real capture (numbers checked independently against th
     expect(a.money.roi).toBeCloseTo(-3025 / 3500);
   });
 
-  it('splits funding (under 20× payout) from fun bets', () => {
-    // Funding: +160 single (lost) and the +988 / +1066 / +1187 parlays (open).
-    expect(a.styles.fundingMaxOdds).toBe(20);
-    expect(a.styles.funding).toMatchObject({ bets: 4, settled: 1, won: 0, open: 3, returnedMinor: 0, netMinor: -500, winRate: 0 });
-    expect(a.styles.fun).toMatchObject({ bets: 11, settled: 8, won: 0, lost: 7, cashedOut: 1, open: 3, returnedMinor: 475 });
-    // Free bets aren't your money: fun net = 4.75 returned − 6 real-money $5 stakes.
-    expect(a.styles.fun.netMinor).toBe(475 - 3000);
+  it('counts bets at +200 or shorter as funding by default', () => {
+    // Funding: just the +160 single (lost); the parlays are all longer.
+    expect(a.styles.fundingMaxOdds).toBe(3);
+    expect(a.styles.funding).toMatchObject({ bets: 1, settled: 1, won: 0, open: 0, returnedMinor: 0, netMinor: -500, winRate: 0 });
+    expect(a.styles.funding.bets + a.styles.fun.bets).toBe(15);
   });
 
   it('moves the cutoff when asked', () => {
-    const wide = computeAnalysis(real, new Date(), 50);
+    // Under 20×: the +160 single and the +988 / +1066 / +1187 parlays (open).
+    const twenty = computePerformance(real, new Date(), 20);
+    expect(twenty.styles.funding).toMatchObject({ bets: 4, settled: 1, won: 0, open: 3, returnedMinor: 0, netMinor: -500, winRate: 0 });
+    expect(twenty.styles.fun).toMatchObject({ bets: 11, settled: 8, won: 0, lost: 7, cashedOut: 1, open: 3, returnedMinor: 475 });
+    // Free bets aren't your money: fun net = 4.75 returned − 6 real-money $5 stakes.
+    expect(twenty.styles.fun.netMinor).toBe(475 - 3000);
+    const wide = computePerformance(real, new Date(), 50);
     expect(wide.styles.funding.bets).toBe(8);
     expect(wide.styles.funding.bets + wide.styles.fun.bets).toBe(15);
+  });
+
+  it('counts a bet at exactly the cutoff as funding', () => {
+    expect(computePerformance(real, new Date(), 2.6).styles.funding.bets).toBe(1);
+    expect(computePerformance(real, new Date(), 2.59).styles.funding.bets).toBe(0);
   });
 
   it('breaks down promos', () => {
@@ -137,7 +146,7 @@ describe('analysis of the real capture (numbers checked independently against th
   });
 });
 
-describe('analysis with live data', () => {
+describe('performance with live data', () => {
   const [cashed] = parseHistoryResponse(captured as unknown as RawHistoryResponse).filter((c) => c.status === 'CASHED_OUT');
 
   it('judges a cash out from final scores', () => {
@@ -146,12 +155,12 @@ describe('analysis with live data', () => {
       l.game = { state: 'FINAL', homeScore: 20, awayScore: 10 };
       for (const s of l.selections) s.moneylineSide = 'home';
     }
-    expect(computeAnalysis([allWin]).cashOuts[0]).toMatchObject({ verdict: 'WOULD_HAVE_WON', picksWon: 14 });
+    expect(computePerformance([allWin]).cashOuts[0]).toMatchObject({ verdict: 'WOULD_HAVE_WON', picksWon: 14 });
 
     const oneLoses = structuredClone(allWin);
     oneLoses.legs[0]!.selections[0]!.moneylineSide = 'away';
     oneLoses.legs[1]!.game = { state: 'LIVE', homeScore: 7, awayScore: 3 };
-    expect(computeAnalysis([oneLoses]).cashOuts[0]).toMatchObject({ verdict: 'WOULD_HAVE_LOST', picksLost: 1, picksUnknown: 1 });
+    expect(computePerformance([oneLoses]).cashOuts[0]).toMatchObject({ verdict: 'WOULD_HAVE_LOST', picksLost: 1, picksUnknown: 1 });
   });
 
   it('lists yardage near misses from final live stats, closest first', () => {
@@ -163,7 +172,7 @@ describe('analysis with live data', () => {
     // The same Walker pick in a second bet is listed once, counted twice.
     const second = structuredClone(c);
     second.id = 'other';
-    const { nearMisses } = computeAnalysis([c, second]).howClose;
+    const { nearMisses } = computePerformance([c, second]).howClose;
     expect(nearMisses.map((n) => n.bets)).toEqual([2, 2]);
     expect(nearMisses.map((n) => [n.participantName, n.current, n.needed, n.shortBy, n.unit])).toEqual([
       ['Travis Kelce', 59, 60, 1, 'rec yds'],
@@ -177,5 +186,39 @@ describe('weekOf', () => {
     expect(weekOf(new Date('2026-09-27T23:00:00Z'))).toBe('2026-09-21'); // Sun 7 PM Nassau
     expect(weekOf(new Date('2026-09-28T03:30:00Z'))).toBe('2026-09-21'); // still Sun 11:30 PM Nassau
     expect(weekOf(new Date('2026-09-28T04:30:00Z'))).toBe('2026-09-28'); // Mon 12:30 AM Nassau
+  });
+});
+
+describe('by sport', () => {
+  /** A real bet moved onto the given sports, one per pick in turn. */
+  const onSports = (c: PerformanceCoupon, ...sports: string[]): PerformanceCoupon => ({
+    ...c,
+    legs: c.legs.map((l, i) => ({ ...l, sport: sports[i % sports.length]! })),
+  });
+  const parlay = real.find((c) => c.legs.length >= 2)!;
+  const single = real.find((c) => c.legs.length === 1)!;
+  const bets = [onSports(single, 'BASKETBALL'), onSports(parlay, 'BASKETBALL', 'FOOTBALL'), onSports(single, 'FOOTBALL'), onSports(single, 'FOOTBALL')];
+
+  it('counts each sport’s bets, with others and alone', () => {
+    expect(sportCounts(bets)).toEqual([
+      { sport: 'FOOTBALL', bets: 3, only: 2 },
+      { sport: 'BASKETBALL', bets: 2, only: 1 },
+    ]);
+  });
+
+  it('keeps bets with the sport, or only that sport', () => {
+    expect(inSport(bets, 'BASKETBALL', false)).toHaveLength(2);
+    expect(inSport(bets, 'BASKETBALL', true)).toHaveLength(1);
+    expect(inSport(bets, 'TENNIS', false)).toHaveLength(0);
+  });
+
+  it('counts only that sport’s picks in the market stats', () => {
+    const mixed = [onSports(parlay, 'BASKETBALL', 'FOOTBALL')];
+    const all = computePerformance(mixed, new Date());
+    const basketball = computePerformance(mixed, new Date(), undefined, 'BASKETBALL');
+    const picks = (p: typeof all) => p.markets.reduce((n, m) => n + m.picks, 0);
+    expect(picks(basketball)).toBeLessThan(picks(all));
+    // The bet itself still counts whole.
+    expect(basketball.money).toEqual(all.money);
   });
 });

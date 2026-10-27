@@ -44,7 +44,7 @@ export function SocialSettingsPanel({ me, onBack, onChanged, onSignedOut }: { me
   );
 
   return (
-    <div className="analysis">
+    <div className="panels">
       <button className="link back" onClick={onBack}>
         <Icon name="back" />
         Hub

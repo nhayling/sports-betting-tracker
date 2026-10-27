@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import type { RawHistoryResponse } from '@sports-better/kambi';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import captured from '../../../packages/kambi/fixtures/captured/multi-bet-coupons-2026-10-24.json';
-import { loadAnalysis } from '../src/analysis/load';
+import { loadPerformance } from '../src/performance/load';
 import { loadLeaderboard } from '../src/social/store';
 import { syncCoupons } from '../src/sync/syncCoupons';
 import { loadBetsView } from '../src/views/betsView';
@@ -59,8 +59,8 @@ describe.skipIf(!hasTestDb)('several bets on one coupon', () => {
     await db.externalEventMapping.deleteMany();
   });
 
-  it('counts each bet in analysis and on the leaderboard', async () => {
-    const a = await loadAnalysis(db, { userId });
+  it('counts each bet in performance and on the leaderboard', async () => {
+    const a = await loadPerformance(db, { userId });
     expect(a.money).toMatchObject({ settledBets: 5, openBets: 1, stakedMinor: 3 * 500 + 2 * 2000, returnedMinor: 890 + 945 + 3820 });
     expect(a.parlaySize.buckets.filter((b) => b.bets > 0).map((b) => [b.minPicks, b.bets, b.won])).toEqual([[1, 5, 3]]);
 

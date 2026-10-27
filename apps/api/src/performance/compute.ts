@@ -1,13 +1,13 @@
 import { gameMargin } from '@sports-better/display';
 import { classifyMarket, gameMarket, spreadPick, type GameMarket } from '@sports-better/markets';
 import type { StatKey } from '@sports-better/sports-data';
-import { DEFAULT_FUNDING_MAX_ODDS, MIN_SAMPLE, type Analysis, type StyleStats, type CashOutCheck, type MarketStats, type NearMiss, type ParlayBucket, type RecordRow, type WeekRow } from './types';
+import { DEFAULT_FUNDING_MAX_ODDS, MIN_SAMPLE, type Performance, type StyleStats, type CashOutCheck, type MarketStats, type NearMiss, type ParlayBucket, type RecordRow, type SportCount, type WeekRow } from './types';
 
 /**
- * Plain input so the analysis can be tested without a database. Built by
+ * Plain input so the performance can be tested without a database. Built by
  * load.ts from coupons, their legs/selections/progress and final game states.
  */
-export interface AnalysisCoupon {
+export interface PerformanceCoupon {
   id: string;
   status: string;
   rewardType: string | null;
@@ -16,10 +16,10 @@ export interface AnalysisCoupon {
   payoutMinor: number;
   potentialPayoutMinor: number | null;
   oddsRaw: number | null;
-  legs: AnalysisLeg[];
+  legs: PerformanceLeg[];
 }
 
-export interface AnalysisLeg {
+export interface PerformanceLeg {
   selectionType: string;
   oddsRaw: number | null;
   sport: string | null;
@@ -28,10 +28,10 @@ export interface AnalysisLeg {
   /** Final/live game state, when the tracker has one. */
   game: { state: string; homeScore: number | null; awayScore: number | null } | null;
   /** Which side each moneyline pick is on (computed by the loader). */
-  selections: AnalysisSelection[];
+  selections: PerformanceSelection[];
 }
 
-export interface AnalysisSelection {
+export interface PerformanceSelection {
   status: string;
   marketName: string | null;
   participantName: string | null;
@@ -120,10 +120,36 @@ const BUCKETS: Array<[string, number, number | null]> = [
   ['10+ picks', 10, null],
 ];
 
-const settledPick = (s: AnalysisSelection) => s.status === 'WON' || s.status === 'LOST';
-const picksOf = (c: AnalysisCoupon) => c.legs.flatMap((l) => l.selections);
-const real = (c: AnalysisCoupon) => (c.rewardType === 'FREE_BET' ? 0 : c.stakeMinor);
+const settledPick = (s: PerformanceSelection) => s.status === 'WON' || s.status === 'LOST';
+const picksOf = (c: PerformanceCoupon) => c.legs.flatMap((l) => l.selections);
+const real = (c: PerformanceCoupon) => (c.rewardType === 'FREE_BET' ? 0 : c.stakeMinor);
 const rate = (won: number, n: number) => (n > 0 ? won / n : null);
+/** The sports a bet's picks are in. */
+const sportsOf = (c: PerformanceCoupon) => new Set(c.legs.flatMap((l) => (l.sport ? [l.sport] : [])));
+
+/** Bets with a pick in `sport`, or with `only`, bets in nothing else; a bet can span sports. */
+export function inSport(coupons: PerformanceCoupon[], sport: string, only: boolean): PerformanceCoupon[] {
+  return coupons.filter((c) => {
+    const in_ = sportsOf(c);
+    return in_.has(sport) && (!only || in_.size === 1);
+  });
+}
+
+/** Every sport in `coupons`, most bets first. */
+export function sportCounts(coupons: PerformanceCoupon[]): SportCount[] {
+  const counts = new Map<string, SportCount>();
+  for (const c of coupons) {
+    const in_ = sportsOf(c);
+    for (const sport of in_) {
+      const n = counts.get(sport) ?? { sport, bets: 0, only: 0 };
+      n.bets++;
+      if (in_.size === 1) n.only++;
+      counts.set(sport, n);
+    }
+  }
+  return [...counts.values()].sort((a, b) => b.bets - a.bets || a.sport.localeCompare(b.sport));
+}
+
 const mean = (xs: number[]) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null);
 
 const GAME_MARKET_NAMES: Record<GameMarket, string> = {
@@ -136,18 +162,20 @@ const GAME_MARKET_NAMES: Record<GameMarket, string> = {
   FIGHT: 'UFC',
 };
 
-export function marketOf(s: AnalysisSelection, sport: string | null): string {
+export function marketOf(s: PerformanceSelection, sport: string | null): string {
   const gm = gameMarket(s.marketName);
   if (gm) return GAME_MARKET_NAMES[gm];
   const cls = classifyMarket({ sport, marketName: s.marketName, selectionSide: s.selectionSide as never, line: s.line });
   return cls.supported ? (MARKET_NAMES[cls.metric] ?? 'Other') : 'Other';
 }
 
-export function computeAnalysis(
-  coupons: AnalysisCoupon[],
+export function computePerformance(
+  coupons: PerformanceCoupon[],
   now = new Date(),
   fundingMaxOdds = DEFAULT_FUNDING_MAX_ODDS,
-): Analysis {
+  /** Count only this sport's picks in the market, player, team and near-miss stats; the bets still count whole. */
+  pickSport?: string,
+): Performance {
   const settled = coupons.filter((c) => c.status !== 'OPEN');
   const open = coupons.filter((c) => c.status === 'OPEN');
 
@@ -186,7 +214,7 @@ export function computeAnalysis(
   }
 
   // ── betting style: smaller payouts are the conservative "funding" bets ──
-  const styleStats = (list: AnalysisCoupon[]): StyleStats => {
+  const styleStats = (list: PerformanceCoupon[]): StyleStats => {
     const done = list.filter((c) => c.status !== 'OPEN');
     const realStakedSettled = done.reduce((n, c) => n + real(c), 0);
     const returnedSettled = done.reduce((n, c) => n + c.payoutMinor, 0);
@@ -204,12 +232,14 @@ export function computeAnalysis(
       winRate: rate(won, done.length),
     };
   };
-  const isFunding = (c: AnalysisCoupon) => c.oddsRaw !== null && c.oddsRaw / 1000 < fundingMaxOdds;
+  const isFunding = (c: PerformanceCoupon) => c.oddsRaw !== null && c.oddsRaw <= Math.round(fundingMaxOdds * 1000);
 
   // ── picks (official Island Luck results, from any bet) ─────────
   const allPicks = coupons.flatMap((c) => c.legs.flatMap((l) => l.selections.map((s) => ({ s, l, c }))));
   const decided = allPicks.filter(({ s }) => settledPick(s));
   const pickHitRate = rate(decided.filter(({ s }) => s.status === 'WON').length, decided.length);
+  // A bet with basketball can carry a soccer pick; under Basketball, its soccer pick is no basketball market.
+  const sportPicks = pickSport ? allPicks.filter(({ l }) => l.sport === pickSport) : allPicks;
 
   const buckets: ParlayBucket[] = BUCKETS.map(([label, min, max]) => {
     const inBucket = settled.filter((c) => {
@@ -228,7 +258,7 @@ export function computeAnalysis(
   });
 
   const byMarket = new Map<string, { picks: number; won: number; priced: number; pricedWon: number; implied: number[] }>();
-  for (const { s, l } of decided) {
+  for (const { s, l } of sportPicks.filter(({ s }) => settledPick(s))) {
     const m = marketOf(s, l.sport);
     const row = byMarket.get(m) ?? { picks: 0, won: 0, priced: 0, pricedWon: 0, implied: [] };
     row.picks++;
@@ -264,7 +294,7 @@ export function computeAnalysis(
 
   // The same pick can sit in several bets; list each miss once.
   const nearMissByKey = new Map<string, NearMiss>();
-  for (const miss of allPicks.flatMap(({ s, l }) => {
+  for (const miss of sportPicks.flatMap(({ s, l }) => {
       const p = s.progress;
       if (!p || p.status !== 'FINAL_MISSED' || p.current === null || p.target === null) return [];
       if (p.operator !== 'GTE' && p.operator !== 'GT') return [];
@@ -292,7 +322,7 @@ export function computeAnalysis(
   const nearMisses = [...nearMissByKey.values()].sort((a, b) => a.shortBy - b.shortBy);
 
   // ── players & teams ────────────────────────────────────────────
-  const record = (rows: Array<{ key: string; name: string; s: AnalysisSelection }>): RecordRow[] => {
+  const record = (rows: Array<{ key: string; name: string; s: PerformanceSelection }>): RecordRow[] => {
     const m = new Map<string, RecordRow>();
     for (const { key, name, s } of rows) {
       const r = m.get(key) ?? { name, picks: 0, won: 0, lost: 0, open: 0 };
@@ -305,12 +335,12 @@ export function computeAnalysis(
     return [...m.values()].sort((a, b) => b.picks - a.picks || b.won - a.won || a.name.localeCompare(b.name));
   };
   const players = record(
-    allPicks
+    sportPicks
       .filter(({ s }) => !gameMarket(s.marketName) && s.participantName)
       .map(({ s }) => ({ key: s.participantId ?? s.participantName!, name: s.participantName!, s })),
   );
   const teams = record(
-    allPicks
+    sportPicks
       .filter(({ s }) => gameMarket(s.marketName) && s.participantName)
       // A spread pick's name carries its line ("LV Raiders +5.0"); the team is the same either way.
       .map(({ s }) => ({ key: s.participantId ?? spreadPick(s.participantName, null).team!, name: spreadPick(s.participantName, null).team!, s })),
@@ -342,6 +372,9 @@ export function computeAnalysis(
     generatedAt: now.toISOString(),
     // The caller narrows the coupons to a period and says which; computed on its own, it is everything given.
     period: 'all',
+    sport: null,
+    sportOnly: false,
+    sports: sportCounts(coupons),
     money: {
       settledBets: settled.length,
       stakedMinor: staked,
@@ -378,7 +411,7 @@ export function computeAnalysis(
  * would have happened: its own result if it has one, else the final score
  * (moneylines, spreads, totals) or final live stats (props).
  */
-function resultAfterCashOut(s: AnalysisSelection, l: AnalysisLeg): 'WON' | 'LOST' | null {
+function resultAfterCashOut(s: PerformanceSelection, l: PerformanceLeg): 'WON' | 'LOST' | null {
   if (s.status === 'WON' || s.status === 'LOST') return s.status;
   const gm = gameMarket(s.marketName);
   if (gm) {

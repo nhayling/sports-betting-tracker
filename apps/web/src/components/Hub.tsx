@@ -40,7 +40,7 @@ export function Hub({
   }, [me, fail, attempt]);
 
   return (
-    <div className="analysis">
+    <div className="panels">
       {error && <LoadError onRetry={() => setAttempt((n) => n + 1)}>Can’t load everything right now.</LoadError>}
       {!profile && !error && <p className="muted center">Loading…</p>}
       {profile && (

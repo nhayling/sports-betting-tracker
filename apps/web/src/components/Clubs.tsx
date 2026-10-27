@@ -160,7 +160,7 @@ export function ClubPage({
   const alone = club?.members.length === 1;
 
   return (
-    <div className="analysis">
+    <div className="panels">
       <button className="link back" onClick={onBack}>
         <Icon name="back" />
         Hub
@@ -620,7 +620,7 @@ export function JoinClub({ code, onJoined, onCancel, onSignedOut }: { code: stri
     }
   };
   return (
-    <div className="analysis">
+    <div className="panels">
       {error && (
         <section className="panel">
           <h2>Invite link</h2>

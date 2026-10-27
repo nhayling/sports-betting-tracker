@@ -1,6 +1,7 @@
 import { useEffect, useState, type ReactNode } from 'react';
-import { fetchAnalysis, SignedOutError, type Analysis as AnalysisData, type MarketStats, type Period, type StyleStats } from '../api';
-import { americanOdds, dateTime, money, REWARD_LABELS } from '../format';
+import { fetchPerformance, SignedOutError, type Performance as PerformanceData, type MarketStats, type Period, type StyleStats } from '../api';
+import { americanOdds, dateTime, inSentence, money, REWARD_LABELS, sportName } from '../format';
+import { Icon } from './Icon';
 import { PeriodPicker } from './Leaderboard';
 import { LoadError } from './LoadError';
 
@@ -18,11 +19,13 @@ function oneIn(p: number | null): string {
 const weekLabel = (iso: string) =>
   `Week of ${new Date(`${iso}T12:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
 
-/** Payout multiples offered as the funding/fun cutoff. */
-const CUTOFFS = [10, 20, 50];
+/** The longest odds that still count as funding, as American odds; sent as decimal (+200 → 3). */
+const CUTOFFS = [100, 200, 300, 500];
+const DEFAULT_CUTOFF = 200;
 const CUTOFF_KEY = 'sports-better:funding-cutoff';
+const decimalOf = (american: number) => 1 + american / 100;
 
-const PERIOD_KEY = 'sports-better:analysis-period';
+const PERIOD_KEY = 'sports-better:performance-period';
 const PERIOD_WORDS: Record<Period, string> = { week: 'this week', month: 'this month', all: 'overall' };
 
 function readPeriod(): Period {
@@ -34,7 +37,7 @@ function readPeriod(): Period {
   }
 }
 
-/** The four questions Analysis answers, in order; each is a section the nav jumps to. */
+/** The four questions Performance answers, in order; each is a section the nav jumps to. */
 const SECTIONS: Array<[string, string]> = [
   ['up', 'Up or down'],
   ['works', 'What works'],
@@ -44,15 +47,16 @@ const SECTIONS: Array<[string, string]> = [
 
 function readCutoff(): number {
   try {
+    // An older saved cutoff (10×, 20×, 50×) isn't one of these and falls back.
     const v = Number(localStorage.getItem(CUTOFF_KEY));
-    return CUTOFFS.includes(v) ? v : 20;
+    return CUTOFFS.includes(v) ? v : DEFAULT_CUTOFF;
   } catch {
-    return 20;
+    return DEFAULT_CUTOFF;
   }
 }
 
-export function Analysis({ onSignedOut }: { onSignedOut: () => void }) {
-  const [a, setA] = useState<AnalysisData | null>(null);
+export function Performance({ onSignedOut }: { onSignedOut: () => void }) {
+  const [a, setA] = useState<PerformanceData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [cutoff, setCutoffState] = useState(readCutoff);
   const setCutoff = (v: number) => {
@@ -73,14 +77,18 @@ export function Analysis({ onSignedOut }: { onSignedOut: () => void }) {
       // not remembered; still applies now
     }
   };
+  // Any bet with the sport, or with `only`, bets in nothing else, as on Settled.
+  const [sport, setSport] = useState<{ sport: string; only: boolean } | null>(null);
+  const sportKey = sport ? `${sport.sport}${sport.only ? '|only' : ''}` : '';
   const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
     setError(null);
-    fetchAnalysis(cutoff, period).then(setA, (err) => (err instanceof SignedOutError ? onSignedOut() : setError(String(err.message ?? err))));
-  }, [onSignedOut, cutoff, period, attempt]);
+    fetchPerformance(decimalOf(cutoff), period, sport).then(setA, (err) => (err instanceof SignedOutError ? onSignedOut() : setError(String(err.message ?? err))));
+    // sportKey stands in for the sport object, which is new on every pick.
+  }, [onSignedOut, cutoff, period, sportKey, attempt]);
 
-  if (error && !a) return <LoadError onRetry={() => setAttempt((n) => n + 1)}>Can’t load your analysis.</LoadError>;
+  if (error && !a) return <LoadError onRetry={() => setAttempt((n) => n + 1)}>Can’t load your performance.</LoadError>;
   if (!a)
     return (
       <p className="muted center" role="status">
@@ -94,13 +102,43 @@ export function Analysis({ onSignedOut }: { onSignedOut: () => void }) {
   const lost = funding.lost + fun.lost;
   const cashed = funding.cashedOut + fun.cashedOut;
   const when = PERIOD_WORDS[a.period];
+  // "basketball" or "basketball-only", for sentences about these bets.
+  const sportWords = a.sport && `${inSentence(sportName(a.sport))}${a.sportOnly ? '-only' : ''}`;
   const retry = () => setAttempt((n) => n + 1);
+  const pickSport = (value: string) => {
+    const [s, only] = value.split('|');
+    setSport(s ? { sport: s, only: only === 'only' } : null);
+  };
+  // A chosen sport stays on offer even when the period has none of it.
+  const sports = a.sport && !a.sports.some((x) => x.sport === a.sport) ? [...a.sports, { sport: a.sport, bets: 0, only: 0 }] : a.sports;
 
   const controls = (
-    <div className="analysis-controls">
-      <PeriodPicker value={period} onChange={setPeriod} />
+    <div className="performance-controls">
+      <div className="performance-filters">
+        <PeriodPicker value={period} onChange={setPeriod} />
+        {/* One sport is nothing to choose between. A bet can span sports, so each one is offered with others or alone. */}
+        {(sports.length > 1 || a.sport) && (
+          <span className={a.sport ? 'filter-pick set' : 'filter-pick'}>
+            {a.sport ? `${sportName(a.sport)}${a.sportOnly ? ' only' : ''}` : 'All sports'}
+            <Icon name="chevron" />
+            <select aria-label="Sport" value={sportKey} onChange={(e) => pickSport(e.target.value)}>
+              <option value="">All sports</option>
+              {sports.map((x) => (
+                <optgroup key={x.sport} label={sportName(x.sport)}>
+                  <option value={x.sport}>
+                    Any with {inSentence(sportName(x.sport))} ({x.bets})
+                  </option>
+                  <option value={`${x.sport}|only`}>
+                    {sportName(x.sport)} only ({x.only})
+                  </option>
+                </optgroup>
+              ))}
+            </select>
+          </span>
+        )}
+      </div>
       {m.settledBets > 0 && (
-        <nav className="jumps" aria-label="Analysis sections">
+        <nav className="jumps" aria-label="Performance sections">
           {SECTIONS.map(([id, label]) => (
             <button key={id} className="jump" onClick={() => jumpToSection(id)}>
               {label}
@@ -113,25 +151,36 @@ export function Analysis({ onSignedOut }: { onSignedOut: () => void }) {
 
   if (m.settledBets === 0)
     return (
-      <div className="analysis">
+      <div className="performance">
         {controls}
-        <p className="muted center">
-          {a.period === 'all' ? 'Nothing settled yet. Stats appear once Island Luck settles your first bet.' : `No bets placed ${when} have settled yet.`}
-        </p>
+        {a.sport ? (
+          <div className="filter-empty">
+            <p className="muted">
+              No settled {sportWords} bets{a.period === 'all' ? '' : ` placed ${when}`}.
+            </p>
+            <button className="btn" onClick={() => pickSport('')}>
+              Show all sports
+            </button>
+          </div>
+        ) : (
+          <p className="muted center">
+            {a.period === 'all' ? 'Nothing settled yet. Stats appear once Island Luck settles your first bet.' : `No bets placed ${when} have settled yet.`}
+          </p>
+        )}
       </div>
     );
 
   return (
-    <div className="analysis">
+    <div className="performance">
       {controls}
-      {error && <LoadError onRetry={retry}>Can’t update your analysis. Showing the last figures.</LoadError>}
+      {error && <LoadError onRetry={retry}>Can’t update your performance. Showing the last figures.</LoadError>}
 
       {/* How you're doing: the one answer, before any detail. */}
       <section className="panel standing-panel">
         <h2>How you’re doing</h2>
         <p className="lede">
           You’re <strong className={m.netMinor > 0 ? 'good' : m.netMinor < 0 ? 'bad' : undefined}>{m.netMinor > 0 ? `up ${money(m.netMinor)}` : m.netMinor < 0 ? `down ${money(-m.netMinor)}` : 'even'}</strong> {when} on{' '}
-          {m.settledBets} settled bet{m.settledBets === 1 ? '' : 's'}.
+          {m.settledBets} settled {sportWords && `${sportWords} `}bet{m.settledBets === 1 ? '' : 's'}.
         </p>
         <div className="summary">
           <div className="stat">
@@ -218,7 +267,7 @@ export function Analysis({ onSignedOut }: { onSignedOut: () => void }) {
       <Group id="works" title="Which bets work">
         <section className="panel">
           <h3 className="panel-title">Hit rate by market</h3>
-          <p className="muted small">Settled picks from {a.period === 'all' ? 'all your bets' : `bets placed ${when}`}. Rates under {MIN_SAMPLE} picks are marked early: a couple of weekends can swing them a lot.</p>
+          <p className="muted small">Settled {a.sport ? `${inSentence(sportName(a.sport))} ` : ''}picks from {a.period === 'all' ? `all your ${sportWords ? `${sportWords} ` : ''}bets` : `${sportWords ? `${sportWords} ` : ''}bets placed ${when}`}. Rates under {MIN_SAMPLE} picks are marked early: a couple of weekends can swing them a lot.</p>
           <ul className="markets">
             {a.markets.map((mk) => (
               <MarketRow key={mk.market} m={mk} />
@@ -331,17 +380,17 @@ export function Analysis({ onSignedOut }: { onSignedOut: () => void }) {
 
 /** Brings a question into view and moves focus to its heading, so the keyboard carries on from there. */
 function jumpToSection(id: string) {
-  const section = document.getElementById(`analysis-${id}`);
+  const section = document.getElementById(`performance-${id}`);
   if (!section) return;
   section.scrollIntoView({ block: 'start' });
   section.querySelector<HTMLElement>('.group-head')?.focus({ preventScroll: true });
 }
 
-/** One of Analysis's questions: a heading on the page ground over its panels. */
+/** One of Performance's questions: a heading on the page ground over its panels. */
 function Group({ id, title, children }: { id: string; title: string; children: ReactNode }) {
   return (
-    <section className="analysis-group" id={`analysis-${id}`} aria-labelledby={`analysis-${id}-title`}>
-      <h2 className="group-head" id={`analysis-${id}-title`} tabIndex={-1}>
+    <section className="performance-group" id={`performance-${id}`} aria-labelledby={`performance-${id}-title`}>
+      <h2 className="group-head" id={`performance-${id}-title`} tabIndex={-1}>
         {title}
       </h2>
       <div className="group-panels">{children}</div>
@@ -439,7 +488,7 @@ function StylesPanel({
   cutoff,
   onCutoff,
 }: {
-  split: AnalysisData['styles'];
+  split: PerformanceData['styles'];
   cutoff: number;
   onCutoff: (v: number) => void;
 }) {
@@ -463,13 +512,13 @@ function StylesPanel({
         <div className="segmented" role="radiogroup" aria-label="Funding cutoff">
           {CUTOFFS.map((c) => (
             <button key={c} role="radio" aria-checked={cutoff === c} className={cutoff === c ? 'on' : ''} onClick={() => onCutoff(c)}>
-              {c}×
+              +{c}
             </button>
           ))}
         </div>
       </div>
       <p className="muted small">
-        Funding = bets paying under {cutoff}× (under +{(cutoff - 1) * 100}, under {money(cutoff * 500)} on $5). Fun = bigger payouts.
+        Funding = bets at +{cutoff} or shorter (paying {money(decimalOf(cutoff) * 500)} or less on $5). Fun = longer odds.
       </p>
       <div className="styles">
         <StyleCard title="Funding" subtitle="conservative" s={funding} />

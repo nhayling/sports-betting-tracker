@@ -126,8 +126,8 @@ describe.skipIf(!hasTestDb)('login and sessions', () => {
     expect((await fetch(`${base}/api/coupons/${mine[0]!.id}`, { headers: { cookie } })).status).toBe(404);
     const list = (await (await fetch(`${base}/api/coupons`, { headers: { cookie } })).json()) as { coupons: unknown[] };
     expect(list.coupons).toHaveLength(2);
-    const analysis = await fetch(`${base}/api/analysis`, { headers: { cookie } });
-    expect(analysis.status).toBe(200);
+    const performance = await fetch(`${base}/api/performance`, { headers: { cookie } });
+    expect(performance.status).toBe(200);
   });
 
   it('keeps notifications private', async () => {
@@ -146,7 +146,7 @@ describe.skipIf(!hasTestDb)('login and sessions', () => {
     const { token } = (await extensionToken('noah', 'a-long-password')).body;
     const headers = { Authorization: `Bearer ${token}` };
     expect((await sync(token!, [])).status).toBe(200);
-    for (const path of ['/api/bets', '/api/coupons', '/api/analysis', '/api/notifications', '/api/social/me', '/api/live/status']) {
+    for (const path of ['/api/bets', '/api/coupons', '/api/performance', '/api/notifications', '/api/social/me', '/api/live/status']) {
       expect((await fetch(`${base}${path}`, { headers })).status, path).toBe(403);
     }
     // A key can't make more keys: a leaked one stops working once it's revoked.

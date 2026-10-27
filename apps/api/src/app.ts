@@ -5,7 +5,7 @@ import type { Db } from './db';
 import { authenticate, requireApiKeyAuth, requireSessionAuth } from './auth';
 import type { LoginLimiter } from './auth/loginLimiter';
 import { authRouter } from './routes/auth';
-import { analysisRouter } from './routes/analysis';
+import { performanceRouter } from './routes/performance';
 import { betsRouter } from './routes/bets';
 import { couponsRouter } from './routes/coupons';
 import { islandLuckSyncRouter } from './routes/islandLuckSync';
@@ -58,7 +58,7 @@ export function createApp(db: Db, opts: AppOptions = {}) {
   app.use('/api', requireSessionAuth);
   app.use('/api/coupons', couponsRouter(db));
   app.use('/api/bets', betsRouter(db));
-  app.use('/api/analysis', analysisRouter(db));
+  app.use('/api/performance', performanceRouter(db));
   app.use('/api/notifications', notificationsRouter(db));
   app.use('/api/phone-sync', phoneSyncRouter(db, opts.publicUrl));
   app.use('/api/social', socialRouter(db));

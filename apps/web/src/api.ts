@@ -1,10 +1,10 @@
 import type { BetsView } from '../../api/src/views/betsViewTypes';
-import type { Analysis } from '../../api/src/analysis/types';
+import type { Performance } from '../../api/src/performance/types';
 import type { AccessRequest, InviteRow, Member, NewInvite } from '../../api/src/admin/types';
 import type { ClubFeedItem, ClubInvite, ClubSummary, ClubView, LeaderboardView, Period, Person, ProfileView, Relation, SocialMe, SocialSettings } from '../../api/src/social/types';
 
 export type * from '../../api/src/views/betsViewTypes';
-export type * from '../../api/src/analysis/types';
+export type * from '../../api/src/performance/types';
 export type * from '../../api/src/social/types';
 export type * from '../../api/src/admin/types';
 
@@ -100,8 +100,11 @@ export interface NotificationItem {
 export const fetchNotifications = () => get<{ unread: number; items: NotificationItem[] }>('/api/notifications?limit=50');
 export const markNotificationsRead = () => post<{ marked: number }>('/api/notifications/read');
 
-export const fetchAnalysis = (fundingMaxOdds?: number, period: Period = 'all') =>
-  get<Analysis>(`/api/analysis?period=${period}${fundingMaxOdds ? `&fundingMaxOdds=${fundingMaxOdds}` : ''}`);
+/** `sport`: only bets with a pick in it; with `only`, bets in nothing else. */
+export const fetchPerformance = (fundingMaxOdds?: number, period: Period = 'all', sport: { sport: string; only: boolean } | null = null) =>
+  get<Performance>(
+    `/api/performance?period=${period}${fundingMaxOdds ? `&fundingMaxOdds=${fundingMaxOdds}` : ''}${sport ? `&sport=${encodeURIComponent(sport.sport)}${sport.only ? '&only=1' : ''}` : ''}`,
+  );
 
 // ── Social ───────────────────────────────────────────────────────────
 

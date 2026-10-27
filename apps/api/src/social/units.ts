@@ -1,4 +1,4 @@
-import { weekOf } from '../analysis/compute';
+import { weekOf } from '../performance/compute';
 import { MIN_BETS, type Period, type UnitStats } from './types';
 
 /**

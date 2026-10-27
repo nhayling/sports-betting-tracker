@@ -64,7 +64,7 @@ export async function runPollCycle(db: Db, provider: SportsDataProvider, now = n
     where: {
       // Settled bets too, until their games end: a parlay that loses early
       // still shows each pick's final stat (Island Luck only says won or
-      // lost), and the Analysis tab's cash-out check needs final scores.
+      // lost), and the Performance tab's cash-out check needs final scores.
       eventStartAt: { gte: new Date(now.getTime() - MAX_GAME_MS), lte: new Date(now.getTime() + PREGAME_MS) },
     },
     include: LEG_INCLUDE,

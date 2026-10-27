@@ -2,12 +2,12 @@ import { teamTotalTeam } from '@sports-better/markets';
 import type { ProviderTeam } from '@sports-better/sports-data';
 import type { Db } from '../db';
 import { betsOfCoupon, loadEventStates, moneylineSideOf, stateForLeg } from '../views/betsView';
-import { computeAnalysis, type AnalysisCoupon } from './compute';
-import type { Analysis } from './types';
+import { computePerformance, inSport, sportCounts, type PerformanceCoupon } from './compute';
+import type { Performance } from './types';
 import type { Period } from '../social/types';
 import { inPeriod } from '../social/units';
 
-export async function loadAnalysis(db: Db, opts: { userId: string; fundingMaxOdds?: number; period?: Period }, now = new Date()): Promise<Analysis> {
+export async function loadPerformance(db: Db, opts: { userId: string; fundingMaxOdds?: number; period?: Period; sport?: string; sportOnly?: boolean }, now = new Date()): Promise<Performance> {
   const period = opts.period ?? 'all';
   const coupons = await db.coupon.findMany({
     where: { sportsbookAccount: { userId: opts.userId } },
@@ -21,7 +21,7 @@ export async function loadAnalysis(db: Db, opts: { userId: string; fundingMaxOdd
   const states = await loadEventStates(db, inRange.flatMap((c) => c.legs.map((l) => l.eventId)).filter((e): e is string => !!e));
 
   // Each bet on a coupon is its own bet here, as in the bet list.
-  const input: AnalysisCoupon[] = inRange.flatMap((c) => betsOfCoupon(c).map((b) => ({
+  const input: PerformanceCoupon[] = inRange.flatMap((c) => betsOfCoupon(c).map((b) => ({
     id: b.id,
     status: b.status,
     rewardType: c.rewardType,
@@ -55,5 +55,9 @@ export async function loadAnalysis(db: Db, opts: { userId: string; fundingMaxOdd
       };
     }),
   })));
-  return { ...computeAnalysis(input, now, opts.fundingMaxOdds), period };
+  // The sports on offer come from the whole period, so picking one never hides the others.
+  const sport = opts.sport ?? null;
+  const sportOnly = !!sport && !!opts.sportOnly;
+  const chosen = sport ? inSport(input, sport, sportOnly) : input;
+  return { ...computePerformance(chosen, now, opts.fundingMaxOdds, sport ?? undefined), period, sport, sportOnly, sports: sportCounts(input) };
 }

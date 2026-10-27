@@ -428,14 +428,16 @@ button.primary:not(.btn) { padding: 11px; font-size: var(--fs-lg); }
 /* A new range is loading: the old list stays, dimmed, until it lands. */
 .list[aria-busy='true'] { opacity: 0.55; }
 
-/* ── Panels: analysis, social, phone sync ─────────────── */
-.analysis, .social { display: flex; flex-direction: column; gap: 14px; }
-/* Analysis: the period, then jumps to each question. */
-.analysis-controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; }
+/* ── Panels: performance, social, phone sync ─────────────── */
+.panels, .social { display: flex; flex-direction: column; gap: 14px; }
+/* Performance: the period, then jumps to each question. */
+.performance-controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; }
+.performance-filters { display: flex; flex-wrap: wrap; align-items: stretch; gap: 8px; }
+.performance-filters .filter-pick { min-height: 44px; }
 .jumps { display: flex; flex-wrap: wrap; gap: 0 14px; }
 .jump { min-height: 44px; padding: 0; background: none; border: 0; cursor: pointer; font-family: var(--cond); font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--rule); }
 .jump:hover { color: var(--text); text-decoration-color: currentColor; }
-.analysis-group { display: flex; flex-direction: column; gap: 10px; scroll-margin-top: 12px; }
+.performance-group { display: flex; flex-direction: column; gap: 10px; scroll-margin-top: 12px; }
 .group-head:focus { outline: none; }
 .group-head:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .group-head { margin: 8px 0 0; padding-bottom: 6px; border-bottom: 2px solid var(--text); font-family: var(--cond); font-size: 24px; font-weight: 800; line-height: 1.1; letter-spacing: 0.01em; text-transform: uppercase; }
@@ -563,7 +565,7 @@ button.link.back { align-self: flex-start; display: inline-flex; align-items: ce
 .player-record h3 { margin: 0; font-family: var(--cond); font-size: var(--fs-sm); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 .summary.record { margin: 0; border-inline: 0; border-bottom: 0; }
 .stat-extra { font-size: 0.6em; color: var(--muted); }
-.analysis > .banner { margin-bottom: 0; }
+.panels > .banner { margin-bottom: 0; }
 .record-empty { margin: 0; padding: 0 14px 12px; }
 
 /* Who sees what: one row of plates per thing shared, filled where that audience sees it. */
@@ -695,6 +697,8 @@ button.link.danger-link { color: var(--bad-text); }
   /* Fingers, not cursors: wherever the phone tab bar shows, controls are a thumb's height. */
   .segmented button { min-height: 44px; }
   .filter-pick, .filters > .filter-dates { display: none; }
+  /* Performance has the one dropdown; it stays rather than folding behind a Filter button. */
+  .performance-filters .filter-pick { display: flex; }
   .filter-button { display: flex; min-height: 44px; }
   .filter-chips { display: flex; }
   .filter-dates input { min-height: 44px; }
@@ -719,7 +723,7 @@ button.link.danger-link { color: var(--bad-text); }
   .top-right { gap: 10px; }
 }
 
-/* Desktop: bets and analysis panels run in two columns. */
+/* Desktop: bets and performance panels run in two columns. */
 @media (min-width: 1040px) {
   .wrap { max-width: 1120px; }
   .tally { grid-template-columns: repeat(auto-fill, minmax(96px, 120px)); }
@@ -727,7 +731,7 @@ button.link.danger-link { color: var(--bad-text); }
   /* One bet doesn't make two stacks: it sits centred at a readable width instead of hugging the left half. */
   .list.single { max-width: 760px; margin-inline: auto; }
   .list-col { display: flex; flex: 1; min-width: 0; flex-direction: column; gap: 14px; }
-  /* Analysis: a question's panels sit side by side; a lone panel takes the row. */
+  /* Performance: a question's panels sit side by side; a lone panel takes the row. */
   .group-panels { display: grid; grid-template-columns: 1fr 1fr; align-items: start; }
   .group-panels > :only-child, .group-panels > :last-child:nth-child(odd) { grid-column: 1 / -1; }
   .social, .account, .first-run { max-width: 760px; margin-inline: auto; }

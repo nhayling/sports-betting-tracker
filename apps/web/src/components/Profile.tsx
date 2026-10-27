@@ -77,7 +77,7 @@ export function Profile({
 
   const phrase = profile && relationPhrase(profile.relation);
   return (
-    <div className="analysis">
+    <div className="panels">
       <button className="link back" onClick={onBack}>
         <Icon name="back" />
         {backLabel}

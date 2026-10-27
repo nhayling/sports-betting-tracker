@@ -1,5 +1,5 @@
 /**
- * Response of GET /api/analysis, shared with the web app (type-only).
+ * Response of GET /api/performance, shared with the web app (type-only).
  * Money in cents. Rates are 0..1. Only Island Luck's official results count
  * toward records; live stats are used only where noted (near misses, cash-out check).
  */
@@ -7,10 +7,16 @@
 /** Below this many picks a rate is flagged as early / not yet meaningful. */
 export const MIN_SAMPLE = 30;
 
-export interface Analysis {
+export interface Performance {
   generatedAt: string;
   /** Bets placed in this period (Nassau time), the same periods the leaderboard uses. */
   period: 'week' | 'month' | 'all';
+  /** Only bets with a pick in this sport (Kambi's id, "BASKETBALL"); null for every sport. */
+  sport: string | null;
+  /** With `sport`: only bets in nothing but that sport. */
+  sportOnly: boolean;
+  /** Every sport bet on in the period, most bets first, before the sport filter. */
+  sports: SportCount[];
   money: MoneyStats;
   /** Conservative "funding" bets vs long-shot "fun" bets, split by payout. */
   styles: StyleSplit;
@@ -39,11 +45,19 @@ export interface MoneyStats {
   promos: PromoRow[];
 }
 
-/** Default cutoff: bets paying under 20× the stake count as funding. */
-export const DEFAULT_FUNDING_MAX_ODDS = 20;
+export interface SportCount {
+  sport: string;
+  /** Bets with a pick in this sport. */
+  bets: number;
+  /** Bets in this sport alone. */
+  only: number;
+}
+
+/** Default cutoff: bets at +200 (3× the stake) or shorter count as funding. */
+export const DEFAULT_FUNDING_MAX_ODDS = 3;
 
 export interface StyleSplit {
-  /** Decimal odds: a bet is Funding when its odds are below this. */
+  /** Decimal odds: a bet is Funding when its odds are at most this. */
   fundingMaxOdds: number;
   funding: StyleStats;
   fun: StyleStats;

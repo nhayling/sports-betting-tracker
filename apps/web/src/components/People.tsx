@@ -230,7 +230,7 @@ export function PeopleList({
     </button>
   );
   return (
-    <div className="analysis">
+    <div className="panels">
       {friendRequests.length + followRequests.length > 0 && (
         <section className="panel">
           <h2>Requests</h2>

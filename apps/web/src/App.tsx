@@ -16,7 +16,7 @@ import {
 } from './api';
 import { betRank, betStanding, ORDER, type BetState } from './betState';
 import { Account } from './components/Account';
-import { Analysis } from './components/Analysis';
+import { Performance } from './components/Performance';
 import { CouponCard } from './components/CouponCard';
 import { FirstRun } from './components/FirstRun';
 import { Icon } from './components/Icon';
@@ -28,14 +28,14 @@ import { SignUp } from './components/SignUp';
 import { Wordmark } from './components/Wordmark';
 import { Social } from './components/Social';
 import { inviteCodeIn, pendingClubInvite, rememberClubInvite } from './clubInvite';
-import { addDays, clockTime, money, nassauDay, nassauWeekStart, relativeTime, sportName } from './format';
+import { addDays, clockTime, inSentence, money, nassauDay, nassauWeekStart, relativeTime, sportName } from './format';
 
-type Tab = 'open' | 'settled' | 'analysis' | 'social';
+type Tab = 'open' | 'settled' | 'performance' | 'social';
 type BetsTab = 'open' | 'settled';
 const TABS: Array<[Tab, string]> = [
   ['open', 'Open'],
   ['settled', 'Settled'],
-  ['analysis', 'Analysis'],
+  ['performance', 'Performance'],
   ['social', 'Social'],
 ];
 /** Settled bets by how they ended. Voids and mixed results show under All only. */
@@ -46,7 +46,7 @@ const RESULTS: Array<[Result, string]> = [
   ['LOST', 'Lost'],
   ['CASHED_OUT', 'Cashed out'],
 ];
-/** Settled bets by when they were placed, in Nassau days; the presets match Analysis. */
+/** Settled bets by when they were placed, in Nassau days; the presets match Performance. */
 type When = 'week' | 'month' | 'all' | 'custom';
 const WHENS: Array<[When, string]> = [
   ['week', 'This week'],
@@ -119,7 +119,9 @@ if (openedWithInvite) rememberClubInvite(openedWithInvite);
 /** The Social tab keeps its own place after the slash (#social/people). */
 function tabFromHash(): Tab {
   const name = location.hash.slice(1).split('/')[0];
-  return name === 'settled' || name === 'analysis' || name === 'social' ? name : 'open';
+  // Performance was called Analysis; old links and home-screen shortcuts still land on it.
+  if (name === 'analysis') return 'performance';
+  return name === 'settled' || name === 'performance' || name === 'social' ? name : 'open';
 }
 
 export function App() {
@@ -485,7 +487,7 @@ export function App() {
           <Account username={social?.username ?? null} me={me} onEmailSaved={(email) => setMe((m) => (m ? { ...m, email, emailVerified: false } : m))} onClose={() => setAccount(false)} onSignOut={doSignOut} onSignedOut={onSignedOut} />
         ) : (
           <>
-            {tab === 'analysis' && <Analysis onSignedOut={onSignedOut} />}
+            {tab === 'performance' && <Performance onSignedOut={onSignedOut} />}
             {tab === 'social' && <Social me={social} onChanged={refreshSocial} onSignedOut={onSignedOut} />}
 
             {betsTab && !data && !unreachable && (
@@ -675,9 +677,6 @@ function DateFields({ custom, onChange }: { custom: { from: string; to: string }
     </div>
   );
 }
-
-/** A sport's name mid-sentence: "basketball", but "MMA". */
-const inSentence = (name: string) => (name === name.toUpperCase() ? name : name.toLowerCase());
 
 /** "No won basketball-only bets this week." */
 function noneMatch(result: Result, sport: string | null, only: boolean, when: When): string {
