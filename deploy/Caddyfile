@@ -39,6 +39,13 @@
 	import app
 }
 
+# The admin site: same app, which serves the admin page and API on this host only.
+# Needs its own DNS record; a Cloudflare origin certificate already covers *.DOMAIN.
+admin.{$DOMAIN} {
+	import {$DOMAIN_TLS}
+	import app
+}
+
 {$OLD_DOMAINS} {
 	import app
 }

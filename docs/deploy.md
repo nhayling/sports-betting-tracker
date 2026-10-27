@@ -130,7 +130,22 @@ together, then deploy.
 During the beta, anyone can ask to join at `https://<DOMAIN>/#join` (also
 linked from the sign-in screen). They pick a username, email and password and
 can say who they are; the account then waits for approval and can't sign in.
-Each request shows in `npm run deploy:logs` as `[access] …`. To see and answer them:
+Each request shows in `npm run deploy:logs` as `[access] …`.
+
+### The admin site
+
+Requests are answered at `https://admin.<DOMAIN>`, which also lists members and
+makes invite links. It's the same app, so it needs no deploy of its own, only:
+
+1. A DNS record for `admin.<DOMAIN>` pointing at the server, like the domain's
+   own (proxied, behind Cloudflare). Caddy picks it up on the next deploy.
+2. An admin account. Only admins can sign in there; sign in separately from the app:
+
+```sh
+docker compose exec app npm run access -w @sports-better/api -- admin <username>
+```
+
+The same answers work from the server, without the admin site:
 
 ```sh
 docker compose exec app npm run access -w @sports-better/api                        # waiting requests, and accounts with no email
@@ -138,9 +153,22 @@ docker compose exec app npm run access -w @sports-better/api -- approve <usernam
 docker compose exec app npm run access -w @sports-better/api -- decline <username>  # deletes the request
 ```
 
-Nothing emails them either way yet, so tell them yourself.
+Each step sends an email through Postmark: a receipt when someone asks, the
+request to every admin with an email (linking to the admin site), and an
+approved or declined email when it's answered. They come from
+`hello@slipclub.app` with replies to `slipclub@archipelagoapps.com`
+(`EMAIL_FROM` and `EMAIL_REPLY_TO` change that). Set `POSTMARK_API_TOKEN` in the
+server's `.env`, then upload the templates once, and again whenever
+`apps/api/emails` changes:
 
-To let someone in without waiting for approval, send them an invite link:
+```sh
+docker compose exec app npm run emails -w @sports-better/api -- push
+docker compose exec app npm run emails -w @sports-better/api -- test access-approved you@example.com
+```
+
+Without a token nothing is sent: the logs say `[email] not sent`, and you tell them yourself.
+
+To let someone in without waiting for approval, make an invite link on the admin site, or:
 
 ```sh
 docker compose exec app npm run invite -w @sports-better/api

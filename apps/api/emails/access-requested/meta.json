@@ -1,0 +1,13 @@
+{
+  "Name": "New request (to whoever approves)",
+  "Alias": "access-requested",
+  "Subject": "{{username}} asked to join Slip Club",
+  "TemplateType": "Standard",
+  "LayoutTemplate": "slip-club",
+  "TestRenderModel": {
+    "username": "tbone",
+    "email": "tbone@example.com",
+    "access_note": "Noah’s cousin, we bet the Dolphins together",
+    "requested_at": "Oct 27, 2026, 1:14 PM"
+  }
+}

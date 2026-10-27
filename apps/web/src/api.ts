@@ -1,10 +1,12 @@
 import type { BetsView } from '../../api/src/views/betsViewTypes';
 import type { Analysis } from '../../api/src/analysis/types';
+import type { AccessRequest, InviteRow, Member, NewInvite } from '../../api/src/admin/types';
 import type { ClubFeedItem, ClubInvite, ClubSummary, ClubView, LeaderboardView, Period, Person, ProfileView, Relation, SocialMe, SocialSettings } from '../../api/src/social/types';
 
 export type * from '../../api/src/views/betsViewTypes';
 export type * from '../../api/src/analysis/types';
 export type * from '../../api/src/social/types';
+export type * from '../../api/src/admin/types';
 
 export interface PollerStatus {
   running: boolean;
@@ -18,12 +20,16 @@ export class SignedOutError extends Error {}
 /** Signed in with the right password, but the request to join is still waiting for approval. */
 export class PendingApprovalError extends Error {}
 
+/** Signed in on the admin site with an account that isn't an admin. */
+export class NotAdminError extends Error {}
+
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(path, { ...init, headers: { Accept: 'application/json', ...(init?.body ? { 'Content-Type': 'application/json' } : {}) } });
   const body = await res.json().catch(() => ({}));
   // Carries the server's words, so a wrong password on the sign-in form says so.
   if (res.status === 401) throw new SignedOutError((body as { error?: string }).error ?? 'Not signed in');
   if (res.status === 403 && (body as { pending?: boolean }).pending) throw new PendingApprovalError((body as { error: string }).error);
+  if (res.status === 403 && (body as { notAdmin?: boolean }).notAdmin) throw new NotAdminError((body as { error: string }).error);
   if (!res.ok) throw new Error((body as { error?: string }).error ?? `The tracker had a problem (${res.status}). Try again in a moment.`);
   return body as T;
 }
@@ -134,3 +140,11 @@ export const fetchClubInvite = (code: string) => get<ClubInvite>(`/api/clubs/inv
 export const joinClub = (code: string) => post<{ id: string }>(`/api/clubs/invites/${encodeURIComponent(code)}`);
 /** The link members share: it opens the club's join screen in the app. */
 export const clubInviteUrl = (code: string) => `${location.origin}/#social/join/${code}`;
+
+// ── The admin site (admin.<domain>) ──
+export const fetchAdminMe = () => get<{ username: string }>('/api/admin/me');
+export const fetchAccessRequests = () => get<{ requests: AccessRequest[] }>('/api/admin/requests');
+export const answerAccessRequest = (username: string, answer: 'approve' | 'decline') => post<{ ok: true; emailed: boolean }>(`/api/admin/requests/${encodeURIComponent(username)}/${answer}`);
+export const fetchMembers = () => get<{ members: Member[] }>('/api/admin/members');
+export const fetchInvites = () => get<{ invites: InviteRow[] }>('/api/admin/invites');
+export const createInviteLink = (days: number) => post<NewInvite>('/api/admin/invites', { days });

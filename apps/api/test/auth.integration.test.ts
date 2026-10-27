@@ -6,6 +6,7 @@ import type { PrismaClient } from '@prisma/client';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { createApp } from '../src/app';
 import { createInvite } from '../src/auth/invites';
+import { recordingMailer } from '../src/email/mailer';
 import { LoginLimiter } from '../src/auth/loginLimiter';
 import { hashPassword, verifyPassword } from '../src/auth/password';
 import type { RawHistoryResponse } from '@sports-better/kambi';
@@ -29,6 +30,7 @@ describe.skipIf(!hasTestDb)('login and sessions', () => {
   let base: string;
   let close: () => void;
   let now = Date.now();
+  const { mailer, sent } = recordingMailer();
 
   beforeAll(async () => {
     db = await setupTestDb();
@@ -41,7 +43,7 @@ describe.skipIf(!hasTestDb)('login and sessions', () => {
     writeFileSync(join(webDist, 'index.html'), '<!doctype html><title>Slip Club</title>');
     writeFileSync(join(webDist, 'assets', 'app.js'), 'console.log(1)');
 
-    const server = createApp(db, { webDist, loginLimiter: new LoginLimiter(() => now), signupLimiter: new LoginLimiter(() => now) }).listen(0);
+    const server = createApp(db, { webDist, mailer, loginLimiter: new LoginLimiter(() => now), signupLimiter: new LoginLimiter(() => now) }).listen(0);
     await new Promise((r) => server.once('listening', r));
     base = `http://127.0.0.1:${(server.address() as AddressInfo).port}`;
     close = () => server.close();
@@ -288,6 +290,8 @@ describe.skipIf(!hasTestDb)('login and sessions', () => {
       expect(await res.json()).toEqual({ status: 'PENDING' });
       expect(res.headers.get('set-cookie')).toBeNull();
       expect(await db.user.findUniqueOrThrow({ where: { username: 'newbie' } })).toMatchObject({ email: 'new@example.com', status: 'PENDING', accessNote: 'Buddy’s cousin' });
+      // A receipt for them; no admin here has an email, so nobody else hears.
+      expect(sent).toEqual([{ to: 'new@example.com', template: 'access-received', model: { username: 'newbie', email: 'new@example.com', access_note: 'Buddy’s cousin' } }]);
 
       // The right password learns it's waiting; a wrong one learns nothing.
       const waiting = await login('newbie', 'long-enough-pw');

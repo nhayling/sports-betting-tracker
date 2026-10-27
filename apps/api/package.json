@@ -13,6 +13,7 @@
     "user": "tsx --env-file=../../.env src/scripts/user.ts",
     "invite": "tsx --env-file=../../.env src/scripts/invite.ts",
     "access": "tsx --env-file=../../.env src/scripts/access.ts",
+    "emails": "tsx --env-file=../../.env src/scripts/emails.ts",
     "reparse": "tsx --env-file=../../.env src/scripts/reparse.ts",
     "markets": "tsx --env-file=../../.env src/scripts/markets.ts",
     "backfill": "tsx --env-file=../../.env src/scripts/backfill.ts",

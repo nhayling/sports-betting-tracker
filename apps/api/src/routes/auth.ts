@@ -2,6 +2,8 @@ import { Router, type Request, type Response } from 'express';
 import type { Db } from '../db';
 import { LoginLimiter } from '../auth/loginLimiter';
 import { findUsableInvite } from '../auth/invites';
+import { announceRequest } from '../auth/access';
+import type { Mailer } from '../email/mailer';
 import { hashPassword, MIN_PASSWORD_LENGTH, normalizeEmail, USERNAME_PATTERN, verifyPassword } from '../auth/password';
 import { bearerToken } from '../auth';
 import { createApiKey, deleteApiKey } from '../auth/apiKeys';
@@ -20,9 +22,9 @@ const PENDING = 'Your request to join is waiting for approval. You can sign in o
  * POST /api/auth/login, POST /api/auth/logout, GET /api/auth/me, PATCH /api/auth/email for the web app;
  * POST and DELETE /api/auth/extension-token for the extension;
  * GET /api/auth/invite/:token and POST /api/auth/register for invite links;
- * POST /api/auth/signup to ask for access (the account waits for approval: npm run access).
+ * POST /api/auth/signup to ask for access (the account waits for approval on the admin site, or npm run access).
  */
-export function authRouter(db: Db, limiter = new LoginLimiter(), signupLimiter = new LoginLimiter()): Router {
+export function authRouter(db: Db, mailer: Mailer, limiter = new LoginLimiter(), signupLimiter = new LoginLimiter()): Router {
   const router = Router();
 
   const sessionUser = async (req: Request) => {
@@ -153,8 +155,9 @@ export function authRouter(db: Db, limiter = new LoginLimiter(), signupLimiter =
     }
     const login = await checkNewLogin(req, res, true);
     if (!login) return;
+    let user;
     try {
-      await db.user.create({
+      user = await db.user.create({
         data: { username: login.username, email: login.email, passwordHash: await hashPassword(login.password), status: 'PENDING', accessNote: note || null },
       });
     } catch (err) {
@@ -164,6 +167,7 @@ export function authRouter(db: Db, limiter = new LoginLimiter(), signupLimiter =
     }
     // Shows in npm run deploy:logs; npm run access lists and approves.
     console.log(`[access] ${login.username} <${login.email}> asked to join${note ? `: ${note}` : ''}`);
+    await announceRequest(db, mailer, user);
     res.status(201).json({ status: 'PENDING' });
   });
 

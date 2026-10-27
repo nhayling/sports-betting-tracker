@@ -301,6 +301,8 @@ model User {
   status             AccountStatus       @default(ACTIVE)
   /// What someone wrote when asking for access ("Noah's cousin"), for whoever approves it.
   accessNote         String?
+  /// Can open the admin site (admin.<domain>): answer requests to join, see members, make invite links. Set with npm run access -- admin.
+  admin              Boolean             @default(false)
   sessions           Session[]
   apiKeys            ApiKey[]
   sportsbookAccounts SportsbookAccount[]

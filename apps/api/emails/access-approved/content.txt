@@ -1,0 +1,9 @@
+YOU’RE IN
+
+Your request to join Slip Club was approved. Sign in with your username or email and the password you chose when you asked to join.
+
+Username: {{username}}
+
+Sign in: https://slipclub.app/
+
+Once you’re in, set up sync and your Island Luck bets come straight over. Slip Club then follows every open pick against live game stats, so you can see where a bet stands at a glance.

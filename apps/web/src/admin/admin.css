@@ -1,0 +1,42 @@
+/* The admin site (admin.html): the app's shell, plates and buttons from styles.css, plus these. */
+
+/* "Admin" beside the wordmark: a hollow plate, so it reads as a label and never as live. */
+.admin-title { display: flex; align-items: center; gap: 10px; margin: 0; }
+.sign-in .admin-title { margin-bottom: 4px; }
+.admin-mark { padding: 2px 8px; font-family: var(--cond); font-size: var(--fs-base); font-weight: 700; line-height: 1.2; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); box-shadow: inset 0 0 0 1px currentColor; }
+.admin-who { font-size: var(--fs-sm); color: var(--muted); }
+.admin .shell { padding-bottom: 0; }
+.admin-tabs { grid-template-columns: repeat(3, 1fr); }
+
+.admin-tally { font-family: var(--cond); font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+.admin-lede { margin: 0 0 12px; max-width: 60ch; }
+.admin-empty { margin: 4px 0; }
+
+.admin-list { list-style: none; margin: 0; padding: 0; }
+.admin-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px 16px; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.admin-row:last-child { border-bottom: 0; padding-bottom: 0; }
+.admin-row .actions { flex: none; }
+.admin-who-col { min-width: 0; }
+.admin-name { display: flex; align-items: center; gap: 8px; font-size: var(--fs-md); font-weight: 600; overflow-wrap: anywhere; }
+.admin-email { display: block; color: var(--text); overflow-wrap: anywhere; }
+.request-note { margin: 8px 0 6px; padding: 6px 10px; background: var(--cell); overflow-wrap: anywhere; }
+.request-no-note { margin: 2px 0; }
+
+.member-when { flex: none; text-align: right; }
+
+.invite-make { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 12px; }
+.invite-make .btn.primary { padding: 5px 16px; }
+.invite-new { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; padding: 10px 12px; background: var(--cell); }
+.invite-url { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: var(--fs-sm); overflow-wrap: anywhere; user-select: all; }
+.invite-new-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
+.admin-row.invite { align-items: center; padding: 8px 0; font-size: var(--fs-sm); }
+.invite-status { text-align: right; }
+.invite-status.open { color: var(--good-text); font-weight: 600; }
+.invite-status.gone { color: var(--muted); }
+
+@media (max-width: 520px) {
+  .admin-who { display: none; }
+  .admin-row.request { flex-direction: column; }
+  .admin-row.request .actions { width: 100%; }
+  .admin-row.request .actions .btn { flex: 1; padding-block: 9px; }
+}

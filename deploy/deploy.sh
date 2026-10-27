@@ -28,6 +28,9 @@ sync() {
 build() {
   echo "Rebuilding and restarting on $HOST"
   $SSH "$HOST" "cd $DIR && docker compose up -d --build"
+  # Caddy only reads its Caddyfile on start, and rsync swaps the file rather than editing it, so a
+  # running Caddy keeps the old one. Restart it (a second or two offline) only when the file changed.
+  $SSH "$HOST" "cd $DIR && (docker compose exec -T caddy cat /etc/caddy/Caddyfile | cmp -s - deploy/Caddyfile || (echo 'Caddyfile changed: restarting Caddy' && docker compose restart caddy))"
 }
 
 # rsync never removes files, so a file deleted from the repo stays on the server and still gets

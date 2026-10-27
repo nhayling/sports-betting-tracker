@@ -1,0 +1,9 @@
+REQUEST RECEIVED
+
+Thanks for asking to join Slip Club. Your account is set up and waiting for approval. You can’t sign in until it’s approved. We’ll email you here when there’s an answer.
+
+Username: {{username}}
+Email: {{email}}
+{{#access_note}}Your note: {{access_note}}
+{{/access_note}}
+Didn’t ask to join? Reply to this email and we’ll delete the request.

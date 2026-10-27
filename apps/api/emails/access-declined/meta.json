@@ -1,0 +1,8 @@
+{
+  "Name": "Request declined",
+  "Alias": "access-declined",
+  "Subject": "Your request to join Slip Club",
+  "TemplateType": "Standard",
+  "LayoutTemplate": "slip-club",
+  "TestRenderModel": {}
+}

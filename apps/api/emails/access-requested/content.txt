@@ -1,0 +1,11 @@
+NEW REQUEST
+
+{{username}} asked to join Slip Club. They can’t sign in until you approve them.
+
+Username: {{username}}
+Email: {{email}}
+Note: {{#access_note}}{{access_note}}{{/access_note}}{{^access_note}}No note{{/access_note}}
+Asked: {{requested_at}} Nassau time
+
+Approve or decline it on the admin site:
+https://admin.slipclub.app/#requests

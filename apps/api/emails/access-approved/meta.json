@@ -1,0 +1,10 @@
+{
+  "Name": "Request approved",
+  "Alias": "access-approved",
+  "Subject": "You’re in: welcome to Slip Club",
+  "TemplateType": "Standard",
+  "LayoutTemplate": "slip-club",
+  "TestRenderModel": {
+    "username": "tbone"
+  }
+}

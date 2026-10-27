@@ -27,6 +27,10 @@ services:
       TRUST_PROXY: '1'
       # Invite links (npm run invite) start with this.
       PUBLIC_URL: https://${DOMAIN}
+      # Emails about requests to join, through Postmark (apps/api/emails). Unset: nothing is sent.
+      POSTMARK_API_TOKEN: ${POSTMARK_API_TOKEN:-}
+      EMAIL_FROM: ${EMAIL_FROM:-}
+      EMAIL_REPLY_TO: ${EMAIL_REPLY_TO:-}
 
   # Terminates HTTPS: an automatic Let's Encrypt certificate, or a Cloudflare
   # origin certificate behind Cloudflare's proxy (DOMAIN_TLS, see deploy/Caddyfile).

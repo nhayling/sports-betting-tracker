@@ -1,0 +1,12 @@
+{
+  "Name": "Request received",
+  "Alias": "access-received",
+  "Subject": "We got your request to join Slip Club",
+  "TemplateType": "Standard",
+  "LayoutTemplate": "slip-club",
+  "TestRenderModel": {
+    "username": "tbone",
+    "email": "tbone@example.com",
+    "access_note": "Noah’s cousin, we bet the Dolphins together"
+  }
+}
