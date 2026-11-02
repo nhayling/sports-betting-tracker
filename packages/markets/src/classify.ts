@@ -199,7 +199,117 @@ const MARKETS: Record<string, SportMarkets> = { AMERICAN_FOOTBALL: FOOTBALL, BAS
 
 const TD_SCORER = /^Touchdown Scorer$/i;
 
-export function classifyMarket(m: MarketInput): Classification {
+/**
+ * Markets added from the admin site, on top of the ones above. Keyed by
+ * marketRuleKey. Only asked about a market nothing above recognizes.
+ */
+export interface MarketRule {
+  metric: StatKey;
+  scope: 'PLAYER' | 'GAME';
+}
+export type MarketRules = ReadonlyMap<string, MarketRule>;
+
+/** A market name without its number, so one rule covers a whole ladder ("40+ X", "60+ X"). */
+export function marketPattern(marketName: string): string {
+  return marketName
+    .trim()
+    .toLowerCase()
+    .replace(/^\d+\+ /, '#+ ')
+    .replace(/\bat least \d+(?:\.\d+)?\b/, 'at least #');
+}
+
+export const marketRuleKey = (sport: string, marketName: string) => `${sport}|${marketPattern(marketName)}`;
+
+/**
+ * The stats a rule can use, by Kambi sport: only what ESPN's box score really
+ * has. The poller reads a stat missing from a player's line as 0, so any other
+ * stat would grade every under as a hit.
+ */
+const PLAYER_STATS: Record<string, Array<[StatKey, string]>> = {
+  AMERICAN_FOOTBALL: [
+    ['PASSING_YARDS', 'Passing yards'],
+    ['PASS_COMPLETIONS', 'Pass completions'],
+    ['PASS_ATTEMPTS', 'Pass attempts'],
+    ['PASSING_TDS', 'Passing touchdowns'],
+    ['INTERCEPTIONS_THROWN', 'Interceptions thrown'],
+    ['RUSHING_YARDS', 'Rushing yards'],
+    ['RUSHING_ATTEMPTS', 'Rushing attempts'],
+    ['RUSHING_TDS', 'Rushing touchdowns'],
+    ['RECEIVING_YARDS', 'Receiving yards'],
+    ['RECEPTIONS', 'Receptions'],
+    ['RECEIVING_TDS', 'Receiving touchdowns'],
+    ['RUSHING_RECEIVING_YARDS', 'Rushing + receiving yards'],
+    ['TOUCHDOWNS', 'Touchdowns scored'],
+    ['SACKS', 'Sacks'],
+    ['FIELD_GOALS_MADE', 'Field goals made'],
+  ],
+  BASKETBALL: [
+    ['POINTS', 'Points'],
+    ['REBOUNDS', 'Rebounds'],
+    ['ASSISTS', 'Assists'],
+    ['THREES_MADE', 'Threes made'],
+    ['STEALS', 'Steals'],
+    ['BLOCKS', 'Blocks'],
+    ['POINTS_REBOUNDS', 'Points + rebounds'],
+    ['POINTS_ASSISTS', 'Points + assists'],
+    ['REBOUNDS_ASSISTS', 'Rebounds + assists'],
+    ['POINTS_REBOUNDS_ASSISTS', 'Points + rebounds + assists'],
+    ['STEALS_BLOCKS', 'Steals + blocks'],
+  ],
+  BASEBALL: [
+    ['HITS', 'Hits'],
+    ['RUNS', 'Runs'],
+    ['RBIS', 'RBIs'],
+    ['HOME_RUNS', 'Home runs'],
+    ['HITS_RUNS_RBIS', 'Hits + runs + RBIs'],
+    ['PITCHER_STRIKEOUTS', 'Strikeouts thrown'],
+    ['OUTS_RECORDED', 'Outs recorded'],
+  ],
+  ICE_HOCKEY: [
+    ['GOALS', 'Goals'],
+    ['ASSISTS', 'Assists'],
+    ['POINTS', 'Points'],
+    ['SHOTS_ON_GOAL', 'Shots on goal'],
+  ],
+  FOOTBALL: [
+    ['GOALS', 'Goals'],
+    ['ASSISTS', 'Assists'],
+    ['SHOTS', 'Shots'],
+    ['SHOTS_ON_TARGET', 'Shots on target'],
+    ['CARDS', 'Cards'],
+    ['RED_CARDS', 'Red cards'],
+  ],
+};
+
+/** A team stat, so only a whole-game market can use it. */
+const GAME_ONLY_STATS: Record<string, Array<[StatKey, string]>> = { FOOTBALL: [['CORNERS', 'Corners']] };
+
+/** Null when ESPN has no stats for the sport (UFC, tennis). */
+export function ruleStats(sport: string, scope: MarketRule['scope']): Array<[StatKey, string]> | null {
+  const stats = PLAYER_STATS[sport];
+  if (!stats) return null;
+  return scope === 'GAME' ? [...stats, ...(GAME_ONLY_STATS[sport] ?? [])] : stats;
+}
+
+/** Reads the pick the plain way: the line for an over/under, the number in the name for "40+", at least one for a bare yes. */
+function classifyRule(rule: MarketRule, name: string, m: MarketInput): Classification {
+  const hit = /^(\d+)\+ /.exec(name) ?? /\bat least (\d+(?:\.\d+)?)\b/i.exec(name);
+  const fromName = hit ? Number(hit[1]) : null;
+  if (fromName !== null && m.line !== null && m.line !== fromName) return { supported: false, reason: 'LINE_MISMATCH' };
+  // Never BINARY: its ✓/○ wording is written for each stat that uses it.
+  const pick = { scope: rule.scope, metric: rule.metric, display: 'PROGRESS' } as const;
+  if (m.selectionSide === 'OVER' || m.selectionSide === 'UNDER') {
+    const target = m.line ?? fromName;
+    if (target === null) return { supported: false, reason: 'MISSING_LINE' };
+    return { supported: true, ...pick, operator: m.selectionSide === 'OVER' ? 'GT' : 'LT', target };
+  }
+  const target = fromName ?? m.line ?? 1;
+  if (m.selectionSide === 'YES') return { supported: true, ...pick, operator: 'GTE', target };
+  if (m.selectionSide === 'NO') return { supported: true, ...pick, operator: 'LT', target };
+  return { supported: false, reason: 'UNSUPPORTED_SIDE' };
+}
+
+export function classifyMarket(m: MarketInput, rules?: MarketRules): Classification {
   const markets = m.sport ? MARKETS[m.sport] : undefined;
   if (!markets) return { supported: false, reason: 'UNSUPPORTED_SPORT' };
   const name = m.marketName?.trim() ?? '';
@@ -260,7 +370,8 @@ export function classifyMarket(m: MarketInput): Classification {
     return { supported: false, reason: 'UNSUPPORTED_SIDE' };
   }
 
-  return { supported: false, reason: 'UNSUPPORTED_MARKET' };
+  const rule = rules?.get(marketRuleKey(m.sport!, name));
+  return rule ? classifyRule(rule, name, m) : { supported: false, reason: 'UNSUPPORTED_MARKET' };
 }
 
 /**

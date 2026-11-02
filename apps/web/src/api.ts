@@ -1,6 +1,6 @@
 import type { BetsView } from '../../api/src/views/betsViewTypes';
 import type { Performance } from '../../api/src/performance/types';
-import type { AccessRequest, InviteRow, Member, NewInvite } from '../../api/src/admin/types';
+import type { AccessRequest, GamePlayer, InviteRow, Member, NewInvite, Tracking } from '../../api/src/admin/types';
 import type { ClubFeedItem, ClubInvite, ClubSummary, ClubView, LeaderboardView, Period, Person, ProfileView, Relation, SocialMe, SocialSettings } from '../../api/src/social/types';
 
 export type * from '../../api/src/views/betsViewTypes';
@@ -153,3 +153,9 @@ export const answerAccessRequest = (username: string, answer: 'approve' | 'decli
 export const fetchMembers = () => get<{ members: Member[] }>('/api/admin/members');
 export const fetchInvites = () => get<{ invites: InviteRow[] }>('/api/admin/invites');
 export const createInviteLink = (days: number) => post<NewInvite>('/api/admin/invites', { days });
+export const fetchTracking = () => get<Tracking>('/api/admin/tracking');
+export const fetchGamePlayers = (participantId: string) => get<{ players: GamePlayer[] }>(`/api/admin/tracking/players/${encodeURIComponent(participantId)}/options`);
+export const decidePlayer = (participantId: string, decision: { playerId: string; playerName: string } | { noMatch: true } | { reset: true }) => post<{ ok: true }>(`/api/admin/tracking/players/${encodeURIComponent(participantId)}`, decision);
+export const trackMarket = (sport: string, marketName: string, metric: string) => post<{ ok: true }>('/api/admin/tracking/markets', { sport, marketName, metric });
+export const stopTrackingMarket = (sport: string, marketName: string) => post<{ ok: true }>('/api/admin/tracking/markets/remove', { sport, marketName });
+export const ignoreMarket = (sport: string, marketName: string, ignored: boolean) => post<{ ok: true }>('/api/admin/tracking/markets/ignore', { sport, marketName, ignored });

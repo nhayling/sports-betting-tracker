@@ -17,11 +17,16 @@ export interface PollerStatus {
   provider: RateLimitStats;
 }
 
-export function startPoller(db: Db, opts: { intervalMs?: number; maxPerMinute?: number; log?: (msg: string) => void } = {}) {
+/** ESPN behind one request budget, shared by everything in the process that reads it. */
+export function budgetedEspn(maxPerMinute = 60) {
+  const limiter = new RateLimitedFetch(defaultFetchJson, { maxPerMinute });
+  return { provider: new EspnProvider(limiter.fetchJson) as SportsDataProvider, stats: () => limiter.stats() };
+}
+
+export function startPoller(db: Db, opts: { intervalMs?: number; maxPerMinute?: number; espn?: ReturnType<typeof budgetedEspn>; log?: (msg: string) => void } = {}) {
   const intervalMs = opts.intervalMs ?? 30_000;
   const log = opts.log ?? ((m) => console.log(`[poller] ${m}`));
-  const limiter = new RateLimitedFetch(defaultFetchJson, { maxPerMinute: opts.maxPerMinute ?? 60 });
-  const provider: SportsDataProvider = new EspnProvider(limiter.fetchJson);
+  const { provider, stats } = opts.espn ?? budgetedEspn(opts.maxPerMinute);
 
   let timer: NodeJS.Timeout | null = null;
   let stopped = false;
@@ -52,7 +57,7 @@ export function startPoller(db: Db, opts: { intervalMs?: number; maxPerMinute?: 
   timer = setTimeout(tick, 1000);
 
   return {
-    status: (): PollerStatus => ({ ...status, running: !stopped, provider: limiter.stats() }),
+    status: (): PollerStatus => ({ ...status, running: !stopped, provider: stats() }),
     stop() {
       stopped = true;
       if (timer) clearTimeout(timer);

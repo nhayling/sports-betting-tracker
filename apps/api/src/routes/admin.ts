@@ -1,10 +1,14 @@
 import { Router, type RequestHandler } from 'express';
+import type { SportsDataProvider } from '@sports-better/sports-data';
 import type { Db } from '../db';
 import { authOf } from '../auth';
 import { approveRequest, declineRequest, isAdminHost } from '../auth/access';
 import { createInvite } from '../auth/invites';
 import type { AccessRequest, InviteRow, Member, NewInvite } from '../admin/types';
+import { addMarketRule, decidePlayer, gamePlayerOptions, loadTracking, marketEvents, playerEvents, removeMarketRule, setMarketIgnored } from '../admin/tracking';
 import type { Mailer } from '../email/mailer';
+import { GameRefresher } from '../live/refresh';
+import { printable } from '../printable';
 
 const DAY_MS = 24 * 60 * 60_000;
 const iso = (d: Date | null | undefined) => d?.toISOString() ?? null;
@@ -19,10 +23,17 @@ const newest = (dates: (Date | null)[]) => dates.reduce<Date | null>((a, b) => (
  *   GET  /api/admin/members                        everyone approved
  *   GET  /api/admin/invites                        recent invite links
  *   POST /api/admin/invites { days }               a new single-use link
+ *   GET  /api/admin/tracking                       picks that show "No stats" and can be fixed from here
+ *   GET  /api/admin/tracking/players/:id/options   everyone in the player's latest game
+ *   POST /api/admin/tracking/players/:id           link { playerId, playerName }, or { noMatch: true }, or { reset: true }
+ *   POST /api/admin/tracking/markets               track { sport, marketName, metric }
+ *   POST /api/admin/tracking/markets/remove        stop tracking { sport, marketName }
+ *   POST /api/admin/tracking/markets/ignore        { sport, marketName, ignored }
  * Only on the admin host, so the app's own sign-in can never reach it.
  */
-export function adminRouter(db: Db, mailer: Mailer, publicUrl?: string): Router {
+export function adminRouter(db: Db, mailer: Mailer, publicUrl: string | undefined, sportsData: SportsDataProvider, refreshGapMs?: number): Router {
   const router = Router();
+  const refresher = new GameRefresher(db, sportsData, refreshGapMs);
 
   const adminOnly: RequestHandler = async (req, res, next) => {
     if (!isAdminHost(req.get('host'))) {
@@ -99,6 +110,74 @@ export function adminRouter(db: Db, mailer: Mailer, publicUrl?: string): Router 
     // The token sits after "#", so it never reaches server logs.
     const invite: NewInvite = { url: `${base}/#invite=${token}`, expiresAt: expiresAt.toISOString() };
     res.status(201).json(invite);
+  });
+
+  router.get('/tracking', async (_req, res) => {
+    res.json(await loadTracking(db, sportsData.id, refresher.status()));
+  });
+
+  router.get('/tracking/players/:id/options', async (req, res) => {
+    const players = await gamePlayerOptions(db, sportsData, req.params.id);
+    if (!players) {
+      res.status(409).json({ error: 'That player’s game isn’t linked to ESPN yet.' });
+      return;
+    }
+    res.json({ players });
+  });
+
+  router.post('/tracking/players/:id', async (req, res) => {
+    const { playerId, playerName, noMatch, reset } = req.body ?? {};
+    const linking = typeof playerId === 'string' && /^\w{1,40}$/.test(playerId) && typeof playerName === 'string' && playerName.length <= 120;
+    if (!linking && noMatch !== true && reset !== true) {
+      res.status(400).json({ error: 'Choose a player' });
+      return;
+    }
+    const id = req.params.id;
+    const done = await decidePlayer(db, sportsData.id, id, linking ? { playerId, playerName } : noMatch === true ? 'noMatch' : 'reset');
+    if (!done) {
+      res.status(404).json({ error: 'No picks on that player' });
+      return;
+    }
+    console.log(`[tracking] ${authOf(res).username} ${linking ? `linked ${id} to ${printable(playerName)}` : noMatch === true ? `found no match for ${id}` : `reset ${id}`}`);
+    refresher.add(await playerEvents(db, id));
+    res.json({ ok: true });
+  });
+
+  /** The market in a request, or a 400. Names come from what people synced, so they're only ever matched, never trusted. */
+  const marketOf = (body: unknown, res: { status(code: number): { json(b: unknown): unknown } }) => {
+    const { sport, marketName } = (body ?? {}) as { sport?: unknown; marketName?: unknown };
+    if (typeof sport === 'string' && typeof marketName === 'string' && marketName.trim() && marketName.length <= 300) return { sport, marketName };
+    res.status(400).json({ error: 'Choose a market' });
+    return null;
+  };
+
+  router.post('/tracking/markets', async (req, res) => {
+    const market = marketOf(req.body, res);
+    if (!market) return;
+    const result = await addMarketRule(db, market.sport, market.marketName, req.body?.metric, authOf(res).username);
+    if (!result.ok) {
+      res.status(409).json({ error: result.error });
+      return;
+    }
+    console.log(`[tracking] ${authOf(res).username} tracks "${printable(market.marketName)}" as ${result.metric}`);
+    refresher.add(await marketEvents(db, market.sport, market.marketName));
+    res.json({ ok: true });
+  });
+
+  router.post('/tracking/markets/remove', async (req, res) => {
+    const market = marketOf(req.body, res);
+    if (!market) return;
+    await removeMarketRule(db, market.sport, market.marketName);
+    console.log(`[tracking] ${authOf(res).username} stopped tracking "${printable(market.marketName)}"`);
+    refresher.add(await marketEvents(db, market.sport, market.marketName));
+    res.json({ ok: true });
+  });
+
+  router.post('/tracking/markets/ignore', async (req, res) => {
+    const market = marketOf(req.body, res);
+    if (!market) return;
+    await setMarketIgnored(db, market.sport, market.marketName, req.body?.ignored !== false);
+    res.json({ ok: true });
   });
 
   return router;

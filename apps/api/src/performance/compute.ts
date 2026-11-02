@@ -1,5 +1,5 @@
 import { gameMargin } from '@sports-better/display';
-import { classifyMarket, gameMarket, spreadPick, type GameMarket } from '@sports-better/markets';
+import { classifyMarket, gameMarket, spreadPick, type GameMarket, type MarketRules } from '@sports-better/markets';
 import type { StatKey } from '@sports-better/sports-data';
 import { DEFAULT_FUNDING_MAX_ODDS, MIN_SAMPLE, type Performance, type StyleStats, type CashOutCheck, type MarketStats, type NearMiss, type ParlayBucket, type RecordRow, type SportCount, type WeekRow } from './types';
 
@@ -162,10 +162,10 @@ const GAME_MARKET_NAMES: Record<GameMarket, string> = {
   FIGHT: 'UFC',
 };
 
-export function marketOf(s: PerformanceSelection, sport: string | null): string {
+export function marketOf(s: PerformanceSelection, sport: string | null, rules?: MarketRules): string {
   const gm = gameMarket(s.marketName);
   if (gm) return GAME_MARKET_NAMES[gm];
-  const cls = classifyMarket({ sport, marketName: s.marketName, selectionSide: s.selectionSide as never, line: s.line });
+  const cls = classifyMarket({ sport, marketName: s.marketName, selectionSide: s.selectionSide as never, line: s.line }, rules);
   return cls.supported ? (MARKET_NAMES[cls.metric] ?? 'Other') : 'Other';
 }
 
@@ -175,6 +175,7 @@ export function computePerformance(
   fundingMaxOdds = DEFAULT_FUNDING_MAX_ODDS,
   /** Count only this sport's picks in the market, player, team and near-miss stats; the bets still count whole. */
   pickSport?: string,
+  rules?: MarketRules,
 ): Performance {
   const settled = coupons.filter((c) => c.status !== 'OPEN');
   const open = coupons.filter((c) => c.status === 'OPEN');
@@ -259,7 +260,7 @@ export function computePerformance(
 
   const byMarket = new Map<string, { picks: number; won: number; priced: number; pricedWon: number; implied: number[] }>();
   for (const { s, l } of sportPicks.filter(({ s }) => settledPick(s))) {
-    const m = marketOf(s, l.sport);
+    const m = marketOf(s, l.sport, rules);
     const row = byMarket.get(m) ?? { picks: 0, won: 0, priced: 0, pricedWon: 0, implied: [] };
     row.picks++;
     if (s.status === 'WON') row.won++;
@@ -304,7 +305,7 @@ export function computePerformance(
       return [
         {
           participantName: s.participantName ?? `Game ${s.selectionSide === 'UNDER' ? 'under' : 'over'} ${s.line ?? ''}`.trim(),
-          market: marketOf(s, l.sport),
+          market: marketOf(s, l.sport, rules),
           current: p.current,
           needed,
           shortBy: needed - p.current,

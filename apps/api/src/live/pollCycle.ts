@@ -1,8 +1,9 @@
 import { Prisma } from '@prisma/client';
-import { classifyMarket, evaluateProgress, gameMarket, type Classification } from '@sports-better/markets';
+import { classifyMarket, evaluateProgress, gameMarket, type Classification, type MarketRules } from '@sports-better/markets';
 import { AUTO_LINK_THRESHOLD, matchEvent, matchPlayer, sameTeams, sportForLeague } from '@sports-better/matching';
 import { SPORT_KIND, type EventSnapshot, type ProviderEvent, type ProviderPlayer, type Sport, type SportsDataProvider } from '@sports-better/sports-data';
 import type { Db } from '../db';
+import { loadMarketRules } from './marketRules';
 
 /**
  * One pass of the live-progress poller. Network use is limited to:
@@ -14,8 +15,8 @@ import type { Db } from '../db';
  * Nothing here writes Kambi settlement fields.
  */
 
-const PREGAME_MS = 15 * 60_000;
-const MAX_GAME_MS = 6 * 60 * 60_000;
+export const PREGAME_MS = 15 * 60_000;
+export const MAX_GAME_MS = 6 * 60 * 60_000;
 const ROSTER_TTL_MS = 12 * 60 * 60_000;
 
 export interface CycleReport {
@@ -46,6 +47,8 @@ export interface CycleOptions {
    * their game ended).
    */
   refetchFinal?: Set<string>;
+  /** Only these Kambi events: a replay of finished games shouldn't touch whatever else kicked off nearby. */
+  onlyEvents?: Set<string>;
 }
 
 export async function runPollCycle(db: Db, provider: SportsDataProvider, now = new Date(), opts: CycleOptions = {}): Promise<CycleReport> {
@@ -66,6 +69,7 @@ export async function runPollCycle(db: Db, provider: SportsDataProvider, now = n
       // still shows each pick's final stat (Island Luck only says won or
       // lost), and the Performance tab's cash-out check needs final scores.
       eventStartAt: { gte: new Date(now.getTime() - MAX_GAME_MS), lte: new Date(now.getTime() + PREGAME_MS) },
+      ...(opts.onlyEvents ? { eventId: { in: [...opts.onlyEvents] } } : {}),
     },
     include: LEG_INCLUDE,
   });
@@ -73,6 +77,7 @@ export async function runPollCycle(db: Db, provider: SportsDataProvider, now = n
   if (legs.length === 0) return report;
 
   const write = progressWriter(db, provider.id, report);
+  const rules = await loadMarketRules(db);
 
   // Legs in leagues the provider doesn't cover get a reason once and no requests.
   const bySport = new Map<Sport, Leg[]>();
@@ -147,7 +152,7 @@ export async function runPollCycle(db: Db, provider: SportsDataProvider, now = n
       const stored = await saveEventState(db, provider.id, event);
       if (event.state.state === 'LIVE') report.liveEvents++;
 
-      const statPicks = eventLegs.flatMap((l) => l.selections).map((s) => ({ s, cls: classify(s, eventLegs) })).filter(({ s }) => !gameMarket(s.marketName));
+      const statPicks = eventLegs.flatMap((l) => l.selections).map((s) => ({ s, cls: classify(s, eventLegs, rules) })).filter(({ s }) => !gameMarket(s.marketName));
       for (const { s, cls } of statPicks) if (!cls.supported) await write.unavailable(s, cls.reason);
       const tracked = statPicks.filter((p): p is { s: Selection; cls: Extract<Classification, { supported: true }> } => p.cls.supported);
       if (tracked.length === 0) continue;
@@ -203,14 +208,17 @@ export async function runPollCycle(db: Db, provider: SportsDataProvider, now = n
 
 // ── helpers ──────────────────────────────────────────────────────────
 
-function classify(s: Selection, legs: Leg[]): Classification {
+function classify(s: Selection, legs: Leg[], rules: MarketRules): Classification {
   const leg = legs.find((l) => l.id === s.betLegId);
-  return classifyMarket({
-    sport: leg?.sport ?? null,
-    marketName: s.marketName,
-    selectionSide: s.selectionSide,
-    line: s.lineRaw === null ? null : s.lineRaw / 1000,
-  });
+  return classifyMarket(
+    {
+      sport: leg?.sport ?? null,
+      marketName: s.marketName,
+      selectionSide: s.selectionSide,
+      line: s.lineRaw === null ? null : s.lineRaw / 1000,
+    },
+    rules,
+  );
 }
 
 type ResolvedPlayer = { ok: true; id: string; confidence: number; method: string } | { ok: false; reason: string };
@@ -235,16 +243,12 @@ async function resolvePlayer(
     return { ok: false, reason: saved.status === 'REJECTED' ? 'PLAYER_REJECTED' : 'PLAYER_NEEDS_REVIEW' };
   }
 
-  // Match against everyone in this game: box score players plus both full rosters.
-  // A soccer summary already lists both match-day squads.
-  const pool = [...snap.players.map((p) => p.player)];
-  for (const team of SPORT_KIND[sport] === 'soccer' ? [] : [snap.home, snap.away]) {
-    try {
-      pool.push(...(await roster(provider, sport, team.id, report)));
-    } catch (err) {
-      report.errors.push(`roster ${team.abbreviation}: ${message(err)}`);
-      return { ok: false, reason: 'PROVIDER_ERROR' };
-    }
+  let pool: ProviderPlayer[];
+  try {
+    pool = await playersIn(provider, sport, snap, report);
+  } catch (err) {
+    report.errors.push(`roster: ${message(err)}`);
+    return { ok: false, reason: 'PROVIDER_ERROR' };
   }
 
   const m = matchPlayer(s.participantName, pool);
@@ -267,11 +271,18 @@ async function resolvePlayer(
     : { ok: false, reason: 'PLAYER_NEEDS_REVIEW' };
 }
 
-async function roster(provider: SportsDataProvider, sport: Sport, teamId: string, report: CycleReport): Promise<ProviderPlayer[]> {
+/** Everyone in a game: box score players plus both full rosters. A soccer summary already lists both match-day squads. */
+export async function playersIn(provider: SportsDataProvider, sport: Sport, snap: EventSnapshot, report?: CycleReport): Promise<ProviderPlayer[]> {
+  const pool = snap.players.map((p) => p.player);
+  for (const team of SPORT_KIND[sport] === 'soccer' ? [] : [snap.home, snap.away]) pool.push(...(await roster(provider, sport, team.id, report)));
+  return pool;
+}
+
+async function roster(provider: SportsDataProvider, sport: Sport, teamId: string, report?: CycleReport): Promise<ProviderPlayer[]> {
   const key = `${provider.id}:${sport}:${teamId}`;
   const hit = rosterCache.get(key);
   if (hit && Date.now() - hit.at < ROSTER_TTL_MS) return hit.players;
-  report.requests.roster++;
+  if (report) report.requests.roster++;
   const players = await provider.getRoster(sport, teamId);
   rosterCache.set(key, { at: Date.now(), players });
   return players;

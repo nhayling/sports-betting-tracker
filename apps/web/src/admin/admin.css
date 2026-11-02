@@ -6,7 +6,7 @@
 .admin-mark { padding: 2px 8px; font-family: var(--cond); font-size: var(--fs-base); font-weight: 700; line-height: 1.2; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); box-shadow: inset 0 0 0 1px currentColor; }
 .admin-who { font-size: var(--fs-sm); color: var(--muted); }
 .admin .shell { padding-bottom: 0; }
-.admin-tabs { grid-template-columns: repeat(3, 1fr); }
+.admin-tabs { grid-template-columns: repeat(4, 1fr); }
 
 .admin-tally { font-family: var(--cond); font-size: var(--fs-base); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
 .admin-lede { margin: 0 0 12px; max-width: 60ch; }
@@ -34,9 +34,21 @@
 .invite-status.open { color: var(--good-text); font-weight: 600; }
 .invite-status.gone { color: var(--muted); }
 
+/* Tracking: a row of what to fix, its actions wrapping below on narrow screens. */
+.admin-page { display: grid; gap: 16px; }
+.track-name { overflow-wrap: anywhere; }
+.admin-row.track { flex-wrap: wrap; }
+.admin-row.track .admin-who-col { flex: 1 1 280px; }
+.admin-row.track .actions { flex-wrap: wrap; justify-content: flex-end; }
+.track-pick { max-width: 100%; min-height: 34px; padding: 4px 8px; font: inherit; font-size: var(--fs-sm); color: var(--text); background: var(--cell); border: 1px solid var(--rule); }
+.track-done { padding: 8px 0; align-items: center; font-size: var(--fs-sm); }
+
 @media (max-width: 520px) {
   .admin-who { display: none; }
-  .admin-row.request { flex-direction: column; }
+  .admin-row.request, .admin-row.track { flex-direction: column; }
+  .admin-row.track .admin-who-col { flex: none; }
+  .admin-row.track .actions { width: 100%; justify-content: stretch; }
+  .admin-row.track .actions > * { flex: 1 1 100%; }
   .admin-row.request .actions { width: 100%; }
   .admin-row.request .actions .btn { flex: 1; padding-block: 9px; }
 }

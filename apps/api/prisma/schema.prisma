@@ -474,6 +474,26 @@ model UntrackedMarket {
   example        String?
   firstSeenAt    DateTime @default(now())
   lastSeenAt     DateTime @default(now())
+  /// Set from the admin site for a market that can't be tracked, so it leaves the to-do list.
+  ignoredAt      DateTime?
 
   @@unique([sport, marketName])
+}
+
+/// An untracked market pointed at a stat from the admin site. classifyMarket uses it after its own lists.
+model MarketRule {
+  id         String   @id @default(uuid())
+  sport      String
+  /// marketPattern: lowercase, without the number in "40+ …".
+  pattern    String
+  /// The name it was added from, to show.
+  marketName String
+  /// StatKey
+  metric     String
+  /// PLAYER or GAME
+  scope      String
+  createdBy  String
+  createdAt  DateTime @default(now())
+
+  @@unique([sport, pattern])
 }

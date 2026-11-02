@@ -1,14 +1,16 @@
 import { useCallback, useEffect, useState, type FormEvent } from 'react';
-import { fetchAccessRequests, fetchAdminMe, NotAdminError, PendingApprovalError, SignedOutError, signIn, signOut, type AccessRequest } from '../api';
+import { fetchAccessRequests, fetchAdminMe, fetchTracking, NotAdminError, PendingApprovalError, SignedOutError, signIn, signOut, type AccessRequest } from '../api';
 import { LoadError } from '../components/LoadError';
 import { Wordmark } from '../components/Wordmark';
 import { Invites } from './Invites';
 import { Members } from './Members';
 import { Requests } from './Requests';
+import { Tracking } from './Tracking';
 
-type Tab = 'requests' | 'members' | 'invites';
+type Tab = 'requests' | 'tracking' | 'members' | 'invites';
 const TABS: [Tab, string][] = [
   ['requests', 'Requests'],
+  ['tracking', 'Tracking'],
   ['members', 'Members'],
   ['invites', 'Invites'],
 ];
@@ -16,13 +18,15 @@ const tabFromHash = (): Tab => (TABS.some(([t]) => `#${t}` === location.hash) ? 
 
 type Phase = { kind: 'loading' } | { kind: 'signedOut' } | { kind: 'notAdmin'; message: string } | { kind: 'error'; message: string } | { kind: 'ready'; username: string };
 
-/** The admin site: requests to join, members and invite links. Served on admin.<domain> only. */
+/** The admin site: requests to join, stats tracking, members and invite links. Served on admin.<domain> only. */
 export function Admin() {
   const [phase, setPhase] = useState<Phase>({ kind: 'loading' });
   const [tab, setTabState] = useState<Tab>(tabFromHash);
   // Kept here, so the Requests tab can show how many are waiting from any tab.
   const [requests, setRequests] = useState<AccessRequest[] | null>(null);
   const [requestsError, setRequestsError] = useState<string | null>(null);
+  // The same for what the Tracking tab has left to fix.
+  const [toFix, setToFix] = useState(0);
 
   const fail = useCallback((err: unknown) => {
     if (err instanceof SignedOutError) setPhase({ kind: 'signedOut' });
@@ -48,6 +52,8 @@ export function Admin() {
       const me = await fetchAdminMe();
       setPhase({ kind: 'ready', username: me.username });
       await loadRequests();
+      // Only the tab's count; the tab itself reports a failure.
+      fetchTracking().then((t) => setToFix(t.players.length + t.markets.length), () => {});
     } catch (err) {
       const message = fail(err);
       if (message) setPhase({ kind: 'error', message });
@@ -119,6 +125,12 @@ export function Admin() {
                     <span className="sr-only"> waiting</span>
                   </span>
                 )}
+                {t === 'tracking' && toFix > 0 && (
+                  <span className="count">
+                    {toFix}
+                    <span className="sr-only"> to fix</span>
+                  </span>
+                )}
               </button>
             ))}
           </nav>
@@ -127,6 +139,7 @@ export function Admin() {
 
       <main className="wrap page admin-page">
         {tab === 'requests' && <Requests requests={requests} error={requestsError} onReload={loadRequests} onAnswered={(username) => setRequests((rs) => rs?.filter((r) => r.username !== username) ?? rs)} fail={fail} />}
+        {tab === 'tracking' && <Tracking fail={fail} onCount={setToFix} />}
         {tab === 'members' && <Members fail={fail} />}
         {tab === 'invites' && <Invites fail={fail} />}
       </main>

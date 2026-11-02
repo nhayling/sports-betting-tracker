@@ -10,10 +10,12 @@ import { classifyMarket, evaluateProgress, gameMarket, spreadPick, type Progress
 import { matchEvent, matchPlayer, sportForLeague, teamMatches } from '@sports-better/matching';
 import { EspnProvider, ProviderError, type EventSnapshot, type EventState, type ProviderEvent, type ProviderPlayer, type Sport } from '@sports-better/sports-data';
 import { prisma } from '../db';
+import { loadMarketRules } from '../live/marketRules';
 
 const TZ = 'America/Nassau';
 const espn = new EspnProvider();
 
+const rules = await loadMarketRules(prisma);
 const coupons = await prisma.coupon.findMany({
   where: { status: 'OPEN' },
   orderBy: { placedAt: 'desc' },
@@ -82,7 +84,7 @@ for (const c of coupons) {
         continue;
       }
 
-      const cls = classifyMarket({ sport: leg.sport, marketName: s.marketName, selectionSide: s.selectionSide, line: s.lineRaw === null ? null : s.lineRaw / 1000 });
+      const cls = classifyMarket({ sport: leg.sport, marketName: s.marketName, selectionSide: s.selectionSide, line: s.lineRaw === null ? null : s.lineRaw / 1000 }, rules);
       if (!cls.supported) {
         console.log(`${label} Progress unavailable (${cls.reason.toLowerCase().replaceAll('_', ' ')})${official}`);
         continue;

@@ -1,6 +1,7 @@
 import { teamTotalTeam } from '@sports-better/markets';
 import type { ProviderTeam } from '@sports-better/sports-data';
 import type { Db } from '../db';
+import { loadMarketRules } from '../live/marketRules';
 import { betsOfCoupon, loadEventStates, moneylineSideOf, stateForLeg } from '../views/betsView';
 import { computePerformance, inSport, sportCounts, type PerformanceCoupon } from './compute';
 import type { Performance } from './types';
@@ -59,5 +60,5 @@ export async function loadPerformance(db: Db, opts: { userId: string; fundingMax
   const sport = opts.sport ?? null;
   const sportOnly = !!sport && !!opts.sportOnly;
   const chosen = sport ? inSport(input, sport, sportOnly) : input;
-  return { ...computePerformance(chosen, now, opts.fundingMaxOdds, sport ?? undefined), period, sport, sportOnly, sports: sportCounts(input) };
+  return { ...computePerformance(chosen, now, opts.fundingMaxOdds, sport ?? undefined, await loadMarketRules(db)), period, sport, sportOnly, sports: sportCounts(input) };
 }

@@ -1,6 +1,7 @@
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import express, { type ErrorRequestHandler } from 'express';
+import { EspnProvider, type SportsDataProvider } from '@sports-better/sports-data';
 import type { Db } from './db';
 import { authenticate, requireApiKeyAuth, requireSessionAuth } from './auth';
 import type { LoginLimiter } from './auth/loginLimiter';
@@ -36,6 +37,10 @@ export interface AppOptions {
   publicUrl?: string;
   /** Emails about requests to join. Defaults to Postmark, set up from the environment. */
   mailer?: Mailer;
+  /** Where the admin site re-reads games after a fix. Share the poller's, so they spend one request budget. */
+  sportsData?: SportsDataProvider;
+  /** Pause between past game windows when re-reading. Tests shorten it. */
+  refreshGapMs?: number;
 }
 
 export function createApp(db: Db, opts: AppOptions = {}) {
@@ -66,7 +71,7 @@ export function createApp(db: Db, opts: AppOptions = {}) {
   // Session-only (mounted after requireSessionAuth): a key must never list or remove keys.
   app.use('/api/devices', devicesRouter(db));
   app.use('/api/live', liveRouter(opts.pollerStatus ?? (() => null)));
-  app.use('/api/admin', adminRouter(db, mailer, opts.publicUrl));
+  app.use('/api/admin', adminRouter(db, mailer, opts.publicUrl, opts.sportsData ?? new EspnProvider(), opts.refreshGapMs));
 
   app.use('/api', (_req, res) => {
     res.status(404).json({ error: 'Not found' });

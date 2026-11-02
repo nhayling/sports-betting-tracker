@@ -6,6 +6,7 @@
  */
 import { classifyMarket, gameMarket, type MarketInput } from '@sports-better/markets';
 import { prisma } from '../db';
+import { loadMarketRules } from '../live/marketRules';
 import { printable } from '../printable';
 
 const TZ = 'America/Nassau';
@@ -18,6 +19,7 @@ const rows = await prisma.$queryRaw<Array<{ sport: string | null; marketName: st
   WHERE s."marketName" IS NOT NULL
   GROUP BY l."sport", s."marketName", s."selectionSide"`;
 const flagged = await prisma.untrackedMarket.findMany();
+const rules = await loadMarketRules(prisma);
 
 const markets = new Map<string, { sport: string; name: string; tracked: string | null; untracked: string | null; picks: number; open: number }>();
 for (const r of rows) {
@@ -25,7 +27,7 @@ for (const r of rows) {
   const key = `${sport}|${r.marketName}`;
   const m = markets.get(key) ?? { sport, name: r.marketName, tracked: null, untracked: null, picks: 0, open: 0 };
   const game = gameMarket(r.marketName);
-  const cls = game ? null : classifyMarket({ sport: r.sport, marketName: r.marketName, selectionSide: r.selectionSide as MarketInput['selectionSide'], line: r.lineRaw === null ? null : r.lineRaw / 1000 });
+  const cls = game ? null : classifyMarket({ sport: r.sport, marketName: r.marketName, selectionSide: r.selectionSide as MarketInput['selectionSide'], line: r.lineRaw === null ? null : r.lineRaw / 1000 }, rules);
   if (game) m.tracked = game;
   else if (cls?.supported) m.tracked = cls.metric;
   else m.untracked = cls?.reason ?? null;

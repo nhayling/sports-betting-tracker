@@ -1,12 +1,13 @@
 import type { Prisma } from '@prisma/client';
 import { addDays, gameMargin, nassauMidnight, TOTAL_TYPES } from '@sports-better/display';
-import { classifyMarket, fightPick, gameMarket, gradeFight, spreadPick, teamTotalTeam, type GameMarket } from '@sports-better/markets';
+import { classifyMarket, fightPick, gameMarket, gradeFight, spreadPick, teamTotalTeam, type GameMarket, type MarketRules } from '@sports-better/markets';
 import { sameTeams, sportForLeague, stripRanking, teamMatches } from '@sports-better/matching';
 import type { FightResult, GameSituation, ProviderTeam, Sport } from '@sports-better/sports-data';
 import type { BetsView, CouponView, GameStateView, GameView } from './betsViewTypes';
 
 export type * from './betsViewTypes';
 import type { Db } from '../db';
+import { loadMarketRules } from '../live/marketRules';
 
 /**
  * The tracker UI's view of bets: each coupon with its picks grouped by game,
@@ -46,6 +47,7 @@ export async function loadBetsView(db: Db, filter: { userId: string; view: 'open
 
   const eventIds = coupons.flatMap((c) => c.legs.map((l) => l.eventId)).filter((e): e is string => !!e);
   const stateByKambiEvent = await loadEventStates(db, eventIds);
+  const rules = await loadMarketRules(db);
 
   // "Last synced" = newest time Island Luck data was seen, including syncs with no changes.
   // Older accounts without it fall back to the newest coupon capture.
@@ -56,7 +58,7 @@ export async function loadBetsView(db: Db, filter: { userId: string; view: 'open
     generatedAt: now.toISOString(),
     lastSyncedAt: lastSyncedAt?.toISOString() ?? null,
     liveGames: await countLiveGames(db, filter.userId),
-    coupons: coupons.flatMap((c) => betsOfCoupon(c).filter((b) => inView(b.status)).map((b) => couponView(c, b, stateByKambiEvent, now))),
+    coupons: coupons.flatMap((c) => betsOfCoupon(c).filter((b) => inView(b.status)).map((b) => couponView(c, b, stateByKambiEvent, rules, now))),
   };
 }
 
@@ -251,7 +253,7 @@ export function moneylineSideOf(
   return h && !a ? 'home' : a && !h ? 'away' : null;
 }
 
-function couponView(c: CouponRow, bet: CouponBet<CouponRow['legs'][number]>, states: Map<string, StateRow>, now: Date): CouponView {
+function couponView(c: CouponRow, bet: CouponBet<CouponRow['legs'][number]>, states: Map<string, StateRow>, rules: MarketRules, now: Date): CouponView {
   const games: GameView[] = [];
   let picksHit = 0;
 
@@ -276,7 +278,7 @@ function couponView(c: CouponRow, bet: CouponBet<CouponRow['legs'][number]>, sta
 
     for (const s of leg.selections) {
       const ml: GameMarket | null = gameMarket(s.marketName);
-      const cls = ml ? null : classifyMarket({ sport: leg.sport, marketName: s.marketName, selectionSide: s.selectionSide, line: s.lineRaw === null ? null : s.lineRaw / 1000 });
+      const cls = ml ? null : classifyMarket({ sport: leg.sport, marketName: s.marketName, selectionSide: s.selectionSide, line: s.lineRaw === null ? null : s.lineRaw / 1000 }, rules);
       // A saved "unsupported" reason is stale once the market becomes supported
       // (the poller only revisits it near kickoff).
       const p =

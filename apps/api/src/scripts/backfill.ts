@@ -12,13 +12,12 @@ import { classifyMarket, gameMarket } from '@sports-better/markets';
 import { sportForLeague } from '@sports-better/matching';
 import { defaultFetchJson, EspnProvider } from '@sports-better/sports-data';
 import { prisma } from '../db';
-import { runPollCycle } from '../live/pollCycle';
+import { loadMarketRules } from '../live/marketRules';
+import { MAX_GAME_MS, PREGAME_MS, runPollCycle } from '../live/pollCycle';
+import { pollWindows } from '../live/refresh';
 import { loadEventStates, stateForLeg } from '../views/betsView';
 
 const apply = process.argv.includes('--apply');
-// Must match pollCycle's window: games newer than this are still the live poller's.
-const MAX_GAME_MS = 6 * 60 * 60_000;
-const PREGAME_MS = 15 * 60_000;
 // One request every 1.5 s, well under the live poller's budget; a backfill is never urgent.
 const GAP_MS = 1500;
 
@@ -28,22 +27,19 @@ const legs = await prisma.betLeg.findMany({
   include: { selections: { include: { progress: true } } },
 });
 const states = await loadEventStates(prisma, legs.map((l) => l.eventId!));
+const rules = await loadMarketRules(prisma);
 
 const FINAL_PROGRESS = new Set(['FINAL_HIT', 'FINAL_MISSED']);
 const stale = legs.filter((leg) => {
   if (!sportForLeague(leg.league)) return false; // no provider covers it
   return leg.selections.some((s) => {
     if (gameMarket(s.marketName)) return stateForLeg(states, leg)?.state !== 'FINAL';
-    const cls = classifyMarket({ sport: leg.sport, marketName: s.marketName, selectionSide: s.selectionSide, line: s.lineRaw === null ? null : s.lineRaw / 1000 });
+    const cls = classifyMarket({ sport: leg.sport, marketName: s.marketName, selectionSide: s.selectionSide, line: s.lineRaw === null ? null : s.lineRaw / 1000 }, rules);
     return cls.supported && !FINAL_PROGRESS.has(s.progress?.status ?? '');
   });
 });
 
-// Kickoffs grouped into poll windows: one cycle at `kickoff + 6 h` covers every game from that kickoff to 15 min after it.
-const kickoffs = [...new Set(stale.map((l) => l.eventStartAt!.getTime()))].sort((a, b) => a - b);
-const windows: number[] = [];
-// A window is the cycle's `now`; it reaches back 6 h and forward 15 min.
-for (const k of kickoffs) if (!windows.length || k > windows.at(-1)! + PREGAME_MS) windows.push(k + MAX_GAME_MS);
+const windows = pollWindows(stale.map((l) => l.eventStartAt!.getTime()));
 const events = new Set(stale.map((l) => l.eventId!));
 
 const TZ = 'America/Nassau';

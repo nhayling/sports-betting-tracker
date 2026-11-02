@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 import { parseHistoryResponse, type RawHistoryResponse } from '@sports-better/kambi';
 import type { FightResult } from '@sports-better/sports-data';
 import { describe, expect, it } from 'vitest';
-import { classifyMarket, evaluateProgress, fightPick, gameMarket, gradeFight, spreadPick, teamTotalTeam, type PropTarget } from '../src';
+import { classifyMarket, evaluateProgress, fightPick, gameMarket, gradeFight, marketPattern, marketRuleKey, ruleStats, spreadPick, teamTotalTeam, type MarketRule, type PropTarget } from '../src';
 
 const captured = JSON.parse(
   readFileSync(fileURLToPath(new URL('../../kambi/fixtures/captured/history-2026-09-27.json', import.meta.url)), 'utf8'),
@@ -374,5 +374,44 @@ describe('gradeFight', () => {
   it('voids the winner on a draw, and leaves an unknown finish ungraded', () => {
     expect(grade('Bout Odds', null, null, { ...decision, winner: null }, 'Joel Faglier')).toBe(0);
     expect(grade('Any Fighter to win by Submission', 'YES', null, { ...ko, method: null })).toBeNull();
+  });
+});
+
+describe('market rules from the admin site', () => {
+  const rule = { metric: 'INTERCEPTIONS_THROWN', scope: 'PLAYER' } as const;
+  const rules = new Map<string, MarketRule>([
+    [marketRuleKey('AMERICAN_FOOTBALL', 'Total Interceptions by the Player'), rule],
+    [marketRuleKey('AMERICAN_FOOTBALL', '30+ Rush Attempts By The Player'), { ...rule, metric: 'RUSHING_ATTEMPTS' }],
+  ]);
+  const pick = (marketName: string, selectionSide: 'YES' | 'NO' | 'OVER' | 'UNDER' | null, line: number | null) => classifyMarket({ sport: 'AMERICAN_FOOTBALL', marketName, selectionSide, line }, rules);
+
+  it('reads an over/under from the line', () => {
+    expect(pick('Total Interceptions by the Player', 'UNDER', 0.5)).toMatchObject({ supported: true, metric: 'INTERCEPTIONS_THROWN', operator: 'LT', target: 0.5, scope: 'PLAYER', display: 'PROGRESS' });
+    expect(pick('total interceptions BY the player', 'OVER', 1.5)).toMatchObject({ operator: 'GT', target: 1.5 });
+    expect(pick('Total Interceptions by the Player', 'OVER', null)).toEqual({ supported: false, reason: 'MISSING_LINE' });
+  });
+
+  it('covers every number of an "N+" ladder, and refuses a line that disagrees with the name', () => {
+    expect(pick('25+ Rush Attempts By The Player', 'YES', 25)).toMatchObject({ metric: 'RUSHING_ATTEMPTS', operator: 'GTE', target: 25 });
+    expect(pick('25+ Rush Attempts By The Player', 'NO', 25)).toMatchObject({ operator: 'LT', target: 25 });
+    expect(pick('25+ Rush Attempts By The Player', 'YES', 30)).toEqual({ supported: false, reason: 'LINE_MISMATCH' });
+  });
+
+  it('only fills in for markets nothing else knows, and never for another sport', () => {
+    const shadow = new Map([[marketRuleKey('AMERICAN_FOOTBALL', '1+ Interceptions Thrown By The Player'), { metric: 'SACKS' as const, scope: 'PLAYER' as const }]]);
+    expect(classifyMarket({ sport: 'AMERICAN_FOOTBALL', marketName: '1+ Interceptions Thrown By The Player', selectionSide: 'YES', line: 1 }, shadow)).toMatchObject({ metric: 'INTERCEPTIONS_THROWN' });
+    expect(classifyMarket({ sport: 'BASKETBALL', marketName: 'Total Interceptions by the Player', selectionSide: 'UNDER', line: 0.5 }, rules)).toEqual({ supported: false, reason: 'UNSUPPORTED_MARKET' });
+    expect(pick('Total Interceptions by the Player', null, 0.5)).toEqual({ supported: false, reason: 'UNSUPPORTED_SIDE' });
+  });
+
+  it('keeps part-of-a-game names apart', () => {
+    expect(marketPattern('Total X - 1st Half')).not.toBe(marketPattern('Total X - 2nd Half'));
+    expect(marketPattern('Player to have at least 2 Tackles')).toBe(marketPattern('Player to have at least 0.5 tackles'));
+  });
+
+  it('offers team stats to whole-game markets only, and nothing for sports without box scores', () => {
+    expect(ruleStats('FOOTBALL', 'PLAYER')!.map(([k]) => k)).not.toContain('CORNERS');
+    expect(ruleStats('FOOTBALL', 'GAME')!.map(([k]) => k)).toContain('CORNERS');
+    expect(ruleStats('MARTIAL_ARTS', 'PLAYER')).toBeNull();
   });
 });
