@@ -11,6 +11,7 @@
     "db:generate": "prisma generate",
     "progress": "tsx --env-file=../../.env src/scripts/progress.ts",
     "user": "tsx --env-file=../../.env src/scripts/user.ts",
+    "reset": "tsx --env-file=../../.env src/scripts/reset.ts",
     "invite": "tsx --env-file=../../.env src/scripts/invite.ts",
     "access": "tsx --env-file=../../.env src/scripts/access.ts",
     "emails": "tsx --env-file=../../.env src/scripts/emails.ts",

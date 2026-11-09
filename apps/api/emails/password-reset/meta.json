@@ -1,0 +1,12 @@
+{
+  "Name": "Password reset",
+  "Alias": "password-reset",
+  "Subject": "Choose a new Slip Club password",
+  "TemplateType": "Standard",
+  "LayoutTemplate": "slip-club",
+  "TestRenderModel": {
+    "username": "tbone",
+    "reset_url": "https://slipclub.app/#reset=sample-link-that-does-not-work",
+    "expires_at": "Nov 10, 2026, 1:14 PM"
+  }
+}

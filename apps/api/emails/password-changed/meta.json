@@ -1,0 +1,11 @@
+{
+  "Name": "Password changed",
+  "Alias": "password-changed",
+  "Subject": "Your Slip Club password was changed",
+  "TemplateType": "Standard",
+  "LayoutTemplate": "slip-club",
+  "TestRenderModel": {
+    "username": "tbone",
+    "changed_at": "Nov 9, 2026, 5:42 PM"
+  }
+}

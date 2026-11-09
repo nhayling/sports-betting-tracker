@@ -34,6 +34,14 @@ export interface NewInvite {
   expiresAt: string;
 }
 
+/** A new password reset link. Shown once, like an invite; `emailed` says whether Postmark took the email. */
+export interface NewPasswordReset {
+  url: string;
+  expiresAt: string;
+  email: string | null;
+  emailed: boolean;
+}
+
 /** A player a pick's stats can't be read for: the match wasn't sure, or nobody in the game fits. */
 export interface PlayerIssue {
   participantId: string;

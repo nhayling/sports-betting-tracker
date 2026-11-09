@@ -9,7 +9,7 @@ The October 2026 security audit found that a user has no way to see or cancel th
 - Keys never expire (see `ApiKey` in `apps/api/prisma/schema.prisma`).
 - Signing out of the extension deletes only that one key (`DELETE /api/auth/extension-token`).
 - Every new phone install link makes a new key, and the old ones stay valid.
-- The only way to clear them all today is the operator's password-reset script (`apps/api/src/scripts/user.ts`).
+- The only way to clear them all today is the operator's password-reset script (`apps/api/src/scripts/user.ts`). Reset links (`apps/api/src/auth/passwordResets.ts`) deliberately leave them alone.
 
 A phone key is the most likely to leak. It sits in the install URL and inside the Island Luck page (see `apps/api/src/userscript/island-luck-sync.user.js`).
 

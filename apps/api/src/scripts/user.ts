@@ -3,7 +3,9 @@
  *
  *   npm run user -w @sports-better/api -- <username>
  *
- * Prompts for the password without echoing it.
+ * Prompts for the password without echoing it. To let a member pick their own
+ * new password instead, send them a link with `npm run reset` (which keeps
+ * their extension and phone sync connected; this signs those out too).
  */
 import { createInterface } from 'node:readline';
 import { prisma } from '../db';
@@ -45,6 +47,7 @@ if (existing) {
   // Sign out everywhere on reset, including extensions.
   await prisma.session.deleteMany({ where: { userId: existing.id } });
   await prisma.apiKey.deleteMany({ where: { userId: existing.id } });
+  await prisma.passwordReset.deleteMany({ where: { userId: existing.id } });
 }
 console.log(existing ? `Password reset for ${username}; browsers and extensions signed out.` : `Created ${username}.`);
 await prisma.$disconnect();

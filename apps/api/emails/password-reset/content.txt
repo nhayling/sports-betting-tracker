@@ -1,0 +1,13 @@
+NEW PASSWORD
+
+Here’s your link to choose a new password for Slip Club. It works once, for the next 24 hours.
+
+Username: {{username}}
+Expires: {{expires_at}} Nassau time
+
+Choose a new password:
+{{reset_url}}
+
+A new password signs you out of Slip Club in every other browser, so sign in there again with it. The browser extension and phone sync stay connected, and your bets keep syncing.
+
+Didn’t ask for a new password? Ignore this email and your password stays the same, or reply and we’ll look into it.

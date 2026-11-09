@@ -2,7 +2,8 @@ import { Router, type Request, type Response } from 'express';
 import type { Db } from '../db';
 import { LoginLimiter } from '../auth/loginLimiter';
 import { findUsableInvite } from '../auth/invites';
-import { announceRequest } from '../auth/access';
+import { findUsableReset, requestPasswordReset, usePasswordReset } from '../auth/passwordResets';
+import { announceRequest, nassauTime } from '../auth/access';
 import type { Mailer } from '../email/mailer';
 import { hashPassword, MIN_PASSWORD_LENGTH, normalizeEmail, USERNAME_PATTERN, verifyPassword } from '../auth/password';
 import { bearerToken } from '../auth';
@@ -22,9 +23,18 @@ const PENDING = 'Your request to join is waiting for approval. You can sign in o
  * POST /api/auth/login, POST /api/auth/logout, GET /api/auth/me, PATCH /api/auth/email for the web app;
  * POST and DELETE /api/auth/extension-token for the extension;
  * GET /api/auth/invite/:token and POST /api/auth/register for invite links;
+ * POST /api/auth/forgot to email a password reset link; GET /api/auth/reset/:token and POST /api/auth/reset to use one
+ * (links are also made on the admin site and with npm run reset);
  * POST /api/auth/signup to ask for access (the account waits for approval on the admin site, or npm run access).
  */
-export function authRouter(db: Db, mailer: Mailer, limiter = new LoginLimiter(), signupLimiter = new LoginLimiter()): Router {
+export function authRouter(
+  db: Db,
+  mailer: Mailer,
+  limiter = new LoginLimiter(),
+  signupLimiter = new LoginLimiter(),
+  forgotLimiter = new LoginLimiter(),
+  publicUrl?: string,
+): Router {
   const router = Router();
 
   const sessionUser = async (req: Request) => {
@@ -214,6 +224,74 @@ export function authRouter(db: Db, mailer: Mailer, limiter = new LoginLimiter(),
     const session = await createSession(db, user.id, req.get('user-agent'));
     res.set('Set-Cookie', sessionCookie(session.token, { maxAgeMs: SESSION_TTL_MS, secure: req.secure }));
     res.status(201).json({ username: user.username });
+  });
+
+  const RESET_GONE = 'This reset link has expired or was already used. Ask for a new one.';
+
+  // "Forgot password?": the same answer whether or not anyone gets an email, sent before the lookup so timing can't tell either.
+  router.post('/forgot', async (req, res) => {
+    if (!req.is('application/json')) {
+      res.status(415).json({ error: 'Expected application/json' });
+      return;
+    }
+    // Every request counts: 5 per 15 minutes from one address.
+    const client = req.ip ?? 'unknown';
+    const wait = forgotLimiter.retryAfterSeconds(client);
+    if (wait !== null) {
+      res.set('Retry-After', String(wait)).status(429).json({ error: `Too many requests. Try again in ${Math.ceil(wait / 60)} min.` });
+      return;
+    }
+    const login = typeof req.body?.login === 'string' ? req.body.login.trim().toLowerCase() : '';
+    if (!login || login.length > 254) {
+      res.status(400).json({ error: 'Enter your username or email' });
+      return;
+    }
+    forgotLimiter.fail(client);
+    // The link opens the app, even if this was asked on the admin host.
+    const appUrl = publicUrl || `${req.protocol}://${req.get('host')!.replace(/^admin\./i, '')}`;
+    res.json({ ok: true });
+    requestPasswordReset(db, mailer, login, appUrl).then(
+      (username) => username && console.log(`[access] emailed ${username} a password reset link they asked for`),
+      (err) => console.error(`[access] password reset request failed: ${err instanceof Error ? err.message : String(err)}`),
+    );
+  });
+
+  // Whose password a reset link is for, so the page can say.
+  router.get('/reset/:token', async (req, res) => {
+    const reset = await findUsableReset(db, req.params.token);
+    if (!reset) {
+      res.status(404).json({ error: RESET_GONE });
+      return;
+    }
+    res.json({ username: reset.user.username });
+  });
+
+  // A new password from a reset link: signs out of every other browser (the extension and phone sync stay connected), then signs in here.
+  router.post('/reset', async (req, res) => {
+    if (!req.is('application/json')) {
+      res.status(415).json({ error: 'Expected application/json' });
+      return;
+    }
+    const { token, password } = req.body ?? {};
+    if (typeof token !== 'string' || !token) {
+      res.status(400).json({ error: 'A reset link is required' });
+      return;
+    }
+    if (typeof password !== 'string' || password.length < MIN_PASSWORD_LENGTH) {
+      res.status(400).json({ error: `Password must be at least ${MIN_PASSWORD_LENGTH} characters` });
+      return;
+    }
+    const user = await usePasswordReset(db, token, password);
+    if (!user) {
+      res.status(404).json({ error: RESET_GONE });
+      return;
+    }
+    console.log(`[access] ${user.username} set a new password with a reset link`);
+    // A receipt, pointing at Connected devices in case the reset was over a breach. Not awaited: signing in shouldn't wait on Postmark.
+    if (user.email) void mailer.send(user.email, 'password-changed', { username: user.username, changed_at: nassauTime(new Date()) });
+    const session = await createSession(db, user.id, req.get('user-agent'));
+    res.set('Set-Cookie', sessionCookie(session.token, { maxAgeMs: SESSION_TTL_MS, secure: req.secure }));
+    res.json({ username: user.username });
   });
 
   // The extension trades the password for a token once, so it never stores the password.

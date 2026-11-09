@@ -32,6 +32,12 @@ export function Account({
 }) {
   // Bumped when phone setup makes a new device, so the list below shows it.
   const [devicesVersion, setDevicesVersion] = useState(0);
+  // Opened from a #devices link: go straight to Connected devices, then drop the hash so a reload lands on the bets.
+  useEffect(() => {
+    if (location.hash !== '#devices') return;
+    document.getElementById('devices')?.scrollIntoView();
+    history.replaceState(null, '', location.pathname);
+  }, []);
   return (
     <div className="account">
       <section className="panel">

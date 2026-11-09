@@ -33,6 +33,8 @@ export interface AppOptions {
   loginLimiter?: LoginLimiter;
   /** Throttles asking for access (every request counts). */
   signupLimiter?: LoginLimiter;
+  /** Throttles "Forgot password?" (every request counts). */
+  forgotLimiter?: LoginLimiter;
   /** Where people open the tracker, e.g. https://bets.example.com. Defaults to the request's own host. */
   publicUrl?: string;
   /** Emails about requests to join. Defaults to Postmark, set up from the environment. */
@@ -55,7 +57,7 @@ export function createApp(db: Db, opts: AppOptions = {}) {
     res.json({ ok: true });
   });
 
-  app.use('/api/auth', authRouter(db, mailer, opts.loginLimiter, opts.signupLimiter));
+  app.use('/api/auth', authRouter(db, mailer, opts.loginLimiter, opts.signupLimiter, opts.forgotLimiter, opts.publicUrl));
   app.use('/userscript', userscriptRouter(db, opts.publicUrl));
   app.use('/api/integrations/island-luck/sync', islandLuckCors);
   app.use('/api', authenticate(db));

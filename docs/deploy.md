@@ -181,8 +181,26 @@ Emails are optional for accounts made before they were asked for: those people
 see a reminder to add one under Account. Anyone can sign in with their username
 or their email. Emails aren't verified yet (there's no way to send mail).
 
-To reset a forgotten password (or create a login directly), run this and type
-the new password. It signs that person out of every browser and extension:
+Anyone who forgot their password can tap **Forgot your password?** on the
+sign-in screen: if their username or email belongs to an approved account with
+an email address, they're emailed a reset link (the screen never says whether
+it did). For someone with no email on file, press **Reset password** next to
+them under **Members** on the admin site, or run:
+
+```sh
+docker compose exec app npm run reset -w @sports-better/api -- <username>
+```
+
+Either one makes a single-use link that works for 24 hours (and stops any older
+link for them working) and emails it to them if they have an email. The link is
+also shown, so you can send it yourself. Setting the new password signs them in
+and signs them out of every other browser. Their extension and phone sync stay
+connected; the "password changed" email that follows points them to Connected
+devices in case the reset was over a breach. If you think the account was taken
+over, use `npm run user` below instead, which cuts those off too.
+
+To set a password yourself (or create a login directly), run this and type the
+new password. It signs that person out of every browser, extension and phone:
 
 ```sh
 docker compose exec app npm run user -w @sports-better/api -- <username>
@@ -215,7 +233,7 @@ tap it in that browser. The link and the installed script carry a sign-in
 token for your account, so each person creates their own.
 
 Resetting a password with `npm run user` revokes these tokens too; install
-again afterwards.
+again afterwards. A reset link leaves them working.
 
 ## Bringing over older bets
 

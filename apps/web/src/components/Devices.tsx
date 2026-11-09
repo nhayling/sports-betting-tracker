@@ -84,7 +84,7 @@ export function Devices({ version, onSignedOut }: { version: number; onSignedOut
 
   const others = data?.sessions.filter((s) => !s.current) ?? [];
   return (
-    <section className="panel devices">
+    <section className="panel devices" id="devices">
       <h2>Connected devices</h2>
       {error && !data && <LoadError onRetry={() => void load()}>Can’t load your devices right now.</LoadError>}
       {error && data && <p className="banner error" role="alert">{error}</p>}

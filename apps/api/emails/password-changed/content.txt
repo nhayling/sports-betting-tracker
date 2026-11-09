@@ -1,0 +1,15 @@
+PASSWORD CHANGED
+
+Your Slip Club password was changed with a reset link. You’re signed in where you changed it, and signed out in every other browser.
+
+Username: {{username}}
+Changed: {{changed_at}} Nassau time
+
+THINK SOMEONE ELSE HAD YOUR PASSWORD?
+
+Your browser extension and phone sync stay connected after a reset, so they keep syncing your bets. If someone else may have got into your account, open Connected devices and remove any phone or extension you don’t recognize, or remove them all and set yours up again.
+
+Check connected devices:
+https://slipclub.app/#devices
+
+Didn’t change your password? Reply to this email right away and we’ll help you lock your account down.

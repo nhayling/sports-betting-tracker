@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { PendingApprovalError, signIn } from '../api';
 import { ClubInviteNote } from './ClubInviteNote';
+import { ForgotPassword } from './ForgotPassword';
 import { FinePrint } from './Terms';
 import { AuthBrand } from './Wordmark';
 
@@ -11,6 +12,7 @@ export function SignIn({ onSignedIn, onJoin }: { onSignedIn: () => void; onJoin:
   // A request still waiting isn't a mistake, so it isn't shown as one.
   const [waiting, setWaiting] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [forgot, setForgot] = useState(false);
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
@@ -28,6 +30,8 @@ export function SignIn({ onSignedIn, onJoin }: { onSignedIn: () => void; onJoin:
       setBusy(false);
     }
   };
+
+  if (forgot) return <ForgotPassword login={username} onBack={() => setForgot(false)} />;
 
   return (
     <div className="app auth">
@@ -47,6 +51,9 @@ export function SignIn({ onSignedIn, onJoin }: { onSignedIn: () => void; onJoin:
         {waiting && <p className="banner note">{waiting}</p>}
         <button className="primary" disabled={busy}>
           {busy ? 'Signing in…' : 'Sign in'}
+        </button>
+        <button type="button" className="link" onClick={() => setForgot(true)}>
+          Forgot your password?
         </button>
         <button type="button" className="link" onClick={onJoin}>
           New here? Ask to join

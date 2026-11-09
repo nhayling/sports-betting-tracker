@@ -305,6 +305,7 @@ model User {
   admin              Boolean             @default(false)
   sessions           Session[]
   apiKeys            ApiKey[]
+  passwordResets     PasswordReset[]
   sportsbookAccounts SportsbookAccount[]
   notifications      Notification[]
   createdAt          DateTime            @default(now())
@@ -436,6 +437,20 @@ model Invite {
   expiresAt      DateTime
   usedAt         DateTime?
   usedByUsername String?
+}
+
+/// A single-use link to set a new password, made on the admin site or with npm run reset.
+/// Only the newest one per person works, and using it deletes them all.
+model PasswordReset {
+  id        String   @id @default(uuid())
+  /// sha256 of the link token; the token itself is never stored.
+  tokenHash String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+
+  @@index([userId])
 }
 
 // ── Notifications (in-app feed now; a push channel can deliver them later). ──

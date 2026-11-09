@@ -22,7 +22,10 @@
 .request-note { margin: 8px 0 6px; padding: 6px 10px; background: var(--cell); overflow-wrap: anywhere; }
 .request-no-note { margin: 2px 0; }
 
+.admin-row.member { flex-wrap: wrap; }
 .member-when { flex: none; text-align: right; }
+.member-reset { margin-top: 8px; padding: 3px 10px; font-size: var(--fs-sm); }
+.member-reset-link { flex: 1 1 100%; margin-bottom: 0; }
 
 .invite-make { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 12px; }
 .invite-make .btn.primary { padding: 5px 16px; }

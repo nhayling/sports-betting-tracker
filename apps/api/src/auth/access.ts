@@ -10,7 +10,8 @@ import type { Mailer } from '../email/mailer';
 export type AccessAnswer = { ok: true; email: string | null; emailed: boolean } | { ok: false; error: string };
 
 const TZ = 'America/Nassau';
-const when = (d: Date) => new Intl.DateTimeFormat('en-US', { timeZone: TZ, dateStyle: 'medium', timeStyle: 'short' }).format(d);
+/** "Oct 27, 2026, 1:14 PM", for emails. */
+export const nassauTime = (d: Date) => new Intl.DateTimeFormat('en-US', { timeZone: TZ, dateStyle: 'medium', timeStyle: 'short' }).format(d);
 
 async function waiting(db: Db, username: string) {
   const user = await db.user.findUnique({ where: { username } });
@@ -23,7 +24,7 @@ export async function announceRequest(db: Db, mailer: Mailer, user: { username: 
   const model = { username: user.username, email: user.email, access_note: user.accessNote ?? '' };
   await Promise.all([
     user.email ? mailer.send(user.email, 'access-received', model) : null,
-    ...admins.map((a) => mailer.send(a.email!, 'access-requested', { ...model, requested_at: when(user.createdAt) })),
+    ...admins.map((a) => mailer.send(a.email!, 'access-requested', { ...model, requested_at: nassauTime(user.createdAt) })),
   ]);
 }
 

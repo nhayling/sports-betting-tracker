@@ -5,9 +5,9 @@
  * EMAIL_FROM          the sender, on a domain or address verified in Postmark. Default: Slip Club <hello@slipclub.app>.
  * EMAIL_REPLY_TO      where replies go. Default: slipclub@archipelagoapps.com.
  *
- * A send never throws: a failed email is logged and the sign-up or answer it follows still stands.
+ * A send never throws: a failed email is logged and the sign-up, answer or reset link it follows still stands.
  */
-export type TemplateAlias = 'access-received' | 'access-approved' | 'access-declined' | 'access-requested';
+export type TemplateAlias = 'access-received' | 'access-approved' | 'access-declined' | 'access-requested' | 'password-reset' | 'password-changed';
 
 export interface Mailer {
   /** True once Postmark has accepted it. */

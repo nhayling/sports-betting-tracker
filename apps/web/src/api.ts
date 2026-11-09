@@ -1,6 +1,6 @@
 import type { BetsView } from '../../api/src/views/betsViewTypes';
 import type { Performance } from '../../api/src/performance/types';
-import type { AccessRequest, GamePlayer, InviteRow, Member, NewInvite, Tracking } from '../../api/src/admin/types';
+import type { AccessRequest, GamePlayer, InviteRow, Member, NewInvite, NewPasswordReset, Tracking } from '../../api/src/admin/types';
 import type { ClubFeedItem, ClubInvite, ClubSummary, ClubView, LeaderboardView, Period, Person, ProfileView, Relation, SocialMe, SocialSettings } from '../../api/src/social/types';
 
 export type * from '../../api/src/views/betsViewTypes';
@@ -54,6 +54,11 @@ export const signOut = () => post('/api/auth/logout');
 export const checkInvite = (token: string) => get<{ ok: true }>(`/api/auth/invite/${encodeURIComponent(token)}`);
 export const register = (token: string, username: string, password: string, email: string) =>
   post<{ username: string }>('/api/auth/register', { token, username, password, email });
+/** Emails a reset link if there's an approved account with an email; the answer is the same either way. */
+export const forgotPassword = (login: string) => post<{ ok: true }>('/api/auth/forgot', { login });
+/** Whose password a reset link is for. */
+export const checkPasswordReset = (token: string) => get<{ username: string }>(`/api/auth/reset/${encodeURIComponent(token)}`);
+export const resetPassword = (token: string, password: string) => post<{ username: string }>('/api/auth/reset', { token, password });
 
 /** A personal install link for the phone userscript. It contains a sign-in token. */
 export const createPhoneSyncLink = () => post<{ url: string }>('/api/phone-sync');
@@ -151,6 +156,7 @@ export const fetchAdminMe = () => get<{ username: string }>('/api/admin/me');
 export const fetchAccessRequests = () => get<{ requests: AccessRequest[] }>('/api/admin/requests');
 export const answerAccessRequest = (username: string, answer: 'approve' | 'decline') => post<{ ok: true; emailed: boolean }>(`/api/admin/requests/${encodeURIComponent(username)}/${answer}`);
 export const fetchMembers = () => get<{ members: Member[] }>('/api/admin/members');
+export const makePasswordResetLink = (username: string) => post<NewPasswordReset>(`/api/admin/members/${encodeURIComponent(username)}/reset`);
 export const fetchInvites = () => get<{ invites: InviteRow[] }>('/api/admin/invites');
 export const createInviteLink = (days: number) => post<NewInvite>('/api/admin/invites', { days });
 export const fetchTracking = () => get<Tracking>('/api/admin/tracking');

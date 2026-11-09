@@ -131,6 +131,22 @@ describe.skipIf(!hasTestDb)('admin site', () => {
     expect(members[0].lastSeenAt).not.toBeNull();
   });
 
+  it('makes password reset links that open the app, and emails them', async () => {
+    const admin = await signIn(ADMIN_HOST, 'noah', 'a-long-password');
+    sent.length = 0;
+    const made = await call(ADMIN_HOST, 'POST', '/api/admin/members/tbone/reset', { cookie: admin });
+    expect(made.status).toBe(201);
+    expect(made.body).toMatchObject({ url: expect.stringMatching(/^https:\/\/slipclub\.test\/#reset=[\w-]+$/), email: 'tbone@example.com', emailed: true });
+    expect(sent.map((s) => [s.to, s.template])).toEqual([['tbone@example.com', 'password-reset']]);
+    expect((await call(APP_HOST, 'GET', `/api/auth/reset/${made.body.url.split('=')[1]}`)).body).toEqual({ username: 'tbone' });
+
+    expect((await call(ADMIN_HOST, 'POST', '/api/admin/members/nobody/reset', { cookie: admin })).status).toBe(409);
+    // Not from the app's host, and not for someone who isn't an admin.
+    expect((await call(APP_HOST, 'POST', '/api/admin/members/tbone/reset', { cookie: admin })).status).toBe(404);
+    const buddy = await signIn(ADMIN_HOST, 'buddy', 'another-password');
+    expect((await call(ADMIN_HOST, 'POST', '/api/admin/members/tbone/reset', { cookie: buddy })).status).toBe(403);
+  });
+
   it('makes invite links that open the app', async () => {
     const admin = await signIn(ADMIN_HOST, 'noah', 'a-long-password');
     expect((await call(ADMIN_HOST, 'POST', '/api/admin/invites', { cookie: admin, body: { days: 0 } })).status).toBe(400);

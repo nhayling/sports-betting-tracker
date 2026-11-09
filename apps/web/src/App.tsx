@@ -23,6 +23,7 @@ import { Icon } from './components/Icon';
 import { LoadError } from './components/LoadError';
 import { Notifications } from './components/Notifications';
 import { Register } from './components/Register';
+import { ResetPassword } from './components/ResetPassword';
 import { SignIn } from './components/SignIn';
 import { SignUp } from './components/SignUp';
 import { Wordmark } from './components/Wordmark';
@@ -166,14 +167,18 @@ export function App() {
   const [authKnown, setAuthKnown] = useState(false);
   // Opened from an invite link (/#invite=<token>): register instead of signing in.
   const [invite, setInvite] = useState(() => location.hash.match(/^#invite=([\w-]+)$/)?.[1] ?? null);
+  // Opened from a password reset link (/#reset=<token>): choose a new password.
+  const [reset, setReset] = useState(() => location.hash.match(/^#reset=([\w-]+)$/)?.[1] ?? null);
   // Asking to join (/#join), from the sign-in screen or a shared link.
   const [joining, setJoining] = useState(() => location.hash === '#join');
   const [me, setMe] = useState<Me | null>(null);
   const [emailLater, setEmailLater] = useState(emailPutOff);
-  const closeInvite = (nowSignedOut: boolean) => {
+  /** Leaves an invite or reset link's screen: signed in if they finished it, at the sign-in screen if not. */
+  const closeLink = (nowSignedOut: boolean) => {
     history.replaceState(null, '', location.pathname);
     setSignedOut(nowSignedOut);
     setInvite(null);
+    setReset(null);
   };
   const [notes, setNotes] = useState<{ unread: number; items: NotificationItem[] } | null>(null);
   const [social, setSocial] = useState<SocialMe | null>(null);
@@ -181,7 +186,8 @@ export function App() {
   // Your own bets fill the Open and Settled tabs; the other tabs load their own data.
   const betsTab = tab === 'open' || tab === 'settled';
   const view: BetsTab = tab === 'settled' ? 'settled' : 'open';
-  const [account, setAccount] = useState(false);
+  // #devices (linked from the password-changed email) opens the account screen at Connected devices.
+  const [account, setAccount] = useState(() => location.hash === '#devices');
   // A link into the app while it is open (#social/join/…) switches to its tab.
   useEffect(() => {
     const onHash = () => setTabState(tabFromHash());
@@ -220,12 +226,12 @@ export function App() {
   }, [view, from, to]);
 
   useEffect(() => {
-    if (signedOut || invite || joining) return;
+    if (signedOut || invite || reset || joining) return;
     void fetchMe().then(setMe, () => {});
-  }, [signedOut, invite, joining]);
+  }, [signedOut, invite, reset, joining]);
 
   useEffect(() => {
-    if (signedOut || invite || joining) return;
+    if (signedOut || invite || reset || joining) return;
     void load();
     // The server polls ESPN every ~30 s; refreshing the view every 15 s keeps it current.
     const id = setInterval(() => document.visibilityState === 'visible' && void load(), REFRESH_MS);
@@ -242,16 +248,17 @@ export function App() {
       clearInterval(id);
       document.removeEventListener('visibilitychange', onVisible);
     };
-  }, [load, signedOut, invite, joining]);
+  }, [load, signedOut, invite, reset, joining]);
 
   // Signed in with a club invite still waiting (they signed in, registered, or were approved since): take them to it.
   useEffect(() => {
-    if (!authKnown || signedOut || invite || joining) return;
+    if (!authKnown || signedOut || invite || reset || joining) return;
     const code = pendingClubInvite();
     if (code && inviteCodeIn(location.hash) !== code) location.hash = `#social/join/${code}`;
-  }, [authKnown, signedOut, invite, joining]);
+  }, [authKnown, signedOut, invite, reset, joining]);
 
-  if (invite) return <Register token={invite} onRegistered={() => closeInvite(false)} onCancel={() => closeInvite(true)} />;
+  if (invite) return <Register token={invite} onRegistered={() => closeLink(false)} onCancel={() => closeLink(true)} />;
+  if (reset) return <ResetPassword token={reset} onReset={() => closeLink(false)} onCancel={() => closeLink(true)} />;
   if (joining) {
     return (
       <SignUp

@@ -1,10 +1,11 @@
-import { Router, type RequestHandler } from 'express';
+import { Router, type Request, type RequestHandler } from 'express';
 import type { SportsDataProvider } from '@sports-better/sports-data';
 import type { Db } from '../db';
 import { authOf } from '../auth';
 import { approveRequest, declineRequest, isAdminHost } from '../auth/access';
 import { createInvite } from '../auth/invites';
-import type { AccessRequest, InviteRow, Member, NewInvite } from '../admin/types';
+import { makePasswordReset } from '../auth/passwordResets';
+import type { AccessRequest, InviteRow, Member, NewInvite, NewPasswordReset } from '../admin/types';
 import { addMarketRule, decidePlayer, gamePlayerOptions, loadTracking, marketEvents, playerEvents, removeMarketRule, setMarketIgnored } from '../admin/tracking';
 import type { Mailer } from '../email/mailer';
 import { GameRefresher } from '../live/refresh';
@@ -21,6 +22,7 @@ const newest = (dates: (Date | null)[]) => dates.reduce<Date | null>((a, b) => (
  *   POST /api/admin/requests/:username/approve     they can sign in (and are emailed)
  *   POST /api/admin/requests/:username/decline     deletes the request (and emails them)
  *   GET  /api/admin/members                        everyone approved
+ *   POST /api/admin/members/:username/reset        a password reset link (emailed to them if they have an address)
  *   GET  /api/admin/invites                        recent invite links
  *   POST /api/admin/invites { days }               a new single-use link
  *   GET  /api/admin/tracking                       picks that show "No stats" and can be fixed from here
@@ -34,6 +36,9 @@ const newest = (dates: (Date | null)[]) => dates.reduce<Date | null>((a, b) => (
 export function adminRouter(db: Db, mailer: Mailer, publicUrl: string | undefined, sportsData: SportsDataProvider, refreshGapMs?: number): Router {
   const router = Router();
   const refresher = new GameRefresher(db, sportsData, refreshGapMs);
+
+  // Links made here open the app, not this site.
+  const appUrl = (req: Request) => (publicUrl || `${req.protocol}://${req.get('host')!.replace(/^admin\./i, '')}`).replace(/\/+$/, '');
 
   const adminOnly: RequestHandler = async (req, res, next) => {
     if (!isAdminHost(req.get('host'))) {
@@ -92,6 +97,17 @@ export function adminRouter(db: Db, mailer: Mailer, publicUrl: string | undefine
     res.json({ members });
   });
 
+  router.post('/members/:username/reset', async (req, res) => {
+    const made = await makePasswordReset(db, mailer, req.params.username.trim().toLowerCase(), appUrl(req));
+    if (!made.ok) {
+      res.status(409).json({ error: made.error });
+      return;
+    }
+    console.log(`[access] ${authOf(res).username} made a password reset link for ${made.username}${made.emailed ? ' (emailed)' : ''}`);
+    const reset: NewPasswordReset = { url: made.url, expiresAt: made.expiresAt.toISOString(), email: made.email, emailed: made.emailed };
+    res.status(201).json(reset);
+  });
+
   router.get('/invites', async (_req, res) => {
     const rows = await db.invite.findMany({ orderBy: { createdAt: 'desc' }, take: 20 });
     const invites: InviteRow[] = rows.map((i) => ({ id: i.id, createdAt: i.createdAt.toISOString(), expiresAt: i.expiresAt.toISOString(), usedAt: iso(i.usedAt), usedByUsername: i.usedByUsername }));
@@ -105,10 +121,8 @@ export function adminRouter(db: Db, mailer: Mailer, publicUrl: string | undefine
       return;
     }
     const { token, expiresAt } = await createInvite(db, days * DAY_MS);
-    // The link opens the app, not this site.
-    const base = (publicUrl || `${req.protocol}://${req.get('host')!.replace(/^admin\./i, '')}`).replace(/\/+$/, '');
     // The token sits after "#", so it never reaches server logs.
-    const invite: NewInvite = { url: `${base}/#invite=${token}`, expiresAt: expiresAt.toISOString() };
+    const invite: NewInvite = { url: `${appUrl(req)}/#invite=${token}`, expiresAt: expiresAt.toISOString() };
     res.status(201).json(invite);
   });
 

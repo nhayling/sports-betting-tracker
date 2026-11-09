@@ -6,6 +6,7 @@ import type { PrismaClient } from '@prisma/client';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { createApp } from '../src/app';
 import { createInvite } from '../src/auth/invites';
+import { makePasswordReset } from '../src/auth/passwordResets';
 import { recordingMailer } from '../src/email/mailer';
 import { LoginLimiter } from '../src/auth/loginLimiter';
 import { hashPassword, verifyPassword } from '../src/auth/password';
@@ -43,7 +44,7 @@ describe.skipIf(!hasTestDb)('login and sessions', () => {
     writeFileSync(join(webDist, 'index.html'), '<!doctype html><title>Slip Club</title>');
     writeFileSync(join(webDist, 'assets', 'app.js'), 'console.log(1)');
 
-    const server = createApp(db, { webDist, mailer, loginLimiter: new LoginLimiter(() => now), signupLimiter: new LoginLimiter(() => now) }).listen(0);
+    const server = createApp(db, { webDist, mailer, loginLimiter: new LoginLimiter(() => now), signupLimiter: new LoginLimiter(() => now), forgotLimiter: new LoginLimiter(() => now) }).listen(0);
     await new Promise((r) => server.once('listening', r));
     base = `http://127.0.0.1:${(server.address() as AddressInfo).port}`;
     close = () => server.close();
@@ -258,6 +259,104 @@ describe.skipIf(!hasTestDb)('login and sessions', () => {
       expect((await register({ token: 'made-up', username: 'late', password: 'long-enough-pw' })).status).toBe(404);
       expect((await register({ username: 'late', password: 'long-enough-pw' })).status).toBe(400);
       expect(await db.user.count({ where: { username: 'late' } })).toBe(0);
+    });
+  });
+
+  describe('password reset links', () => {
+    const post = (body: Record<string, unknown>) => fetch(`${base}/api/auth/reset`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+    const check = (token: string) => fetch(`${base}/api/auth/reset/${token}`);
+    const tokenOf = (url: string) => url.split('#reset=')[1]!;
+
+    it('emails a link that sets a new password once, and signs out of other browsers', async () => {
+      const user = await db.user.create({ data: { username: 'forgetful', email: 'forgetful@example.com', passwordHash: await hashPassword('the-old-password') } });
+      const oldSession = cookieOf(await login('forgetful', 'the-old-password'));
+      await db.apiKey.create({ data: { tokenHash: 'forgetful-extension', userId: user.id } });
+
+      sent.length = 0;
+      const made = await makePasswordReset(db, mailer, 'forgetful', 'https://slipclub.test/');
+      if (!made.ok) throw new Error(made.error);
+      expect(made.url).toMatch(/^https:\/\/slipclub\.test\/#reset=[\w-]+$/);
+      expect(made.emailed).toBe(true);
+      expect(sent).toEqual([{ to: 'forgetful@example.com', template: 'password-reset', model: { username: 'forgetful', reset_url: made.url, expires_at: expect.stringMatching(/\d{4}, \d{1,2}:\d{2}\s[AP]M$/) } }]);
+      const token = tokenOf(made.url);
+      expect(await db.passwordReset.count({ where: { tokenHash: token } })).toBe(0);
+      expect(await (await check(token)).json()).toEqual({ username: 'forgetful' });
+
+      expect((await post({ token, password: 'short' })).status).toBe(400);
+      expect((await post({ password: 'a-brand-new-password' })).status).toBe(400);
+      // A failed attempt doesn't use up the link.
+      expect((await check(token)).status).toBe(200);
+
+      sent.length = 0;
+      const res = await post({ token, password: 'a-brand-new-password' });
+      expect(res.status).toBe(200);
+      expect(await res.json()).toEqual({ username: 'forgetful' });
+      // And a receipt, once it's done.
+      expect(sent).toEqual([{ to: 'forgetful@example.com', template: 'password-changed', model: { username: 'forgetful', changed_at: expect.stringMatching(/\d{4}, \d{1,2}:\d{2}\s[AP]M$/) } }]);
+      // Signed in here, and nowhere else.
+      expect((await fetch(`${base}/api/auth/me`, { headers: { cookie: cookieOf(res) } })).status).toBe(200);
+      expect((await fetch(`${base}/api/auth/me`, { headers: { cookie: oldSession } })).status).toBe(401);
+      // The extension and phone sync stay connected.
+      expect(await db.apiKey.count({ where: { userId: user.id } })).toBe(1);
+      expect((await login('forgetful', 'the-old-password')).status).toBe(401);
+      expect((await login('forgetful', 'a-brand-new-password')).status).toBe(200);
+
+      expect((await check(token)).status).toBe(404);
+      expect((await post({ token, password: 'yet-another-password' })).status).toBe(404);
+      sent.length = 0;
+    });
+
+    it('keeps only the newest link working, and none that expired', async () => {
+      const first = await makePasswordReset(db, mailer, 'buddy', 'https://slipclub.test');
+      const second = await makePasswordReset(db, mailer, 'buddy', 'https://slipclub.test');
+      if (!first.ok || !second.ok) throw new Error('no link');
+      // buddy has no email, so nothing is sent.
+      expect(second).toMatchObject({ email: null, emailed: false });
+      expect((await check(tokenOf(first.url))).status).toBe(404);
+      expect((await check(tokenOf(second.url))).status).toBe(200);
+
+      const expired = await makePasswordReset(db, mailer, 'buddy', 'https://slipclub.test', -1000);
+      if (!expired.ok) throw new Error(expired.error);
+      expect((await check(tokenOf(expired.url))).status).toBe(404);
+      expect((await post({ token: tokenOf(expired.url), password: 'long-enough-pw' })).status).toBe(404);
+      expect((await post({ token: 'made-up', password: 'long-enough-pw' })).status).toBe(404);
+      expect((await login('buddy', 'another-password')).status).toBe(200);
+    });
+
+    it('emails a link from "Forgot password?" without saying who has an account', async () => {
+      const forgot = (login: unknown) => fetch(`${base}/api/auth/forgot`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ login }) });
+      // The email goes out after the answer, so give it a moment.
+      const settle = () => new Promise((r) => setTimeout(r, 300));
+      await db.user.create({ data: { username: 'blanked', email: 'blanked@example.com', passwordHash: await hashPassword('cant-remember-it') } });
+
+      sent.length = 0;
+      const res = await forgot(' Blanked@Example.com ');
+      expect(res.status).toBe(200);
+      expect(await res.json()).toEqual({ ok: true });
+      await settle();
+      expect(sent.map((s) => [s.to, s.template])).toEqual([['blanked@example.com', 'password-reset']]);
+      expect((await check(tokenOf(sent[0]!.model.reset_url!))).status).toBe(200);
+
+      // Asking again straight away sends nothing more, and neither does an unknown name or an account with no email; all get the same answer.
+      for (const login of ['blanked', 'no-such-person', 'buddy']) {
+        const again = await forgot(login);
+        expect([again.status, await again.json()]).toEqual([200, { ok: true }]);
+      }
+      expect((await forgot('')).status).toBe(400);
+      await settle();
+      expect(sent).toHaveLength(1);
+
+      // Five a quarter-hour from one address.
+      expect((await forgot('blanked')).status).toBe(200);
+      expect((await forgot('blanked')).status).toBe(429);
+      sent.length = 0;
+    });
+
+    it('is only for approved members', async () => {
+      await db.user.create({ data: { username: 'waiting', email: 'waiting@example.com', passwordHash: '!', status: 'PENDING' } });
+      expect(await makePasswordReset(db, mailer, 'waiting', 'https://slipclub.test')).toMatchObject({ ok: false });
+      expect(await makePasswordReset(db, mailer, 'nobody', 'https://slipclub.test')).toMatchObject({ ok: false });
+      await db.user.delete({ where: { username: 'waiting' } });
     });
   });
 
