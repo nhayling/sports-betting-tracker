@@ -28,3 +28,14 @@ describe('basketball words', () => {
     expect(binaryWords('DOUBLE_DOUBLE')).toEqual({ hit: 'Double-double', pending: 'Not yet', missed: 'No double-double' });
   });
 });
+
+describe('yes/no words', () => {
+  it('says someone else scored first, not that the player never scored', () => {
+    expect(binaryWords('FIRST_TOUCHDOWN')).toEqual({ hit: 'Scored first', pending: 'No TD yet', missed: 'Not first' });
+  });
+
+  it('turns the words round for a "No" pick, so a win never reads "Scored"', () => {
+    expect(binaryWords('TOUCHDOWNS', true)).toEqual({ hit: 'Did not score', pending: 'Not yet', missed: 'Scored' });
+    expect(binaryWords('FIRST_TOUCHDOWN', true)).toEqual({ hit: 'Not first', pending: 'No TD yet', missed: 'Scored first' });
+  });
+});

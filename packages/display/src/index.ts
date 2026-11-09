@@ -215,7 +215,18 @@ export function relativeTime(iso: string | null, now = Date.now()): string {
 }
 
 /** ✓/○ wording for binary picks, by stat. */
-export function binaryWords(metric: string | null): { hit: string; pending: string; missed: string } {
+/**
+ * What a yes/no pick's plate says. Each word states what happened; the plate's colour says whether the pick won.
+ * A "No" pick (`no`) wins when the thing doesn't happen, so its winning plate says that ("Did not score").
+ */
+export function binaryWords(metric: string | null, no = false): { hit: string; pending: string; missed: string } {
+  const words = yesWords(metric);
+  return no ? { hit: words.missed, pending: words.pending, missed: words.hit } : words;
+}
+
+function yesWords(metric: string | null): { hit: string; pending: string; missed: string } {
+  // Settled once anyone scores a touchdown: by then this player either scored it or didn't.
+  if (metric === 'FIRST_TOUCHDOWN') return { hit: 'Scored first', pending: 'No TD yet', missed: 'Not first' };
   if (metric === 'SACKS') return { hit: 'Sack', pending: 'No sack yet', missed: 'No sack' };
   if (metric === 'DOUBLE_DOUBLE') return { hit: 'Double-double', pending: 'Not yet', missed: 'No double-double' };
   if (metric === 'TRIPLE_DOUBLE') return { hit: 'Triple-double', pending: 'Not yet', missed: 'No triple-double' };

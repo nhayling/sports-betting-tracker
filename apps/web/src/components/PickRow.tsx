@@ -221,9 +221,11 @@ function Progress({ pick: p, game, state }: { pick: PickView; game: GameView; st
   const atRisk = pr.status === 'TARGET_EXCEEDED';
 
   if (p.display === 'BINARY') {
-    const words = binaryWords(pr.metric);
+    // A "No" pick. Its stat only counts up (a touchdown, a sack), so once it happens the pick is lost, game over or not.
+    const no = pr.operator === 'LT' || pr.operator === 'LTE';
+    const words = binaryWords(pr.metric, no);
     if (reached) return <Plate tone="hit" icon="check" text={words.hit} />;
-    if (missed) return <Plate tone="miss" icon="cross" text={words.missed} />;
+    if (missed || (no && atRisk)) return <Plate tone="miss" icon="cross" text={words.missed} />;
     return <Plate text={words.pending} />;
   }
 
