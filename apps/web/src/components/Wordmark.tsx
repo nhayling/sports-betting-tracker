@@ -17,3 +17,12 @@ export function Wordmark() {
     </svg>
   );
 }
+
+/** The wordmark in full colour on the navy above a sign-in plate, where the brand art belongs. */
+export function AuthBrand() {
+  return (
+    <div className="auth-brand">
+      <Wordmark />
+    </div>
+  );
+}

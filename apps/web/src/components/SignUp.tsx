@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react';
 import { askToJoin } from '../api';
 import { ClubInviteNote } from './ClubInviteNote';
 import { AgeCheck, FinePrint } from './Terms';
+import { AuthBrand } from './Wordmark';
 
 /**
  * Asking to join (/#join). During the beta an account waits for approval, so
@@ -38,6 +39,7 @@ export function SignUp({ onSignIn }: { onSignIn: () => void }) {
   if (sent) {
     return (
       <div className="app auth">
+        <AuthBrand />
         <div className="sign-in">
           <h1>Request sent</h1>
           <p>
@@ -56,6 +58,7 @@ export function SignUp({ onSignIn }: { onSignIn: () => void }) {
 
   return (
     <div className="app auth">
+      <AuthBrand />
       <form className="sign-in" onSubmit={submit}>
         <h1>Ask to join</h1>
         <ClubInviteNote>You’ve been invited to a club. Ask to join first; once you’re approved and signed in on this device, you’ll go straight to it.</ClubInviteNote>

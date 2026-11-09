@@ -2,7 +2,7 @@ import { useEffect, useState, type FormEvent } from 'react';
 import { checkInvite, register } from '../api';
 import { AgeCheck, FinePrint } from './Terms';
 import { ClubInviteNote } from './ClubInviteNote';
-import { Wordmark } from './Wordmark';
+import { AuthBrand } from './Wordmark';
 
 /** Shown when the page is opened from an invite link: the invited person picks their own login. */
 export function Register({ token, onRegistered, onCancel }: { token: string; onRegistered: () => void; onCancel: () => void }) {
@@ -39,10 +39,9 @@ export function Register({ token, onRegistered, onCancel }: { token: string; onR
   if (invalid) {
     return (
       <div className="app auth">
+        <AuthBrand />
         <div className="sign-in">
-          <h1>
-            <Wordmark />
-          </h1>
+          <h1>Link not working</h1>
           <p className="banner error" role="alert">{invalid}</p>
           <button className="link" onClick={onCancel}>
             Already have an account? Sign in
@@ -54,6 +53,7 @@ export function Register({ token, onRegistered, onCancel }: { token: string; onR
 
   return (
     <div className="app auth">
+      <AuthBrand />
       <form className="sign-in" onSubmit={submit}>
         <h1>Create your account</h1>
         <ClubInviteNote>You’ve been invited to a club too. Once your account is made, you’ll go straight to it.</ClubInviteNote>

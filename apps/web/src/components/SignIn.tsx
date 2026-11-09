@@ -2,7 +2,7 @@ import { useState, type FormEvent } from 'react';
 import { PendingApprovalError, signIn } from '../api';
 import { ClubInviteNote } from './ClubInviteNote';
 import { FinePrint } from './Terms';
-import { Wordmark } from './Wordmark';
+import { AuthBrand } from './Wordmark';
 
 export function SignIn({ onSignedIn, onJoin }: { onSignedIn: () => void; onJoin: () => void }) {
   const [username, setUsername] = useState('');
@@ -31,10 +31,9 @@ export function SignIn({ onSignedIn, onJoin }: { onSignedIn: () => void; onJoin:
 
   return (
     <div className="app auth">
+      <AuthBrand />
       <form className="sign-in" onSubmit={submit}>
-        <h1>
-          <Wordmark />
-        </h1>
+        <h1>Sign in</h1>
         <ClubInviteNote>You’ve been invited to a club. Sign in and you’ll go straight to it. New here? Ask to join first; the invite waits on this device.</ClubInviteNote>
         <label>
           Username or email

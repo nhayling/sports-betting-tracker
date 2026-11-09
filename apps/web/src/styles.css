@@ -349,10 +349,15 @@ button.link:hover { color: var(--text); }
 .notes-panel:focus { outline: none; }
 
 /* ── Sign in, register ────────────────────────────────── */
-.app.auth { background: var(--navy); padding: 12vh 16px 32px; }
-.sign-in { max-width: 360px; margin: 0 auto; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+/* Sign-in screens: the wordmark on the navy, its plate below, the pair centred (a little high) and free to scroll when taller than the screen. */
+.app.auth { display: flex; flex-direction: column; align-items: center; gap: 20px; background: var(--navy); padding: 32px 16px 12vh; }
+.app.auth > :first-child { margin-top: auto; }
+.app.auth > :last-child { margin-bottom: auto; }
+.auth-brand { width: 100%; max-width: 360px; }
+.auth-brand .wordmark { height: 36px; }
+.sign-in { width: 100%; max-width: 360px; margin: 0 auto; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
 .sign-in h1 { margin: 0 0 4px; font-family: var(--cond); font-size: 28px; font-weight: 800; line-height: 1; letter-spacing: 0.01em; text-transform: uppercase; }
-/* The panel's own text colour, so the letters show in light mode too. */
+/* The admin site still titles its plate with the wordmark: the panel's own text colour, so the letters show in light mode too. */
 .sign-in .wordmark { height: 28px; fill: var(--text); }
 /* Yellow is lost on the white panel: the brand's one-colour wordmark. */
 :root[data-theme='light'] .sign-in .wordmark .wordmark-ticket { fill: var(--text); }
@@ -739,6 +744,7 @@ button.link.danger-link { color: var(--bad-text); }
   .tally span { white-space: normal; line-height: 1.1; }
   .top h1 { font-size: 24px; }
   .wordmark { height: 20px; }
+  .auth-brand .wordmark { height: 30px; }
   .top-right { gap: 10px; }
 }
 
