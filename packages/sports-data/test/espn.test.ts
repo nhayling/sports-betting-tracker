@@ -76,6 +76,8 @@ describe('EspnProvider (fixtures captured 2026-09-27, NFL week 3)', () => {
     expect(gibbs.stats.RUSHING_RECEIVING_YARDS).toBe(108);
     const stBrownOnlyCatches = snap.players.find((p) => p.player.displayName === 'Amon-Ra St. Brown')!;
     expect(stBrownOnlyCatches.stats.RUSHING_RECEIVING_YARDS).toBe(19);
+    const passerRushing = snap.players.find((p) => p.stats.PASSING_YARDS && p.stats.RUSHING_YARDS)!;
+    expect(passerRushing.stats.PASSING_RUSHING_YARDS).toBe(passerRushing.stats.PASSING_YARDS! + passerRushing.stats.RUSHING_YARDS!);
     const hall = snap.players.find((p) => p.player.displayName === 'Breece Hall')!;
     expect(hall.stats).toMatchObject({ RUSHING_YARDS: 20, RECEIVING_YARDS: 23, TOUCHDOWNS: 0 });
     const stBrown = snap.players.find((p) => p.player.displayName === 'Amon-Ra St. Brown')!;

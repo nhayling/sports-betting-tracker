@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 import { parseHistoryResponse, type RawHistoryResponse } from '@sports-better/kambi';
 import type { FightResult } from '@sports-better/sports-data';
 import { describe, expect, it } from 'vitest';
-import { classifyMarket, evaluateProgress, fightPick, gameMarket, gradeFight, marketPattern, marketRuleKey, ruleStats, spreadPick, teamTotalTeam, type MarketRule, type PropTarget } from '../src';
+import { classifyMarket, evaluateProgress, fightPick, gameMarket, gradeFight, marketPattern, marketPeriod, marketRuleKey, ruleStats, spreadPick, teamTotalTeam, type MarketRule, type PropTarget } from '../src';
 
 const captured = JSON.parse(
   readFileSync(fileURLToPath(new URL('../../kambi/fixtures/captured/history-2026-09-27.json', import.meta.url)), 'utf8'),
@@ -413,5 +413,45 @@ describe('market rules from the admin site', () => {
     expect(ruleStats('FOOTBALL', 'PLAYER')!.map(([k]) => k)).not.toContain('CORNERS');
     expect(ruleStats('FOOTBALL', 'GAME')!.map(([k]) => k)).toContain('CORNERS');
     expect(ruleStats('MARTIAL_ARTS', 'PLAYER')).toBeNull();
+  });
+});
+
+describe('parts of a game', () => {
+  it.each([
+    ['1+ Touchdown Passes By The Player - First Half', { from: 1, to: 2 }],
+    ['To score a Touchdown - Quarter 1', { from: 1, to: 1 }],
+    ['Total Runs - Inning 1', { from: 1, to: 1 }],
+    ['Total Goals - 2nd Period', { from: 2, to: 2 }],
+    ['Total Runs - First 5 Innings', { from: 1, to: 5 }],
+    ['Total Points - Second Half', { from: 3, to: 4 }],
+    ['Total Points - Second Half - Including Overtime', { from: 3, to: 99 }],
+  ])('reads %s', (name, range) => expect(marketPeriod(name)).toEqual(range));
+
+  it('leaves the whole game alone', () => {
+    expect(marketPeriod('225+ Passing & Rushing Yards By The Player - Including Overtime')).toBeNull();
+    expect(marketPeriod('Result of HOU Texans Drive 6 - At least 1 offensive play from scrimmage needs to be run to count as a drive')).toBeNull();
+  });
+
+  const rules = (metric: MarketRule['metric'], scope: MarketRule['scope'], name: string) => new Map<string, MarketRule>([[marketRuleKey('AMERICAN_FOOTBALL', name), { metric, scope }]]);
+
+  it('carries the period, the ladder and the side into the pick', () => {
+    const name = '1+ Touchdown Passes By The Player - First Half';
+    expect(classifyMarket({ sport: 'AMERICAN_FOOTBALL', marketName: '2+ Touchdown Passes By The Player - First Half', selectionSide: 'YES', line: 2 }, rules('PASSING_TDS', 'PLAYER', name))).toMatchObject({ metric: 'PASSING_TDS', operator: 'GTE', target: 2, period: { from: 1, to: 2 } });
+    expect(classifyMarket({ sport: 'AMERICAN_FOOTBALL', marketName: 'To score a Touchdown - Quarter 1', selectionSide: 'YES', line: null }, rules('TOUCHDOWNS', 'PLAYER', 'To score a Touchdown - Quarter 1'))).toMatchObject({ target: 1, period: { from: 1, to: 1 } });
+  });
+
+  it('takes a first scorer pick with no side at all', () => {
+    const name = 'First Touchdown Scorer - Including Overtime';
+    expect(classifyMarket({ sport: 'AMERICAN_FOOTBALL', marketName: name, selectionSide: null, line: null }, rules('FIRST_TOUCHDOWN', 'PLAYER', name))).toMatchObject({ supported: true, metric: 'FIRST_TOUCHDOWN', operator: 'GTE', target: 1, display: 'BINARY' });
+  });
+
+  it('offers only what adds up over a period', () => {
+    const keys = (sport: string, scope: MarketRule['scope'], name: string) => ruleStats(sport, scope, name)!.map(([k]) => k);
+    expect(keys('AMERICAN_FOOTBALL', 'PLAYER', '75+ Passing Yards By The Player - First Half')).not.toContain('PASSING_YARDS');
+    expect(keys('AMERICAN_FOOTBALL', 'PLAYER', '75+ Passing Yards By The Player - First Half')).toContain('PASSING_TDS');
+    expect(keys('AMERICAN_FOOTBALL', 'PLAYER', 'Total Yards of Longest Completed Pass by the Player')).toContain('LONGEST_COMPLETION');
+    expect(keys('BASEBALL', 'GAME', 'Total Runs - Inning 1')).toEqual(['GAME_SCORE']);
+    expect(keys('BASEBALL', 'GAME', 'Total Runs by NY Yankees - Inning 1')).toEqual([]);
+    expect(keys('FOOTBALL', 'PLAYER', 'To Score - First Half')).toEqual([]);
   });
 });

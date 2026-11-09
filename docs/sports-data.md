@@ -104,3 +104,19 @@ rankings stripped and a shortened first name allowed ("Alex" / "Alexander
 Volkanovski"); ESPN dates every bout at the card's start, so the time window is
 12 h. Picks on three-way and fight markets are labelled "1", "X", "2" on the
 coupon and are named after the side.
+
+## Part of a game
+
+Box scores only have full-game totals. Two other sources cover quarters, halves and innings:
+
+| Data | Where | Cost |
+|---|---|---|
+| Both teams' score by period | `header.competitions[0].competitors[].linescores` on the summary (the scoreboard has them too) | None |
+| NBA, NHL, MLB player stats by period | `plays` on the summary, with athlete ids | None |
+| NFL touchdowns, first touchdown, longest completion | `sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/<id>/competitions/<id>/plays?limit=1000`; the summary's football plays have no athlete ids | One more request per poll of a game with such a pick, about 850 KB unparsed |
+
+Checked 2026-11-02 by adding plays up against the box score on real finished games (the fixtures named `*-plays-*` keep this tested): NBA points, rebounds, assists; NHL goals, assists, shots on goal; MLB hits (`alternativeType` single/double/triple/home-run); NFL passing, rushing and receiving touchdowns all matched for every player.
+
+**NFL yards did not:** 42 of 58 player lines matched, up to 63 yards off, so first-half yardage props stay untracked. The cause isn't confirmed (penalties and reviewed plays are the likely ones). Longest completion uses each play's own yards rather than a sum, and a pick is only graded once the team's longest play equals its longest catch in the box score.
+
+The core feed isn't strictly in game order, so plays are sorted by period and clock. A touchdown play has `scoringPlay` with `scoreValue` 6 and a `scorer` participant, including defensive and return scores.

@@ -11,7 +11,7 @@ const status: PollerStatus = {
   lastReport: {
     at: '2026-10-24T20:00:00.000Z',
     legsInWindow: 7,
-    requests: { scoreboard: 2, summary: 3, roster: 1 },
+    requests: { scoreboard: 2, summary: 3, plays: 0, roster: 1 },
     eventsMapped: 2,
     eventsUnmatched: ['Someone Else FC - Their Pick United (2026-10-24T19:00:00.000Z)'],
     liveEvents: 2,

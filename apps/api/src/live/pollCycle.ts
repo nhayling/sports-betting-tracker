@@ -1,7 +1,7 @@
 import { Prisma } from '@prisma/client';
 import { classifyMarket, evaluateProgress, gameMarket, type Classification, type MarketRules } from '@sports-better/markets';
 import { AUTO_LINK_THRESHOLD, matchEvent, matchPlayer, sameTeams, sportForLeague } from '@sports-better/matching';
-import { SPORT_KIND, type EventSnapshot, type ProviderEvent, type ProviderPlayer, type Sport, type SportsDataProvider } from '@sports-better/sports-data';
+import { periodScore, playValue, SPORT_KIND, type EventSnapshot, type PlayStats, type ProviderEvent, type ProviderPlayer, type Sport, type SportsDataProvider } from '@sports-better/sports-data';
 import type { Db } from '../db';
 import { loadMarketRules } from './marketRules';
 
@@ -22,7 +22,7 @@ const ROSTER_TTL_MS = 12 * 60 * 60_000;
 export interface CycleReport {
   at: string;
   legsInWindow: number;
-  requests: { scoreboard: number; summary: number; roster: number };
+  requests: { scoreboard: number; summary: number; roster: number; plays: number };
   eventsMapped: number;
   eventsUnmatched: string[];
   liveEvents: number;
@@ -55,7 +55,7 @@ export async function runPollCycle(db: Db, provider: SportsDataProvider, now = n
   const report: CycleReport = {
     at: now.toISOString(),
     legsInWindow: 0,
-    requests: { scoreboard: 0, summary: 0, roster: 0 },
+    requests: { scoreboard: 0, summary: 0, roster: 0, plays: 0 },
     eventsMapped: 0,
     eventsUnmatched: [],
     liveEvents: 0,
@@ -175,8 +175,27 @@ export async function runPollCycle(db: Db, provider: SportsDataProvider, now = n
         continue;
       }
 
+      // Part-of-a-game picks and a few football ones are read from plays.
+      let plays: PlayStats | undefined = snap.plays;
+      if (!plays && tracked.some(({ cls }) => readsPlays(cls))) {
+        try {
+          report.requests.plays++;
+          plays = await provider.getPlayStats(sport, providerEventId);
+        } catch (err) {
+          report.errors.push(`${event.away.abbreviation} @ ${event.home.abbreviation} plays: ${message(err)}`);
+        }
+      }
+
       for (const { s, cls } of tracked) {
         const inPlay = snap.state.state === 'LIVE' || snap.state.state === 'FINAL';
+        // Its part of the game is over, however long the rest runs.
+        const gameState = isDecided(cls, snap, plays) ? 'FINAL' : snap.state.state;
+        if (cls.scope === 'GAME' && cls.metric === 'GAME_SCORE') {
+          const p = evaluateProgress(cls, inPlay ? periodScore(snap, cls.period!) : null, gameState);
+          if (!p) await write.unavailable(s, 'NO_STAT');
+          else await write.progress(s, cls, p, event, null);
+          continue;
+        }
         if (cls.scope === 'GAME') {
           // Whole-game totals (e.g. field goals): sum the stat across both teams, or ESPN's own team total (corners).
           const total = snap.gameStats?.[cls.metric] ?? snap.players.reduce((n, p) => n + (p.stats[cls.metric] ?? 0), 0);
@@ -190,10 +209,15 @@ export async function runPollCycle(db: Db, provider: SportsDataProvider, now = n
           await write.unavailable(s, player.reason);
           continue;
         }
+        if (readsPlays(cls) && !plays) {
+          // Last known progress stands until the plays can be read again.
+          if (s.progress?.currentValue == null) await write.unavailable(s, 'PROVIDER_ERROR');
+          continue;
+        }
         const stats = snap.players.find((p) => p.player.id === player.id)?.stats;
         // Listed on a roster but no box score line yet during a game = 0 so far.
-        const current = stats?.[cls.metric] ?? (inPlay ? 0 : null);
-        const p = evaluateProgress(cls, current, snap.state.state);
+        const current = readsPlays(cls) ? (inPlay ? playValue(plays!, snap, player.id, cls.metric, cls.period) : null) : (stats?.[cls.metric] ?? (inPlay ? 0 : null));
+        const p = evaluateProgress(cls, current, gameState);
         if (!p) await write.unavailable(s, 'NO_STAT');
         else await write.progress(s, cls, p, event, player);
       }
@@ -219,6 +243,15 @@ function classify(s: Selection, legs: Leg[], rules: MarketRules): Classification
     },
     rules,
   );
+}
+
+const readsPlays = (cls: Extract<Classification, { supported: true }>) => cls.metric !== 'GAME_SCORE' && (!!cls.period || cls.metric === 'FIRST_TOUCHDOWN' || cls.metric === 'LONGEST_COMPLETION');
+
+/** Whether a pick is settled while the game goes on: its period has passed, or someone else scored first. */
+function isDecided(cls: Extract<Classification, { supported: true }>, snap: EventSnapshot, plays: PlayStats | undefined): boolean {
+  if (snap.state.state !== 'LIVE') return false;
+  if (cls.metric === 'FIRST_TOUCHDOWN') return !!plays?.firstTouchdown;
+  return !!cls.period && (snap.state.period ?? 0) > cls.period.to;
 }
 
 type ResolvedPlayer = { ok: true; id: string; confidence: number; method: string } | { ok: false; reason: string };

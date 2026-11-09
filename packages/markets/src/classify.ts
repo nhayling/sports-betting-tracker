@@ -22,6 +22,13 @@ export interface PropTarget {
   target: number;
   /** Binary props (TD scorer) show ✓/○ instead of a progress bar. */
   display: 'PROGRESS' | 'BINARY';
+  /** Only these periods count (a first half is 1–2). Absent: the whole game. */
+  period?: PeriodRange;
+}
+
+export interface PeriodRange {
+  from: number;
+  to: number;
 }
 
 export type Classification =
@@ -239,6 +246,9 @@ const PLAYER_STATS: Record<string, Array<[StatKey, string]>> = {
     ['RECEPTIONS', 'Receptions'],
     ['RECEIVING_TDS', 'Receiving touchdowns'],
     ['RUSHING_RECEIVING_YARDS', 'Rushing + receiving yards'],
+    ['PASSING_RUSHING_YARDS', 'Passing + rushing yards'],
+    ['LONGEST_COMPLETION', 'Longest completed pass'],
+    ['FIRST_TOUCHDOWN', 'First touchdown of the game'],
     ['TOUCHDOWNS', 'Touchdowns scored'],
     ['SACKS', 'Sacks'],
     ['FIELD_GOALS_MADE', 'Field goals made'],
@@ -284,20 +294,71 @@ const PLAYER_STATS: Record<string, Array<[StatKey, string]>> = {
 /** A team stat, so only a whole-game market can use it. */
 const GAME_ONLY_STATS: Record<string, Array<[StatKey, string]>> = { FOOTBALL: [['CORNERS', 'Corners']] };
 
-/** Null when ESPN has no stats for the sport (UFC, tennis). */
-export function ruleStats(sport: string, scope: MarketRule['scope']): Array<[StatKey, string]> | null {
+/**
+ * The stats that add up correctly over part of a game, by Kambi sport: only
+ * those that matched the box score when summed from ESPN's plays. Soccer has
+ * none, and football's yards don't (see espnPlays.ts).
+ */
+const PERIOD_STATS: Record<string, StatKey[]> = {
+  AMERICAN_FOOTBALL: ['PASSING_TDS', 'RUSHING_TDS', 'RECEIVING_TDS', 'TOUCHDOWNS'],
+  BASKETBALL: ['POINTS', 'REBOUNDS', 'ASSISTS', 'POINTS_REBOUNDS', 'POINTS_ASSISTS', 'REBOUNDS_ASSISTS', 'POINTS_REBOUNDS_ASSISTS'],
+  BASEBALL: ['HITS'],
+  ICE_HOCKEY: ['GOALS', 'ASSISTS', 'POINTS', 'SHOTS_ON_GOAL'],
+};
+const SCORE_LABELS: Record<string, string> = { AMERICAN_FOOTBALL: 'Points, both teams', BASKETBALL: 'Points, both teams', BASEBALL: 'Runs, both teams', ICE_HOCKEY: 'Goals, both teams' };
+/** Whole-game stats with their own wording; they make no sense over one period. */
+const WHOLE_GAME_ONLY = new Set<StatKey>(['LONGEST_COMPLETION', 'FIRST_TOUCHDOWN']);
+
+const ORDINALS: Record<string, number> = { first: 1, '1st': 1, second: 2, '2nd': 2, third: 3, '3rd': 3, fourth: 4, '4th': 4, fifth: 5, '5th': 5, sixth: 6, '6th': 6, seventh: 7, '7th': 7, eighth: 8, '8th': 8, ninth: 9, '9th': 9 };
+
+/** The part of a game a market's name covers: "… - First Half", "Quarter 1", "3rd Inning", "First 5 Innings". Null for the whole game. */
+export function marketPeriod(marketName: string): PeriodRange | null {
+  const name = marketName.toLowerCase();
+  const half = /\b(first|1st|second|2nd) half\b/.exec(name);
+  if (half) {
+    if (ORDINALS[half[1]!] === 1) return { from: 1, to: 2 };
+    return { from: 3, to: /including overtime/.test(name) ? 99 : 4 };
+  }
+  const first = /\bfirst (\d+) innings\b/.exec(name);
+  if (first) return { from: 1, to: Number(first[1]) };
+  const numbered = /\b(?:quarter|period|inning) (\d+)\b/.exec(name);
+  if (numbered) return { from: Number(numbered[1]), to: Number(numbered[1]) };
+  const worded = /\b(\w+) (?:quarter|period|inning)\b/.exec(name);
+  const n = worded && ORDINALS[worded[1]!];
+  return n ? { from: n, to: n } : null;
+}
+
+/** "Total Runs by NY Yankees - Inning 1": one team's score, which the linescore total would overstate. */
+const TEAM_NAMED = /^total \w+ by /i;
+
+/**
+ * The stats a market can be tracked as. Null when ESPN has no stats for the
+ * sport (UFC, tennis); empty when nothing fits, which leaves only ignoring it.
+ */
+export function ruleStats(sport: string, scope: MarketRule['scope'], marketName = ''): Array<[StatKey, string]> | null {
   const stats = PLAYER_STATS[sport];
   if (!stats) return null;
-  return scope === 'GAME' ? [...stats, ...(GAME_ONLY_STATS[sport] ?? [])] : stats;
+  if (marketPeriod(marketName)) {
+    if (scope === 'GAME') return SCORE_LABELS[sport] && !TEAM_NAMED.test(marketName) ? [['GAME_SCORE', SCORE_LABELS[sport]]] : [];
+    return stats.filter(([key]) => PERIOD_STATS[sport]?.includes(key));
+  }
+  return scope === 'GAME' ? [...stats.filter(([key]) => !WHOLE_GAME_ONLY.has(key)), ...(GAME_ONLY_STATS[sport] ?? [])] : stats;
 }
 
 /** Reads the pick the plain way: the line for an over/under, the number in the name for "40+", at least one for a bare yes. */
 function classifyRule(rule: MarketRule, name: string, m: MarketInput): Classification {
+  // A first scorer pick has no side or line: naming the player is the bet.
+  if (rule.metric === 'FIRST_TOUCHDOWN') {
+    if (m.selectionSide === 'NO') return { supported: true, scope: 'PLAYER', metric: rule.metric, operator: 'LT', target: 1, display: 'BINARY' };
+    if (m.selectionSide !== 'YES' && m.selectionSide !== null) return { supported: false, reason: 'UNSUPPORTED_SIDE' };
+    return { supported: true, scope: 'PLAYER', metric: rule.metric, operator: 'GTE', target: 1, display: 'BINARY' };
+  }
   const hit = /^(\d+)\+ /.exec(name) ?? /\bat least (\d+(?:\.\d+)?)\b/i.exec(name);
   const fromName = hit ? Number(hit[1]) : null;
   if (fromName !== null && m.line !== null && m.line !== fromName) return { supported: false, reason: 'LINE_MISMATCH' };
   // Never BINARY: its ✓/○ wording is written for each stat that uses it.
-  const pick = { scope: rule.scope, metric: rule.metric, display: 'PROGRESS' } as const;
+  const period = marketPeriod(name);
+  const pick = { scope: rule.scope, metric: rule.metric, display: 'PROGRESS', ...(period ? { period } : {}) } as const;
   if (m.selectionSide === 'OVER' || m.selectionSide === 'UNDER') {
     const target = m.line ?? fromName;
     if (target === null) return { supported: false, reason: 'MISSING_LINE' };

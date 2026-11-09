@@ -66,8 +66,8 @@ if (!apply) {
   for (const w of windows) {
     const r = await runPollCycle(prisma, provider, new Date(w), { refetchFinal: events });
     written += r.progressWritten;
-    const { scoreboard, summary, roster } = r.requests;
-    console.log(`  ${day(w - MAX_GAME_MS)}: ${scoreboard + summary + roster} requests, ${r.progressWritten} progress rows${r.errors.length ? ` · errors: ${r.errors.join('; ')}` : ''}${r.eventsUnmatched.length ? ` · unmatched: ${r.eventsUnmatched.join('; ')}` : ''}`);
+    const { scoreboard, summary, roster, plays } = r.requests;
+    console.log(`  ${day(w - MAX_GAME_MS)}: ${scoreboard + summary + roster + plays} requests, ${r.progressWritten} progress rows${r.errors.length ? ` · errors: ${r.errors.join('; ')}` : ''}${r.eventsUnmatched.length ? ` · unmatched: ${r.eventsUnmatched.join('; ')}` : ''}`);
   }
   console.log(`\nDone: ${written} progress rows written.`);
 }

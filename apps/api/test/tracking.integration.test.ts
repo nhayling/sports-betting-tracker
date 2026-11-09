@@ -28,6 +28,7 @@ const espn = new EspnProvider(async (url) => {
     [/nfl\/scoreboard/, 'nfl-scoreboard-situation'],
     [/summary\?event=401872952$/, 'nfl-summary-kc-mia-live'],
     [/summary\?event=401872954$/, 'nfl-summary-nyj-det-live'],
+    [/core\.api\.espn\.com.*plays/, 'nfl-core-plays-bal-buf-final'],
     [/teams\/12\/roster/, 'nfl-roster-kc'],
     [/teams\/15\/roster/, 'nfl-roster-mia'],
     [/teams\/8\/roster/, 'nfl-roster-det'],
@@ -165,6 +166,26 @@ describe.skipIf(!hasTestDb)('fixing tracking from the admin site', () => {
     await settle();
     expect((await walkerPick()).progress).toMatchObject({ status: 'UNAVAILABLE', unavailableReason: 'UNSUPPORTED_MARKET' });
     expect((await tracking()).markets).toHaveLength(1);
+  });
+
+  it('grades a part-of-a-game pick from plays, and a period’s total from the linescore', async () => {
+    const pick = await walkerPick();
+    const market = 'To score a Touchdown - Quarter 1';
+    await db.legSelection.update({ where: { id: pick.id }, data: { marketName: market, selectionSide: 'YES', lineRaw: null } });
+    await db.untrackedMarket.create({ data: { sport: 'AMERICAN_FOOTBALL', marketName: market, reason: 'UNSUPPORTED_MARKET' } });
+    const { markets } = await tracking();
+    const stats = markets.find((m: { marketName: string }) => m.marketName === market).stats.map((s: { key: string }) => s.key);
+    expect(stats).toEqual(['PASSING_TDS', 'RUSHING_TDS', 'RECEIVING_TDS', 'TOUCHDOWNS']);
+
+    expect((await call('POST', '/api/admin/tracking/markets', { cookie, body: { sport: 'AMERICAN_FOOTBALL', marketName: market, metric: 'PASSING_YARDS' } })).status).toBe(409);
+    expect((await call('POST', '/api/admin/tracking/markets', { cookie, body: { sport: 'AMERICAN_FOOTBALL', marketName: market, metric: 'TOUCHDOWNS' } })).status).toBe(200);
+    await settle();
+    // The plays fixture is another game, so he has none of its touchdowns; what counts is that plays were read.
+    expect((await walkerPick()).progress).toMatchObject({ metric: 'TOUCHDOWNS', currentValue: 0, target: 1, unavailableReason: null });
+    await db.legSelection.update({ where: { id: pick.id }, data: { marketName: RUSH_MARKET, selectionSide: 'YES', lineRaw: 9000 } });
+    await call('POST', '/api/admin/tracking/markets/remove', { cookie, body: { sport: 'AMERICAN_FOOTBALL', marketName: market } });
+    await db.untrackedMarket.delete({ where: { sport_marketName: { sport: 'AMERICAN_FOOTBALL', marketName: market } } });
+    await settle();
   });
 
   it('sets aside a market that can’t be tracked', async () => {

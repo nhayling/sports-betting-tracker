@@ -2,6 +2,7 @@ import {
   ProviderError,
   type EventSnapshot,
   type EventState,
+  type PlayStats,
   type GameSituation,
   type GameState,
   type PlayerStats,
@@ -15,6 +16,8 @@ import {
   type StatKey,
   type StatLine,
 } from './types';
+
+import { parseFootballPlays, parseSummaryPlays } from './espnPlays';
 
 /**
  * ESPN's public site API (unofficial, no key). Researched in docs/sports-data.md.
@@ -33,6 +36,9 @@ const PATHS: Record<Sport, string> = {
   LALIGA: 'soccer/esp.1',
   UFC: 'mma/ufc',
 };
+/** Football's plays are on the core API, which names leagues its own way. */
+const CORE_BASE = 'https://sports.core.api.espn.com/v2/sports/football/leagues';
+const CORE_LEAGUES: Partial<Record<Sport, string>> = { NFL: 'nfl', NCAAF: 'college-football' };
 /** College scoreboard defaults to ranked games only; group 80 = all FBS. */
 const SCOREBOARD_PARAMS: Partial<Record<Sport, string>> = { NCAAF: 'groups=80&limit=300' };
 
@@ -40,7 +46,7 @@ const SCOREBOARD_PARAMS: Partial<Record<Sport, string>> = { NCAAF: 'groups=80&li
 const STAT_MAP: Record<string, Partial<Record<string, StatKey>>> = {
   passing: { passingYards: 'PASSING_YARDS', passingTouchdowns: 'PASSING_TDS', interceptions: 'INTERCEPTIONS_THROWN' },
   rushing: { rushingAttempts: 'RUSHING_ATTEMPTS', rushingYards: 'RUSHING_YARDS', rushingTouchdowns: 'RUSHING_TDS' },
-  receiving: { receptions: 'RECEPTIONS', receivingYards: 'RECEIVING_YARDS', receivingTouchdowns: 'RECEIVING_TDS' },
+  receiving: { receptions: 'RECEPTIONS', receivingYards: 'RECEIVING_YARDS', receivingTouchdowns: 'RECEIVING_TDS', longReception: 'LONG_RECEPTION' },
   kickReturns: { kickReturnTouchdowns: 'KICK_RETURN_TDS' },
   puntReturns: { puntReturnTouchdowns: 'PUNT_RETURN_TDS' },
   defensive: { defensiveTouchdowns: 'DEFENSIVE_TDS', sacks: 'SACKS' },
@@ -123,6 +129,15 @@ export class EspnProvider implements SportsDataProvider {
     return parseRoster(teamId, body);
   }
 
+  async getPlayStats(sport: Sport, eventId: string): Promise<PlayStats> {
+    const league = CORE_LEAGUES[sport];
+    if (!league) throw new ProviderError('UNSUPPORTED_SPORT', `no separate plays for ${sport}`);
+    const id = encodeURIComponent(eventId);
+    const body = (await this.fetchJson(`${CORE_BASE}/${league}/events/${id}/competitions/${id}/plays?limit=1000`)) as any;
+    if (!Array.isArray(body?.items)) throw new ProviderError('UNEXPECTED_SHAPE', `plays ${eventId} has no items[]`);
+    return parseFootballPlays(body.items);
+  }
+
   private url(sport: Sport): string {
     const path = PATHS[sport];
     if (!path) throw new ProviderError('UNSUPPORTED_SPORT', `ESPN provider does not support ${sport}`);
@@ -186,6 +201,7 @@ export function parseSummary(sport: Sport, eventId: string, body: any, fetchedAt
     else if (kind === 'football') {
       s.TOUCHDOWNS = totalTouchdowns(s);
       s.RUSHING_RECEIVING_YARDS = (s.RUSHING_YARDS ?? 0) + (s.RECEIVING_YARDS ?? 0);
+      s.PASSING_RUSHING_YARDS = (s.PASSING_YARDS ?? 0) + (s.RUSHING_YARDS ?? 0);
     }
   }
 
@@ -198,8 +214,17 @@ export function parseSummary(sport: Sport, eventId: string, body: any, fetchedAt
     away: parseTeam(away.team),
     players: [...byId.values()],
     ...(kind === 'soccer' ? { gameStats: soccerGameStats(body) } : {}),
+    periodScores: readPeriodScores(home, away),
+    plays: parseSummaryPlays(kind, body?.plays),
     fetchedAt: fetchedAt.toISOString(),
   };
+}
+
+/** The header's linescores, one per period in order; an unplayed half-inning shows "X". */
+function readPeriodScores(home: any, away: any): { period: number; points: number }[] {
+  const score = (c: any, i: number) => Number(c?.linescores?.[i]?.displayValue) || 0;
+  const periods = Math.max(home?.linescores?.length ?? 0, away?.linescores?.length ?? 0);
+  return Array.from({ length: periods }, (_, i) => ({ period: i + 1, points: score(home, i) + score(away, i) }));
 }
 
 /** Every player in the match-day squad, with ESPN's per-player stats ({name, value}). */

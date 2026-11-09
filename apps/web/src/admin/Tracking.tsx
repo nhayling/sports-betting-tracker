@@ -98,7 +98,7 @@ export function Tracking({ fail, onCount }: { fail: Fail; onCount: (n: number) =
           <h2>Markets to track</h2>
           {data.markets.length > 0 && <span className="muted admin-tally">{data.markets.length} to fix</span>}
         </div>
-        <p className="admin-lede muted small">A stat counts the whole game, overtime included, for every pick on the market. Ignore anything that covers part of a game, or a stat that isn’t listed.</p>
+        <p className="admin-lede muted small">Applies to every pick on the market. A quarter, half or inning in the name is read from there; anything else counts the whole game, overtime included. Ignore a market whose stat isn’t listed.</p>
         {data.markets.length === 0 ? (
           <p className="admin-empty muted">Every market on a pick is tracked or ignored.</p>
         ) : (
@@ -232,17 +232,23 @@ function MarketRow({ market: m, busy, act }: { market: MarketIssue; busy: boolea
         </span>
       </div>
       <span className="actions">
-        <select className="track-pick" aria-label={`Stat for ${m.marketName}`} value={metric} disabled={busy} onChange={(e) => setMetric(e.target.value)}>
-          <option value="">Choose a stat…</option>
-          {m.stats.map((s) => (
-            <option key={s.key} value={s.key}>
-              {s.label}
-            </option>
-          ))}
-        </select>
-        <button className="btn primary" disabled={busy || !metric} onClick={() => void act(() => trackMarket(m.sport, m.marketName, metric))}>
-          Track
-        </button>
+        {m.stats.length === 0 ? (
+          <span className="muted small">No stat fits this market.</span>
+        ) : (
+          <>
+            <select className="track-pick" aria-label={`Stat for ${m.marketName}`} value={metric} disabled={busy} onChange={(e) => setMetric(e.target.value)}>
+              <option value="">Choose a stat…</option>
+              {m.stats.map((s) => (
+                <option key={s.key} value={s.key}>
+                  {s.label}
+                </option>
+              ))}
+            </select>
+            <button className="btn primary" disabled={busy || !metric} onClick={() => void act(() => trackMarket(m.sport, m.marketName, metric))}>
+              Track
+            </button>
+          </>
+        )}
         <button className="btn" disabled={busy} onClick={() => void act(() => ignoreMarket(m.sport, m.marketName, true))}>
           Ignore
         </button>

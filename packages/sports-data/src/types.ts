@@ -37,6 +37,16 @@ export type StatKey =
   | 'RECEIVING_TDS'
   /** Rushing + receiving yards, for combined "Rushing & Receiving Yards" props. */
   | 'RUSHING_RECEIVING_YARDS'
+  /** Passing + rushing yards, for a quarterback's combined props. */
+  | 'PASSING_RUSHING_YARDS'
+  /** A receiver's longest catch; the box score's check on LONGEST_COMPLETION. */
+  | 'LONG_RECEPTION'
+  /** A passer's longest completion, from plays. */
+  | 'LONGEST_COMPLETION'
+  /** 1 for whoever scored the game's first touchdown, from plays. */
+  | 'FIRST_TOUCHDOWN'
+  /** Both teams' score over part of a game, from the linescore. */
+  | 'GAME_SCORE'
   | 'KICK_RETURN_TDS'
   | 'PUNT_RETURN_TDS'
   | 'DEFENSIVE_TDS'
@@ -168,7 +178,20 @@ export interface EventSnapshot {
   players: PlayerStats[];
   /** Whole-game team stats summed across both sides, where the provider has them (soccer corners). */
   gameStats?: StatLine;
+  /** Both teams' combined score in each period played. */
+  periodScores?: { period: number; points: number }[];
+  /** Per-period stats, when the summary carries plays. Football needs getPlayStats. */
+  plays?: PlayStats;
   fetchedAt: string;
+}
+
+/** What a game's play-by-play adds up to. */
+export interface PlayStats {
+  lines: { playerId: string; period: number; stats: StatLine }[];
+  /** Football: null until one is scored; playerId is null when no player is credited. */
+  firstTouchdown: { playerId: string | null } | null;
+  /** Football: player id → longest completion thrown. */
+  longestCompletions: Record<string, number>;
 }
 
 export interface SportsDataProvider {
@@ -180,6 +203,8 @@ export interface SportsDataProvider {
   getEventSnapshot(sport: Sport, eventId: string): Promise<EventSnapshot>;
   /** Full team roster, for matching players who haven't recorded a stat yet. */
   getRoster(sport: Sport, teamId: string): Promise<ProviderPlayer[]>;
+  /** A game's plays where the summary doesn't include them. A separate, larger request, so only when a pick needs it. */
+  getPlayStats(sport: Sport, eventId: string): Promise<PlayStats>;
 }
 
 export type ProviderErrorKind = 'RATE_LIMITED' | 'NOT_FOUND' | 'HTTP' | 'NETWORK' | 'UNEXPECTED_SHAPE' | 'UNSUPPORTED_SPORT';

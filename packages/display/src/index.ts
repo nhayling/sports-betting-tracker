@@ -49,6 +49,8 @@ const METRIC_UNITS: Record<string, string> = {
   RUSHING_YARDS: 'rush yds',
   RECEIVING_YARDS: 'rec yds',
   RUSHING_RECEIVING_YARDS: 'rush+rec yds',
+  PASSING_RUSHING_YARDS: 'pass+rush yds',
+  LONGEST_COMPLETION: 'yds',
   SACKS: 'sacks',
   FIELD_GOALS_MADE: 'FG',
   PASSING_YARDS: 'pass yds',
@@ -132,15 +134,21 @@ export function marketLabel(marketName: string | null, selectionLabel: string | 
   if (/^Total Match made Threes/i.test(marketName)) return 'Total threes (both teams)';
   // Pass attempts is the one player market Kambi names without "By The Player".
   const plus = /^(\d+\+) (.+?) By The Player/i.exec(marketName) ?? /^(\d+\+) (Pass Attempts)$/i.exec(marketName);
-  if (plus) return `${side === 'NO' ? 'Under ' : ''}${plus[1]} ${statWords(plus[2]!)}`;
+  if (plus) return `${side === 'NO' ? 'Under ' : ''}${plus[1]} ${statWords(plus[2]!)}${partOfGame(marketName)}`;
   // Football says "Total Receptions by the Player"; basketball "Points scored by the player".
   const total = /^Total (.+?) by the Player/i.exec(marketName) ?? /^Total (Pass Attempts)$/i.exec(marketName) ?? /^(.+?) by the player/i.exec(marketName);
   if (total) {
     const ou = / - (Over|Under) ([\d.]+)$/.exec(selectionLabel ?? '');
-    return `${ou ? `${ou[1]} ${ou[2]} ` : ''}${statWords(total[1]!)}`;
+    return `${ou ? `${ou[1]} ${ou[2]} ` : ''}${statWords(total[1]!)}${partOfGame(marketName)}`;
   }
   return marketName.replace(/ - Including Overtime$/i, '');
 }
+
+/** Keeps "- First Half" on a label that drops the rest of the name. */
+const partOfGame = (marketName: string) => {
+  const part = / - ((?:First|Second|1st|2nd) Half|(?:Quarter|Period|Inning) \d+|\w+ (?:Quarter|Period|Inning)|First \d+ Innings)/i.exec(marketName);
+  return part ? ` · ${part[1]!.toLowerCase()}` : '';
+};
 
 /** A market's stat, in the words a bettor uses: "Points Scored" → "points", "3-point field goals made" → "threes". */
 function statWords(stat: string): string {

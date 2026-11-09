@@ -22,7 +22,7 @@ export async function loadTracking(db: Db, provider: string, refresh: Tracking['
     marketIssues(db),
     db.marketRule.findMany({ orderBy: { createdAt: 'desc' } }),
   ]);
-  const statLabel = (r: (typeof rules)[number]) => ruleStats(r.sport, r.scope as MarketRule['scope'])?.find(([key]) => key === r.metric)?.[1] ?? r.metric;
+  const statLabel = (r: (typeof rules)[number]) => ruleStats(r.sport, r.scope as MarketRule['scope'], r.marketName)?.find(([key]) => key === r.metric)?.[1] ?? r.metric;
   const tracked = rules.map((r) => ({ sport: r.sport, marketName: r.marketName, stat: statLabel(r), addedBy: r.createdBy, addedAt: r.createdAt.toISOString() }));
   return { players, markets, tracked, ignored, decisions, refresh };
 }
@@ -83,7 +83,7 @@ async function marketIssues(db: Db): Promise<Pick<Tracking, 'markets' | 'ignored
   }
   const markets = [...issues.values()]
     .filter((m) => m.picks > 0)
-    .map((m) => ({ ...m, stats: ruleStats(m.sport, m.scope)!.map(([key, label]) => ({ key, label })) }))
+    .map((m) => ({ ...m, stats: ruleStats(m.sport, m.scope, m.marketName)!.map(([key, label]) => ({ key, label })) }))
     .sort((a, b) => b.openPicks - a.openPicks || b.picks - a.picks);
   const ignored = new Map(flagged.filter((m) => m.ignoredAt).map((m) => [marketRuleKey(m.sport, m.marketName), { sport: m.sport, marketName: m.marketName }]));
   return { markets, ignored: [...ignored.values()] };
@@ -102,7 +102,7 @@ export async function addMarketRule(db: Db, sport: string, marketName: string, m
   const names = await namesLike(db, sport, marketName);
   const named = await db.legSelection.findFirst({ where: { betLeg: { sport }, marketName: { in: names }, externalParticipantId: { not: null } }, select: { id: true } });
   const scope: MarketRule['scope'] = named ? 'PLAYER' : 'GAME';
-  const stat = ruleStats(sport, scope)!.find(([key]) => key === metric);
+  const stat = ruleStats(sport, scope, marketName)!.find(([key]) => key === metric);
   if (!stat) return { ok: false, error: 'Choose one of the stats listed.' };
   await db.marketRule.create({ data: { sport, pattern: marketPattern(marketName), marketName, metric: stat[0], scope, createdBy: by } });
   return { ok: true, metric: stat[0] };

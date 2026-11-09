@@ -39,10 +39,10 @@ export function startPoller(db: Db, opts: { intervalMs?: number; maxPerMinute?: 
       const created = await recordNotifications(db);
       if (created) log(`${created} new notification${created === 1 ? '' : 's'}`);
       status.lastError = null;
-      const { scoreboard, summary, roster } = report.requests;
-      if (scoreboard + summary + roster > 0 || report.errors.length) {
+      const { scoreboard, summary, roster, plays } = report.requests;
+      if (scoreboard + summary + roster + plays > 0 || report.errors.length) {
         log(
-          `${report.liveEvents} live games · ${scoreboard + summary + roster} requests (${scoreboard} scoreboard, ${summary} box score, ${roster} roster) · ${report.progressWritten} progress rows` +
+          `${report.liveEvents} live games · ${scoreboard + summary + roster + plays} requests (${scoreboard} scoreboard, ${summary} box score, ${roster} roster, ${plays} plays) · ${report.progressWritten} progress rows` +
             (report.errors.length ? ` · errors: ${report.errors.join('; ')}` : ''),
         );
       }
